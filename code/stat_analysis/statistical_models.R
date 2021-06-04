@@ -35,7 +35,7 @@ consumers$prop_omni=consumers$m38/consumers$total_motifs
 
 # Section 1: How does persistence vary with global network properties?
 
-    SCper=with(consumers,lm(Persistence~scale(Size)*scale(Connectance)*scale(Disturbance)))
+    SCper=with(consumers,lm(            Different positions are associated with different numbers of predators and prey, making the similarities and differences between motifs and degree more explicit.Persistence~scale(Size)*scale(Connectance)*scale(Disturbance)))
 
 
 # Section 2: How do motif profiles vary with S and C?
@@ -155,6 +155,13 @@ consumers$prop_omni=consumers$m38/consumers$total_motifs
     chain_prop=with(subdata,lm(prop_chain~Size*Connectance))
     apparent_prop=with(subdata,lm(prop_apparent~Size*Connectance))
     direct_prop=with(subdata,lm(prop_direct~Size*Connectance))
+    results=matrix(nrow=4,ncol=5)
+    results[1,]=c("Omnivory",summary(omni_prop)$coefficients[,1])
+    results[2,]=c("Chain",summary(chain_prop)$coefficients[,1])
+    results[3,]=c("Apparent",summary(apparent_prop)$coefficients[,1])
+    results[4,]=c("Direct",summary(direct_prop)$coefficients[,1])
+    write.table(results,file='roles_vs_SC.tsv',sep='\t')
+
 
     # Deg and TL
     # relating counts and proportions to degree, TL (repeats analysis in Cirwill & Wootton, in prep.)
@@ -208,6 +215,7 @@ consumers$prop_omni=consumers$m38/consumers$total_motifs
     }
 
 # Other, supplemental tests:\
+save.image('all_tests.Rdata')
 
 
 # Do proportions of motifs vary due to network processing?
