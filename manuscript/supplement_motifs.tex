@@ -267,6 +267,7 @@ $^\dagger$ Corresponding author:\\
      \caption{Primary producers experience a disturbance reducing their probability to go extinct to $\pi_{disturbed} = 0.5$ All consumer species go extinct due to causes not related to the web itself with probability $\pi = 0.1$. The sub figures show final persistence for consumers with different shortest trophic length, for increasing connectance (y-axis) and network size (x-axis). Persistence decreases with darker color in the heat map.}
      \label{fig:heatmap_stl_BP1}
     \end{figure}
+
 \clearpage
 
 \section{SG: Motif participation and network properties}
@@ -303,8 +304,34 @@ $^\dagger$ Corresponding author:\\
     \end{figure}
 \clearpage 
 
+\section{SH: Persistence and motif roles}
 
-\section*{SH: Motif roles and network properties}
+    \begin{table}[h!]
+        \caption{Coefficients in a series of regressions relating probability of persistence to the frequency of a position in a species' motif role, disturbance, and their interaction. For ease of comparison between motifs, we did not center or scale predictors. Note, however, that some motifs and positions have higher frequencies than others.}
+        \label{tab:persistence_vs_positions}
+        \centering
+        \begin{tabular}{l | c c c c}
+        Position    & Intercept & Disturbance   & Position  & Interaction \\
+        \hline
+        Chain: top  & 0.880 &   -0.985 & -0.00544 & -0.332 \\
+        Chain: bottom   & 0.883 &   -1.07 & -0.0510 &   0.647 \\
+        Chain: middle   & 0.862 & -1.00 &   0.246 & -0.244 \\
+        \hline
+        Dir. Comp.: top & 0.872 &   -0.995  & 0.0549 &  -0.178 \\
+        Dir. Comp.: bottom & 0.886 &    -1.07 & -0.113 &    0.939 \\
+        \hline
+        Omnivory: top   & 0.872 &   -0.984 &    0.180 & -0.818 \\
+        Omnivory: middle & 0.873 & -1.00 &  0.119 & -0.324 \\
+        Omnivory: bottom & 0.882 & -1.06 &  -0.0449 &   0.845 \\
+        \hline
+        App. Comp.: top & 0.865 &   -0.966 &    0.140 & -0.520 \\
+        App. Comp.: bottom & 0.910 &    -1.12 & -0.100 &    0.323 \\
+        \hline
+        \end{tabular}
+    \end{table}
+\clearpage
+
+\section{SI: Motif roles and network properties}
 
     \subsection*{Degree and trophic level}
 
