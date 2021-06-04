@@ -1,0 +1,10 @@
+*
+!.gitignore
+
+
+!manuscript/*.tex
+
+
+
+!code/*.R
+!code/*.py
