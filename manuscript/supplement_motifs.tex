@@ -100,7 +100,17 @@ $^\dagger$ Corresponding author:\\
 
 \section{SA: Persistence and global network properties}
 
-    Connectance and species richness had smaller effects on consumer persistence than disturbance (Table~\ref{tab:per_vs_SC}, Fig.~\ref{fig:heatmap_CS}).
+    Connectance and species richness had smaller effects on consumer persistence than disturbance (Figs.~\ref{fig:lm_CS}, \ref{fig:heatmap_CS}, Table~\ref{tab:per_vs_SC}).
+
+
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.95\textwidth]{figures/persistence_vs_SC_lm.eps}
+        \caption{Persistence decreased strongly with increasing probability of disturbance to basal resources, while network size, connectance, and their interaction had smaller effects. \textbf{A)} Persistence decreased slightly with increasing network size at high levels of disturbance, increased slightly with increasing network size at low levels of disturbance, and did not vary noticeably with network size at moderate levels of disturbance. Networks with lower connectance (dotted line) had slightly higher persistence than networks with moderate (solid line) or high (dashed line) connectance.
+        \textbf{B)} Persistence decreased with increasing connectance for all levels of disturbance and network size. Network size (line types) did not strongly affect these relationships.}
+        \label{fig:lm_CS}
+    \end{figure}
+
 
     \begin{figure}[h!]
       \includegraphics[width=0.95\textwidth]{figures/heatmap_CS_BPcompare.eps}
@@ -134,7 +144,8 @@ $^\dagger$ Corresponding author:\\
 \section{SB: Motif profiles and global properties}
 
 
-    Normalized motif profiles were not homogeneously variable across levels of network size, connectance, or their interaction  ($F_{5,2994}$=16.8, $p$\textless0.001; $F_{4,2995}$=31.7, $p$\textless0.001; and $F_{29,2970}$=11.9, $p$\textless0.001 for ANOVAs of dispersion of motif profiles against size, connectance, and combinations of size and connectance, respectively).These differences in variability can cause false positives in the PERMANOVA test. Variability was highest in small and low-connectance networks (Fig.~\ref{dispersion_normmotifs}).
+    A network's normalized motif profile (i.e., proportions of the total made up by each motif) was related to the network's size, connectance, and the interaction between them ($F_{1,2996}$=74.3, $p$\textless0.001; $F_{1,2996}$=4203, $p$\textless0.001; and $F_{1,2996}$=27.8, $p$\textless0.001, respectively in a PERMANOVA of dissimilarity in normalized network motif profiles against network size, connectance, and their interaction).
+    However, normalized motif profiles were not homogeneously variable across levels of network size, connectance, or their interaction  ($F_{5,2994}$=16.8, $p$\textless0.001; $F_{4,2995}$=31.7, $p$\textless0.001; and $F_{29,2970}$=11.9, $p$\textless0.001 for ANOVAs of dispersion of motif profiles against size, connectance, and combinations of size and connectance, respectively).These differences in variability can cause false positives in the PERMANOVA test. Variability was highest in small and low-connectance networks (Fig.~\ref{dispersion_normmotifs}).
 
 
    \begin{figure}[h!]
@@ -182,6 +193,8 @@ $^\dagger$ Corresponding author:\\
             Three-species chain & 0.572 & 6.12$\times10^{-3}$ & -0.139 & -1.90$\times10^{-4}$ & 0.901 \\ 
         \end{tabular}
     \end{table}
+
+
 \clearpage
 
 
@@ -272,6 +285,7 @@ $^\dagger$ Corresponding author:\\
 
 \section{SG: Motif participation and network properties}
 
+
     Motif participation varies with global-scale network properies.
 
     \begin{table}[hb!]
@@ -329,11 +343,31 @@ $^\dagger$ Corresponding author:\\
         \hline
         \end{tabular}
     \end{table}
+
+        
 \clearpage
 
 \section{SI: Motif roles and network properties}
 
+    
     \subsection*{Degree and trophic level}
+
+        The top position in the omnivory motif increased with increasing degree across all trophic levels.
+        The frequency of the middle position increased with the interaction of degree and trophic level.
+        The bottom position was generaly rare, especially for species with high degree or high trophic level (this suggests that the bottom position is frequently a basal resource).
+        
+        
+        The frequency of the bottom position in the apparent competition motif decreased strongly with increasing degree, especially for species at a high trophic level.
+        The frequency of the top position increased strongly with increasing degree and was not strongly related to trophic level.
+        
+        
+        The frequency of the bottom position in the direct competition motif increased with increasing degree, especially for species at a high trophic level.
+        The bottom position was very rare, especially for species with high degree (also suggesting that this position is usually a basal resource).
+        
+        
+        The bottom position in the three-species chain was generally rare, especially for species with high degree or trophic level (again, this is likely to commonly be basal resources).
+        The middle position in the three-species chain did not vary strongly with degree and declined slightly with increasing trophic level.
+        The top position in the three-species chain increased with trophic level, degree, and their interaction.
 
         \begin{table}[h!]
             \caption{Coefficients ($\beta$) and $p$-values for linear regressions of the frequency of each motif position against in-degree, STL, and their interaction.}
@@ -393,6 +427,20 @@ $^\dagger$ Corresponding author:\\
 
 
     \subsection*{Network size and connectance}
+
+        % Many of these are significant, but the slopes tend to be very shallow. TL and degree are more interesting - this is DEFINITELY SI.
+        The frequency of the top position in the apparent competition motif did not vary strongly with network size or connectance.
+        The frequency of the bottom position in the apparent competition motif decreased with increasing connectance but did not vary strongly vary with network size.
+        
+        
+        The frequency of the top position in the direct competition motif increased slightly with the interaction of network size and connectance (i.e., in large and highly-connected networks).
+        The frequency of the bottom position in the direct competition motif was low in all networks.
+        
+        
+        The frequency of all three positions in the omnivory motif showed similar relationships with network size and connectance.
+        Frequencies of these motifs increased with increasing connectance and were not strongly affected by network size.
+        None of the positions in the three-species chain varied strongly with network size or connectance.
+
 
         \begin{table}[h!]
             \caption{Coefficients ($\beta$) and $p$-values for linear regressions of the frequency of each motif position against network size, connectance, and their interaction.}
