@@ -63,7 +63,7 @@ def format_graph(graph,simple,motif):
     graph.yaxis.tick.major=.1
     graph.yaxis.ticklabel.configure(format='decimal',prec=1,char_size=.75)
     graph.yaxis.label.text='Mean persistence'
-    graph.xaxis.label.text='Proportion of '+motif+' in network profile'
+    graph.xaxis.label.text='Proportion of '+motif+' positions in network profile'
 
     graph.xaxis.ticklabel.configure(format='decimal',prec=1,char_size=.75)
     graph.yaxis.ticklabel.configure(format='decimal',prec=1,char_size=.75)
