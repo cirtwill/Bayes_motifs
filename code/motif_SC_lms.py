@@ -24,21 +24,6 @@ colors.add_color(34,90,34,'Green')
 # colors.add_color(255,125,125,'lightish_red')
 # colors.add_color(200,200,200,'lightgrey')
 
-def read_dispfile(dispfile):
-  dispdict=[]
-
-  f=open(dispfile,'r')
-  for line in f:
-    if line.split()[0]!='"Distance"':
-      dist=float(line.split()[1][1:-1])
-      S=int(line.split()[3][1:-1])
-      C=float(line.split()[4][1:-1])
-      dispdict.append((S,C,dist))
-
-  f.close()
-
-  return dispdict
-
 def format_graph(graph,graphtype):
   graph.yaxis.bar.linewidth=1
   graph.xaxis.bar.linewidth=1
@@ -145,8 +130,6 @@ def populate_graph(graph,nettype):
 ###############################################################################################
 ###############################################################################################
 
-dispfile='stat_analysis/motif_variability_SC.tsv'
-dispdict=read_dispfile(dispfile) # S, C, dict
 
 grace=MultiPanelGrace(colors=colors)
 # grace.add_label_scheme('dummy',['Start of flowering','Mass flowering','Inferred peak','End of flowering','Season length','F','G','H'])

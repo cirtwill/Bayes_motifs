@@ -35,37 +35,6 @@ colors.add_color(158,1,66,'Rred2')
 # colors.add_color(255,125,125,'lightish_red')
 # colors.add_color(200,200,200,'lightgrey')
 
-# Each point will be mean of one network
-def read_datafile(datafile):
-  speciesprops={}
-  f=open(datafile,'r')
-  for line in f:
-    if line.split()[0]!='Size':
-      S=int(line.split()[0])
-      C=float(line.split()[1])
-      basal_p=line.split()[2]
-      network=line.split()[3]
-      species=line.split()[4]
-      ID=str(S)+'_'+str(C)+'_'+network+'_'+species
-      pers=line.split()[5]
-      in_deg=float(line.split()[6])
-      out_deg=float(line.split()[7])
-      STL=int(line.split()[8])
-      PATL=float(line.split()[9])
-      chain=int(line.split()[10])
-      dircomp=int(line.split()[11])
-      omnivory=int(line.split()[12])
-      appcomp=int(line.split()[13])
-      total=chain+dircomp+omnivory+appcomp
-      speciesprops[ID]={'TL':STL,'Deg':in_deg,
-      'Raw':{'chain':chain,'dircomp':dircomp,'omnivory':omnivory,'appcomp':appcomp},
-      'Prop':{'chain':float(chain)/float(total),'dircomp':float(dircomp)/float(total),
-         'omnivory':float(omnivory)/float(total),'appcomp':float(appcomp)/float(total)}}
-
-  f.close()
-
-  return speciesprops
-
 def read_lmfile(lmfile):
   lmdict={'Deg':{'Count':{},'Prop':{}},'TL':{'Count':{},'Prop':{}}}
 
@@ -183,20 +152,27 @@ def populate_graph(graph,minidict,simple,roletype):
 
 def populate_persgraph(graph,persdict,simple):
   if simple=='Deg':
-    key='in_Degree'
+    key='scale(in_Degree)'
+    scal=12.51637
+    cent=11.95232
   else:
-    key='STL'
+    key='scale(STL)'
+    scal=0.4803683
+    cent=2.274325
+
+  print persdict.keys()
 
   j=12
-  for basal_p in [0,0.2,0.4,0.6,0.8,1]:
-    p=0.1+0.4*basal_p
+  for basal_p in [0,0.18,0.26,0.34,0.42,0.5]:
+    p=(basal_p-0.3)/0.1366261
 
     dats=[]
     # lower=[]
     # upper=[]
     for x in range(0,100):
-      xcomp=persdict['(Intercept)'][0]+x*persdict[key][0]
-      bcomp=basal_p*persdict['Basal_p'][0]+x*basal_p*persdict[key+':Basal_p'][0]
+      skex=(x-cent)/scal
+      xcomp=persdict['(Intercept)'][0]+skex*persdict[key][0]
+      bcomp=p*persdict['scale(Disturbance)'][0]+skex*p*persdict[key+':scale(Disturbance)'][0]
       dats.append((x,xcomp+bcomp))
 
     data=graph.add_dataset(dats)
@@ -205,7 +181,7 @@ def populate_persgraph(graph,persdict,simple):
 
     j+=1
     if simple=='TL':
-      data.legend=str(p)
+      data.legend=str(basal_p)
 
   if simple=='TL':
     graph.add_drawing_object(DrawText,text='Basal species',x=5.25,y=0.58,loctype='world',char_size=.75) 
@@ -225,9 +201,6 @@ def populate_persgraph(graph,persdict,simple):
 ###############################################################################################
 
 # # Far too many species to see anything. Going to apply stats.
-# datafile='../data/3sp_roles_participation.tsv'
-# speciesprops=read_datafile(datafile)
-
 lmfile='stat_analysis/roles_vs_TL_Deg.tsv'
 lmdict=read_lmfile(lmfile)
 persdict=read_persfiles('stat_analysis/persistence_vs_Deg.tsv','stat_analysis/persistence_vs_TL.tsv')

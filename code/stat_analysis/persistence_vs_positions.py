@@ -291,3 +291,17 @@ grace.hide_redundant_labels()
 
 grace.write_file('../../manuscript/figures/persistence_positions_byprey.eps')
 
+
+# Omnivory only, with a clearer legend. May also want to indicate mean proportion for each position.
+# Do the same for the other 3 motifs?
+# Needs to wait for re-run ...
+grace=Grace(colors=colors)
+
+mot='Omnivory'
+graph2=grace.add_graph()
+graph2=format_graph(graph2,'persistence')
+graph2=populate_persgraph(graph2,mot,predictors)
+graph2.panel_label.configure(placement='ouc',char_size=1,dx=.0,dy=.01)
+
+grace.write_file('../../manuscript/figures/persistence_positions_omnivory.eps')
+

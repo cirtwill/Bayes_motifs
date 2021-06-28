@@ -35,7 +35,7 @@ consumers$prop_omni=consumers$m38/consumers$total_motifs
 
 # Section 1: How does persistence vary with global network properties?
 
-    SCper=with(consumers,lm(            Different positions are associated with different numbers of predators and prey, making the similarities and differences between motifs and degree more explicit.Persistence~scale(Size)*scale(Connectance)*scale(Disturbance)))
+    SCper=with(consumers,lm(Persistence~scale(Size)*scale(Connectance)*scale(Disturbance)))
 
 
 # Section 2: How do motif profiles vary with S and C?

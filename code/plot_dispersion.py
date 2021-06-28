@@ -31,12 +31,11 @@ def read_dispfile(dispfile):
   for line in f:
     if line.split()[0]!='"Distance"':
       dist=float(line.split()[1][1:-1])
-      S=int(line.split()[3][1:-1])
-      C=float(line.split()[4][1:-1])
+      S=int(line.split()[3].split('.')[0][1:-1])
+      C=float('0.'+line.split()[3].split('.')[1][:-1])
       dispdict.append((S,C,dist))
 
   f.close()
-
   return dispdict
 
 def format_graph(graph,graphtype):
@@ -100,26 +99,26 @@ def populate_graph(graph,dispdict,graphtype):
 ###############################################################################################
 ###############################################################################################
 
-dispfile='stat_analysis/motif_variability_SC.tsv'
-dispdict=read_dispfile(dispfile) # S, C, dict
+# dispfile='stat_analysis/motif_variability_SC.tsv'
+# dispdict=read_dispfile(dispfile) # S, C, dict
 
-grace=MultiPanelGrace(colors=colors)
-# grace.add_label_scheme('dummy',['Start of flowering','Mass flowering','Inferred peak','End of flowering','Season length','F','G','H'])
-# grace.set_label_scheme('dummy')
+# grace=MultiPanelGrace(colors=colors)
+# # grace.add_label_scheme('dummy',['Start of flowering','Mass flowering','Inferred peak','End of flowering','Season length','F','G','H'])
+# # grace.set_label_scheme('dummy')
 
-graph=grace.add_graph(Panel)
-graph=format_graph(graph,'heatmap')
-graph=populate_graph(graph,dispdict,'heatmap')
-graph.panel_label.configure(placement='iul',char_size=1,dx=.03,dy=.03)
+# graph=grace.add_graph(Panel)
+# graph=format_graph(graph,'heatmap')
+# graph=populate_graph(graph,dispdict,'heatmap')
+# graph.panel_label.configure(placement='iul',char_size=1,dx=.03,dy=.03)
 
-# grace.multi(rows=3,cols=2,vgap=.09,hgap=.04)
-# grace.hide_redundant_labels()
-# grace.set_row_xaxislabel(label='Degree (Number of interaction partners per species)',row=1,colspan=(None,None),char_size=1,perpendicular_offset=.05)
-# grace.set_row_xaxislabel(label='Day of year',row=2,colspan=(None,None),char_size=1,perpendicular_offset=.05)
-# for graph in grace.graphs:
-  # print graph.get_view()
-graph.set_view(0.15,0.15,0.95,0.65)
-grace.write_file('../manuscript/figures/motif_profile_dispersion.eps')
+# # grace.multi(rows=3,cols=2,vgap=.09,hgap=.04)
+# # grace.hide_redundant_labels()
+# # grace.set_row_xaxislabel(label='Degree (Number of interaction partners per species)',row=1,colspan=(None,None),char_size=1,perpendicular_offset=.05)
+# # grace.set_row_xaxislabel(label='Day of year',row=2,colspan=(None,None),char_size=1,perpendicular_offset=.05)
+# # for graph in grace.graphs:
+#   # print graph.get_view()
+# graph.set_view(0.15,0.15,0.95,0.65)
+# grace.write_file('../manuscript/figures/motif_profile_dispersion.eps')
 
 
 dispfile='stat_analysis/proportion_variability_SC.tsv'
