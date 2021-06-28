@@ -218,19 +218,19 @@ consumers$prop_omni=consumers$m38/consumers$total_motifs
 save.image('all_tests.Rdata')
 
 
-# Do proportions of motifs vary due to network processing?
+# # Do proportions of motifs vary due to network processing?
 
-original_data=read.table('../../data/3sp_motif_profiles_cyclicwebs.tsv',header=TRUE)
-original_data$prop_chain=original_data$m12/original_data$Total
-original_data$prop_apparent=original_data$m6/original_data$Total
-original_data$prop_direct=original_data$m36/original_data$Total
-original_data$prop_omni=original_data$m38/original_data$Total
-original_data$prop_other=(original_data$Total-rowSums(original_data[,4:7]))/original_data$Total
+# original_data=read.table('../../data/3sp_motif_profiles_cyclicwebs.tsv',header=TRUE)
+# original_data$prop_chain=original_data$m12/original_data$Total
+# original_data$prop_apparent=original_data$m6/original_data$Total
+# original_data$prop_direct=original_data$m36/original_data$Total
+# original_data$prop_omni=original_data$m38/original_data$Total
+# original_data$prop_other=(original_data$Total-rowSums(original_data[,4:7]))/original_data$Total
 
-data$label=paste(data$Size,data$Connectance,data$Network,sep=':')
-original_data$label=paste(original_data$Size,original_data$Connectance,original_data$Network,sep=':')
+# data$label=paste(data$Size,data$Connectance,data$Network,sep=':')
+# original_data$label=paste(original_data$Size,original_data$Connectance,original_data$Network,sep=':')
 
-used=original_data[which(original_data$label%in%data$label),]
+# used=original_data[which(original_data$label%in%data$label),]
 
 
 
