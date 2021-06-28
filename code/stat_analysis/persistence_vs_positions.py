@@ -47,7 +47,7 @@ def read_datafile(datafile):
   f.close()
   return netprops
 
-def format_graph(graph,simple):
+def format_graph(graph,simple,motif):
   graph.yaxis.bar.linewidth=1
   graph.xaxis.bar.linewidth=1
   graph.frame.linewidth=1
@@ -63,7 +63,7 @@ def format_graph(graph,simple):
     graph.yaxis.tick.major=.1
     graph.yaxis.ticklabel.configure(format='decimal',prec=1,char_size=.75)
     graph.yaxis.label.text='Mean persistence'
-    graph.xaxis.label.text='Proportion of network profile'
+    graph.xaxis.label.text='Proportion of '+motif+' in network profile'
 
     graph.xaxis.ticklabel.configure(format='decimal',prec=1,char_size=.75)
     graph.yaxis.ticklabel.configure(format='decimal',prec=1,char_size=.75)
@@ -93,19 +93,26 @@ def populate_persgraph(graph,motif,datadict):
     npred=int(pos.split('..')[1])
     nprey=int(pos.split('..')[2].split('.')[0])
     j=12
-    if nprey==0:
-      linestyle=2
-    elif nprey==1:
-      linestyle=3
-    else:
-      linestyle=1
+    if motif=='Omnivory':
+      if nprey==0:
+        linestyle=2
+      elif nprey==1:
+        linestyle=3
+      else:
+        linestyle=1
+    elif motif=='Three-species chain':
+      if nprey==0:
+        linestyle=2
+      if npred==0:
+        linestyle=1
+      if nprey==1 and npred==1:
+        linestyle=3
+    else: # both competition motifs can use same code
+      if npred==0:
+        linestyle=1
+      else:
+        linestyle=2
 
-    if npred==0:
-      shap=3
-    elif npred==1:
-      shap=1
-    else:
-      shap=2
 
     # betas go intercept, disturbance, position, interaction
     lms=datadict['betas'][pos]
@@ -118,130 +125,55 @@ def populate_persgraph(graph,motif,datadict):
         dats.append((x,y))
 
       data=graph.add_dataset(dats)
-      data.symbol.configure(shape=shap,color=j,fill_color=j)
+      data.symbol.configure(shape=0,color=j,fill_color=j)
       data.line.configure(linestyle=linestyle,linewdith=1.5,color=j)
 
-      if motif=='Direct competition' and nprey==1:
+      if linestyle==1:
         data.legend=str(dist)        
       j+=2
 
   if motif=='Three-species chain':
     data=graph.add_dataset([(0,0),(100,0)])
-    data.symbol.shape=0
-    data.line.configure(linestyle=2,linewidth=1.5,color=1)
-    data.legend='0'
+    data.symbol.configure(shape=0)
+    data.legend='Top'
 
     data=graph.add_dataset([(0,0),(100,0)])
     data.symbol.shape=0
-    data.line.configure(linestyle=3,linewidth=1.5,color=1)
-    data.legend='1'
+    data.legend='Middle'
+    data.line.linestyle=3
 
     data=graph.add_dataset([(0,0),(100,0)])
     data.symbol.shape=0
-    data.line.configure(linestyle=1,linewidth=1.5,color=1)
-    data.legend='2'
+    data.legend='Bottom'
+    data.line.linestyle=2
 
-  if motif=='Omnivory':
-    data=graph.add_dataset([(0,0),(100,0)])
-    data.symbol.configure(shape=3)
-    data.legend='0'
-
-    data=graph.add_dataset([(0,0),(100,0)])
-    data.symbol.shape=1
-    data.legend='1'
-
-    data=graph.add_dataset([(0,0),(100,0)])
-    data.symbol.shape=2
-    data.legend='2'
-
-
-  if motif=='Three-species chain':
-    graph.add_drawing_object(DrawText,text='No. prey',x=0.85,y=0.695,loctype='world',char_size=.5)
-    graph.legend.configure(char_size=.5,loc=(0.85,0.675),loctype='world',box_linestyle=0,fill_pattern=0)
   elif motif=='Omnivory':
-    graph.add_drawing_object(DrawText,text='No. preds',x=1.75,y=0.295,loctype='world',char_size=.5)
-    graph.legend.configure(char_size=.5,loc=(1.75,0.275),loctype='world',box_linestyle=0,fill_pattern=0)
-  elif motif=='Direct competition':
-    graph.legend.configure(char_size=.5,loc=(0.85,0.675),loctype='world',box_linestyle=0,fill_pattern=0)
-    graph.add_drawing_object(DrawText,text='Basal species',x=0.85,y=0.755,loctype='world',char_size=.5)
-    graph.add_drawing_object(DrawText,text='extinction',x=0.85,y=0.725,loctype='world',char_size=.5)
-    graph.add_drawing_object(DrawText,text='probability',x=0.85,y=0.695,loctype='world',char_size=.5)
-  return graph
-
-def populate_graph(graph,nprey,datadict):
-  motifs=datadict['betas'].keys()
-  positions=[key for key in motifs if int(key.split('..')[2].split('.')[0])==nprey]
-
-  for pos in positions:
-    motif=[c for c in codes if pos.split('..')[0]==codes[c]][0]
-    npred=int(pos.split('..')[1])
-    nprey=int(pos.split('..')[2].split('.')[0])
-    if nprey==0:
-      linestyle=2
-    elif nprey==1:
-      linestyle=3
-    else:
-      linestyle=1
-
-    if npred==0:
-      shap=3
-    elif npred==1:
-      shap=1
-    else:
-      shap=2
-
-    if motif=='Omnivory':
-      j=13
-    elif motif=='Three-species chain':
-      j=15
-    elif motif=='Apparent competition':
-      j=16
-    else:
-      j=17
-
-    # betas go intercept, disturbance, position, interaction
-    lms=datadict['betas'][pos]
-    for dist in [0.1,0.26,0.5]:
-      dats=[]
-
-      for x in [0,0.2,0.4,0.6,0.8]:
-        y=lms[0]+dist*lms[1]+x*lms[2]+x*dist*lms[3]
-
-        dats.append((x,y))
-
-      data=graph.add_dataset(dats)
-      data.symbol.configure(shape=shap,color=j,fill_color=j)
-      data.line.configure(linestyle=linestyle,linewdith=1.5,color=j)
-
-      if nprey==0 and dist==0.1:
-        data.legend=motif        
-
-  if nprey==2:
     data=graph.add_dataset([(0,0),(100,0)])
-    data.symbol.configure(shape=3)
-    data.legend='0'
+    data.symbol.configure(shape=0)
+    data.legend='Top'
 
     data=graph.add_dataset([(0,0),(100,0)])
-    data.symbol.shape=1
-    data.legend='1'
+    data.symbol.shape=0
+    data.legend='Middle'
+    data.line.linestyle=3
 
     data=graph.add_dataset([(0,0),(100,0)])
-    data.symbol.shape=2
-    data.legend='2'
+    data.symbol.shape=0
+    data.legend='Bottom'
+    data.line.linestyle=2
+
+  else:
+    data=graph.add_dataset([(0,0),(100,0)])
+    data.symbol.configure(shape=0)
+    data.legend='Top'
+
+    data=graph.add_dataset([(0,0),(100,0)])
+    data.symbol.shape=0
+    data.legend='Bottom'
+    data.line.linestyle=2
 
 
-  if nprey==0:
-    # graph.add_drawing_object(DrawText,text='Motif',x=0.1,y=0.3,loctype='world',char_size=.5)
-    graph.legend.configure(char_size=.5,loc=(0.45,0.35),loctype='world',box_linestyle=0,fill_pattern=0)
-  elif nprey==2:
-    graph.add_drawing_object(DrawText,text='No. preds',x=.95,y=0.795,loctype='world',char_size=.5)
-    graph.legend.configure(char_size=.5,loc=(.95,0.75),loctype='world',box_linestyle=0,fill_pattern=0)
-  # elif motif=='Direct competition':
-  #   graph.legend.configure(char_size=.5,loc=(0.85,0.675),loctype='world',box_linestyle=0,fill_pattern=0)
-  #   graph.add_drawing_object(DrawText,text='Basal species',x=0.85,y=0.755,loctype='world',char_size=.5)
-  #   graph.add_drawing_object(DrawText,text='extinction',x=0.85,y=0.725,loctype='world',char_size=.5)
-  #   graph.add_drawing_object(DrawText,text='probability',x=0.85,y=0.695,loctype='world',char_size=.5)
-
+  graph.legend.configure(box_linestyle=0,char_size=.75,loctype='world',loc=(0.05,0.35))
   return graph
 
 ###############################################################################################
@@ -256,52 +188,13 @@ def populate_graph(graph,nprey,datadict):
 datafile='persistence_vs_positions.tsv'
 predictors=read_datafile(datafile)
 
-grace=MultiPanelGrace(colors=colors)
-grace.add_label_scheme('dummy',['Omnivory','Three-species chain','Apparent competition','Direct competition'])
-grace.set_label_scheme('dummy')
-
-# Organized by motif
 for mot in ['Omnivory','Three-species chain','Apparent competition','Direct competition']:
-  graph2=grace.add_graph(Panel)
-  graph2=format_graph(graph2,'persistence')
+
+  grace=Grace(colors=colors)
+  graph2=grace.add_graph()
+  graph2=format_graph(graph2,'persistence',mot)
   graph2=populate_persgraph(graph2,mot,predictors)
-  graph2.panel_label.configure(placement='ouc',char_size=1,dx=.0,dy=.01)
+  # graph2.panel_label.configure(placement='ouc',char_size=1,dx=.0,dy=.01)
 
-grace.multi(rows=2,cols=2,vgap=.07,hgap=.07)
-grace.hide_redundant_labels()
-
-grace.write_file('../../manuscript/figures/persistence_positions_bymotif.eps')
-
-grace=MultiPanelGrace(colors=colors)
-grace.add_label_scheme('dummy',['0 prey','1 prey','2 prey',''])
-grace.set_label_scheme('dummy')
-
-# Organized by no. prey
-for prey in [0,1,2]:
-  graph2=grace.add_graph(Panel)
-  graph2=format_graph(graph2,'persistence')
-  graph2=populate_graph(graph2,prey,predictors)
-  graph2.panel_label.configure(placement='ouc',char_size=1,dx=.0,dy=.01)
-
-graph=grace.add_graph(Panel)
-graph=format_graph(graph,'dummy')
-
-grace.multi(rows=2,cols=2,vgap=.07,hgap=.07)
-grace.hide_redundant_labels()
-
-grace.write_file('../../manuscript/figures/persistence_positions_byprey.eps')
-
-
-# Omnivory only, with a clearer legend. May also want to indicate mean proportion for each position.
-# Do the same for the other 3 motifs?
-# Needs to wait for re-run ...
-grace=Grace(colors=colors)
-
-mot='Omnivory'
-graph2=grace.add_graph()
-graph2=format_graph(graph2,'persistence')
-graph2=populate_persgraph(graph2,mot,predictors)
-graph2.panel_label.configure(placement='ouc',char_size=1,dx=.0,dy=.01)
-
-grace.write_file('../../manuscript/figures/persistence_positions_omnivory.eps')
+  grace.write_file('../../manuscript/figures/persistence_positions_'+mot.split()[0]+'.eps')
 
