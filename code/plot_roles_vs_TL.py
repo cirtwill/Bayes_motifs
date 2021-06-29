@@ -114,10 +114,19 @@ def format_graph(graph,simple,roletype):
   return graph
 
 def populate_graph(graph,minidict,simple,roletype):
-  j=19
   for motif in ['Apparent','Chain','Omnivory','Direct']:
-    if j==23:
-      j=1
+    if motif=='Apparent':
+      j=13
+      sty=2
+    elif motif=='Chain':
+      j=14
+      sty=3
+    elif motif=='Direct':
+      j=16
+      sty=5
+    else:
+      j=19
+      sty=1
     dats=[]
     lower=[]
     upper=[]
@@ -128,21 +137,18 @@ def populate_graph(graph,minidict,simple,roletype):
 
     upply=graph.add_dataset(upper)
     upply.symbol.shape=0
-    upply.line.configure(linestyle=1,linewidth=1,color=j)
-    # upply.fill.configure(pattern=4,type=2,color=j-1,)
+    upply.line.configure(linestyle=sty,linewidth=1,color=j)
 
     lowly=graph.add_dataset(lower)
     lowly.symbol.shape=0
-    lowly.line.configure(linestyle=1,linewidth=1,color=j)
-    # lowly.fill.configure(type=2,pattern=0,color=0)
+    lowly.line.configure(linestyle=sty,linewidth=1,color=j)
 
     data=graph.add_dataset(dats)
     data.symbol.shape=0
-    data.line.configure(linestyle=1,linewdith=1.5,color=j)
+    data.line.configure(linestyle=sty,linewdith=1.5,color=j)
 
     if simple=='TL':
       data.legend=motif
-    j+=1
 
   if simple=='TL':
     graph.add_drawing_object(DrawText,text='Motif',x=5.25,y=0.47,loctype='world',char_size=.75) 
