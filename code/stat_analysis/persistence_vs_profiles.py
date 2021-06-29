@@ -154,9 +154,21 @@ def populate_graph(graph,bindict):
 
 def populate_persgraph(graph,motif):
 
-  j=12
-  for dist in [0.1,0.18,0.26,0.34,0.42,0.5]:
+  for dist in [0.1,0.5]:
+    if motif=='apparent':
+      j=13
+      sty=2
+    elif motif=='chain':
+      j=14
+      sty=3
+    elif motif=='direct':
+      j=16
+      sty=5
+    else:
+      j=18
+      sty=1
 
+    # for dist in [0.1,0.18,0.26,0.34,0.42,0.5]:
     scaldist=(dist-scales['Disturbance'][0])/scales['Disturbance'][1]
 
     dats=[]
@@ -171,18 +183,11 @@ def populate_persgraph(graph,motif):
 
     data=graph.add_dataset(dats)
     data.symbol.shape=0
-    data.line.configure(linestyle=1,linewdith=1.5,color=j)
+    data.line.configure(linestyle=sty,linewdith=1.5,color=j)
 
+    if dist==0.1:
+      data.legend=motif_names[motif]
 
-    if motif=='omnivory':
-      data.legend=str(dist)
-    j+=1
-
-  if motif=='omnivory':
-    graph.add_drawing_object(DrawText,text='Basal species',x=0.5,y=0.755,loctype='world',char_size=.5)
-    graph.add_drawing_object(DrawText,text='extinction',x=0.5,y=0.725,loctype='world',char_size=.5)
-    graph.add_drawing_object(DrawText,text='probability',x=0.5,y=0.695,loctype='world',char_size=.5)
-    graph.legend.configure(char_size=.5,loc=(0.5,0.685),loctype='world',box_linestyle=0,fill_pattern=0)
   return graph
 
 ###############################################################################################
@@ -197,24 +202,26 @@ def populate_persgraph(graph,motif):
 # datafile='motif_proportions_persistence.tsv'
 # netprops=read_datafile(datafile)
 
-grace=MultiPanelGrace(colors=colors)
-grace.add_label_scheme('dummy',['Omnivory','Three-species chain','Apparent competition','Direct competition'])
-grace.set_label_scheme('dummy')
+grace=Grace(colors=colors)
+# grace.add_label_scheme('dummy',['Omnivory','Three-species chain','Apparent competition','Direct competition'])
+# grace.set_label_scheme('dummy')
 
+graph2=grace.add_graph()
+graph2=format_graph(graph2,'persistence')
 for mot in ['omnivory','chain','apparent','direct']:
-  graph2=grace.add_graph(Panel)
-  graph2=format_graph(graph2,'persistence')
   graph2=populate_persgraph(graph2,mot)
-  graph2.panel_label.configure(placement='ouc',char_size=1,dx=.0,dy=.01)
-    
+  # graph2.panel_label.configure(placement='ouc',char_size=1,dx=.0,dy=.01)
+
+graph2.legend.configure(char_size=.75,loc=(0.05,0.685),loctype='world',box_linestyle=0,fill_pattern=0)
+
 # graph=grace.add_graph(Panel)
 # graph=format_graph(graph,'profile')
 # omnibin=binner(netprops,'omnivory')
 # graph=populate_graph(graph,omnibin)
 # graph.panel_label.configure(placement='iul',char_size=1,dx=.03,dy=.03)
 
-grace.multi(rows=2,cols=2,vgap=.07,hgap=.07)
-grace.hide_redundant_labels()
+# grace.multi(rows=2,cols=2,vgap=.07,hgap=.07)
+# grace.hide_redundant_labels()
 # grace.set_row_xaxislabel(label='in-degree (number of prey)',row=0,colspan=(None,None),char_size=1,perpendicular_offset=.05)
 # grace.set_row_xaxislabel(label='Trophic level (STL)',row=1,colspan=(None,None),char_size=1,perpendicular_offset=.05)
 # grace.set_col_yaxislabel(label='Count of motif',col=0,rowspan=(None,None),char_size=1,perpendicular_offset=.07)
