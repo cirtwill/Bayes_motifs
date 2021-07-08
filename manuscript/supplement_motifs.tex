@@ -320,6 +320,25 @@ $^\dagger$ Corresponding author:\\
 
 \section{SH: Persistence and motif roles}
 
+    \subsection*{Methods}
+
+        As one more level of detail, we can consider the frequency with which a species appears in each \emph{position} in each motif. 
+        Different positions are associated with different numbers of predators and prey, making the similarities and differences between motifs and degree more explicit.
+        The full set of these positions, across all motifs, is the species' \emph{motif role}~\citep{Stouffer2010,Cirtwill2017}.
+        As with motif participation, we normalized motif roles by dividing the number of times a species appeared in each position by the total number of times it appeared in all positions~\citep{Baker2015,Cirtwill2017}.
+        
+        
+        [[Could add a PERMANOVA to show that species' roles overal affect their persistence. Haven't done so yet.]]
+        
+
+        To test whether participating in different motif positions was related to a species' probability of persistence, we fit similar models to those for motif participation.
+        For each position, we fit a linear mixed-effect model relating persistence to the frequency of the position in a species' motif role, disturbance, and their interaction.
+        To account for differences in persistence across networks of different size and connectance, we included a random effect of the interaction between size and connectance.
+        All regressions were fit using the R~\citep{R} function `lmer' from the package \emph{lmerTest}~\citep{lmerTest}.
+
+    
+    \subsection*{Results}
+
     \begin{table}[h!]
         \caption{Coefficients in a series of regressions relating probability of persistence to the frequency of a position in a species' motif role, disturbance, and their interaction. For ease of comparison between motifs, we did not center or scale predictors. Note, however, that some motifs and positions have higher frequencies than others.}
         \label{tab:persistence_vs_positions}
@@ -371,207 +390,216 @@ $^\dagger$ Corresponding author:\\
 
 \section{SI: Motif roles and network properties}
 
+    \subsection*{Methods}
     
-    \subsection*{Degree and trophic level}
-
-        The top position in the omnivory motif increased with increasing degree across all trophic levels.
-        The frequency of the middle position increased with the interaction of degree and trophic level.
-        The bottom position was generaly rare, especially for species with high degree or high trophic level (this suggests that the bottom position is frequently a basal resource).
+        As with network motif profiles and motif participation, species' motif roles may vary with network size and connectance and with the species' in degree and trophic level.
+        To identify these relationships, we fit two linear regressions for each motif position.
+        The first related the frequency of the position in species' roles to network size, connectance, and their interaction.
+        The second related the frequency of the position to in-degree, STL, and their interaction.
+        All regressions were fit using the R~\citep{R} base function `lm'.
         
         
-        The frequency of the bottom position in the apparent competition motif decreased strongly with increasing degree, especially for species at a high trophic level.
-        The frequency of the top position increased strongly with increasing degree and was not strongly related to trophic level.
-        
-        
-        The frequency of the bottom position in the direct competition motif increased with increasing degree, especially for species at a high trophic level.
-        The bottom position was very rare, especially for species with high degree (also suggesting that this position is usually a basal resource).
-        
-        
-        The bottom position in the three-species chain was generally rare, especially for species with high degree or trophic level (again, this is likely to commonly be basal resources).
-        The middle position in the three-species chain did not vary strongly with degree and declined slightly with increasing trophic level.
-        The top position in the three-species chain increased with trophic level, degree, and their interaction.
-
-        \begin{table}[h!]
-            \caption{Coefficients ($\beta$) and $p$-values for linear regressions of the frequency of each motif position against in-degree, STL, and their interaction.}
-            \label{DT_tab}
-            \footnotesize
-            \begin{tabular}{c c | c c | cc | cc |}
-            Motif & Position & \multicolumn{2}{c}{Degree} & \multicolumn{2}{c}{STL} & \multicolumn{2}{c}{Interaction} \\
-            & & $\beta$ & $p$ & $\beta$ & $p$ & $\beta$ & $p$ \\
-            \hline
-            Chain & bottom & -1.47 $\times10^{-5}$ & 0.769 & -0.0218 & \textless0.001 & -0.00160 & \textless0.001 \\
-            Chain & middle & 3.13$\times10^{-4}$ & \textless0.001 & -0.0353 & \textless0.001 & 1.85$\times10^{-5}$ & 0.275 \\
-            Chain & top & -0.0172 & \textless0.001 & 0.0259 & \textless0.001 & 0.00919 & \textless0.001 \\
-            \hline
-            Omnivory & bottom & 6.14$\times10^{-4}$ & \textless0.001 & -0.00270 & \textless0.001 & -0.00112 & \textless0.001 \\
-            Omnivory & middle & 3.13$\times10^{-4}$ & \textless0.001 & -0.0353 & \textless0.001 & 1.85$\times10^{-5}$ & \textless0.001 \\
-            Omnivory & top & 0.00413 & \textless0.001 & 0.00381 & \textless0.001 & 9.96$\times10^{-5}$ & \textless0.001 \\
-            \hline
-            App. comp. & bottom & -4.74$\times10^{-4}$ & \textless0.001 & -0.663 & \textless0.001 & 0.00224 & \textless0.001 \\
-            App. comp. & top & 2.12$\times10^{-5}$ & 0.183 & -0.112 & \textless0.001 & -4.47$\times10^{-4}$ & \textless0.001 \\
-            \hline
-            Dir. comp. & bottom & 8.12$\times10^{-4}$ & \textless0.001 & -5.57$\times10^{-3}$ & \textless0.001 & -1.37$\times10^{-3}$ & \textless0.001 \\
-            Dir. comp. & top & -0.00405 & \textless0.001 & -0.0435 & \textless0.001 & 0.00260 & \textless0.001 \\
-            \hline
-            \end{tabular}
-            \end{table}
-
-
-        \begin{figure}[h!]
-            \centering
-            \includegraphics[width=.75\textwidth]{figures/positions_byTL_Omnivory.eps}
-            \caption{The frequencies of positions within the omnivory motif varied with degree, trophic level, and their interaction.}
-            \label{omnivory_DT}
-        \end{figure}
-
-
-        \begin{figure}[h!]
-            \centering
-            \includegraphics[width=.75\textwidth]{figures/positions_byTL_Apparentcompetition.eps}
-            \caption{The frequencies of positions within the apparent competition motif varied with degree, trophic level, and their interaction.}
-            \label{appcomp_DT}
-        \end{figure}
-
-        \begin{figure}[h!]
-            \centering
-            \includegraphics[width=.75\textwidth]{figures/positions_byTL_Directcompetition.eps}
-            \caption{The frequencies of positions within the direct competition motif varied with degree, trophic level, and their interaction.}
-            \label{dircomp_DT}
-        \end{figure}
-
-
-        \begin{figure}[h!]
-            \centering
-            \includegraphics[width=.75\textwidth]{figures/positions_byTL_Three-specieschain.eps}
-            \caption{The frequencies of positions within the three-species chain motif varied with degree, trophic level, and their interaction.}
-            \label{appcomp_DT}
-        \end{figure}
-
-
-    \subsection*{Network size and connectance}
-
-        % Many of these are significant, but the slopes tend to be very shallow. TL and degree are more interesting - this is DEFINITELY SI.
-        The frequency of the top position in the apparent competition motif did not vary strongly with network size or connectance.
-        The frequency of the bottom position in the apparent competition motif decreased with increasing connectance but did not vary strongly vary with network size.
-        
-        
-        The frequency of the top position in the direct competition motif increased slightly with the interaction of network size and connectance (i.e., in large and highly-connected networks).
-        The frequency of the bottom position in the direct competition motif was low in all networks.
-        
-        
-        The frequency of all three positions in the omnivory motif showed similar relationships with network size and connectance.
-        Frequencies of these motifs increased with increasing connectance and were not strongly affected by network size.
-        None of the positions in the three-species chain varied strongly with network size or connectance.
-
-
-        \begin{table}[h!]
-            \caption{Coefficients ($\beta$) and $p$-values for linear regressions of the frequency of each motif position against network size, connectance, and their interaction.}
-            \label{DT_tab}
-            \footnotesize
-            \begin{tabular}{c c | c c | cc | cc |}
-            Motif & Position & \multicolumn{2}{c}{Size} & \multicolumn{2}{c}{Connectance} & \multicolumn{2}{c}{Interaction} \\
-            & & $\beta$ & $p$ & $\beta$ & $p$ & $\beta$ & $p$ \\
-            \hline
-            Chain & bottom & -4.63$\times10^{-5}$ & \textless0.001 & -0.108 & \textless0.001 & -1.94$\times10^{-4}$ & 0.035 \\
-            Chain & middle & 1.68$\times10^{-4}$ & \textless0.001 & -0.0530 & \textless0.001 & -0.00212 & \textless0.001 \\
-            Chain & top & 1.00$\times10^{-4}$ & \textless0.001 & 0.0304 & 0.015 & -8.79$\times10^{-4}$ & \textless0.001 \\
-            \hline
-            Omnivory & bottom & 2.00$\times10^{-4}$ & \textless0.001 & 0.575 & \textless0.001 & -0.00240 & \textless0.001 \\
-            Omnivory & middle & 1.32$\times10^{-4}$ & \textless0.001 & 0.551 & \textless0.001 & -0.00215 & \textless0.001 \\
-            Omnivory & top & 6.42$\times10^{-5}$ & \textless0.001 & 0.448 & \textless0.001 & -0.00115 & \textless0.001 \\
-            \hline
-            App. comp. & bottom & -4.74$\times10^{-4}$ & \textless0.001 & -0.663 & \textless0.001 & 0.00224 & \textless0.001 \\
-            App. comp. & top & 2.12$\times10^{-5}$ & 0.183 & -0.112 & \textless0.001 & -4.47$\times10^{-4}$ & \textless0.001 \\
-            \hline
-            Dir. comp. & bottom & 7.94$\times10^{-5}$ & \textless0.001 & -0.0663 & \textless0.001 & 0.00101 & \textless0.001 \\
-            Dir. comp. & top & -2.45$\times10^{-4}$ & \textless0.001 & -0.602 & \textless0.001 & 0.00610 & \textless0.001 \\
-            \hline
-            \end{tabular}
-            \end{table}
-
-
-        \begin{figure}[h!]
-            \centering
-            \includegraphics[width=.75\textwidth]{figures/positions_bySC_Omnivory.eps}
-            \caption{The frequencies of positions within the omnivory motif varied with degree, trophic level, and their interaction.}
-            \label{omnivory_DT}
-        \end{figure}
-
-
-        \begin{figure}[h!]
-            \centering
-            \includegraphics[width=.75\textwidth]{figures/positions_bySC_Apparentcompetition.eps}
-            \caption{The frequencies of positions within the apparent competition motif varied with degree, trophic level, and their interaction.}
-            \label{appcomp_DT}
-        \end{figure}
-
-        \begin{figure}[h!]
-            \centering
-            \includegraphics[width=.75\textwidth]{figures/positions_bySC_Directcompetition.eps}
-            \caption{The frequencies of positions within the direct competition motif varied with degree, trophic level, and their interaction.}
-            \label{dircomp_DT}
-        \end{figure}
-
-
-        \begin{figure}[h!]
-            \centering
-            \includegraphics[width=.75\textwidth]{figures/positions_bySC_Three-specieschain.eps}
-            \caption{The frequencies of positions within the three-species chain motif varied with degree, trophic level, and their interaction.}
-            \label{appcomp_DT}
-        \end{figure}
-
-
-\clearpage
-
-   
-% \section{How do counts of motifs in a network profile vary with S and C?} 
-
+    \subsection*{Results}
+        \subsection*{Degree and trophic level}
     
-%     As expected, all four motifs had higher counts in larger and more highly connected networks.
-%     The precise effects of size, connectance, and their interaction differed between motifs  (Table~\ref{network_motif_lms}).
-%     This suggests that the meso-scale structure of a network varies with size and connectance, not just the total number of motifs.
-%     Indeed, the motif profile of a network is significantly related to its size, connectance, and their interaction ($F_{1,2996}$=2279, $p$\textless0.001; $F_{1,2996}$=3067, $p$\textless0.001; and $F_{1,2996}$=1187, $p$\textless0.001, respectively).
-
-
-%     \begin{table}[h!]
-%         \centering
-%         \caption{Coefficients for linear regressions relating the total count of all motifs or the count of each three-species motif in a network to network size, connectance, and their interaction. Coefficients in \textbf{bold} are significant (\textless0.05). Note that, while there are 13 unique three-species motifs, only four are possible in acyclic networks such as those considered here.}
-%        \label{network_motif_lms}
-%        \begin{tabular}{c|c c c c c}
-%         Motif & Intercept & Size & Connectance & Interaction \\
-%         \hline
-%         Total count & \textbf{-2.85$\times10^3$} & \textbf{46.6} & \textbf{-2.12$\times10^{5}$} & \textbf{4.72$\times10^{3}$} \\
-%         \hline
-%         Thee-species Chain & \textbf{-1.40$\times10^{3}$} & \textbf{26.1} & \textbf{-3.74$\times10^{4}$} & \textbf{8.58$\times10^{2}$} \\
-%         Apparent Competition & \textbf{-2.23$\times10^3$} & \textbf{42.0} & 
-%         \textbf{-7.26$\times10^4$} & \textbf{1.63$\times10^3$} \\
-%         Direct Competition & 26.6 & 0.777 & \textbf{-4.85$\times10^4$} & \textbf{9.89$\times10^2$} \\
-%         Omnivory & \textbf{7.57} & \textbf{-22.2} & \textbf{-5.37$\times10^4$} & \textbf{1.24$\times10^3$} \\
-%         \hline
-%         \end{tabular}
-%     \end{table}
+            The top position in the omnivory motif increased with increasing degree across all trophic levels.
+            The frequency of the middle position increased with the interaction of degree and trophic level.
+            The bottom position was generaly rare, especially for species with high degree or high trophic level (this suggests that the bottom position is frequently a basal resource).
+            
+            
+            The frequency of the bottom position in the apparent competition motif decreased strongly with increasing degree, especially for species at a high trophic level.
+            The frequency of the top position increased strongly with increasing degree and was not strongly related to trophic level.
+            
+            
+            The frequency of the bottom position in the direct competition motif increased with increasing degree, especially for species at a high trophic level.
+            The bottom position was very rare, especially for species with high degree (also suggesting that this position is usually a basal resource).
+            
+            
+            The bottom position in the three-species chain was generally rare, especially for species with high degree or trophic level (again, this is likely to commonly be basal resources).
+            The middle position in the three-species chain did not vary strongly with degree and declined slightly with increasing trophic level.
+            The top position in the three-species chain increased with trophic level, degree, and their interaction.
+    
+            \begin{table}[h!]
+                \caption{Coefficients ($\beta$) and $p$-values for linear regressions of the frequency of each motif position against in-degree, STL, and their interaction.}
+                \label{DT_tab}
+                \footnotesize
+                \begin{tabular}{c c | c c | cc | cc |}
+                Motif & Position & \multicolumn{2}{c}{Degree} & \multicolumn{2}{c}{STL} & \multicolumn{2}{c}{Interaction} \\
+                & & $\beta$ & $p$ & $\beta$ & $p$ & $\beta$ & $p$ \\
+                \hline
+                Chain & bottom & -1.47 $\times10^{-5}$ & 0.769 & -0.0218 & \textless0.001 & -0.00160 & \textless0.001 \\
+                Chain & middle & 3.13$\times10^{-4}$ & \textless0.001 & -0.0353 & \textless0.001 & 1.85$\times10^{-5}$ & 0.275 \\
+                Chain & top & -0.0172 & \textless0.001 & 0.0259 & \textless0.001 & 0.00919 & \textless0.001 \\
+                \hline
+                Omnivory & bottom & 6.14$\times10^{-4}$ & \textless0.001 & -0.00270 & \textless0.001 & -0.00112 & \textless0.001 \\
+                Omnivory & middle & 3.13$\times10^{-4}$ & \textless0.001 & -0.0353 & \textless0.001 & 1.85$\times10^{-5}$ & \textless0.001 \\
+                Omnivory & top & 0.00413 & \textless0.001 & 0.00381 & \textless0.001 & 9.96$\times10^{-5}$ & \textless0.001 \\
+                \hline
+                App. comp. & bottom & -4.74$\times10^{-4}$ & \textless0.001 & -0.663 & \textless0.001 & 0.00224 & \textless0.001 \\
+                App. comp. & top & 2.12$\times10^{-5}$ & 0.183 & -0.112 & \textless0.001 & -4.47$\times10^{-4}$ & \textless0.001 \\
+                \hline
+                Dir. comp. & bottom & 8.12$\times10^{-4}$ & \textless0.001 & -5.57$\times10^{-3}$ & \textless0.001 & -1.37$\times10^{-3}$ & \textless0.001 \\
+                Dir. comp. & top & -0.00405 & \textless0.001 & -0.0435 & \textless0.001 & 0.00260 & \textless0.001 \\
+                \hline
+                \end{tabular}
+                \end{table}
+    
+    
+            \begin{figure}[h!]
+                \centering
+                \includegraphics[width=.75\textwidth]{figures/positions_byTL_Omnivory.eps}
+                \caption{The frequencies of positions within the omnivory motif varied with degree, trophic level, and their interaction.}
+                \label{omnivory_DT}
+            \end{figure}
+    
+    
+            \begin{figure}[h!]
+                \centering
+                \includegraphics[width=.75\textwidth]{figures/positions_byTL_Apparentcompetition.eps}
+                \caption{The frequencies of positions within the apparent competition motif varied with degree, trophic level, and their interaction.}
+                \label{appcomp_DT}
+            \end{figure}
+    
+            \begin{figure}[h!]
+                \centering
+                \includegraphics[width=.75\textwidth]{figures/positions_byTL_Directcompetition.eps}
+                \caption{The frequencies of positions within the direct competition motif varied with degree, trophic level, and their interaction.}
+                \label{dircomp_DT}
+            \end{figure}
+    
+    
+            \begin{figure}[h!]
+                \centering
+                \includegraphics[width=.75\textwidth]{figures/positions_byTL_Three-specieschain.eps}
+                \caption{The frequencies of positions within the three-species chain motif varied with degree, trophic level, and their interaction.}
+                \label{appcomp_DT}
+            \end{figure}
+    
+    
+        \subsection*{Network size and connectance}
+    
+            % Many of these are significant, but the slopes tend to be very shallow. TL and degree are more interesting - this is DEFINITELY SI.
+            The frequency of the top position in the apparent competition motif did not vary strongly with network size or connectance.
+            The frequency of the bottom position in the apparent competition motif decreased with increasing connectance but did not vary strongly vary with network size.
+            
+            
+            The frequency of the top position in the direct competition motif increased slightly with the interaction of network size and connectance (i.e., in large and highly-connected networks).
+            The frequency of the bottom position in the direct competition motif was low in all networks.
+            
+            
+            The frequency of all three positions in the omnivory motif showed similar relationships with network size and connectance.
+            Frequencies of these motifs increased with increasing connectance and were not strongly affected by network size.
+            None of the positions in the three-species chain varied strongly with network size or connectance.
+    
+    
+            \begin{table}[h!]
+                \caption{Coefficients ($\beta$) and $p$-values for linear regressions of the frequency of each motif position against network size, connectance, and their interaction.}
+                \label{DT_tab}
+                \footnotesize
+                \begin{tabular}{c c | c c | cc | cc |}
+                Motif & Position & \multicolumn{2}{c}{Size} & \multicolumn{2}{c}{Connectance} & \multicolumn{2}{c}{Interaction} \\
+                & & $\beta$ & $p$ & $\beta$ & $p$ & $\beta$ & $p$ \\
+                \hline
+                Chain & bottom & -4.63$\times10^{-5}$ & \textless0.001 & -0.108 & \textless0.001 & -1.94$\times10^{-4}$ & 0.035 \\
+                Chain & middle & 1.68$\times10^{-4}$ & \textless0.001 & -0.0530 & \textless0.001 & -0.00212 & \textless0.001 \\
+                Chain & top & 1.00$\times10^{-4}$ & \textless0.001 & 0.0304 & 0.015 & -8.79$\times10^{-4}$ & \textless0.001 \\
+                \hline
+                Omnivory & bottom & 2.00$\times10^{-4}$ & \textless0.001 & 0.575 & \textless0.001 & -0.00240 & \textless0.001 \\
+                Omnivory & middle & 1.32$\times10^{-4}$ & \textless0.001 & 0.551 & \textless0.001 & -0.00215 & \textless0.001 \\
+                Omnivory & top & 6.42$\times10^{-5}$ & \textless0.001 & 0.448 & \textless0.001 & -0.00115 & \textless0.001 \\
+                \hline
+                App. comp. & bottom & -4.74$\times10^{-4}$ & \textless0.001 & -0.663 & \textless0.001 & 0.00224 & \textless0.001 \\
+                App. comp. & top & 2.12$\times10^{-5}$ & 0.183 & -0.112 & \textless0.001 & -4.47$\times10^{-4}$ & \textless0.001 \\
+                \hline
+                Dir. comp. & bottom & 7.94$\times10^{-5}$ & \textless0.001 & -0.0663 & \textless0.001 & 0.00101 & \textless0.001 \\
+                Dir. comp. & top & -2.45$\times10^{-4}$ & \textless0.001 & -0.602 & \textless0.001 & 0.00610 & \textless0.001 \\
+                \hline
+                \end{tabular}
+                \end{table}
+    
+    
+            \begin{figure}[h!]
+                \centering
+                \includegraphics[width=.75\textwidth]{figures/positions_bySC_Omnivory.eps}
+                \caption{The frequencies of positions within the omnivory motif varied with degree, trophic level, and their interaction.}
+                \label{omnivory_DT}
+            \end{figure}
+    
+    
+            \begin{figure}[h!]
+                \centering
+                \includegraphics[width=.75\textwidth]{figures/positions_bySC_Apparentcompetition.eps}
+                \caption{The frequencies of positions within the apparent competition motif varied with degree, trophic level, and their interaction.}
+                \label{appcomp_DT}
+            \end{figure}
+    
+            \begin{figure}[h!]
+                \centering
+                \includegraphics[width=.75\textwidth]{figures/positions_bySC_Directcompetition.eps}
+                \caption{The frequencies of positions within the direct competition motif varied with degree, trophic level, and their interaction.}
+                \label{dircomp_DT}
+            \end{figure}
+    
+    
+            \begin{figure}[h!]
+                \centering
+                \includegraphics[width=.75\textwidth]{figures/positions_bySC_Three-specieschain.eps}
+                \caption{The frequencies of positions within the three-species chain motif varied with degree, trophic level, and their interaction.}
+                \label{appcomp_DT}
+            \end{figure}
+    
+    
+    \clearpage
+    
+       
+    % \section{How do counts of motifs in a network profile vary with S and C?} 
     
         
-%     \begin{figure}[h!]
-%         \centering
-%         \includegraphics[width=.75\textwidth]{figures/motif_profile_dispersion.pdf}
-%         \caption{Dispersion of motif profiles within a network about the centroid for that combination of network size and connectance. Each circle represents a single network; circle colour indicates network size. Scatter has been introduced about each level of connectance to increase visual clarity; the levels of connectance we consider are indicated by vertical black lines.}
-%         \label{dispersion_rawmotifs}
-%     \end{figure}
-
+    %     As expected, all four motifs had higher counts in larger and more highly connected networks.
+    %     The precise effects of size, connectance, and their interaction differed between motifs  (Table~\ref{network_motif_lms}).
+    %     This suggests that the meso-scale structure of a network varies with size and connectance, not just the total number of motifs.
+    %     Indeed, the motif profile of a network is significantly related to its size, connectance, and their interaction ($F_{1,2996}$=2279, $p$\textless0.001; $F_{1,2996}$=3067, $p$\textless0.001; and $F_{1,2996}$=1187, $p$\textless0.001, respectively).
     
-%     Motif profiles were similarly variable across networks with different sizes, but were not homogeneously variable across connectances or size-connectance combinations ($F_{5,2994}$=0.365, $p$=0.873; $F_{4,2995}$=4.49, $p$=0.001; and $F_{29,2970}$=27.1, $p$\textless0.001 , respectively).
-%     These differences in variability of motif profiles can cause false positives in the PERMANOVA.
-%     Variability in motif profiles was lowest among large networks with moderate connectance and was highest among the least-connected and most-connected networks we considered (Fig.~\ref{dispersion_rawmotifs}).
-
-
-%     \begin{figure}[h!]
-%         \centering
-%         \includegraphics[width=\textwidth]{figures/absolute_lmer_allCS.pdf}
-%         \caption{The effect of number of times a species appears (x-axis) in any of the various motifs (columns) on persistence (y-axis). The effect of each motif participation is fitted by linear mixed-effect models, following Equation~\ref{absreq}, except that the disturbance levels are fitted separately. The different colored lines indicate various disturbances on the basal level, from $\pi_{disturbed} = 0.1$ (in the top) to $\pi_{disturbed} = 0.5$ (in the bottom).}
-%         \label{fig:abs_lmer_all}
-%     \end{figure}            
-
+    
+    %     \begin{table}[h!]
+    %         \centering
+    %         \caption{Coefficients for linear regressions relating the total count of all motifs or the count of each three-species motif in a network to network size, connectance, and their interaction. Coefficients in \textbf{bold} are significant (\textless0.05). Note that, while there are 13 unique three-species motifs, only four are possible in acyclic networks such as those considered here.}
+    %        \label{network_motif_lms}
+    %        \begin{tabular}{c|c c c c c}
+    %         Motif & Intercept & Size & Connectance & Interaction \\
+    %         \hline
+    %         Total count & \textbf{-2.85$\times10^3$} & \textbf{46.6} & \textbf{-2.12$\times10^{5}$} & \textbf{4.72$\times10^{3}$} \\
+    %         \hline
+    %         Thee-species Chain & \textbf{-1.40$\times10^{3}$} & \textbf{26.1} & \textbf{-3.74$\times10^{4}$} & \textbf{8.58$\times10^{2}$} \\
+    %         Apparent Competition & \textbf{-2.23$\times10^3$} & \textbf{42.0} & 
+    %         \textbf{-7.26$\times10^4$} & \textbf{1.63$\times10^3$} \\
+    %         Direct Competition & 26.6 & 0.777 & \textbf{-4.85$\times10^4$} & \textbf{9.89$\times10^2$} \\
+    %         Omnivory & \textbf{7.57} & \textbf{-22.2} & \textbf{-5.37$\times10^4$} & \textbf{1.24$\times10^3$} \\
+    %         \hline
+    %         \end{tabular}
+    %     \end{table}
+        
+            
+    %     \begin{figure}[h!]
+    %         \centering
+    %         \includegraphics[width=.75\textwidth]{figures/motif_profile_dispersion.pdf}
+    %         \caption{Dispersion of motif profiles within a network about the centroid for that combination of network size and connectance. Each circle represents a single network; circle colour indicates network size. Scatter has been introduced about each level of connectance to increase visual clarity; the levels of connectance we consider are indicated by vertical black lines.}
+    %         \label{dispersion_rawmotifs}
+    %     \end{figure}
+    
+        
+    %     Motif profiles were similarly variable across networks with different sizes, but were not homogeneously variable across connectances or size-connectance combinations ($F_{5,2994}$=0.365, $p$=0.873; $F_{4,2995}$=4.49, $p$=0.001; and $F_{29,2970}$=27.1, $p$\textless0.001 , respectively).
+    %     These differences in variability of motif profiles can cause false positives in the PERMANOVA.
+    %     Variability in motif profiles was lowest among large networks with moderate connectance and was highest among the least-connected and most-connected networks we considered (Fig.~\ref{dispersion_rawmotifs}).
+    
+    
+    %     \begin{figure}[h!]
+    %         \centering
+    %         \includegraphics[width=\textwidth]{figures/absolute_lmer_allCS.pdf}
+    %         \caption{The effect of number of times a species appears (x-axis) in any of the various motifs (columns) on persistence (y-axis). The effect of each motif participation is fitted by linear mixed-effect models, following Equation~\ref{absreq}, except that the disturbance levels are fitted separately. The different colored lines indicate various disturbances on the basal level, from $\pi_{disturbed} = 0.1$ (in the top) to $\pi_{disturbed} = 0.5$ (in the bottom).}
+    %         \label{fig:abs_lmer_all}
+    %     \end{figure}            
+    
 
 \section{Motif profiles in different network sets}
 
