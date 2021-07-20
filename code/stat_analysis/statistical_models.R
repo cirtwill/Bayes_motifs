@@ -69,7 +69,7 @@ consumers$prop_omni=consumers$m38/consumers$total_motifs
     # PERMANOVA and variability of motif profiles
     propdist=vegdist(motdata[,10:13],method="bray")
     propperm=adonis(propdist~motdata$Size*motdata$Connectance,perm=9999)
-    motdata$interact=paste0(motdata$Size,motdata$Connectance,sep=':')
+    motdata$interact=paste0(motdata$Size,':',motdata$Connectance)
     propinterdisp=betadisper(propdist,motdata$interact,type="centroid")
     Spropdisp=betadisper(propdist,motdata$Size,type="centroid")
     Cpropdisp=betadisper(propdist,motdata$Connectance,type="centroid")
@@ -125,7 +125,7 @@ consumers$prop_omni=consumers$m38/consumers$total_motifs
 
 # Section 4: How does persistence vary with proportions?
     # lmer with random intercepts for each level of S:C
-    consumers$Global=paste0(consumers$Size,consumers$Connectance,':')
+    consumers$Global=paste0(consumers$Size,':',consumers$Connectance)
     propchain_lmer1<-with(consumers,lmer(Persistence~scale(prop_chain)*scale(Disturbance)+(1|Global)))
     propapparent_lmer1<-with(consumers,lmer(Persistence~scale(prop_apparent)*scale(Disturbance)+(1|Global)))
     propdirect_lmer1<-with(consumers,lmer(Persistence~scale(prop_direct)*scale(Disturbance)+(1|Global)))
