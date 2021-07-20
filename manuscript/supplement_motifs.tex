@@ -367,14 +367,14 @@ $^\dagger$ Corresponding author:\\
 
     \begin{figure}
         \centering
-        \includegraphics{figures/persistence_positions_Apparent.eps}
+        \includegraphics[width=0.75\textwidth]{figures/persistence_positions_Apparent.eps}
         \caption{A species' probability of persistence varied with the frequency of different motif positions in its role. Here we show the relationships between persistence and the proportions of the three positions in the apparent competition motif at three levels of probability of extinction for basal resources (p=0.1, 0.26, and 0.42), indicated by line colour. Line style indicates the motif  position. }
         \label{fig:apparent_positions}
     \end{figure}
 
     \begin{figure}
         \centering
-        \includegraphics{figures/persistence_positions_Direct.eps}
+        \includegraphics[width=0.75\textwidth]{figures/persistence_positions_Direct.eps}
         \caption{A species' probability of persistence varied with the frequency of different motif positions in its role. Here we show the relationships between persistence and the proportions of the three positions in the direct competition motif at three levels of probability of extinction for basal resources (p=0.1, 0.26, and 0.42), indicated by line colour. Line style indicates the motif  position. }
         \label{fig:direct_positions}
     \end{figure}
@@ -382,7 +382,7 @@ $^\dagger$ Corresponding author:\\
     
     \begin{figure}
         \centering
-        \includegraphics{figures/persistence_positions_Three-species.eps}
+        \includegraphics[width=0.75\textwidth]{figures/persistence_positions_Three-species.eps}
         \caption{A species' probability of persistence varied with the frequency of different motif positions in its role. Here we show the relationships between persistence and the proportions of the three positions in the three-species chain motif at three levels of probability of extinction for basal resources (p=0.1, 0.26, and 0.42), indicated by line colour. Line style indicates the motif  position. }
         \label{fig:chain_positions}
     \end{figure}
@@ -403,6 +403,7 @@ $^\dagger$ Corresponding author:\\
     \subsection*{Results}
         \subsection*{Degree and trophic level}
     
+            Positions in all three motifs were strongly related to in-degree and/or trophic level (Table~\ref{DT_tab}).
             The top position in the omnivory motif increased with increasing degree across all trophic levels.
             The frequency of the middle position increased with the interaction of degree and trophic level.
             The bottom position was generaly rare, especially for species with high degree or high trophic level (this suggests that the bottom position is frequently a basal resource).
@@ -473,14 +474,14 @@ $^\dagger$ Corresponding author:\\
                 \centering
                 \includegraphics[width=.75\textwidth]{figures/positions_byTL_Three-specieschain.eps}
                 \caption{The frequencies of positions within the three-species chain motif varied with degree, trophic level, and their interaction.}
-                \label{appcomp_DT}
+                \label{chain_DT}
             \end{figure}
     
     
         \subsection*{Network size and connectance}
     
             % Many of these are significant, but the slopes tend to be very shallow. TL and degree are more interesting - this is DEFINITELY SI.
-            The frequency of the top position in the apparent competition motif did not vary strongly with network size or connectance.
+            The frequency of the top position in the apparent competition motif did not vary strongly with network size or connectance (Table~\ref{SC_tab}).
             The frequency of the bottom position in the apparent competition motif decreased with increasing connectance but did not vary strongly vary with network size.
             
             
@@ -495,7 +496,7 @@ $^\dagger$ Corresponding author:\\
     
             \begin{table}[h!]
                 \caption{Coefficients ($\beta$) and $p$-values for linear regressions of the frequency of each motif position against network size, connectance, and their interaction.}
-                \label{DT_tab}
+                \label{SC_tab}
                 \footnotesize
                 \begin{tabular}{c c | c c | cc | cc |}
                 Motif & Position & \multicolumn{2}{c}{Size} & \multicolumn{2}{c}{Connectance} & \multicolumn{2}{c}{Interaction} \\
@@ -523,7 +524,7 @@ $^\dagger$ Corresponding author:\\
                 \centering
                 \includegraphics[width=.75\textwidth]{figures/positions_bySC_Omnivory.eps}
                 \caption{The frequencies of positions within the omnivory motif varied with degree, trophic level, and their interaction.}
-                \label{omnivory_DT}
+                \label{omnivory_SC}
             \end{figure}
     
     
@@ -531,14 +532,14 @@ $^\dagger$ Corresponding author:\\
                 \centering
                 \includegraphics[width=.75\textwidth]{figures/positions_bySC_Apparentcompetition.eps}
                 \caption{The frequencies of positions within the apparent competition motif varied with degree, trophic level, and their interaction.}
-                \label{appcomp_DT}
+                \label{appcomp_SC}
             \end{figure}
     
             \begin{figure}[h!]
                 \centering
                 \includegraphics[width=.75\textwidth]{figures/positions_bySC_Directcompetition.eps}
                 \caption{The frequencies of positions within the direct competition motif varied with degree, trophic level, and their interaction.}
-                \label{dircomp_DT}
+                \label{dircomp_SC}
             \end{figure}
     
     
@@ -546,24 +547,29 @@ $^\dagger$ Corresponding author:\\
                 \centering
                 \includegraphics[width=.75\textwidth]{figures/positions_bySC_Three-specieschain.eps}
                 \caption{The frequencies of positions within the three-species chain motif varied with degree, trophic level, and their interaction.}
-                \label{appcomp_DT}
+                \label{chain_SC}
             \end{figure}
     
     
     \clearpage
     
+\clearpage 
 
-\section*{Proportion of basal resources in the network}
+\section*{SJ: Proportion of basal resources in the network}
 
     \subsection*{Basal resources and mean persistence}
 
-    \begin{figure}[h!]
-        \centering
-        \includegraphics[height=0.75\textheight]{figures/persistence_vs_BSC_lm.eps}
-        \caption{Persistence decreased strongly with increasing probability of disturbance to basal resources, while the proportion of the network made up of basal resources, network size, connectance, and their interactions had smaller effects. We show relationships with persistence for low disturbance ($\pi_{Basal}$=0.1) and high disturbance($\pi_{Basal}$=0.5). For each predictor other than disturbance, we show the relationship between the focal predictor and persistence for combinations of the lowest and highest observed values of the other predictors. For proportion of basal resources, these values were 0.02 and 0.5; for network size, 50 and 100; and for connectance, 0.02 and 0.18.}
-        \label{fig:lm_BCS}
-    \end{figure}
-
+        We fit a linear regression relating consumer persistence to network size, connectance, disturbance, the proportion of the network made up of basal resources (pBasal), and all interactions between them. All terms were significant, indicating that the pBasal affects a consumer's probability of persistence but that this effect depends upon other aspects of network structure.
+        As with the effects of network size and connectance, however, the effects of pBasal were small in the range of networks we considered here (Fig.~\ref{fig:lm_BCS}).
+        % Table is from basal_models.Rdata: BCper, if we want it.
+    
+        \begin{figure}[h!]
+            \centering
+            \includegraphics[height=0.75\textheight]{figures/persistence_vs_BSC_lm.eps}
+            \caption{Persistence decreased strongly with increasing probability of disturbance to basal resources, while the proportion of the network made up of basal resources, network size, connectance, and their interactions had smaller effects. We show relationships with persistence for low disturbance ($\pi_{Basal}$=0.1) and high disturbance($\pi_{Basal}$=0.5). For each predictor other than disturbance, we show the relationship between the focal predictor and persistence for combinations of the lowest and highest observed values of the other predictors. For proportion of basal resources, these values were 0.02 and 0.5; for network size, 50 and 100; and for connectance, 0.02 and 0.18.}
+            \label{fig:lm_BCS}
+        \end{figure}
+    
 
        
     % \section{How do counts of motifs in a network profile vary with S and C?} 
@@ -615,6 +621,41 @@ $^\dagger$ Corresponding author:\\
     %     \end{figure}            
     
 
+    \subsection*{Motif profiles and proportion of basal resources}
+    
+        We repeated our analyses testing whether motif profiles were related to network size and connectance, replacing network size with the proportion of the network made up by basal resources (pBasal).
+        A network's overall motif profile was significantly related to pBasal ($F_{1,2996}$=196, $p$\textless0.001, connecance ($F_{1,2996}$=10.0, $p$\textless0.001), and their interaction ($F_{1,2996}$=27.3, $p$\textless0.001).
+        However, this result could be a false positive as the dispersion of motif profiles was non-homogeneous across connectance ($F_{4,2995}$=5.17, $p$\textless0.001), pBasal ($F_{128,2871}$=19.0, $p$\textless0.001), and their interaction ($F_{291,2708}$=13.4, $p$\textless0.001).
+        Distance from group centroids was low for networks with extremely low or extremely high pBasal, perhaps because there were few such networks.
+        The ranges and median distances from group centroids was similar across levels of connectance.
+        
+        
+        Considered separately, the proportions of all four motifs in a network's motif profile were related to the proportion of basal resources in a network (Fig.~\ref{fig:Blms}).
+        The proportion of the three-species chain decreased in networks with more basal resources ($\beta_{pBasal}$=-0.080, $p$\textless0.001) and networks with higher connectance ($\beta_{C}$=0.498, $p$\textless0.001).
+        The interaction between pBasal and connectance was not significant ($\beta_{pBasal:C}$=0.0554, $p$=0.766).
+        
+
+        The proportion of the omnivory motif decreased in networks with more basal resources ($\beta_{pBasal}$=-0.198, $p$\textless0.001), increased in networks with higher connectance ($\beta_{C}$=0.895, $p$\textless0.001), and increased most strongly in networks with high connectance and many basal resources ($\beta_{pBasal:C}$=2.53, $p$\textless0.001).   
+        
+        The proportion of the apparent competition motif increased with in networks with more basal resources ($\beta_{pBasal}$=0.202, $p$\textless0.001) and decreased in more connected networks ($\beta_C$=-0.596, $p$\textless0.001). 
+        The interaction between the proportion of basal resources and connectance was not significant ($\beta_{pBasal:C}$=0.258, $p$\textless0.001).
+        
+        
+        The proportion of the direct competition motif increased in networks with more basal resources ($\beta_{pBasal}$=0.0759, $p$\textless0.001) and more-connected networks ($\beta_C$=0.199, $p$\textless0.001), but decreased with the interaction between them ($\beta_{pBasal:C}$=-2.85, $p$\textless0.001).
+
+        
+        \begin{figure}
+            \centering
+            \includegraphics[width=.75\textwidth]{figures/motif_proportion_basal_lms.eps}
+            \caption{Mean proportion of each motif in a network's motif profile varied with connectance and the proportion of basal resources in the network. For direct competition and omnivory, the frequency of the motif also varied with the interaction between connectance and basal resources.}
+            \label{fig:Blms}
+        \end{figure}    
+    
+\clearpage
+    
+
+    \subsection*{}
+
 \section{Motif profiles in different network sets}
 
     Not all motifs were equally likely to occur in the networks we considered. 
@@ -644,20 +685,7 @@ $^\dagger$ Corresponding author:\\
     \end{table}
 
 
-    \begin{table}[h!]
-        \centering
-        \caption{Coefficients ($\beta$) and $p$-values ($p$) for models relating persistence to the proportion of a species' role made up by the focal motif, the level of disturbance to basal resources (corresponding to a probability of extinction ranging between 0.1 and 0.5), and their interaction, as well as a random intercept to account for differences in persistence across levels of network size and connectance (Equation~\ref{propreq}). Predictors were centered and scaled before model fitting. We also provide the marginal $R^2_M$ (fixed effects only) and conditional $R^2_C$ (fixed and random effects) for each model.}
-        \label{tab:proportion}                \footnotesize
-        \begin{tabular}{c|c c | c c | c c | c c | c c |}
-        & \multicolumn{2}{c|}{Intercept} & \multicolumn{2}{c|}{Proportion} & \multicolumn{2}{c|}{Disturbance} & \multicolumn{2}{c|}{Interaction} & \multicolumn{2}{c|}{$R^2$} \\
-        Motif & $\beta$ & $p$ & $\beta$ & $p$ & $\beta$ & $p$ & $\beta$ & $p$ & $R^2_M$ & $R^2_C$ \\
-        \hline
-        3-sp Chain & 0.574 & \textless0.001 & -0.00508 & \textless0.001 & -0.139 & \textless0.001 & -0.00337 & \textless0.001 & 0.900 & 0.912 \\
-        App. Com. & 0.574 & \textless0.001 & -0.00312 & \textless0.001 & -0.139 & \textless0.001 & 0.00410 & \textless0.001 & 0.900 & 0.911 \\
-        Dir. Com. & 0.574 & \textless0.001 & 0.00564 & \textless0.001 & -0.139 & \textless0.001 & 0.000256 & \textless0.001 & 0.901 & 0.911 \\
-        Omnivory & 0.574 & \textless0.001 & 0.00709 & \textless0.001 & -0.139 & \textless0.001 & -0.00198 & \textless0.001 & 0.894 & 0.912 \\
-        \end{tabular}
-    \end{table}        
+
 \clearpage
 
 % \section{Persistence and count-based motif participation}
