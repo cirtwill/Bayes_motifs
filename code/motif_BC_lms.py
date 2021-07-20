@@ -40,7 +40,7 @@ def format_graph(graph,graphtype):
   graph.yaxis.ticklabel.configure(format='decimal',prec=1,char_size=.75)
 
 
-  graph.xaxis.ticklabel.configure(format='decimal',prec=2,char_size=.75)
+  graph.xaxis.ticklabel.configure(format='decimal',prec=1,char_size=.75)
   graph.xaxis.label.configure(text='Proportion basal resources',char_size=1,just=2,place='normal')
 
   graph.xaxis.tick.configure(onoff='on',minor_ticks=0,major_size=.4,minor_size=.5,place='both',major_linewidth=.5,minor_linewidth=1)
@@ -121,7 +121,7 @@ for lm in ['apparent','direct','omnivory','chain']:
 
 grace.multi(rows=2,cols=2,vgap=.03,hgap=.04)
 grace.hide_redundant_labels()
-grace.set_row_xaxislabel(label='Connectance',row=1,colspan=(None,None),char_size=1,perpendicular_offset=.05,just=2)
+grace.set_row_xaxislabel(label='Proportion basal resources',row=1,colspan=(None,None),char_size=1,perpendicular_offset=.05,just=2)
 grace.set_col_yaxislabel(label='Proportion of total motifs',col=0,rowspan=(None,None),char_size=1,perpendicular_offset=.05,just=2)
 # grace.set_row_xaxislabel(label='Day of year',row=2,colspan=(None,None),char_size=1,perpendicular_offset=.05)
 for graph in grace.graphs:
