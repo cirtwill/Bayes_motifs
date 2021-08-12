@@ -74,28 +74,6 @@ def read_datafile(datafile):
   f.close()
   return netprops
 
-def binner(netprops,binby):
-  if binby=='omnivory':
-    bindict={'chain':[],'dircomp':[],'appcomp':[]}
-    step=.01
-    minni=0
-    for i in range(0,100):
-      binmin=minni+step*i
-      binmed=minni+step*i+step/2
-      binmax=minni+step*(i+1)
-
-      for motif in bindict:
-        motpoints=[]
-        for ID in netprops:
-          if netprops[ID]['omnivory']>=binmin and netprops[ID]['omnivory']<binmax:
-            motpoints.append(netprops[ID][motif])
-        if motpoints!=[]:
-          bindict[motif].append((binmed,np.mean(motpoints),np.std(motpoints)/len(motpoints)))
-  else:
-    bindict={}
-
-  return bindict
-
 def format_graph(graph,simple):
   graph.yaxis.bar.linewidth=1
   graph.xaxis.bar.linewidth=1
@@ -122,13 +100,13 @@ def format_graph(graph,simple):
     graph.xaxis.label.text='Proportion of network profile'
 
 
-  graph.xaxis.ticklabel.configure(format='decimal',prec=1,char_size=.75)
-  graph.yaxis.ticklabel.configure(format='decimal',prec=1,char_size=.75)
-  graph.xaxis.label.configure(char_size=1,just=2,place='normal')
+  graph.xaxis.ticklabel.configure(format='decimal',prec=1,char_size=1)
+  graph.yaxis.ticklabel.configure(format='decimal',prec=1,char_size=1)
+  graph.xaxis.label.configure(char_size=1.5,just=2,place='normal')
 
-  graph.yaxis.label.configure(char_size=1,just=2,place='normal')
+  graph.yaxis.label.configure(char_size=1.5,just=2,place='normal')
   graph.xaxis.tick.configure(onoff='on',minor_ticks=0,major_size=.4,place='both',major_linewidth=.5,minor_linewidth=1)
-  graph.yaxis.tick.configure(onoff='on',minor_ticks=1,major_size=.4,minor_size=.5,place='both',major_linewidth=.5,minor_linewidth=1)
+  graph.yaxis.tick.configure(onoff='on',minor_ticks=0,major_size=.4,minor_size=.5,place='both',major_linewidth=.5,minor_linewidth=1)
 
 
   return graph
@@ -190,7 +168,7 @@ graph2=format_graph(graph2,'persistence')
 for mot in ['omnivory','chain','apparent','direct']:
   graph2=populate_persgraph(graph2,mot)
 
-graph2.legend.configure(char_size=.75,loc=(0.05,0.685),loctype='world',box_linestyle=0,fill_pattern=0)
+graph2.legend.configure(char_size=1,loc=(0.05,0.685),loctype='world',box_linestyle=0,fill_pattern=0)
 
 grace.write_file('../../manuscript/figures/persistence_motif_profiles.eps')
 
