@@ -67,7 +67,7 @@ $^\dagger$ Corresponding author:\\
 \section*{Introduction}
 
     %\subsection*{1 Why are bottom-up effects important for understanding stability?}
-     The plant community is the foundation upon which the myriad of species in food webs depend for their survival \citep{}. Disturbances in the plant community have been shown to affect important ecosystem properties such as primary \citep{} and secondary production \citep{borer2012plant}, soil respiration and carbon cycling \citep{chen2019plant} and consumer diversity \citep{scherber2010bottom, Baiser2016}. The stability of the plant community is crucial for sustaining a healthy energy flow in the ecosystem as a whole \citep{Rosenblatt2016} and the structure of the plant community promotes stability across all different levels of ecosystem organization \citep{proulx2010diversity,scherber2010bottom}. Loss of diversity at the basal level typically causes declines in both abundance and richness of all types of consumers, e.g. herbivores, predators, and parasitoids \citep{scherber2010bottom}.
+     The plant community is the foundation upon which the myriad of species in terrestrial food webs depend for their survival \citep{}. Disturbances in the plant community have been shown to affect important ecosystem properties such as primary \citep{} and secondary production \citep{borer2012plant}, soil respiration and carbon cycling \citep{chen2019plant} and consumer diversity \citep{scherber2010bottom, Baiser2016}. The stability of the plant community is crucial for sustaining a healthy energy flow in the ecosystem as a whole \citep{Rosenblatt2016} and the structure of the plant community promotes stability across all different levels of ecosystem organization \citep{proulx2010diversity,scherber2010bottom}. Loss of diversity at the basal level typically causes declines in both abundance and richness of all types of consumers, e.g. herbivores, predators, and parasitoids \citep{scherber2010bottom}.
      %This has been shown in both theoretical work~\citep{} and empirical experiments ~\citep{} and results from the vertical propagation of disturbances through the network of interacting species.
     
      %\subsection*{2 Bayesian networks are a fantastic way to model bottom-up effects}
@@ -86,21 +86,21 @@ $^\dagger$ Corresponding author:\\
     
     
     %\subsection*{5 Motif participation may similarly affect species' particular extinction risk}
-    One way to incorporate more nuance into descriptions of how species fit into their communities is to define species' roles based on their participation in different motifs -- unique combinations of small numbers of interacting species~\citep{Stouffer2007,Stouffer2012}. Importantly, these motif roles capture information about species' direct and indirect interactions, incorporating larger-scale network structure into species-level descriptions. 
+    One way to incorporate more nuance into descriptions of how species fit into their communities is to define species' roles based on their participation in different motifs -- unique combinations of small numbers of interacting species~\citep{Stouffer2007,Stouffer2012}. Importantly, these `motif roles' capture information about species' direct and indirect interactions, incorporating larger-scale network structure into species-level descriptions. 
     This means that two species with the same in-degrees and trophic levels can still participate in different sets of motifs if, for example, one interacts with specialists and the other interacts with generalists~\citep{Cirtwill2018FoodWebs}. 
     This extended description of species structural roles may give additional information of extinction risk or synthesize the information provided by multiple other measures of a species' place in its community.
     At the network level, the frequencies of different motifs are associated with community stability \citep{prill2005dynamic, bascompte2005simple} and with changes to the composition of plant communities~\cite{giling2019plant}. 
     We therefore expect that the motif structure of a network and species' participation in that structure should be related to risks due to disturbance to basal resources. 
     
-    
-    %\subsection{6. only 4 (stable) motifs can appear in Bayesian networks}
+           %\subsection*{Here we test...}
+    Specifically, we are interested in whether a consumer's extinction risk depends on 1) the motif profile of the full food web and 2) the motifs in which a focal species participates. 
+    In addition, we want to understand how the information provided by motifs is related to classical global and local food web properties in order to better integrate different aspects of network theory.
     Of the 13 three-species motifs that can occur in empirical food webs there are four motifs that are over-represented in empirical networks and are thought to contribute to stability \citep{Stouffer2007, Borrelli2015a, giling2019plant}: the three-species chain, omnivory, apparent competition and direct competition motifs.
-    These four motifs are also the ones which can occur in the acyclic networks required for Bayesian network simulations~\citep{Eklof2013}. Therefore, we focus on these four particularly important motifs.  
+    These four motifs are also the ones which can occur in the acyclic networks required for Bayesian network simulations~\citep{Eklof2013}. 
+    Therefore, we focus on these four particularly important motifs.  
     
 
-       %\subsection*{Here we test...}
-    Here we are interested in how disturbances at the basal level in food webs propagate up the network and whether a consumer's extinction risk depends on 1) the motif profile of the full food web and 2) the motifs in which a focal species participates. In particular, we want to understand whether the information provided by motifs is related to classical global and local food web properties such as network connectance and species trophic level, or whether motifs provide unique insight into bottom-up extinction cascades.
-  
+ 
     
    % \subsection*{Other, simpler measures of species' roles can also affect extinction risk, and may correlate with motif participation}
 
@@ -170,17 +170,17 @@ $^\dagger$ Corresponding author:\\
 		To minimize the effect of this variation we repeat these calculations 100 000 times per web, with unique random draws when calculating $P(i)$.
 		The final persistence for each species is the mean over these runs. 
 
-	\subsection*{Defining motif profiles and species roles}
+	\subsection*{Defining motif profiles and participation [species roles]}
 
         As a first measure of the meso-scale structure, we calculated the `motif profile' of each network.
         This is, in our case, a four-dimensional vector of the number of each three-species motif in the network.
         To separate differences in motif structure from differences in network size, we normalized motif profiles by dividing the count of each motif by the total count of all motifs.
-        The motif profile for each network therefore describes the proportions of each motif and has a sum of excatly one.
+        The motif profile for each network therefore describes the proportions of each motif and has a sum of exactly one.
 
     
-        We then describe meso-scale structure at the species level by defining each species' motif participation and species' roles.
+        We then describe meso-scale structure at the species level by defining each species' motif participation and motif roles.
         Motif participation describes the frequency with which a focal species appears in each of the four motifs, analogous to the network motif profile~\citep{Stouffer2012}.
-        A species' role describes the frequency with which a focal species appears in each \emph{unique position} (e.g., top, middle, or bottom species in the three-species chain, top or bottom species in the apparent competition motif) within each motif ~\citep{Stouffer2012,Cirtwill2017}.
+        A species' motif role describes the frequency with which a focal species appears in each \emph{unique position} (e.g., top, middle, or bottom species in the three-species chain, top or bottom species in the apparent competition motif) within each motif ~\citep{Stouffer2012,Cirtwill2017}.
 		We calculated species' motif participation and roles using the Python package \emph{pymfinder}~\citep{pymfinder}.
         As with motif profiles of networks, we normalized participation (and role) vectors by dividing each count by the total number of motifs (motif positions) the species appears in.
         Note, however, that this normalization does \emph{not} control for differences due to degree \emph{per se} as high-degree species also tend to participate in different types of motifs than low-degree species~\citep{Cirtwill2021_inprep}.
@@ -200,7 +200,7 @@ $^\dagger$ Corresponding author:\\
 
 	\subsection*{Statistical analysis} 
 
-        \subsubsection*{How does mean persistence vary depending on network properties?}
+        \subsubsection*{How does network mean persistence vary depending on network properties?}
         
             Both species richness (S) and connectance (C) are known to influence persistence in both simulation studies and empirical food webs.
             In addition, increasing the probability of extinction for basal species ($\pi_{disturbed}$ above) is intended to decrease persistence of species at higher trophic levels.
@@ -227,12 +227,12 @@ $^\dagger$ Corresponding author:\\
             We fit each regression using the R~\citep{R} base function `lm'.
             
         
-        \subsubsection*{How does the persistence vary with motif frequency in the web?}
+        \subsubsection*{How does network mean persistence vary with motif profiles?}
 
             To test whether networks with similar motif profiles tend to have similar mean persistences among consumers, we fit a PERMANOVA relating Bray-Curtis dissimilarity in motif profiles to the mean persistence of all consumers in a network (averaged across all levels of disturbance to basal resources).
-            In case high or low mean persistences are associated with more variable network structure, we calculated dispersion of motif structure for each level of mean persistence (rounded to three decimal places to allow multiple networks to have the same value of mean consumer persistence and treated as a categorical variable). 
             We then tested whether dispersion was homogeneous across levels of persistence using an ANOVA and whether there was a linear relationship between persistence (rounded to three decimal places) and variability of motif profiles using a linear regression.
-            All statistical tests were conducted as described above.
+            In case high or low mean persistences are associated with more variable network structure, we calculated dispersion of motif structure for each level of mean persistence (rounded to three decimal places to allow multiple networks to have the same value of mean consumer persistence and treated as a categorical variable). 
+            All statistical tests were conducted as when relating motif profiles to global network structure.
             
             
             To supplement these overall tests, we also fit four regressions testing whether persistence had a linear relationship to the proportion of a network profile made up of each motif, and whether this varied with the level of disturbance.
@@ -277,7 +277,7 @@ $^\dagger$ Corresponding author:\\
             These regressions provide context about how persistence varies with simpler measures of species' roles within networks.
                     
         
-        \subsubsection*{How does motif participation vary with degree and trophic level (i.e., do simpler measures completely explain motif results)?}
+        \subsubsection*{How does motif participation vary with degree and trophic level?}
 
             A further complication when trying to understand whether relationships between motifs and probability of extinction depend upon underlying relationships between degree or trophic level and extinction 
             We also fit linear mixed-effect models relating the count or proportion of each motif to degree or trophic level and a random effect of the interaction between network size and connectance using the R~\citep{R} function `lmer' from the package \emph{lmerTest}~\citep{lmerTest}.
@@ -315,14 +315,18 @@ $^\dagger$ Corresponding author:\\
     We are interested in i) how the distribution of motifs in a network (i.e., the network's \emph{motif profile}) affect network persistence, and ii) how a species motif participation affects its persistence. We analyse this for different levels of disturbance to the basal level. To provide context, we also investigate relationships between persistence and classic global (size and connectance) and local (in-degree and trophic level) network properties.
     % The results are organized as follows: 1) How network persistence varies with network motif distribution. 2) How network persistence varies with global structural properties. 3) How network motif distribution varies with global structural properties. 4) How species probability of persistence varies with its motif profile. 5) How species persistence varies with its characteristics such as TL and in-degree. 6) How a species motif profile depend on its characteristics. 7) How a species persistence varies with its motif role (position in respective motif). 
     
-    \subsection*{Mean persistence, disturbance, and global network properties}
+    \subsection*{Network mean persistence and global network properties}
     
-        The mean probability of persistence for all consumers in a network naturally decreased with increasing probability of extinction of basal species. These effects were clear across the ranges of network size and connectance we considered. 
-        Network size and connectance also affect network mean persistence, but to a much smaller extent than increasing disturbance (Figure S1, Table S1, \emph{Appendix SA}). Persistences generally decrease when networks are more connected, but the effect of network size varies depending on level of disturbance. At low disturbance, small and highly-connected webs show the lowest persistence, whereas at high disturbance, large and highly connected webs show the lowest persistence (Fig. S2, \emph{Appendix SA}).
+        Increasing the probability of extinction for basal species necessarily decreased the mean probability of persistence for consumers. 
+        This effect was clear across the ranges of network size and connectance we considered. 
+        Network size and connectance also affected network mean persistence, but to a much smaller extent than increasing disturbance (Figure S1, Table S1, \emph{Appendix SA}). 
+        Persistences generally decreased in more-connected networks, but the effect of network size varied depending on level of disturbance. 
+        At low disturbance, small and highly-connected webs showed the lowest mean persistence, whereas at high disturbance, large and highly connected webs showed the lowest mean persistence (Fig. S2, \emph{Appendix SA}).
 
     \subsection*{Network motif profiles and global network properties}
 
-        Connectance was significantly related to the frequencies of different motifs in a network.
+        Although the PERMANOVA test relating overall motif profiles to network properties was not reliable (Fig. S3, \emph{Appendix SB}), 
+        connectance was significantly related to the frequencies of different motifs in a network when considering motifs individually.
         Network size and the interaction between network size and connectance did not strongly affect the frequencies of most motifs (Fig.~\ref{motif_proportion_lms}).
         Considering each motif separately, the proportions of apparent competition and three-species chains in a network's motif profile tended to decrease with increasing connectance while the proportion of omnivory increased with increasing connectance (Table S2, \emph{Appendix SB}). 
     
@@ -335,13 +339,13 @@ $^\dagger$ Corresponding author:\\
 
     \clearpage
 
-    \subsection*{Network motif profiles and network persistence}
+    \subsection*{Network motif profiles and network mean persistence}
     
-        The motif profile of a network is related to the average persistence of consumers ($F_{1,2998}$=571, $p$\textless0.001). Average persistence is higher in networks with higher proportions of the chain, direct competition, and apparent competition motifs (Table S3, \emph{Appendix SC}). Conversely, average persistence is lower in networks with higher proportions of the omnivory motif. These trends hold for all levels of disturbance (Fig.~\ref{motif_profile_persistence}, Table S3), \emph{Appendix SC}).% Network persistence varies between networks with different dispersion of motif profiles ($F_{134,2865}$=2.19$\times10^{24}$, $p$=\textless0.001). For example, networks with more variable motif profiles have higher persistence ($\beta$=0.183, $p$\textless0.001).
+        The overall motif profile of a network is related to the average persistence of consumers ($F_{1,2998}$=571, $p$\textless0.001). Average persistence is higher in networks with higher proportions of the chain, direct competition, and apparent competition motifs (Table S3, \emph{Appendix SC}). Conversely, average persistence is lower in networks with higher proportions of the omnivory motif. These trends hold for all levels of disturbance (Fig.~\ref{motif_profile_persistence}, Table S3), \emph{Appendix SC}).% Network persistence varies between networks with different dispersion of motif profiles ($F_{134,2865}$=2.19$\times10^{24}$, $p$=\textless0.001). For example, networks with more variable motif profiles have higher persistence ($\beta$=0.183, $p$\textless0.001).
 
         \begin{figure}
             \centering
-            \includegraphics[height=.5\textheight]{figures/persistence_motif_profiles.eps}
+            \includegraphics[width=.5\textwidth]{figures/persistence_motif_profiles.eps}
             \caption{The proportions of the four motifs in a network's motif profile are related to the mean persistence of species in the network. Specifically, persistence decreases as the proportion of omnivory in the network's motif profile increases while persistence increases with the proportions of the other three motifs. Interactions between motif profiles and disturbance were significant but small. Here we show the relationships of probabilities of extinction of basal resources of 0.1 (top set of lines) and 0.5 (bottom set of lines). Relationships are shown for the observed range of proportions for each motif.}      
             \label{fig:motif_profile_persistence}
         \end{figure}    
