@@ -462,11 +462,8 @@ $^\dagger$ Corresponding author:\\
 % Results summary - network level (following Anna)
 Changes in the basal level in food webs have profound effects on all other species in the network \citep{}, as all consumers depend directly or indirectly on primary producers for their survival \citep{}. It has repeatedly been shown that global network properties are important for how well a network can handle disturbances, such as loss of species \citep{Eklof2006, Dunne2002}. At the same time, from a conservation perspective it is often more relevant to focus interventions on particular target species~\citep{}. Nevertheless, the process of identifying target species should take the network context into account since both direct and indirect interactions can affect how species respond to a disturbance~\citep{}. 
 
-%Since motifs, basic building blocks of networks~\citep{Milo2002} and bridges between network-wide (global) and species-specific (local) properties, describe both direct and indirect effects, the distribution of these meso-scale structures in ecological networks is likely related to network and species persistence when the plant community is affected by species loss. 
-%Since motifs describe direct and indirect effects~\citep{Milo2002}, the distribution of these meso-scale structures in ecological networks is likely related to network and species persistence after a disturbance~\citep{}.
-
-As basic building blocks of networks~\citep{Milo2002}, motifs connect network-wide (global) and species-specific (local) properties, describing both direct and indirect effects. As such, the distribution of these meso-scale structures can be of importance to network and species persistence~\citep{}.
-Indeed, we find that both the distribution of motifs at the network level and the set of motifs a target species participates in are related to persistence after disturbance to the plant community, and that the nature of these relationships synthesizes the effects of other local and global-scale properties.
+Motifs are the basic building blocks of networks~\citep{Milo2002}, connecting network-wide (global) and species-specific (local) properties, describing both direct and indirect effects. As such, the distribution of these meso-scale structures can be of importance to network and species persistence~\citep{}.
+We find that both the distribution of motifs at the network level and the set of motifs a target species participates in are related to persistence after disturbance to the plant community. Also, the nature of these relationships synthesizes the effects of other local and global-scale properties.
 
 A network's motif profile had a relatively strong relationship to the network mean persistence compared to global structures. However, connectance did affect which network motifs were most common. For example, highly-connected networks tended to contain higher frequencies of the omnivory motif which includes more links than the other three-species motifs considered here.
 Thus, global-scale properties may have stronger effects on network persistence by changing meso-scale properties than directly.
@@ -484,29 +481,30 @@ Moreover, species within a network can have substantially different probabilitie
 
 % Species level persistence
 While the persistence of a particular species is affected by global-scale (size and connectance) and meso-scale (motif profiles) network structure, it also depends on local-scale (trophic level and in-degree) network properties.
-Local properties may be especially important for the apparent competition and direct competition motifs. The indirect effects in these two motifs are not fully expressed since the Bayesian Network framework does not include top-down effects. The direct effects they do describe echo the effects of in-degree and trophic level.
+Local properties may be especially important for the apparent competition and direct competition motifs, due to the indirect effects not being fully expressed in these two motifs since the Bayesian Network framework does not include top-down effects. 
 
-However, the effects of in-degree and trophic level differed.
+The effect of the local-scale network properties in-degree and trophic level differed.
 A high trophic level was associated with lower persistence across all levels of disturbance. This was expected, as species at higher trophic levels here by definition have equal or higher probability of extinction compared to their prey ~\citep{Eklof2013}.
 The effect of in-degree is less obvious and depended on the level of disturbance; a high in-degree had a positive effect on persistence at low levels of disturbance but not at high levels of disturbance.
 In addition to these different relationships with persistence, in-degree and trophic level had different relationships to the four motifs we investigated.
 
-Participation in the apparent competition motif was strongly negatively correlated with in-degree --a high proportion of the apparent competition motif implies a low in-degree, and both are associated with greater persistence at low disturbance but decreased persistence at high disturbance. This suggests that in-degree is in fact the factor driving the positive relationship between proportion of apparent competition motif and species persistence. Interestingly though, the relationship changes from positive to negative with increasing level of disturbance. When disturbance is low many prey species acts as an insurance, while at high disturbance connections to many prey species is in fact negative as the consumer receives the negative impact from several sources.
+Participation in the apparent competition motif was strongly negatively correlated with in-degree --a high proportion of the apparent competition motif implies a low in-degree, and both are associated with lower persistence at low disturbance but increased persistence at high disturbance. This suggests that in-degree is in fact the factor driving the relationship between proportion of apparent competition motif and species persistence. The turnover from a negative to a positive relationship with an increasing level of disturbance indicate that when disturbance is high, connections to many prey species is negative as the consumer receives the negative impact from several sources. A species with a high proportion of the apparent competition motif, which also has a low in-degree, thus gets an advantage when plant level disturbance is high since fewer prey items transmit the disturbance.
 In-degree does not, however, explain all of the trends we observe for motifs as degree and motif participation are not always tightly coupled.
 For example, it is possible for a species with low degree to participate in many motifs if it interacts with high-degree species and thereby obtain many indirect interaction partners. This is one of the strengths with analyses of motifs that it considers local structures additionally include indirect connections one link away.
 
-Trophic level, like motifs, includes some information about the risk of indirect effects; species at high trophic levels can be at increased risk of extinction due to disturbances at lower trophic levels~\citep{Eklof2013}. 
-Species with high trophic levels also tend to have low participation in the direct competition motif, which is in turn associated with lower probability of persistence at all levels of disturbance.
+The direct competition motif was not strongly correlated to in-degree, but had a strong negative relationship with trophic level. Thus, species with a high proportion of the direct competition motif has commonly a low trophic level, which is associated with higher probability of persistence at all levels of disturbance.
 The clear positive relationship between proportion of direct competition motifs and species persistence is therefore likely due to the tendency for species at low trophic levels to have a higher proportion of that motif.
 
 
-The remaining two motifs are strongly related to both in-degree and trophic level and must be explained using a combination of the two simpler network properties.
-Motifs can, in this sense, act as a tool for synthesizing the information provided by multiple other measures of a species' place in its community, as well as interactions between them.
-The three-species chain motif, for example, is moderately negatively correlated with in-degree and moderately positively correlated with trophic level. 
-The relationship between persistence and the chain motif therefore combines the overall negative effect of high trophic level with the interaction between in-degree and disturbance; leading the chain motif to have little relationship to persistence at low disturbance and an increasingly negative relationship at higher disturbance.
+%The remaining two motifs are strongly related to both in-degree and trophic level and must be explained using a combination of the two simpler network properties.
+%Motifs can, in this sense, act as a tool for synthesizing the information provided by multiple other measures of a species' place in its community, as well as interactions between them.
+%The three-species chain motif, for example, is moderately negatively correlated with in-degree and moderately positively correlated with trophic level. 
+%The relationship between persistence and the chain motif therefore combines the overall negative effect of high trophic level with the interaction between in-degree and disturbance; leading the chain motif to have little relationship to persistence at low disturbance and an increasingly negative relationship at higher disturbance.
+Likewise, the three-species chain motif is correlated with trophic level, but the relationship is positive and a high proportion of this motif indicates a high trophic level. Hence, the negative effect on persistence of having a high proportion of the three-species chain motif is likely connected to the high trophic level. 
 
-
-The omnivory motif likewise integrates effects of in-degree and trophic level.
+%The omnivory motif likewise integrates effects of in-degree and trophic level.
+The omnivory motif is strongly related to both in-degree and trophic level and must be explained using a combination of the two simpler network properties.
+Motifs can, in this sense, act as a tool for synthesizing the information provided by multiple other measures of a species' place in its community, as well as interactions between them
 Species participation in the omnivory motif was associated with greater persistence, especially at low levels of disturbance.
 This is consistent with a strong negative correlation between omnivory and trophic level (leading to the overall positive effect of omnivory) and a strong positive correlation with in-degree (leading to the reduced benefit of omnivory at high levels of disturbance). 
 
@@ -516,8 +514,8 @@ At the network level, a higher frequency of the omnivory motif leads to more pat
 At the species level on the other hand, if extinctions of basal resources are rare, these multiple pathways will tend to protect consumers participating in many omnivory motifs by providing alternative channels of energy.
 If extinctions of basal resources are common, however, these multiple pathways cause a negative impact as they will transmit more disturbances to the consumer.
 
-Additionally, the effect of the omnivory motif on persistence was closely connected to connectance. In highly connected networks, a high proportion of the omnivory motif strongly contributed to higher persistence. This was not the case in less connected networks. 
-Following the same reasoning as above, in a highly connected network,the numerous links pave the way for a disturbance to spread to a higher extent than in a less connected network. 
+Additionally, the effect of the omnivory motif on a focal species' persistence was closely connected to connectance. In highly connected networks, a high proportion of the omnivory motif strongly contributed to higher persistence. This was not the case in less connected networks. 
+Following the same reasoning as above, in a highly connected network, numerous links pave the way for a disturbance to spread to a higher extent than in a less connected network. 
 Therefore, in a highly connected web where disturbances have more ways to move, the lower level prey item in the omnivory motif may be of even higher importance assisting as a buffer, decreasing the negative effect of disturbance for the consumer species.
 
 

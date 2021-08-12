@@ -312,7 +312,7 @@ $^\dagger$ Corresponding author:\\
 
     \begin{figure}[h!]
         \centering
-        \includegraphics[width=.95\textwidth]{figures/participation_vs_SC.eps}
+        \includegraphics[height=.65\textheight]{figures/participation_vs_SC.eps}
         \caption{The proportion of each motif in a consumer's participation vector varied with network size, connectance, and their interaction. These relationships were steepest for apparent competition and omnivory.}
         \label{fig:roles_vs_SC}
     \end{figure}
@@ -657,12 +657,12 @@ $^\dagger$ Corresponding author:\\
     
         We fit regressions relating the proportion of each motif in a consumer's motif participation vector to the proportion of basal resources in the network (pBasal), connectance, and the interaction between them.
         Participation in all four motifs was significantly related to pBasal, connectance, and the interaction between them (Fig.~\ref{fig:basal_participation}).
-        
+        These interactions were strongest for apparent and direct competition.
         
         \begin{figure}
             \centering
-            \includegraphics[height=.75\textheight]{figures/participation_vs_BC.eps}
-            \caption{Caption}
+            \includegraphics[height=.65\textheight]{figures/participation_vs_BC.eps}
+            \caption{The proportion of each motif in a consumer's participation vector varied with the proportion of the network made up by basal resources, connectance, and their interaction.}
             \label{fig:basal_participation}
         \end{figure}
         
@@ -671,8 +671,39 @@ $^\dagger$ Corresponding author:\\
         Participation in the apparent competition motif decreased in networks with more basal resources and more-connected networks ($\beta_{pBasal}$=-0.0825, $p$\textless0.001 and $\beta_C$=-0.846, $p$\textless0.001) but increased strongly with the interaction between them ($\beta_{pBasal:C}$=1.66, $p$\textless0.001).
         Participation in the direct competition motif increased in networks with more basal resources and more-connected networks ($\beta_{pBasal}$=0.235, $p$\textless0.001 and $\beta_C$=0.442, $p$\textless0.002), but decreased strongly with the interaction between them ($\beta_{pBasal:C}$=-3.94, $p$\textless0.001).
         
-            
+    
+    \subsection*{Frequencies of positions and proportion of basal resources}
+
+        As with the frequencies of each motif in a species' motif participation vector, the frequencies of positions in a species' motif role varied with the proportion of basal resources in the network, connectance, and their interaction (Table~\ref{BC_tab}).
         
+
+        \begin{table}[h!]
+            \caption{Coefficients ($\beta$) and $p$-values for linear regressions of the frequency of each motif position against the proportion of the network made up of basal resources (pBasal), connectance, and their interaction.}
+            \label{BC_tab}
+            \footnotesize
+            \begin{tabular}{c c | c c | cc | cc |}
+            Motif & Position & \multicolumn{2}{c}{pBasal} & \multicolumn{2}{c}{Connectance} & \multicolumn{2}{c}{Interaction} \\
+            & & $\beta$ & $p$ & $\beta$ & $p$ & $\beta$ & $p$ \\
+            \hline
+            Chain & bottom & -0.116 & \textless0.001 & -0.266 & \textless0.001 & 0.217 & \textless0.001 \\
+            Chain & middle & 0.0779 & \textless0.001 & -0.107 & \textless0.001 & -0.386 & \textless0.001 \\
+            Chain & top & 0.0829 & \textless0.001 & 0.0776 & \textless0.001 & -0.356 & \textless0.001 \\
+            \hline
+            Omnivory & bottom & -0.104 & \textless0.001 & 0.203 & \textless0.001 & 0.937 & \textless0.001 \\
+            Omnivory & middle & -0.0668 & \textless0.001 & 0.217 & \textless0.001 & 1.24 & \textless0.001 \\
+            Omnivory & top & -0.0269 & \textless0.001 & 0.281 & \textless0.001 & 0.638 & \textless0.001 \\
+            \hline
+            App. comp. & bottom & -0.237 & \textless0.001 & -0.874 & \textless0.001 & 1.76 & \textless0.001 \\
+            App. comp. & top & 0.154 & \textless0.001 & 0.0279 & \textless0.001 & -0.0947 & 0.013 \\
+            \hline
+            Dir. comp. & bottom & -0.0631 & \textless0.001 & -0.0247 & \textless0.001 & -0.418 & \textless0.001 \\
+            Dir. comp. & top & 0.298 & \textless0.001 & 0.466 & \textless0.001 & =3.53 & \textless0.001 \\
+            \hline
+            \end{tabular}
+            \end{table}
+
+    
+\clearpage        
 
 \section{Motif profiles in different network sets}
 
