@@ -94,7 +94,7 @@ def format_graph(graph,simple):
     graph.world.ymax=.9
     graph.world.xmax=.8
     graph.xaxis.tick.major=.2
-    graph.yaxis.tick.major=.1
+    graph.yaxis.tick.major=.2
     graph.yaxis.ticklabel.configure(format='decimal',prec=1,char_size=.75)
     graph.yaxis.label.text='Mean persistence'
     graph.xaxis.label.text='Proportion of network profile'
@@ -106,7 +106,7 @@ def format_graph(graph,simple):
 
   graph.yaxis.label.configure(char_size=1.5,just=2,place='normal')
   graph.xaxis.tick.configure(onoff='on',minor_ticks=0,major_size=.4,place='both',major_linewidth=.5,minor_linewidth=1)
-  graph.yaxis.tick.configure(onoff='on',minor_ticks=0,major_size=.4,minor_size=.5,place='both',major_linewidth=.5,minor_linewidth=1)
+  graph.yaxis.tick.configure(onoff='on',minor_ticks=0,major_size=.4,place='both',major_linewidth=.5,minor_linewidth=1)
 
 
   return graph
