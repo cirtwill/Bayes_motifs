@@ -19,8 +19,8 @@ from PyGrace.Styles.el import ElGraph, ElLogColorBar
 
 colors=ColorBrewerScheme('Greys',n=10)  # The blue is very beautiful but maybe harder to see.
 # Match Anna's ggplot colours
-colors.add_color(68,1,84,'Rpurple')
-colors.add_color(65,68,135,'Rblue')
+colors.add_color(158,101,184,'Rpurple')
+colors.add_color(145,148,215,'Rblue')
 colors.add_color(42,120,142,'Rgreen1')
 colors.add_color(34,168,132,'Rgreen2')
 colors.add_color(122,209,81,'Rgreen3')
@@ -133,39 +133,20 @@ def format_graph(graph,simple):
 
   return graph
 
-def populate_graph(graph,bindict):
-  j=2
-  motnames={'appcomp':'Apparent competition','chain':'3-species chain','dircomp':'Direct competition'}
-  for motif in ['appcomp','chain','dircomp']:
-    data=graph.add_dataset(bindict[motif],type='xydy')
-    data.symbol.shape=0
-      
-    data.line.configure(linestyle=1,linewdith=1.5,color=j)
-    data.errorbar.configure(riser_color=j,color=j,riser_linewidth=1,size=.5,linewidth=1)
-
-    # data.legend=motnames[motif]
-    # graph.legend.configure(char_size=.75,loc=(0.2,0.58),loctype='world',box_linestyle=0,fill_pattern=0)
-    if j==11:
-      j=13
-    elif j==2:
-      j=11
-
-  return graph
-
 def populate_persgraph(graph,motif):
 
   for dist in [0.1,0.5]:
     if motif=='apparent':
-      j=13
+      j='Rpurple'
       sty=2
     elif motif=='chain':
-      j=14
+      j='Rblue'
       sty=3
     elif motif=='direct':
-      j=16
-      sty=5
+      j='Rgreen2'
+      sty=8
     else:
-      j=18
+      j='Rorange1'
       sty=1
 
     # for dist in [0.1,0.18,0.26,0.34,0.42,0.5]:
@@ -183,7 +164,7 @@ def populate_persgraph(graph,motif):
 
     data=graph.add_dataset(dats)
     data.symbol.shape=0
-    data.line.configure(linestyle=sty,linewdith=1.5,color=j)
+    data.line.configure(linestyle=sty,linewidth=4,color=j)
 
     if dist==0.1:
       data.legend=motif_names[motif]
@@ -203,29 +184,13 @@ def populate_persgraph(graph,motif):
 # netprops=read_datafile(datafile)
 
 grace=Grace(colors=colors)
-# grace.add_label_scheme('dummy',['Omnivory','Three-species chain','Apparent competition','Direct competition'])
-# grace.set_label_scheme('dummy')
 
 graph2=grace.add_graph()
 graph2=format_graph(graph2,'persistence')
 for mot in ['omnivory','chain','apparent','direct']:
   graph2=populate_persgraph(graph2,mot)
-  # graph2.panel_label.configure(placement='ouc',char_size=1,dx=.0,dy=.01)
 
 graph2.legend.configure(char_size=.75,loc=(0.05,0.685),loctype='world',box_linestyle=0,fill_pattern=0)
-
-# graph=grace.add_graph(Panel)
-# graph=format_graph(graph,'profile')
-# omnibin=binner(netprops,'omnivory')
-# graph=populate_graph(graph,omnibin)
-# graph.panel_label.configure(placement='iul',char_size=1,dx=.03,dy=.03)
-
-# grace.multi(rows=2,cols=2,vgap=.07,hgap=.07)
-# grace.hide_redundant_labels()
-# grace.set_row_xaxislabel(label='in-degree (number of prey)',row=0,colspan=(None,None),char_size=1,perpendicular_offset=.05)
-# grace.set_row_xaxislabel(label='Trophic level (STL)',row=1,colspan=(None,None),char_size=1,perpendicular_offset=.05)
-# grace.set_col_yaxislabel(label='Count of motif',col=0,rowspan=(None,None),char_size=1,perpendicular_offset=.07)
-# grace.set_col_yaxislabel(label='Proportion of motif role',col=1,rowspan=(None,None),char_size=1,perpendicular_offset=.07)
 
 grace.write_file('../../manuscript/figures/persistence_motif_profiles.eps')
 
