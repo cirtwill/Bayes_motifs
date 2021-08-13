@@ -145,7 +145,7 @@ def populate_graph(graph,minidict,simple,roletype):
 
     data=graph.add_dataset(dats)
     data.symbol.shape=0
-    data.line.configure(linestyle=sty,linewdith=1.5,color=j)
+    data.line.configure(linestyle=sty,linewidth=2.5,color=j)
 
     if simple=='TL':
       data.legend=motif
@@ -183,7 +183,7 @@ def populate_persgraph(graph,persdict,simple):
 
     data=graph.add_dataset(dats)
     data.symbol.shape=0
-    data.line.configure(linestyle=1,linewdith=1.5,color=j)
+    data.line.configure(linestyle=1,linewidth=3.5,color=j)
 
     j+=1
     if simple=='TL':
