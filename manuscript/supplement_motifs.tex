@@ -98,7 +98,29 @@ $^\dagger$ Corresponding author:\\
 % \end{spacing}
 % \clearpage
 
-\section{Functional response of consumers}
+\section{Network creation and processing}
+
+    A Bayesian food web depicts probabilistic relationships among a set of species where each species' probability of persistence depends upon the probabilities of its resource species persisting~\citep{Jensen_Nielsen,Eklof2013}. 
+    All persistence calculations therefore begin  by determining the status of the primary producers (who do not depend on other species).
+    Calculations continue in a strictly bottom-up manner with primary consumers (who depend only on primary producers), and so on up the network.
+
+        
+    While niche-model food webs can contain cycles (e.g., species A eats B, B eats C, and C eats A), such cycles make it impossible to calculate persistence in the Bayesian network framework~\citep{Tarjan1972}. 
+    We therefore removed any cycles within each network by removing the link in each cycle which contributed least to the robustness of the food web, following~\citet{Allesina2009}.
+    This is achieved by first finding the set of resources for each consumer and then removing the consumer-resource connections which have the lowest eigenvalue centrality~\citep{Allesina2009}.
+    These links have the least effect on the overall stability of the network; removing them creates an acyclic network with very similar properties to the original network.
+    Next, we ordered the species from lowest to highest trophic level using a topological sorting routine following \citep{Tarjan1972, Allesinaetal2005}, ensuring that probability calculations follow a strict bottom-up order. 
+    After these steps, calculations of persistence probabilities can begin.
+        
+
+\section{Calculating persistence}        
+
+    \subsection{Stochastic extinction}
+
+
+
+    \subsection{Functional response of consumers}
+
         As well as the intrinsic baseline probability of extinction, extinction risk for consumers is affected by access to resources. 
 		When all resources are extant, the probability of extinction for a consumer $i$, $P(\lnot i)$, is equal to the baseline probability; $P(\lnot i|X_{1},...,X_{n}) = \pi_{base}$. 
 		When all resources are extinct, the consumer will go extinct; $P(\lnot i|\lnot X_{1},...,\lnot X_{n})=1$. 
@@ -112,6 +134,9 @@ $^\dagger$ Corresponding author:\\
 		\label{betafunc}
 		P(\lnot i|f) = \pi_{i} + (1 - \pi_{i}) \frac{B(f;\alpha,\beta)}{B(\alpha,\beta)}
 		\end{equation}
+
+
+    \subsection{Numerical simulation}
 
 
 
