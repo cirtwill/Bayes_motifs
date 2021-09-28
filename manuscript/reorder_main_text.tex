@@ -127,30 +127,31 @@ $^\dagger$ Corresponding author:\\
         or any network where any species had a shortest trophic level \textgreater6 as such high trophic levels are very uncommon in empirical food webs ~\citep{Riede2011}.
 		New networks were simulated to replace any removed networks, and this process was repeated until we obtained 100 suitable networks in each combination of size and connectance.
 		All networks were rendered acyclic following~\citet{Allesina2009} and topologically sorted from lowest to highest trophic level (Appendix\emph{S1}).
+		These processing steps allow the strictly bottom-up calculation of probability of persistence used in the Bayesian network framework.
+		
+% 		A Bayesian food web depicts probabilistic relationships among a set of species where each species' probability of persistence depends upon the probabilities of its resource species persisting~\citep{Jensen_Nielsen,Eklof2013}. 
+% 		All persistence calculations therefore begin  by determining the status of the primary producers (who do not depend on other species).
+% 		Calculations continue in a strictly bottom-up manner with primary consumers (who depend only on primary producers), and so on up the network.
+		
+% 		While niche-model food webs can contain cycles (e.g., species A eats B, B eats C, and C eats A), such cycles make it impossible to calculate persistence in the Bayesian network framework~\citep{Tarjan1972}. 
+% 		We therefore removed any cycles within each network by removing the link in each cycle which contributed least to the robustness of the food web, following~\citet{Allesina2009}.
+% 		%This is achieved by first finding the set of resources for each consumer and then removing the consumer-resource connections which have the lowest eigenvalue centrality~\citep{Allesina2009}.
+% 		%These links have the least effect on the overall stability of the network; removing them creates an acyclic network with very similar properties to the original network.
+% 		Next, we ordered the species from lowest to highest trophic level using a topological sorting routine following \citep{Tarjan1972, Allesinaetal2005}, ensuring that probability calculations follow a strict bottom-up order. 
+%         After these steps, calculations of persistence probabilities can begin.
 		
 		
-		A Bayesian food web depicts probabilistic relationships among a set of species where each species' probability of persistence depends upon the probabilities of its resource species persisting~\citep{Jensen_Nielsen,Eklof2013}. 
-		All persistence calculations therefore begin  by determining the status of the primary producers (who do not depend on other species).
-		Calculations continue in a strictly bottom-up manner with primary consumers (who depend only on primary producers), and so on up the network.
-		
-		While niche-model food webs can contain cycles (e.g., species A eats B, B eats C, and C eats A), such cycles make it impossible to calculate persistence in the Bayesian network framework~\citep{Tarjan1972}. 
-		We therefore removed any cycles within each network by removing the link in each cycle which contributed least to the robustness of the food web, following~\citet{Allesina2009}.
-		%This is achieved by first finding the set of resources for each consumer and then removing the consumer-resource connections which have the lowest eigenvalue centrality~\citep{Allesina2009}.
-		%These links have the least effect on the overall stability of the network; removing them creates an acyclic network with very similar properties to the original network.
-		Next, we ordered the species from lowest to highest trophic level using a topological sorting routine following \citep{Tarjan1972, Allesinaetal2005}, ensuring that probability calculations follow a strict bottom-up order. 
-        After these steps, calculations of persistence probabilities can begin.
-		
-		
-		\subsection*{Calculating persistence}	
+	\subsection*{Calculating persistence}	
 
 		First, we assigned all species a baseline probability of extinction ($\pi_{base}$) -- the risk of going extinct given factors not related to the food web itself. 
-		For consumer species, this also applies to extinction despite all resources being present. 
+		For consumer species, this also represents extinction despite all resources being present. 
 		Such events can, for example, reflect diseases or stochastic extinctions of small populations. 
 
 
-		As well as this baseline scenario, we simulate a set of scenarios where primary producers get a higher baseline probability of extinction ($\pi_{disturbed}$). 
+		As well as this baseline scenario, we simulated a set of scenarios where primary producers had a higher baseline probability of extinction ($\pi_{disturbed}$). 
 		These scenarios reflect threats to primary producers such as increased temperatures resulting in droughts, making some species more vulnerable to extinction.
-		$\pi_{disturbed}$ ranged between $0.1-0.5$, in steps of $0.08$. The highest disturbance level, $\pi_{disturbed} = 0.5$, corresponds to basal species having a 50\% risk of going extinct. 
+		$\pi_{disturbed}$ ranged between $0.1-0.5$, in steps of $0.08$. 
+		The highest disturbance level, $\pi_{disturbed} = 0.5$, corresponds to basal species having a 50\% risk of going extinct. 
 		Consumer species retained $\pi_{base}=0.1$ in all cases.
 		
 		
@@ -158,38 +159,45 @@ $^\dagger$ Corresponding author:\\
 		When all resources are extant, the probability of extinction for a consumer $i$, $P(\lnot i)$, is equal to the baseline probability; $P(\lnot i|X_{1},...,X_{n}) = \pi_{base}$. 
 		When all resources are extinct, the consumer will go extinct; $P(\lnot i|\lnot X_{1},...,\lnot X_{n})=1$. 
 
+
 		Calculating $P(i)$ or $P(\lnot i)$ is less straightforward when a consumer $i$ loses a fraction $k/n = f$ of its prey. 
-		We use a sigmoid non-linear functional response of consumers to the loss of resources, which has been shown to most accurately capture the secondary extinctions produced by a dynamical model~\citep{Eklof2013}. For details see SI.
-		We calculate the fraction of resources lost ($f$) for each consumer $i$, to compute $P(\lnot i|f)$. 
+		We used a sigmoid non-linear functional response of consumers to the loss of resources (Appendix \emph{S2}), which has been shown to most accurately capture the secondary extinctions produced by a dynamical model~\citep{Eklof2013}. 
+		Probabilities of extinction for resource species are used when calculating probabilities for higher level species. 
+
+
+		Although it is possible to solve the Bayesian network exactly \citep{Eklof2013}, this is cumbersome for larger networks. 
+		As numerical simulations are highly efficient and produce the same result \citep{Haussler2020}, we also use simulations here.
+		To compute $P(\lnot i|f)$, we calculated the fraction of resources lost ($f$) for each consumer $i$.
 		Persistence is determined by comparing $P(\lnot i|f)$ with a randomly drawn number from a uniform distribution between 0-1. 
 		If this random number is lower than $P(\lnot i|f)$, the species is considered extinct. 
 		The species' marginal probability of persistence is simply $P(i) = 1-P(\lnot i)$.
-		In this manner we calculate persistence probabilities for all species in the network, starting from the bottom and working our way up. 
-		Probabilities of extinction for resource species are used when calculating probabilities for higher level species. 
-		Some species will be extinct due to primary extinctions (stochastic extinction with all resources left), while others will experience secondary extinctions; as a response to primary extinctions (partial or total loss of resources). 
-		Although it is possible to solve the Bayesian network exactly \citep{Eklof2013}, this is cumbersome for larger networks. As numerical simulations are highly efficient and produce the same result \citep{Haussler2020} we use that method here. 
-		As this method is probabilistic, repeating the simulation will yield different results. 
-		To minimize the effect of this variation we repeat these calculations 100 000 times per web, with unique random draws when calculating $P(i)$.
+		To minimize noise due to the random draws, we repeat these calculations 100 000 times per web, with unique random draws when calculating $P(i)$.
 		The final persistence for each species is the mean over these runs. 
 		
-	
 
+	\subsection*{Defining species roles}
 
-	\subsection*{Defining motif profiles and species roles}
-
-        We calculated the `motif profile' of each network. This is, in our case, a four-dimensional vector of the number of each three-species motif in the network. To separate differences in motif structure from differences in network size, we normalized motif profiles by dividing the count of each motif by the total count of all motifs. The motif profile for each network therefore describes the proportions of each motif and has a sum of exactly one.
-
-        We then defined each individual species' motif participation. Motif participation describes the frequency with which a focal species appears in each of the four motifs, analogous to the network motif profile~\citep{Stouffer2012}.
-       
-		We calculated species' motif participation using the Python package \emph{pymfinder}~\citep{pymfinder}.
-        As with motif profiles of networks, we normalized participation (and role) vectors by dividing each count by the total number of motifs (motif positions) the species appears in.
+        A species' ``motif participation role'' is the frequency with which a focal species appears in each of the motifs present in a network~\citep{Stouffer2012}.
+        In our case, these are four-dimensional vectors since only four three-species motifs can appear in acyclic networks.
+        As we are interested in relationships between the type of motif participated in rather than the total number of motifs, we normalized participation vectors by dividing each count by the total number of motifs the species appears in.
         Note, however, that this normalization does \emph{not} control for differences due to degree \emph{per se} as high-degree species also tend to participate in different types of motifs than low-degree species~\citep{Cirtwill2021_inprep}.
         
-        Finally, we calculated simpler measures of a species' role within its community: in-degree and trophic level (shortest trophic level (STL): the length of the shortest food chain between the focal species and any basal resource~\citep{Williams2004}).
+        
+        To provide context for species' motif participation, we also calculated network ``motif profiles'': four-dimensional vectors of the number of each three-species motif in each network~\citep{Stouffer2012}.
+        To separate differences in motif structure from differences in network size (larger networks contain more motifs), we normalized motif profiles by dividing the count of each motif by the total count of all motifs. 
+        % The motif profile for each network therefore describes the proportions of each motif and has a sum of exactly one.
+		We calculated species' motif participation using the Python package \emph{pymfinder}~\citep{pymfinder}.
 
+
+        Finally, we calculated simpler measures of a species' role within its community.
+        These were in-degree (number of prey) and trophic level (shortest trophic level (STL): the length of the shortest food chain between the focal species and any basal resource~\citep{Williams2004}).
+        Both simple role measures were calculated in R~\citep{R}.
+        
 
 
 	\subsection*{Statistical analysis} 
+	% Appendix 3, with numbered subheadings.
+
 	We performed multiple statistical analysis, investigating 1) how species persistence vary with motif participation (Appendix XX), 2) how motif participation vary with degree and trophic level (Appendix XX), 3) how network mean persistence vary with network motif profiles (Appendix XX), 4) how network motif profiles vary with global structural properties (Appendix XX), 5) how network mean persistence vary depending on network properties (Appendix XX), and finally 6) how persistence varies with degree and trophic level (Appendix XX). The analyses are briefly described below. For detailed descriptions see Appendix XX.
 
 
