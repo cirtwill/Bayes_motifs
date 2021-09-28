@@ -98,6 +98,106 @@ $^\dagger$ Corresponding author:\\
 % \end{spacing}
 % \clearpage
 
+\section{Functional response of consumers}
+        As well as the intrinsic baseline probability of extinction, extinction risk for consumers is affected by access to resources. 
+		When all resources are extant, the probability of extinction for a consumer $i$, $P(\lnot i)$, is equal to the baseline probability; $P(\lnot i|X_{1},...,X_{n}) = \pi_{base}$. 
+		When all resources are extinct, the consumer will go extinct; $P(\lnot i|\lnot X_{1},...,\lnot X_{n})=1$. 
+
+		Calculating $P(i)$ or $P(\lnot i)$ is less straightforward when a consumer $i$ loses a fraction $k/n = f$ of its prey. 
+		Plausible ecological responses to losing some prey include i) a topological response, where the consumer's probability of extinction is constant unless all resources are lost, ii) a linear response, in which the extinction probability increases linearly with resources loss, and iii) several nonlinear responses where the probability of extinction increases non-linearly with the fraction resource lost. 
+		The extinction probability will differ depending on the response function. 
+		We use a sigmoid non-linear functional response of consumers to the loss of resources ($\alpha >1, \beta >1$) which has been shown to most accurately capture the secondary extinctions produced by a dynamical model~\citep{Eklof2013}. 
+		We use a cumulative density function of a beta distribution for this purpose:
+		\begin{equation}
+		\label{betafunc}
+		P(\lnot i|f) = \pi_{i} + (1 - \pi_{i}) \frac{B(f;\alpha,\beta)}{B(\alpha,\beta)}
+		\end{equation}
+
+
+
+\section{Statistical analysis}
+ \subsection*{How does species persistence vary with motif participation?}
+
+            We are interested in whether participating more often in a certain motif (e.g., direct competition) might increase persistence.
+            % (see \emph{Appendix SXX} for relationships between persistence and counts of motifs).
+            To test this, we fit four linear mixed-effect models (LMMs; one per motif included in the Bayesian networks).
+            These models included the proportion of the species' role made up by the focal motif, the level of disturbance to basal species, and the interaction between the two.
+            We centered and scaled the predictors before fitting the LMMs.
+            The models also included a random intercept for the interaction between species richness and connectance (equations.
+            All models were fit using the R~\citep{R} function `lmer' from the package \emph{lmerTest}~\citep{lmerTest}.
+            We calculated marginal (fixed effects only) and conditional (fixed and random effects) $R^2$ using the R~\citep{R} function `r.squaredGLMM' from the package \emph{MuMIn}~\citep{MuMIn}.
+
+            The formula for these LMMs are:       
+            
+            \begin{equation}
+                \Psi_{ik} \approx \rho_{i} + \pi_{disturbed_k} + \rho_{i}\pi_{disturbed_k} +
+                S:C_{i} ,
+                \label{propreq}
+            \end{equation}
+
+
+            where $\Psi_{ik}$ is the persistence of species $i$ during disturbance level $k$, $\rho_{i}$ is the proportion of the role of species $i$ that is made up by the focal motif, $\pi_{disturbed_k}$ is the probability of extinction for a basal resource in disturbance level $k$, and $S:C_{i}$ is a random intercept for the species richness and connectance of the network containing species $i$.
+            
+            We were also interested in whether these general trends were consistent across networks with different global properties and different levels of disturbance. 
+            To test this, we performed a linear regression of persistence against motif participation within each simulated network, for each level of disturbance to basal resources.
+            These regressions were fit using the R~\citep{R} base function `lm'.
+            We then analyse the distribution of slopes for the effect of motif participation across levels of disturbance, network size, and connectance. 
+            We performed similar analyses to test whether appearing in different positions in each motif (i.e., the motif role) is related to a species' persistence (\emph{Appendix SH}).
+
+        \subsection*{How does motif participation vary with species and network properties?}
+
+            As with network profiles, species' motif participation may covary with other measures of network structure and species' roles within the network.
+            To establish this context for motif participation, we fit a linear mixed-effect model relating the frequency of participation in each motif to network size, connectance, and their interaction, as for network motif profiles (\emph{Appendix SG}).
+            We also fit linear mixed-effect models relating the count or proportion of each motif to degree or trophic level and a random effect of the interaction between network size and connectance using the R~\citep{R} function `lmer' from the package \emph{lmerTest}~\citep{lmerTest}.
+            We performed similar analyses to test whether a species' motif role is related it in-degree or trophic level (\emph{Appendix SI}).
+
+    		
+
+        \subsection*{How does network mean persistence vary with motif profiles?}
+
+            To test whether networks with similar motif profiles tend to have similar mean persistences among consumers, we fit a PERMANOVA relating Bray-Curtis dissimilarity in motif profiles to the mean persistence of all consumers in a network (averaged across all levels of disturbance to basal resources).
+            We then tested whether dispersion was homogeneous across levels of persistence using an ANOVA and whether there was a linear relationship between persistence (rounded to three decimal places) and variability of motif profiles using a linear regression.
+            In case high or low mean persistences are associated with more variable network structure, we calculated dispersion of motif structure for each level of mean persistence (rounded to three decimal places to allow multiple networks to have the same value of mean consumer persistence and treated as a categorical variable). 
+            All statistical tests were conducted as when relating motif profiles to global network structure.
+            
+            
+            To supplement these overall tests, we also fit four regressions testing whether persistence had a linear relationship to the proportion of a network profile made up of each motif, and whether this varied with the level of disturbance.
+            Each regression included the proportion of a motif, disturbance, and their interaction as predictors.
+            All regressions were fit using the R~\citep{R} base function `lm'.
+        
+
+        \subsection*{How do network motif profiles vary with global structure?}
+        
+            As well as affecting persistence directly, global network structure (i.e., size and connectance) may affect the meso-scale structure of the network.
+            This is especially likely since we include only networks which can retain all initial species after 1000 rounds of simulated Lotka-Volterra population dynamics~\citep{Cirtwill2021_inprep}:  some meso-scale structures might be more likely to allow all species to persist than others in networks with different size and connectance constraints.
+            We test whether networks with the the same size and connectance have more similar motif profiles using a PERMANOVA~\citep{Anderson2001} of Bray-Curtis dissimilarity among motif profiles against network size, connectance, and their interaction.
+            Significance was calculated based on 9999 permutations.
+            PERMANOVA tests may give false positive results if variability is not homogeneous among groups (i.e., levels of network size or connectance).
+            To test whether this applies in our case, we fit an ANOVA of the dispersion of motif profiles about the centroid for each combination of network size and connectance. 
+            We fit the PERMANOVA using the function `adonis', calculated dispersion using the function `betadisper', and fit the ANOVA using the function `anova', all from the R~\citep{R} package \emph{vegan}~\citep{vegan}.
+            To gain a more detailed picture of how the proportion of each motif may vary with global network structure, we also fit four regressions (one per motif) relating the proportion of a motif to network size, connectance, and their interaction.
+            We fit each regression using the R~\citep{R} base function `lm'.
+            
+
+        \subsection*{How does network mean persistence vary depending on network properties?}
+        
+            Both species richness (S) and connectance (C) are known to influence persistence in both simulation studies and empirical food webs.
+            In addition, increasing the probability of extinction for basal species ($\pi_{disturbed}$ above) is intended to decrease persistence of species at higher trophic levels.
+            Although these effects are not the main focus of our manuscript, we must establish these background effects before measuring the effects of meso-scale structure on persistence.
+            The persistence of basal species in our simulations is determined only by their baseline probability, being either $\pi_{base} = 0.1$ or higher, dependent on $\pi_{disturbed}$.
+            We therefore considered only non-basal species (i.e., those with at least one prey) throughout this manuscript.
+
+            To test for effects of global network properties, we fit a linear regression relating consumer species' probabilities of persistence to network size, connectance, the level of disturbance to basal resources, and all interactions between them. 
+            All predictors were centered and scaled before fitting the model. 
+            As the three-way interaction was significant, we did not simplify the model.
+            All models were fit using the R~\citep{R} base function `lm'.
+
+                      
+        \subsection*{How does persistence vary with degree and trophic level?}
+        
+            A species’ motif participation is likely related to its in-degree and trophic level since all three properties are measures of network position. To provide context for the results above, we therefore fit two linear mixed-effects regressions relating persistence to degree or trophic level, $\pi_{disturbed}$, and their interaction. As above, we centered and scaled the predictors. We also included a random effect of the interaction between network size and connectance in order to account for the differences in persistence between different networks.
+                    
+
 \section{SA: Persistence and global network properties}
 
     Connectance and species richness had smaller effects on consumer persistence than disturbance (Figs.~\ref{fig:lm_CS}, \ref{fig:heatmap_CS}, Table~\ref{tab:per_vs_SC}).
