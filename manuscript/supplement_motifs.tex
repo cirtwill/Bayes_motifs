@@ -154,29 +154,62 @@ $^\dagger$ Corresponding author:\\
         \end{equation}
 
 
-        These models included the proportion of the species' role made up by the focal motif, the level of disturbance to basal species, and the interaction between the two.
+        \noindent where $\Psi_{ik}$ is the persistence of species $i$ during disturbance level $k$, $\rho_{i}$ is the proportion of the role of species $i$ that is made up by the focal motif, $\pi_{disturbed_k}$ is the probability of extinction for a basal resource in disturbance level $k$, and $S_{i}C_{i}$ is a random intercept for the species richness and connectance of the network containing species $i$.
         We centered and scaled the predictors before fitting the LMMs.
-        The models also included a random intercept for the interaction between species richness and connectance (equations.
         All models were fit using the R~\citep{R} function `lmer' from the package \emph{lmerTest}~\citep{lmerTest}.
         We calculated marginal (fixed effects only) and conditional (fixed and random effects) $R^2$ using the R~\citep{R} function `r.squaredGLMM' from the package \emph{MuMIn}~\citep{MuMIn}.
 
-        The formula for these LMMs are:       
-        
-
-        where $\Psi_{ik}$ is the persistence of species $i$ during disturbance level $k$, $\rho_{i}$ is the proportion of the role of species $i$ that is made up by the focal motif, $\pi_{disturbed_k}$ is the probability of extinction for a basal resource in disturbance level $k$, and $S:C_{i}$ is a random intercept for the species richness and connectance of the network containing species $i$.
         
         We were also interested in whether these general trends were consistent across networks with different global properties and different levels of disturbance. 
-        To test this, we performed a linear regression of persistence against motif participation within each simulated network, for each level of disturbance to basal resources.
-        These regressions were fit using the R~\citep{R} base function `lm'.
-        We then analyse the distribution of slopes for the effect of motif participation across levels of disturbance, network size, and connectance. 
-        We performed similar analyses to test whether appearing in different positions in each motif (i.e., the motif role) is related to a species' persistence (\emph{Appendix SH}).
+        To test this, we performed a linear regression of persistence against motif participation within each simulated network, for each level of disturbance to basal resources:
 
-    \subsection{How does motif participation vary with species and network properties?}
+        \begin{equation}
+            \Psi_{ik} \approx \rho_{i} ,
+            \label{mineq}
+        \end{equation}
+
+        where all symbols are as in equation~\ref{propreq}.
+        These regressions were fit using the R~\citep{R} base function `lm'.
+        We then visually examine the distribution of slopes for the effect of motif participation across levels of disturbance, network size, and connectance. 
+
+
+    \subsection{How does motif participation vary with network properties?}
 
         As with network profiles, species' motif participation may covary with other measures of network structure and species' roles within the network.
-        To establish this context for motif participation, we fit a linear mixed-effect model relating the frequency of participation in each motif to network size, connectance, and their interaction, as for network motif profiles (\emph{Appendix SG}).
-        We also fit linear mixed-effect models relating the count or proportion of each motif to degree or trophic level and a random effect of the interaction between network size and connectance using the R~\citep{R} function `lmer' from the package \emph{lmerTest}~\citep{lmerTest}.
-        We performed similar analyses to test whether a species' motif role is related it in-degree or trophic lev,el (\emph{Appendix SI}).
+        To establish this context for motif participation, we first fit a PERMANOVA~\citep{Anderson2001} to test whether a species' overall motif participation role is related to network size, connectance, or the interaction between them.
+        To avoid inflating similarity between species which do not appear in the same motifs (i.e., which have ``shared zeros''), we use Bray-Curtis dissimilarity between motif participation roles.
+        Significance was calculated using 9999 permutations.
+        The PERMANOVA was fit using the R~\citep{R} function `adonis' from the package \emph{vegan}~\citep{vegan}.
+
+
+        To obtain a more detailed picture of the relationships between motif participation and global network structure, we fit a set of four linear models (one per motif):
+
+
+        \begin{equation}
+            \rho_{i} \approx \Sigma_{i} + \zeta_{i} + \Sigma_{i}\zeta_{i} ,
+            \label{partic_SC}
+        \end{equation}
+        
+        where $\rho_{i}$ is the proportion of the role of species $i$ that is made up by the focal motif,
+        $\Sigma_{i}$ is the size of the network containing species $i$, and $\zeta_{i}$ is the connectance of the network containing species $i$.
+        Predictors were not centered or scaled before fitting.
+        All models were fit using the R~\citep{R} base function `lm'.
+
+
+        We fit a similar set of eight linear mixed-effect models relating motif participation to in-degree or trophic level:
+        
+        \begin{equation}
+            \rho_{i} \approx \delta_{i} + S_{i}C_{i} ,
+            \label{partic_deg}
+        \end{equation}
+
+        \begin{equation}
+            \rho_{i} \approx \tau_{i} + S_{i}C_{i} ,
+            \label{partic_deg}
+        \end{equation}
+        
+        where $\rho_{i}$ is the frequency with which species $i$ participtes in the focal motif, $\delta_{i}$ is the in-degree of species $i$, $\tau_{i}$ is the shortest trophic level of species $i$, $S_{i}C_{i}$ is a random effect of the combination of size and connectance for the network containing species $i$.
+        These models were fit using the R~\citep{R} function `lmer' from the package \emph{lmerTest}~\citep{lmerTest}.
 
     		
     \subsection{How does network mean persistence vary with motif profiles?}
