@@ -179,11 +179,16 @@ $^\dagger$ Corresponding author:\\
         To establish this context for motif participation, we first fit a PERMANOVA~\citep{Anderson2001} to test whether a species' overall motif participation role is related to network size, connectance, or the interaction between them.
         To avoid inflating similarity between species which do not appear in the same motifs (i.e., which have ``shared zeros''), we use Bray-Curtis dissimilarity between motif participation roles.
         Significance was calculated using 9999 permutations.
-        The PERMANOVA was fit using the R~\citep{R} function `adonis' from the package \emph{vegan}~\citep{vegan}.
+
+
+        PERMANOVA tests may give false positive results if variability is not homogeneous among groups (i.e., levels of network size or connectance).
+        To test whether this applies in our case, we fit an ANOVA of the dispersion of motif participation roles about the centroid for each combination of network size and connectance. 
+        We then regressed dispersion against persistence to test whether networks with higher or lower persistence had more consistent motif profiles.
+        We fit the PERMANOVA using the function `adonis', calculated dispersion using the function `betadisper', and fit the ANOVA using the function `anova', all from the R~\citep{R} package \emph{vegan}~\citep{vegan}.
+        We fit the regression using the R~\citep{R} base function `lm'.
 
 
         To obtain a more detailed picture of the relationships between motif participation and global network structure, we fit a set of four linear models (one per motif):
-
 
         \begin{equation}
             \rho_{i} \approx \Sigma_{i} + \zeta_{i} + \Sigma_{i}\zeta_{i} ,
@@ -195,7 +200,7 @@ $^\dagger$ Corresponding author:\\
         Predictors were not centered or scaled before fitting.
         All models were fit using the R~\citep{R} base function `lm'.
 
-
+       
         We fit a similar set of eight linear mixed-effect models relating motif participation to in-degree or trophic level:
         
         \begin{equation}
@@ -215,13 +220,22 @@ $^\dagger$ Corresponding author:\\
     \subsection{How does network mean persistence vary with motif profiles?}
 
         To test whether networks with similar motif profiles tend to have similar mean persistences among consumers, we fit a PERMANOVA relating Bray-Curtis dissimilarity in motif profiles to the mean persistence of all consumers in a network (averaged across all levels of disturbance to basal resources).
+        As with the PERMANOVA relating motif participation to network properties, we fit the PERMANOVA using the R~\citep{R} function `vegan' from the package \emph{adonis}~\citep{adonis} and calculated significance based on 9999 permutations.
+
+
         We then tested whether dispersion was homogeneous across levels of persistence using an ANOVA and whether there was a linear relationship between persistence (rounded to three decimal places) and variability of motif profiles using a linear regression.
+        Dispersion was calculated using the R~\citep{R} function `betadisper' from the package \emph{vegan}~\citep{vegan}.
         In case high or low mean persistences are associated with more variable network structure, we calculated dispersion of motif structure for each level of mean persistence (rounded to three decimal places to allow multiple networks to have the same value of mean consumer persistence and treated as a categorical variable). 
-        All statistical tests were conducted as when relating motif profiles to global network structure.
+
         
+        To supplement these overall tests, we also fit four linear models relating mean persistence to network motif profiles, disturbance, and the interaction between them:
+
+            \begin{equation}
+                \Psi_{ik} \approx \Bar{\rho}_{i} + \pi_{disturbed_k} + \Bar{\rho}_{i}\pi_{disturbed_k} ,
+                \label{netpropeq}
+            \end{equation}
         
-        To supplement these overall tests, we also fit four regressions testing whether persistence had a linear relationship to the proportion of a network profile made up of each motif, and whether this varied with the level of disturbance.
-        Each regression included the proportion of a motif, disturbance, and their interaction as predictors.
+        where $\Bar{\rho}_{i}$ is the proportion of the focal motif in the network's motif profile and all other symbols are as in equation~\ref{propreq}. 
         All regressions were fit using the R~\citep{R} base function `lm'.
     
 
@@ -234,11 +248,20 @@ $^\dagger$ Corresponding author:\\
         PERMANOVA tests may give false positive results if variability is not homogeneous among groups (i.e., levels of network size or connectance).
         To test whether this applies in our case, we fit an ANOVA of the dispersion of motif profiles about the centroid for each combination of network size and connectance. 
         We fit the PERMANOVA using the function `adonis', calculated dispersion using the function `betadisper', and fit the ANOVA using the function `anova', all from the R~\citep{R} package \emph{vegan}~\citep{vegan}.
-        To gain a more detailed picture of how the proportion of each motif may vary with global network structure, we also fit four regressions (one per motif) relating the proportion of a motif to network size, connectance, and their interaction.
+
+
+        To gain a more detailed picture of how the proportion of each motif may vary with global network structure, we also fit four regressions (one per motif) relating the proportion of a motif to network size, connectance, and their interaction:
+
+        \begin{equation}
+            \Bar{\rho_{i}} \approx \Sigma_{i} + \zeta_{i} + \Sigma_{i}\zeta_{i}
+        \end{equation}
+        where all symbols are as in equations~\ref{propreq} and~\ref{netpropeq}.
         We fit each regression using the R~\citep{R} base function `lm'.
             
 
     \subsection{How does persistence vary with species and network properties?}
+
+        S, C for random effects. $\Sigma$ and $\zeta$ for fixed effects.
 
         \subsubsection{How does network mean persistence vary depending on network properties?}
     
