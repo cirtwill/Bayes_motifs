@@ -219,7 +219,7 @@ $^\dagger$ Corresponding author:\\
 
         
         We test whether networks with the the same size and connectance have more similar motif profiles using a PERMANOVA~\citep{Anderson2001} (Appendix \emph{3.2}). 
-        To identify correlations between size, connectance, and participation in particular motifs, we fit an additional set of four LMMs:
+        To identify correlations between size, connectance, and participation in particular motifs, we fit a set of four linear models (LMs):
         
         \begin{equation}
             \rho_{i} \approx \Sigma_{i} + \zeta_{i} + \Sigma_{i}\zeta_{i} ,
@@ -247,12 +247,11 @@ $^\dagger$ Corresponding author:\\
     \subsubsection*{3) Persistence and motif profiles}
 
         As well as species-specific probabilities of persistence, motifs may provide information about the overall probability of any species going extinct (since they incorporate information on indirect effects).
-        To test whether networks with similar motif profiles tend to have similar mean persistences among consumers, we fit a PERMANOVA relating Bray-Curtis dissimilarity in motif profiles to the mean persistence of all consumers in a network (averaged across all levels of disturbance to basal resources).
-        To identify the relationships between particular motifs and network mean persistence, we fit a set of four LMMs (one per motif):
+        We tested whether networks with similar motif profiles tend to have similar mean persistences among consumers using a PERMANOVA (Appendix \emph{S3.3}.
+        To identify the relationships between particular motifs and network mean persistence, we fit a set of four LMs (one per motif):
         
-                \begin{equation}
-                \Psi_{ik} \approx \Bar{\rho}_{i} + \pi_{disturbed_k} + \Bar{\rho}_{i}\pi_{disturbed_k} +
-                S_{i}C_{i} ,
+            \begin{equation}
+                \Psi_{ik} \approx \Bar{\rho}_{i} + \pi_{disturbed_k} + \Bar{\rho}_{i}\pi_{disturbed_k},
                 \label{netpropeq}
             \end{equation}
         
@@ -261,15 +260,16 @@ $^\dagger$ Corresponding author:\\
     \subsubsection*{4) Motif profiles and network properties}
     
         Different scales of network structure (e.g., local and meso-scale) are not independent. 
-        To test whether networks with the the same size and connectance have more similar motif profiles using a PERMANOVA~\citep{Anderson2001} of Bray-Curtis dissimilarity among motif profiles against network size, connectance, and their interaction. 
-        In addition, we identify correlations between size, connectance, and particular motifs using a set of four LMMs:
+        To test whether networks with the the same size and connectance have more similar motif profiles using a PERMANOVA~\citep{Anderson2001} of Bray-Curtis dissimilarity among motif profiles against network size, connectance, and their interaction (Appendix \emph{S3.4}). 
+        In addition, we identify correlations between size, connectance, and particular motifs using a set of four LMs:
         
         \begin{equation}
-            \rho_{i} \approx S_{i} + C_{i} + S_{i}C_{i}
+            \Bar{\rho_{i}} \approx \Sigma_{i} + \zeta_{i} + \Sigma_{i}\zeta_{i}
         \end{equation}
-        where all symbols are as in equation~\ref{propreq}.
+        where all symbols are as in equations~\ref{propreq} and~\ref{netpropeq}.
         
     \subsubsection*{5) Persistence and network properties}
+        $\Sigma$ and $\zeta$ for fixed effects, SC for random.
         
         Persistence is known to vary with global-scale and local-scale network properties.
         To correctly interpret any relationships between motifs and persistence, we must consider the context of these other relationships.
