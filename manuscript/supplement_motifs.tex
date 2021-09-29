@@ -261,8 +261,6 @@ $^\dagger$ Corresponding author:\\
 
     \subsection{How does persistence vary with species and network properties?}
 
-        S, C for random effects. $\Sigma$ and $\zeta$ for fixed effects.
-
         \subsubsection{How does network mean persistence vary depending on network properties?}
     
             Both species richness (S) and connectance (C) are known to influence persistence in both simulation studies and empirical food webs.
@@ -276,11 +274,36 @@ $^\dagger$ Corresponding author:\\
             As the three-way interaction was significant, we did not simplify the model.
             All models were fit using the R~\citep{R} base function `lm'.
 
+
+            \begin{equation}
+                \Psi_{ik} \approx \Sigma_{i} + \zeta_{i} + \pi_{disturbed_k} + \Sigma_{i}:\zeta_{i} + \Sigma_{i}\pi_{disturbed_k} + \zeta_{i}\pi_{disturbed_k} + \Sigma_{i}\zeta_{i}\pi_{disturbed_k},
+                \label{SCeq}
+            \end{equation}
+            where all symbols are as in equation~\ref{propreq} and~\ref{partic_SC}.
                   
-        \subsubsection{How does persistence vary with degree and trophic level?}
+
+        \subsubsection{How does persistence vary with in-degree and trophic level?}
     
-            A species’ motif participation is likely related to its in-degree and trophic level since all three properties are measures of network position. To provide context for the results above, we therefore fit two linear mixed-effects regressions relating persistence to degree or trophic level, $\pi_{disturbed}$, and their interaction. As above, we centered and scaled the predictors. We also included a random effect of the interaction between network size and connectance in order to account for the differences in persistence between different networks.
-                
+            Likewise, in-degree and trophic level are known to influence persistence in many cases.
+            These effects, in combination with differences in mean persistence across networks with different global properties, should also be taken into account when considering relationships between motif participation and persistence.
+            To establish this necessary context, we therefore fit two linear mixed-effects regressions:
+
+      
+            \begin{equation}
+                    \Psi_{ik} \approx \delta_{i} + \pi_{disturbed_k} + \delta_{i}\pi_{disturbed_k} +
+                    S_{i}C_{i} ,
+                    \label{degeq}
+                \end{equation}
+        
+            \begin{equation}
+                    \Psi_{ik} \approx \tau_{i} + \pi_{disturbed_k} + \tau_{i}\pi_{disturbed_k} +
+                    S_{i}C_{i} ,
+                    \label{TLeq}
+                \end{equation}
+        
+            where $\delta_{i}$ and $\tau_i$ are the in-degree and trophic level of species $i$, respectively, and all other terms are as in equation~\ref{propreq}.
+            We centered and scaled the predictors before fitting the models.
+
 
 \section{SA: Persistence and global network properties}
 
