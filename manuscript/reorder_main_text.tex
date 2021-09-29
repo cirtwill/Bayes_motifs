@@ -198,7 +198,7 @@ $^\dagger$ Corresponding author:\\
 	\subsection*{Statistical analysis} 
 	% Appendix 3, with numbered subheadings.
 
-	We tested 1) how species persistence varied with motif participation (Appendix \emph{3.1}), 2) how motif participation varied with other network properties (Appendix \emph{3.2}), 3) how network mean persistence varied with network motif profiles (Appendix \emph{3.3}), 4) how network motif profiles varied with global structural properties (Appendix \emph{3.4}), and 5) how persistence varied with other network properties (Appendix \emph{3.5}). The analyses are briefly described below. 
+	We tested 1) how species persistence varied with motif participation (Appendix \emph{3.1}), 2) how motif participation varied with other network properties (Appendix \emph{3.2}), 3) how network mean persistence varied with network motif profiles (Appendix \emph{3.3}), 4) how network motif profiles varied with global structural properties (Appendix \emph{3.4}), and 5) how species persistence and network mean persistence varied with other network properties (Appendix \emph{3.5}). The analyses are briefly described below and were performed using the R~\citep{R} packages \emph{lmerTest}~\citep{lmerTest}, \emph{MuMIn}~\citep{MuMIn}, and \emph{vegan}~\citep{vegan} as detailed in the appendices.
 
     
     \subsubsection*{1) Persistence and motif participation}
@@ -211,22 +211,38 @@ $^\dagger$ Corresponding author:\\
                 \label{propreq}
             \end{equation}
 
-        where $\Psi_{ik}$ is the persistence of species $i$ during disturbance level $k$, $\rho_{i}$ is the proportion of the role of species $i$ that is made up by the focal motif, $\pi_{disturbed_k}$ is the probability of extinction for a basal resource in disturbance level $k$, and $S_{i}C_{i}$ is a random intercept for the species richness and connectance of the network containing species $i$.
+        \noindent where $\Psi_{ik}$ is the persistence of species $i$ during disturbance level $k$, $\rho_{i}$ is the proportion of the role of species $i$ that is made up by the focal motif, $\pi_{disturbed_k}$ is the probability of extinction for a basal resource in disturbance level $k$, and $S_{i}C_{i}$ is a random intercept for the species richness and connectance of the network containing species $i$.
         All predictors were centered and scaled before fitting the models.         
-        To test whether these general trends were consistent across networks, we performed additional linear regressions of persistence against motif participation within each simulated network, for each level of disturbance to basal resources (600 regressions). 
-        We then analyse the distribution of slopes for the effect of motif participation across levels of disturbance, network size, and connectance.    
-    
+        To test whether these general trends were consistent across networks, we examined the distribution of slopes of simplified regressions fit to a single network and level of disturbance (Appendix \emph{3.1}).
     
     \subsubsection*{2) Participation and other network properties}    
 
         
-        To test whether networks with the the same size and connectance have more similar motif profiles using a PERMANOVA~\citep{Anderson2001} of Bray-Curtis dissimilarity among motif profiles against network size, connectance, and their interaction. 
-        In addition, we identify correlations between size, connectance, and particular motifs using a set of four LMMs:
+        We test whether networks with the the same size and connectance have more similar motif profiles using a PERMANOVA~\citep{Anderson2001} (Appendix \emph{3.2}). 
+        To identify correlations between size, connectance, and participation in particular motifs, we fit an additional set of four LMMs:
         
         \begin{equation}
-            \rho_{i} \approx S_{i} + C_{i} + S_{i}C_{i}
+            \rho_{i} \approx \Sigma_{i} + \zeta_{i} + \Sigma_{i}\zeta_{i} ,
+            \label{partic_SC}
         \end{equation}
-        where all symbols are as in equation~\ref{propreq}.
+        
+        where $\rho_{i}$ is the proportion of the role of species $i$ that is made up by the focal motif,
+        $\Sigma_{i}$ is the size of the network containing species $i$, and $\zeta_{i}$ is the connectance of the network containing species $i$.
+        
+        We fit a similar set of eight LMMs relating motif participation to in-degree or trophic level:
+        
+        \begin{equation}
+            \rho_{i} \approx \delta_{i} + S_{i}C_{i} ,
+            \label{partic_deg}
+        \end{equation}
+
+        \begin{equation}
+            \rho_{i} \approx \tau_{i} + S_{i}C_{i} ,
+            \label{partic_deg}
+        \end{equation}
+        
+        where $\delta_{i}$ is the in-degree of species $i$, $\tau_{i}$ is the shortest trophic level of species $i$, and all other symbols are as in equation~\ref{propreq}.        
+        
         
     \subsubsection*{3) Persistence and motif profiles}
 
