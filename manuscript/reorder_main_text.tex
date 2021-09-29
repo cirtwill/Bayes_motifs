@@ -269,21 +269,22 @@ $^\dagger$ Corresponding author:\\
         where all symbols are as in equations~\ref{propreq} and~\ref{netpropeq}.
         
     \subsubsection*{5) Persistence and network properties}
-        $\Sigma$ and $\zeta$ for fixed effects, SC for random.
         
         Persistence is known to vary with global-scale and local-scale network properties.
-        To correctly interpret any relationships between motifs and persistence, we must consider the context of these other relationships.
+        To correctly interpret any relationships between motifs and persistence, we must consider the context of these other relationships (Appendix \emph{S3.5}).
         To identify the relationship between global network structure and mean probability of persistence within a network, we fit a linear regression:
+
             \begin{equation}
-                \Psi_{ik} \approx S_{i} + C_{i} + \pi_{disturbed_k} + S_{i}:C_{i} + S_{i}\pi_{disturbed_k} + C_{i}\pi_{disturbed_k} + S_{i}C_{i}\pi_{disturbed_k},
+                \Psi_{ik} \approx \Sigma_{i} + \zeta_{i} + \pi_{disturbed_k} + \Sigma_{i}:\zeta_{i} + \Sigma_{i}\pi_{disturbed_k} + \zeta_{i}\pi_{disturbed_k} + \Sigma_{i}\zeta_{i}\pi_{disturbed_k},
                 \label{SCeq}
             \end{equation}
-        where all symbols are as in equation~\ref{propreq}.
+
+        where all symbols are as in equation~\ref{propreq} and~\ref{partic_SC}.
         As the three-way interaction was significant, we did not simplify the model. 
 
 
         Persistence is also known to vary with local-scale measures of network structure. 
-        To identify the relationships betwen local-scale properties and species' probabilities of persistence, we fit two more LMMs:
+        To identify the relationships betwen local-scale properties and species' probabilities of persistence, we fit a final two LMMs:
         
         \begin{equation}
                 \Psi_{ik} \approx \delta_{i} + \pi_{disturbed_k} + \delta_{i}\pi_{disturbed_k} +
