@@ -98,7 +98,7 @@ $^\dagger$ Corresponding author:\\
 % \end{spacing}
 % \clearpage
 
-\section{Network creation and processing}
+\section{Supplemental methods: Network creation}
 
     A Bayesian food web depicts probabilistic relationships among a set of species where each species' probability of persistence depends upon the probabilities of its resource species persisting~\citep{Jensen_Nielsen,Eklof2013}. 
     All persistence calculations therefore begin  by determining the status of the primary producers (who do not depend on other species).
@@ -112,8 +112,9 @@ $^\dagger$ Corresponding author:\\
     Next, we ordered the species from lowest to highest trophic level using a topological sorting routine following \citep{Tarjan1972, Allesinaetal2005}, ensuring that probability calculations follow a strict bottom-up order. 
     After these steps, calculations of persistence probabilities can begin.
         
+\clearpage
 
-\section{Calculating persistence}        
+\section{Supplemental methods: Calculating persistence}        
 
         We use Bayesian Network modelling to calculate the persistence of each species in our simulated networks. 
         A Bayesian Network represents a graphical model for probabilistic relationships among a set of variables. The nodes of the network represents the variables, and the links represent conditional dependencies among the variables. Each node has a set of local probability dependencies, conditional on the state of the parent nodes. 
@@ -169,7 +170,7 @@ $^\dagger$ Corresponding author:\\
         For each species, we then estimate the fraction of simulations in which the species persist, and this value is the approximated probability of persistence.
         To approximate persistence probabilities through numerical simulation are shown to be highly efficient and produce the same result as exact methods of solving Bayesian networks \citep{Haussler2020}.
         
-        
+
     % various disturbance scenarios
         In our baseline scenario, primary producers had a baseline extinction probability of $\pi_{base} = 0.1$. 
         We also simulated a set of scenarios where primary producers had a higher baseline probability of extinction ($\pi_{disturbed}$). 
@@ -178,10 +179,9 @@ $^\dagger$ Corresponding author:\\
         The highest disturbance level, $\pi_{disturbed} = 0.5$, corresponds to basal species having a 50\% risk of going extinct. 
         Consumer species retained $\pi_{base}=0.1$ in all cases.
         
+\clearpage
         
-
-
-\section{Statistical analysis}
+\section{Supplemental methods: Statistical analysis}
 
     \subsection{How does species persistence vary with motif participation?}
 
@@ -216,20 +216,8 @@ $^\dagger$ Corresponding author:\\
 
     \subsection{How does motif participation vary with network properties?}
 
-        As with network profiles, species' motif participation may covary with other measures of network structure and species' roles within the network.
-        To establish this context for motif participation, we first fit a PERMANOVA~\citep{Anderson2001} to test whether a species' overall motif participation role is related to network size, connectance, or the interaction between them.
-        To avoid inflating similarity between species which do not appear in the same motifs (i.e., which have ``shared zeros''), we use Bray-Curtis dissimilarity between motif participation roles.
-        Significance was calculated using 9999 permutations.
-
-
-        PERMANOVA tests may give false positive results if variability is not homogeneous among groups (i.e., levels of network size or connectance).
-        To test whether this applies in our case, we fit an ANOVA of the dispersion of motif participation roles about the centroid for each combination of network size and connectance. 
-        We then regressed dispersion against persistence to test whether networks with higher or lower persistence had more consistent motif profiles.
-        We fit the PERMANOVA using the function `adonis', calculated dispersion using the function `betadisper', and fit the ANOVA using the function `anova', all from the R~\citep{R} package \emph{vegan}~\citep{vegan}.
-        We fit the regression using the R~\citep{R} base function `lm'.
-
-
-        To obtain a more detailed picture of the relationships between motif participation and global network structure, we fit a set of four linear models (one per motif):
+        Species' motif participation may covary with other measures of network structure and species' roles within the network.
+        To determine the relationships between motif participation and global network structure, we fit a set of four linear models (one per motif):
 
         \begin{equation}
             \rho_{i} \approx \Sigma_{i} + \zeta_{i} + \Sigma_{i}\zeta_{i} ,
@@ -300,9 +288,9 @@ $^\dagger$ Corresponding author:\\
         We fit each regression using the R~\citep{R} base function `lm'.
             
 
-    \subsection{How does persistence vary with species and network properties?}
+    \subsection{How does persistence vary with other properties?}
 
-        \subsubsection{How does network mean persistence vary depending on network properties?}
+        \subsubsection{Network mean persistence and network properties}
     
             Both species richness (S) and connectance (C) are known to influence persistence in both simulation studies and empirical food webs.
             In addition, increasing the probability of extinction for basal species ($\pi_{disturbed}$ above) is intended to decrease persistence of species at higher trophic levels.
@@ -323,7 +311,7 @@ $^\dagger$ Corresponding author:\\
             where all symbols are as in equation~\ref{propreq} and~\ref{partic_SC}.
                   
 
-        \subsubsection{How does persistence vary with in-degree and trophic level?}
+        \subsubsection{Species persistence and species properties}
     
             Likewise, in-degree and trophic level are known to influence persistence in many cases.
             These effects, in combination with differences in mean persistence across networks with different global properties, should also be taken into account when considering relationships between motif participation and persistence.
@@ -345,6 +333,182 @@ $^\dagger$ Corresponding author:\\
             where $\delta_{i}$ and $\tau_i$ are the in-degree and trophic level of species $i$, respectively, and all other terms are as in equation~\ref{propreq}.
             We centered and scaled the predictors before fitting the models.
 
+\clearpage
+
+\section{Results: Persistence and motif participation}
+
+    Persistence varied with motif participation.
+
+    
+    \begin{table}[h!]
+        \centering
+        \caption{Coefficients ($\beta$) and $p$-values ($p$) for models relating persistence to the proportion of a species' role made up by the focal motif, the level of disturbance to basal resources (corresponding to a probability of extinction ranging between 0.1 and 0.5), and their interaction, as well as a random intercept to account for differences in persistence across levels of network size and connectance (Equation~\ref{propreq}). Predictors were centered and scaled before model fitting. We also provide the marginal $R^2_M$ (fixed effects only) and conditional $R^2_C$ (fixed and random effects) for each model.}
+        \label{tab:proportion}                \footnotesize
+        \begin{tabular}{c|c c | c c | c c | c c | c c |}
+        & \multicolumn{2}{c|}{Intercept} & \multicolumn{2}{c|}{Proportion} & \multicolumn{2}{c|}{Disturbance} & \multicolumn{2}{c|}{Interaction} & \multicolumn{2}{c|}{$R^2$} \\
+        Motif & $\beta$ & $p$ & $\beta$ & $p$ & $\beta$ & $p$ & $\beta$ & $p$ & $R^2_M$ & $R^2_C$ \\
+        \hline
+        3-sp Chain & 0.574 & \textless0.001 & -0.00508 & \textless0.001 & -0.139 & \textless0.001 & -0.00337 & \textless0.001 & 0.900 & 0.912 \\
+        App. Com. & 0.574 & \textless0.001 & -0.00312 & \textless0.001 & -0.139 & \textless0.001 & 0.00410 & \textless0.001 & 0.900 & 0.911 \\
+        Dir. Com. & 0.574 & \textless0.001 & 0.00564 & \textless0.001 & -0.139 & \textless0.001 & 0.000256 & \textless0.001 & 0.901 & 0.911 \\
+        Omnivory & 0.574 & \textless0.001 & 0.00709 & \textless0.001 & -0.139 & \textless0.001 & -0.00198 & \textless0.001 & 0.894 & 0.912 \\
+        \end{tabular}
+    \end{table}        
+\clearpage     
+
+
+\section{Results: Motif participation and network properties}
+
+
+    Motif participation varies with global-scale network properies.
+
+    \begin{table}[hb!]
+        \centering
+        \caption{Motif participation varies with size and connectance. Here we give the range and mean ($\pm$ standard deviation) proportion of each motif in species' motif participation vectors. 
+        We also show the effects ($\beta$) of network size, connectance, and their interaction in linear models predicting the proportion of each motif in a participation vector.
+        All effects were significant ($p$\textless0.001).
+        Predictors were not centered or standardized before model fitting. Motifs are ordered according to mean proportion.}
+        % Relevant lms are pchainlm, pomnilm, papplm, pdirlm}
+        \label{tab:partic_vs_SC}   
+        \footnotesize
+        \begin{tabular}{c|c c c | c c c}
+            Motif & Min & Max & Mean (SD) & Size & Connectance & Interaction \\
+            \hline
+            3-sp Chain & 0 & 1 & 0.249 (0.127) & 2.22$\times10^{-4}$ & -0.131 & -3.20$\times10^{-3}$ \\
+            App. Comp & 0.250 & 0.765 & 0.422 (0.0645) & -5.06$\times10^{-4}$ & -1.00 & 2.59$\times10^{-3}$ \\
+            Dir. Comp & 0.0501 & 0.359 & 0.179 (0.0407) & -3.56$\times10^{-5}$ & -0.556 & 5.92$\times10^{-3}$ \\
+            Omnivory & 0.006 & 0.346 & 0.164 (0.0790) & 3.64$\times10^{-4}$ & 1.71 & -5.24$\times10^{-3}$ \\   
+            \hline
+            \end{tabular}
+            \end{table}
+
+
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[height=.5\textheight]{figures/participation_vs_SC.eps}
+        \caption{The proportion of each motif in a consumer's participation vector varied with network size, connectance, and their interaction. These relationships were steepest for apparent competition and omnivory.}
+        \label{fig:roles_vs_SC}
+    \end{figure}
+\clearpage 
+
+\section{Results: Persistence, degree, and trophic level}
+
+
+    Persistence varies with in-degree, trophic level, and their interaction.
+
+    \begin{table}[h!]
+        \caption{Coeffcients ($\beta$) for regressions of consumers' probabilities of persistence against simple measures of species' role (STL or in-degree), level of disturbance to basal resources, and their interaction. Predictors were centered and scaled before model fitting. All $p$-values were \textless0.001. The level of disturbance is reflected by basal resources having a baseline probability of extinction ranging between $0.1 - 0.5$.}
+        \label{tab:per_vs_TLdeg}
+        \centering
+        \begin{tabular}{l|c  c  c |}
+            Simple role measure & Role & Disturbance & Interaction \\
+            \hline
+            STL & -0.0218 & -0.139 & 0.00508 \\
+            in-degree & -0.00130 & -0.139 & -0.00908 \\
+        \end{tabular}
+    \end{table}
+
+
+    \begin{figure}[h!]
+     \centering
+     % \includegraphics[width=0.8\textwidth]{figures/heatmap_STL_allCS_BP0.pdf}
+     \caption{All species across all levels experience a risk of going extinct due to causes not related to the web of $\pi = 0.1$. The sub figures show final persistence for consumers with different shortest trophic length, for increasing connectance (y-axis) and network size (x-axis). Persistence decreases with darker color in the heat map.}
+     \label{fig:heatmap_stl_BP0}
+    \end{figure}
+
+
+    \begin{figure}[h!]
+     \centering
+     % \includegraphics[width=0.8\textwidth]{figures/heatmap_STL_allCS_BP1.pdf}
+     \caption{Primary producers experience a disturbance reducing their probability to go extinct to $\pi_{disturbed} = 0.5$ All consumer species go extinct due to causes not related to the web itself with probability $\pi = 0.1$. The sub figures show final persistence for consumers with different shortest trophic length, for increasing connectance (y-axis) and network size (x-axis). Persistence decreases with darker color in the heat map.}
+     \label{fig:heatmap_stl_BP1}
+    \end{figure}
+
+\clearpage
+
+
+\section{Results: Motif-persistence relationships}
+
+    When comparing the outcomes from linear mixed-effect models (LMMs) relating persistence to motif roles across all networks (Fig. 3 and Table 1, \emph{Main Text}) with similar linear regressions (LRs) made on each single network separately, the main trends are similar but different-sized networks showed slightly different results results for some motifs (Figure temporarily in main text).%(Figure~\ref{fig:density_prop_S}). 
+    For the three-species chain and omnivory motifs, a significant interaction between disturbance and the effect of the focal motif means that having a larger proportion of the role be made up of the chain or omnivory motif is associated with lower persistence at high levels of disturbance (Fig. 3 and Table 1, \emph{Main Text}). 
+    The same pattern holds overall for LRs fit within a network  %(Figure~\ref{fig:density_prop_S})
+    : the fraction of negative slopes for the proportion of three-species chain and omnivory motifs increases with increasing disturbance. 
+    This trend is most pronounced in large networks.% (bottom panel, Figure~\ref{fig:density_prop_S}). 
+    Besides the decrease in fraction of positive slopes with increasing disturbance, the omnivory motif show a higher overall fraction of positive slopes in comparison to the three-species chain motif, corresponding to the positive main effect of omnivory (Fig. 3 and Table 1, \emph{Main Text}). 
+
+
+    \begin{figure}[h!]
+         \centering
+         % \includegraphics[width=\textwidth]{figures/prop_dens_bp_vs_S_allC.pdf}
+        \caption{Density (y-axis) of slopes (x-axis) for all simulated webs of all sizes - a visualization of how an increased proportion of each motif (different colored lines) affects persistence of consumer species. The slopes are derived from linear mixed-effect models, with a random intercept for the interaction between species richness and network size. A negative slope value reflects a negative relationship between increased participation in a motif and persistence, while a positive slope value reflects a positive relationship - an increased proportion of a specific motif increase persistence. The fraction of replicates with a slope greater than zero are stated in numbers in each sub-plot, the color corresponding to motif (legend). Columns show the result for various disturbances on the basal level, from $\pi_{disturbed} = 0.1$ (left) to $\pi_{disturbed} = 0.5$ (right). Rows show various levels of network size. The vertical line indicate zero on the x-axis.}
+        \label{fig:density_prop_S}
+    \end{figure}
+    
+    
+    For the apparent and direct competition motifs, the LMMs include a positive interaction between disturbance and the proportion of the motif in a species' role (Fig. 3 and Table 1; \emph{Main Text}).
+    This means that having more of the role made up of these two motifs is increasingly beneficial at higher levels of disturbance, a trend which is also evident from the increasing fraction of positive slopes with increasing disturbance based on LRs of each network at each level of disturbance. % (Figure~\ref{fig:density_prop_S}).
+    As with the trends for omnivory and three-species chains, these increases are strongest in large networks. % (bottom row, Figure~\ref{fig:density_prop_S}).
+    % For direct competition, the fraction of slopes are similar across disturbance levels. Although this interaction is not positive when accounting for network size, the fraction of positive slopes are throughout high.
+    The increase in the proportion of positive slopes was much stronger for apparent competition than direct competition, consistent with the smaller (but still significant) interaction term for between direct competition in the LMMs.
+    A high proportion of direct competition in a species' role tended to be associated with greater probability of persistence across levels of disturbance and network size.
+    % In conclusion, species richness does not considerably alter the trends visible in the LMMs. High species richness more clearly display an interaction between motif proportion, persistences and disturbance levels, while this effect is smaller with low species richness. 
+\clearpage
+                
+\section{Results: Persistence and motif profiles}
+
+    Persistence varied with the frequencies of different motifs in a network profile.
+
+    
+    \begin{table}[h!]
+        \caption{Coefficients ($\beta$) for models relating persistence to the proportion of a network profile, the level of disturbance to basal resources (corresponding to a probability of extinction ranging between 0.1 and 0.5), and their interaction. Predictors were centered and scaled before model fitting. All effects were significant ($p$\textless0.001). We also provide the $R^2$. }
+        \label{motif_profile_tab}
+        \centering
+        \begin{tabular}{c|c c c c c | c}
+            Motif & Intercept & Proportion & Disturbance & Interaction & $R^2$\\
+            \hline
+            Omnivory & 0.572 & -0.0133 & -0.139 & -4.89$\times10^{-4}$ & 0.908 \\
+            Apparent competition & 0.572 & 0.0105 & -0.139 & 4.78$\times10^{-4}$ & 0.905 \\
+            Direct competition & 0.572 & 2.62$\times10^{-3}$ & -0.139 & 3.84$\times10^{-4}$ & 0.901 \\
+            Three-species chain & 0.572 & 6.12$\times10^{-3}$ & -0.139 & -1.90$\times10^{-4}$ & 0.901 \\ 
+        \end{tabular}
+    \end{table}
+\clearpage
+
+
+\section{Results: Motif profiles and global properties}
+
+
+    A network's normalized motif profile (i.e., proportions of the total made up by each motif) was related to the network's size, connectance, and the interaction between them ($F_{1,2996}$=74.3, $p$\textless0.001; $F_{1,2996}$=4203, $p$\textless0.001; and $F_{1,2996}$=27.8, $p$\textless0.001, respectively in a PERMANOVA of dissimilarity in normalized network motif profiles against network size, connectance, and their interaction).
+    However, normalized motif profiles were not homogeneously variable across levels of network size, connectance, or their interaction  ($F_{5,2994}$=16.8, $p$\textless0.001; $F_{4,2995}$=31.7, $p$\textless0.001; and $F_{29,2970}$=11.9, $p$\textless0.001 for ANOVAs of dispersion of motif profiles against size, connectance, and combinations of size and connectance, respectively).These differences in variability can cause false positives in the PERMANOVA test. Variability was highest in small and low-connectance networks (Fig.~\ref{dispersion_normmotifs}).
+
+
+   \begin{figure}[h!]
+       \centering
+       \includegraphics[width=.75\textwidth]{figures/proportion_profile_dispersion.eps}
+       \caption{Dispersion of normalized motif profiles (i.e., proportions of each motif) within a network about the centroid for that combination of network size and connectance. Each circle represents a single network; circle colour indicates network size. Scatter has been introduced about each level of connectance to increase visual clarity; the levels of connectance we consider are indicated by vertical black lines.}
+       \label{dispersion_normmotifs}
+    \end{figure}
+
+
+    The frequencies of the four possible motifs were related to global network properties.
+
+    \begin{table}[hb!]
+        \centering
+        \caption{Coefficients for linear regressions relating the proportion of each motif in the total motif profile of a network to network size, connectance, and their interaction. Coefficients in \textbf{bold} are significant (\textless0.05).}
+       \label{network_prop_lms}
+       \begin{tabular}{c|c c c c c}
+            Motif & Intercept & Size & Connectance & Interaction \\
+            \hline
+            Three-species Chain & \textbf{0.262} & \textbf{1.78$\times10^{-4}$} & \textbf{-0.157} & \textbf{-3.27$\times10^{-3}$} \\
+            Apparent Competition & \textbf{0.541} & \textbf{-5.06$\times10^{-4}$} & \textbf{-1.00} & \textbf{2.59$\times10^{-3}$} \\
+            Direct Competition & \textbf{0.193} & -3.56$\times10^{-5}$ & \textbf{-0.556} & \textbf{5.92$\times10^{-3}$} \\
+            Omnivory & 4.82$\times10^{-3}$ & \textbf{3.64$\times10^{-4}$} & \textbf{1.71} & \textbf{-5.24$\times10^{-3}$}\\
+            \hline
+            \end{tabular}
+    \end{table}        
+\clearpage
+    
+            
 
 \section{SA: Persistence and global network properties}
 
@@ -389,182 +553,6 @@ $^\dagger$ Corresponding author:\\
 
 \clearpage
 
-
-\section{SB: Motif profiles and global properties}
-
-
-    A network's normalized motif profile (i.e., proportions of the total made up by each motif) was related to the network's size, connectance, and the interaction between them ($F_{1,2996}$=74.3, $p$\textless0.001; $F_{1,2996}$=4203, $p$\textless0.001; and $F_{1,2996}$=27.8, $p$\textless0.001, respectively in a PERMANOVA of dissimilarity in normalized network motif profiles against network size, connectance, and their interaction).
-    However, normalized motif profiles were not homogeneously variable across levels of network size, connectance, or their interaction  ($F_{5,2994}$=16.8, $p$\textless0.001; $F_{4,2995}$=31.7, $p$\textless0.001; and $F_{29,2970}$=11.9, $p$\textless0.001 for ANOVAs of dispersion of motif profiles against size, connectance, and combinations of size and connectance, respectively).These differences in variability can cause false positives in the PERMANOVA test. Variability was highest in small and low-connectance networks (Fig.~\ref{dispersion_normmotifs}).
-
-
-   \begin{figure}[h!]
-       \centering
-       \includegraphics[width=.75\textwidth]{figures/proportion_profile_dispersion.eps}
-       \caption{Dispersion of normalized motif profiles (i.e., proportions of each motif) within a network about the centroid for that combination of network size and connectance. Each circle represents a single network; circle colour indicates network size. Scatter has been introduced about each level of connectance to increase visual clarity; the levels of connectance we consider are indicated by vertical black lines.}
-       \label{dispersion_normmotifs}
-    \end{figure}
-
-
-    The frequencies of the four possible motifs were related to global network properties.
-
-    \begin{table}[hb!]
-        \centering
-        \caption{Coefficients for linear regressions relating the proportion of each motif in the total motif profile of a network to network size, connectance, and their interaction. Coefficients in \textbf{bold} are significant (\textless0.05).}
-       \label{network_prop_lms}
-       \begin{tabular}{c|c c c c c}
-            Motif & Intercept & Size & Connectance & Interaction \\
-            \hline
-            Three-species Chain & \textbf{0.262} & \textbf{1.78$\times10^{-4}$} & \textbf{-0.157} & \textbf{-3.27$\times10^{-3}$} \\
-            Apparent Competition & \textbf{0.541} & \textbf{-5.06$\times10^{-4}$} & \textbf{-1.00} & \textbf{2.59$\times10^{-3}$} \\
-            Direct Competition & \textbf{0.193} & -3.56$\times10^{-5}$ & \textbf{-0.556} & \textbf{5.92$\times10^{-3}$} \\
-            Omnivory & 4.82$\times10^{-3}$ & \textbf{3.64$\times10^{-4}$} & \textbf{1.71} & \textbf{-5.24$\times10^{-3}$}\\
-            \hline
-            \end{tabular}
-    \end{table}        
-\clearpage
-    
-
-\section{SC: Persistence and motif profiles}
-
-    Persistence varied with the frequencies of different motifs in a network profile.
-
-    
-    \begin{table}[h!]
-        \caption{Coefficients ($\beta$) for models relating persistence to the proportion of a network profile, the level of disturbance to basal resources (corresponding to a probability of extinction ranging between 0.1 and 0.5), and their interaction. Predictors were centered and scaled before model fitting. All effects were significant ($p$\textless0.001). We also provide the $R^2$. }
-        \label{motif_profile_tab}
-        \centering
-        \begin{tabular}{c|c c c c c | c}
-            Motif & Intercept & Proportion & Disturbance & Interaction & $R^2$\\
-            \hline
-            Omnivory & 0.572 & -0.0133 & -0.139 & -4.89$\times10^{-4}$ & 0.908 \\
-            Apparent competition & 0.572 & 0.0105 & -0.139 & 4.78$\times10^{-4}$ & 0.905 \\
-            Direct competition & 0.572 & 2.62$\times10^{-3}$ & -0.139 & 3.84$\times10^{-4}$ & 0.901 \\
-            Three-species chain & 0.572 & 6.12$\times10^{-3}$ & -0.139 & -1.90$\times10^{-4}$ & 0.901 \\ 
-        \end{tabular}
-    \end{table}
-
-
-\clearpage
-
-
-\section{SD: Persistence and motif participation}
-
-    Persistence varied with motif participation.
-
-    
-    \begin{table}[h!]
-        \centering
-        \caption{Coefficients ($\beta$) and $p$-values ($p$) for models relating persistence to the proportion of a species' role made up by the focal motif, the level of disturbance to basal resources (corresponding to a probability of extinction ranging between 0.1 and 0.5), and their interaction, as well as a random intercept to account for differences in persistence across levels of network size and connectance (Equation~\ref{propreq}). Predictors were centered and scaled before model fitting. We also provide the marginal $R^2_M$ (fixed effects only) and conditional $R^2_C$ (fixed and random effects) for each model.}
-        \label{tab:proportion}                \footnotesize
-        \begin{tabular}{c|c c | c c | c c | c c | c c |}
-        & \multicolumn{2}{c|}{Intercept} & \multicolumn{2}{c|}{Proportion} & \multicolumn{2}{c|}{Disturbance} & \multicolumn{2}{c|}{Interaction} & \multicolumn{2}{c|}{$R^2$} \\
-        Motif & $\beta$ & $p$ & $\beta$ & $p$ & $\beta$ & $p$ & $\beta$ & $p$ & $R^2_M$ & $R^2_C$ \\
-        \hline
-        3-sp Chain & 0.574 & \textless0.001 & -0.00508 & \textless0.001 & -0.139 & \textless0.001 & -0.00337 & \textless0.001 & 0.900 & 0.912 \\
-        App. Com. & 0.574 & \textless0.001 & -0.00312 & \textless0.001 & -0.139 & \textless0.001 & 0.00410 & \textless0.001 & 0.900 & 0.911 \\
-        Dir. Com. & 0.574 & \textless0.001 & 0.00564 & \textless0.001 & -0.139 & \textless0.001 & 0.000256 & \textless0.001 & 0.901 & 0.911 \\
-        Omnivory & 0.574 & \textless0.001 & 0.00709 & \textless0.001 & -0.139 & \textless0.001 & -0.00198 & \textless0.001 & 0.894 & 0.912 \\
-        \end{tabular}
-    \end{table}        
-\clearpage     
-
-
-\section{SE: Motif-persistence relationships \& network size}
-
-    When comparing the outcomes from linear mixed-effect models (LMMs) relating persistence to motif roles across all networks (Fig. 3 and Table 1, \emph{Main Text}) with similar linear regressions (LRs) made on each single network separately, the main trends are similar but different-sized networks showed slightly different results results for some motifs (Figure temporarily in main text).%(Figure~\ref{fig:density_prop_S}). 
-    For the three-species chain and omnivory motifs, a significant interaction between disturbance and the effect of the focal motif means that having a larger proportion of the role be made up of the chain or omnivory motif is associated with lower persistence at high levels of disturbance (Fig. 3 and Table 1, \emph{Main Text}). 
-    The same pattern holds overall for LRs fit within a network  %(Figure~\ref{fig:density_prop_S})
-    : the fraction of negative slopes for the proportion of three-species chain and omnivory motifs increases with increasing disturbance. 
-    This trend is most pronounced in large networks.% (bottom panel, Figure~\ref{fig:density_prop_S}). 
-    Besides the decrease in fraction of positive slopes with increasing disturbance, the omnivory motif show a higher overall fraction of positive slopes in comparison to the three-species chain motif, corresponding to the positive main effect of omnivory (Fig. 3 and Table 1, \emph{Main Text}). 
-
-
-    \begin{figure}[h!]
-         \centering
-         % \includegraphics[width=\textwidth]{figures/prop_dens_bp_vs_S_allC.pdf}
-        \caption{Density (y-axis) of slopes (x-axis) for all simulated webs of all sizes - a visualization of how an increased proportion of each motif (different colored lines) affects persistence of consumer species. The slopes are derived from linear mixed-effect models, with a random intercept for the interaction between species richness and network size. A negative slope value reflects a negative relationship between increased participation in a motif and persistence, while a positive slope value reflects a positive relationship - an increased proportion of a specific motif increase persistence. The fraction of replicates with a slope greater than zero are stated in numbers in each sub-plot, the color corresponding to motif (legend). Columns show the result for various disturbances on the basal level, from $\pi_{disturbed} = 0.1$ (left) to $\pi_{disturbed} = 0.5$ (right). Rows show various levels of network size. The vertical line indicate zero on the x-axis.}
-        \label{fig:density_prop_S}
-    \end{figure}
-    
-    
-    For the apparent and direct competition motifs, the LMMs include a positive interaction between disturbance and the proportion of the motif in a species' role (Fig. 3 and Table 1; \emph{Main Text}).
-    This means that having more of the role made up of these two motifs is increasingly beneficial at higher levels of disturbance, a trend which is also evident from the increasing fraction of positive slopes with increasing disturbance based on LRs of each network at each level of disturbance. % (Figure~\ref{fig:density_prop_S}).
-    As with the trends for omnivory and three-species chains, these increases are strongest in large networks. % (bottom row, Figure~\ref{fig:density_prop_S}).
-    % For direct competition, the fraction of slopes are similar across disturbance levels. Although this interaction is not positive when accounting for network size, the fraction of positive slopes are throughout high.
-    The increase in the proportion of positive slopes was much stronger for apparent competition than direct competition, consistent with the smaller (but still significant) interaction term for between direct competition in the LMMs.
-    A high proportion of direct competition in a species' role tended to be associated with greater probability of persistence across levels of disturbance and network size.
-    % In conclusion, species richness does not considerably alter the trends visible in the LMMs. High species richness more clearly display an interaction between motif proportion, persistences and disturbance levels, while this effect is smaller with low species richness. 
-\clearpage
-                
-            
-\section{SF: Persistence, degree, and trophic level}
-
-
-    Persistence varies with in-degree, trophic level, and their interaction.
-
-    \begin{table}[h!]
-        \caption{Coeffcients ($\beta$) for regressions of consumers' probabilities of persistence against simple measures of species' role (STL or in-degree), level of disturbance to basal resources, and their interaction. Predictors were centered and scaled before model fitting. All $p$-values were \textless0.001. The level of disturbance is reflected by basal resources having a baseline probability of extinction ranging between $0.1 - 0.5$.}
-        \label{tab:per_vs_TLdeg}
-        \centering
-        \begin{tabular}{l|c  c  c |}
-            Simple role measure & Role & Disturbance & Interaction \\
-            \hline
-            STL & -0.0218 & -0.139 & 0.00508 \\
-            in-degree & -0.00130 & -0.139 & -0.00908 \\
-        \end{tabular}
-    \end{table}
-
-
-    \begin{figure}[h!]
-     \centering
-     % \includegraphics[width=0.8\textwidth]{figures/heatmap_STL_allCS_BP0.pdf}
-     \caption{All species across all levels experience a risk of going extinct due to causes not related to the web of $\pi = 0.1$. The sub figures show final persistence for consumers with different shortest trophic length, for increasing connectance (y-axis) and network size (x-axis). Persistence decreases with darker color in the heat map.}
-     \label{fig:heatmap_stl_BP0}
-    \end{figure}
-
-
-    \begin{figure}[h!]
-     \centering
-     % \includegraphics[width=0.8\textwidth]{figures/heatmap_STL_allCS_BP1.pdf}
-     \caption{Primary producers experience a disturbance reducing their probability to go extinct to $\pi_{disturbed} = 0.5$ All consumer species go extinct due to causes not related to the web itself with probability $\pi = 0.1$. The sub figures show final persistence for consumers with different shortest trophic length, for increasing connectance (y-axis) and network size (x-axis). Persistence decreases with darker color in the heat map.}
-     \label{fig:heatmap_stl_BP1}
-    \end{figure}
-
-\clearpage
-
-\section{SG: Motif participation and network properties}
-
-
-    Motif participation varies with global-scale network properies.
-
-    \begin{table}[hb!]
-        \centering
-        \caption{Motif participation varies with size and connectance. Here we give the range and mean ($\pm$ standard deviation) proportion of each motif in species' motif participation vectors. 
-        We also show the effects ($\beta$) of network size, connectance, and their interaction in linear models predicting the proportion of each motif in a participation vector.
-        All effects were significant ($p$\textless0.001).
-        Predictors were not centered or standardized before model fitting. Motifs are ordered according to mean proportion.}
-        % Relevant lms are pchainlm, pomnilm, papplm, pdirlm}
-        \label{tab:partic_vs_SC}   
-        \footnotesize
-        \begin{tabular}{c|c c c | c c c}
-            Motif & Min & Max & Mean (SD) & Size & Connectance & Interaction \\
-            \hline
-            3-sp Chain & 0 & 1 & 0.249 (0.127) & 2.22$\times10^{-4}$ & -0.131 & -3.20$\times10^{-3}$ \\
-            App. Comp & 0.250 & 0.765 & 0.422 (0.0645) & -5.06$\times10^{-4}$ & -1.00 & 2.59$\times10^{-3}$ \\
-            Dir. Comp & 0.0501 & 0.359 & 0.179 (0.0407) & -3.56$\times10^{-5}$ & -0.556 & 5.92$\times10^{-3}$ \\
-            Omnivory & 0.006 & 0.346 & 0.164 (0.0790) & 3.64$\times10^{-4}$ & 1.71 & -5.24$\times10^{-3}$ \\   
-            \hline
-            \end{tabular}
-            \end{table}
-
-
-    \begin{figure}[h!]
-        \centering
-        \includegraphics[height=.65\textheight]{figures/participation_vs_SC.eps}
-        \caption{The proportion of each motif in a consumer's participation vector varied with network size, connectance, and their interaction. These relationships were steepest for apparent competition and omnivory.}
-        \label{fig:roles_vs_SC}
-    \end{figure}
-\clearpage 
 
 \section{SH: Persistence and motif roles}
 
@@ -818,56 +806,6 @@ $^\dagger$ Corresponding author:\\
         \end{figure}
     
 
-       
-    % \section{How do counts of motifs in a network profile vary with S and C?} 
-    
-        
-    %     As expected, all four motifs had higher counts in larger and more highly connected networks.
-    %     The precise effects of size, connectance, and their interaction differed between motifs  (Table~\ref{network_motif_lms}).
-    %     This suggests that the meso-scale structure of a network varies with size and connectance, not just the total number of motifs.
-    %     Indeed, the motif profile of a network is significantly related to its size, connectance, and their interaction ($F_{1,2996}$=2279, $p$\textless0.001; $F_{1,2996}$=3067, $p$\textless0.001; and $F_{1,2996}$=1187, $p$\textless0.001, respectively).
-    
-    
-    %     \begin{table}[h!]
-    %         \centering
-    %         \caption{Coefficients for linear regressions relating the total count of all motifs or the count of each three-species motif in a network to network size, connectance, and their interaction. Coefficients in \textbf{bold} are significant (\textless0.05). Note that, while there are 13 unique three-species motifs, only four are possible in acyclic networks such as those considered here.}
-    %        \label{network_motif_lms}
-    %        \begin{tabular}{c|c c c c c}
-    %         Motif & Intercept & Size & Connectance & Interaction \\
-    %         \hline
-    %         Total count & \textbf{-2.85$\times10^3$} & \textbf{46.6} & \textbf{-2.12$\times10^{5}$} & \textbf{4.72$\times10^{3}$} \\
-    %         \hline
-    %         Thee-species Chain & \textbf{-1.40$\times10^{3}$} & \textbf{26.1} & \textbf{-3.74$\times10^{4}$} & \textbf{8.58$\times10^{2}$} \\
-    %         Apparent Competition & \textbf{-2.23$\times10^3$} & \textbf{42.0} & 
-    %         \textbf{-7.26$\times10^4$} & \textbf{1.63$\times10^3$} \\
-    %         Direct Competition & 26.6 & 0.777 & \textbf{-4.85$\times10^4$} & \textbf{9.89$\times10^2$} \\
-    %         Omnivory & \textbf{7.57} & \textbf{-22.2} & \textbf{-5.37$\times10^4$} & \textbf{1.24$\times10^3$} \\
-    %         \hline
-    %         \end{tabular}
-    %     \end{table}
-        
-            
-    %     \begin{figure}[h!]
-    %         \centering
-    %         \includegraphics[width=.75\textwidth]{figures/motif_profile_dispersion.pdf}
-    %         \caption{Dispersion of motif profiles within a network about the centroid for that combination of network size and connectance. Each circle represents a single network; circle colour indicates network size. Scatter has been introduced about each level of connectance to increase visual clarity; the levels of connectance we consider are indicated by vertical black lines.}
-    %         \label{dispersion_rawmotifs}
-    %     \end{figure}
-    
-        
-    %     Motif profiles were similarly variable across networks with different sizes, but were not homogeneously variable across connectances or size-connectance combinations ($F_{5,2994}$=0.365, $p$=0.873; $F_{4,2995}$=4.49, $p$=0.001; and $F_{29,2970}$=27.1, $p$\textless0.001 , respectively).
-    %     These differences in variability of motif profiles can cause false positives in the PERMANOVA.
-    %     Variability in motif profiles was lowest among large networks with moderate connectance and was highest among the least-connected and most-connected networks we considered (Fig.~\ref{dispersion_rawmotifs}).
-    
-    
-    %     \begin{figure}[h!]
-    %         \centering
-    %         \includegraphics[width=\textwidth]{figures/absolute_lmer_allCS.pdf}
-    %         \caption{The effect of number of times a species appears (x-axis) in any of the various motifs (columns) on persistence (y-axis). The effect of each motif participation is fitted by linear mixed-effect models, following Equation~\ref{absreq}, except that the disturbance levels are fitted separately. The different colored lines indicate various disturbances on the basal level, from $\pi_{disturbed} = 0.1$ (in the top) to $\pi_{disturbed} = 0.5$ (in the bottom).}
-    %         \label{fig:abs_lmer_all}
-    %     \end{figure}            
-    
-
     \subsection*{Motif profiles and proportion of basal resources}
     
         We repeated our analyses testing whether motif profiles were related to network size and connectance, replacing network size with the proportion of the network made up by basal resources (pBasal).
@@ -897,9 +835,7 @@ $^\dagger$ Corresponding author:\\
             \caption{Mean proportion of each motif in a network's motif profile varied with connectance and the proportion of basal resources in the network. For direct competition and omnivory, the frequency of the motif also varied with the interaction between connectance and basal resources.}
             \label{fig:Blms}
         \end{figure}    
-    
-\clearpage
-    
+
 
     \subsection*{Motif participation and proportion of basal resources}
     
@@ -949,11 +885,9 @@ $^\dagger$ Corresponding author:\\
             \hline
             \end{tabular}
             \end{table}
-
-    
 \clearpage        
 
-\section{Motif profiles in different network sets}
+\section*{SK: Motif profiles in different network sets}
 
     Not all motifs were equally likely to occur in the networks we considered. 
     Across the initially stable, acyclic networks (i.e., those used in the main text), the omnivory motif tended to make up a smaller proportion of the motif profile than other motifs.
@@ -980,66 +914,8 @@ $^\dagger$ Corresponding author:\\
         0.062 (0.046) & 0.00 & 0.258 \\
         \end{tabular}
     \end{table}
-
-
-
 \clearpage
 
-% \section{Persistence and count-based motif participation}
-
-%     \subsection*{Methods}
-
-%         We test whether participating in higher absolute numbers (i.e., counts) of a motif increases persistence using a set of models that parallels those used to test whether having a greater proportion of the role made up by a particular motif (see \emph{Main Text}).  
-%         Specifically, we fit four linear mixed-effect models (LMMs; one per motif included in the Bayesian networks).
-%         In each case, we considered only non-basal species (i.e., those with at least one prey) as the persistence of basal species is determined only by their baseline probability.
-%         These models included the absolute number of times the focal species appeared in the focal motif, the increase in probability of extinction for basal species, and the interaction between the two as well as a random intercept for the interaction between species richness and connectance (equations.
-%         All models were fit using the R~\citep{R} function `lmer' from the package \emph{lmerTest}~\citep{lmerTest}.
-%         We calculated marginal (fixed effects only) and conditional (fixed and random effects) $R^2$ using the R~\citep{R} function `r.squaredGLMM' from the package \emph{MuMIn}~\citep{MuMIn}.
-
-%             The formula for these LMMs are:         
-%             \begin{equation}
-%                 \Psi_{ik} \approx \chi_{i} + \pi_{disturbed_k} + \chi_{i}\pi_{disturbed_k} + S:C_{i} ,
-%                 \label{absreq}
-%             \end{equation}
-        
-%             \noindent where $\Psi_ik$ is the persistence of species $i$ during disturbance level $k$, $\chi_{i}$ is the number of times species $i$ appears in the focal motif, $\pi_{disturbed_k}$ is the probability of extinction for a basal resource in disturbance level $k$, and $S:C_{i}$ is a random intercept for the species richness and connectance of the network containing species $i$.
-            
-            
-%             % Additionally, we performed a similar linear regression of persistence against motif participation within each simulated network and for each level of disturbance to basal resources (XX regressions total).
-%             % These regressions were fit using the R~\citep{R} base function `lm'.
-%             % We then analyse the distribution of slopes for the effect of motif participation across levels of disturbance, network size, and connectance.  
-            
-
-%     \subsection*{Results}
-
-%         \begin{figure}[h!]
-%             \centering
-%             \includegraphics[width=\textwidth]{figures/absolute_lmer_allCS.pdf}
-%             \caption{The effect of number of times a species appear (x-axis) in any of the various motifs (columns) on persistence (y-axis). The effect of each motif participation is fitted by linear mixed-effect models, following \emph{Equation 2; Main Text}, except that the disturbance levels are fitted separately. The different colored lines indicate various disturbances on the basal level, from $\pi_{disturbed} = 0.1$ (in the top) to $\pi_{disturbed} = 0.5$ (in the bottom).}
-%             \label{fig:abs_lmer_all}
-%         \end{figure}            
-    
-    
-%         Persistence increased significantly with the number of times a species appeared in any of the four possible motifs in the food webs (Table~\ref{tab:absolute_number} and Figure~\ref{fig:abs_lmer_all}). 
-%         These relationships were slightly stronger for the number of times a species appears in the three-species chain and direct competition motifs and somewhat weaker for apparent competition and omnivory. The absolute difference between the motifs was small, with a clear positive relationship between persistence and motif count present in all cases. 
-%         As expected, persistence decreased significantly with increasing disturbance of basal resources and the strength of this relationship was very similar across the four motifs.
-%         The level of disturbance to basal resources also affected the relationship between persistence and motif counts.
-%         For all four motifs, there was a negative interaction between motif count and disturbance such that, for high levels of disturbance, participating more often in any of the motifs would result in decreased persistence.
-    
-%         \begin{table}[h!]
-%             \caption{Coefficients ($\beta$) for models relating persistence to the number of times a species appears in the focal motif, the level of disturbance to basal resources, and their interaction, as well as a random intercept to account for differences in persistence across levels of network size and connectance (Equation~\ref{absreq}). $p$-values for all coefficients in all models were \textless0.001. We also provide the marginal $R^2_M$ (fixed effects only) and conditional $R^2_C$ (fixed and random effects) for each model.}
-%             \label{tab:absolute_number}        \centering
-%             \begin{tabular}{c|c  c c  c | c c |}
-%             Motif & Intercept & Motif count & Disturbance & Interaction & $R^2_M$ & $R^2_C$ \\
-%             \hline
-%             3-sp Chain & 0.762 & 1.14$\times10^{-4}$ & -0.388 & -1.36$\times10^{-4}$ & 0.897 & 0.913 \\
-%             Apparent Compet. & 0.770 & 3.41$\times10^{-5}$ & -0.397 & -4.36$\times10^{-5}$ & 0.898 & 0.911\\
-%             Direct Competition & 0.764 & 1.22$\times10^{-4}$ & -0.398 & -8.46$\times10^{-5}$ & 0.895 & 0.914 \\
-%             Omnivory & 0.770 & 6.01$\times10^{-5}$ & -0.400 & -5.91$\times10^{-5}$ & 0.897 & 0.912 \\                
-%             \end{tabular}
-%             \end{table}
-                
-% \clearpage
 
 \bibliography{anna_bib} % Abbreviate journal titles.
 \bibliographystyle{ecollett} 
