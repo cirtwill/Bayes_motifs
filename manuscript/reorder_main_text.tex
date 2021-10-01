@@ -4,6 +4,7 @@
 \usepackage{multirow} 
 \usepackage{geometry} 
 \usepackage{pdflscape}
+\usepackage{amsmath}
 \usepackage[labelfont=bf]{caption} 
 \usepackage{setspace}
 \usepackage[running]{lineno} 
@@ -75,10 +76,10 @@ $^\dagger$ Corresponding author:\\
 \section*{Introduction}
 
     %\subsection*{1 Why are bottom-up effects important for understanding stability?}
-     The plant community is the foundation upon which the myriad species in terrestrial food webs depend for their survival. Disturbances in the plant community have been shown to affect important ecosystem properties such as primary \citep{Hector1999} and secondary production \citep{borer2012plant}, soil respiration and carbon cycling \citep{chen2019plant} and consumer diversity \citep{scherber2010bottom, Baiser2016}. The stability of the plant community is crucial for sustaining a healthy energy flow in the ecosystem as a whole \citep{Rosenblatt2016} and the structure of the plant community affects stability across all levels of ecosystem organization \citep{proulx2010diversity,scherber2010bottom}. Loss of diversity at the basal level typically causes declines in both abundance and richness of all types of consumers: herbivores, predators,  parasitoids, etc. \citep{scherber2010bottom}.
+     The plant community is the foundation upon which the myriad species in terrestrial food webs depend for their survival. Disturbances in the plant community have been shown to affect important ecosystem properties such as primary \citep{Hector1999} and secondary production \citep{borer2012plant}, soil respiration and carbon cycling \citep{chen2019plant} and consumer diversity \citep{scherber2010bottom, Baiser2016}. The stability of the plant community is crucial for sustaining a healthy energy flow in the ecosystem as a whole \citep{Rosenblatt2016} and the structure of the plant community affects stability across all levels of ecosystem organization \citep{proulx2010diversity,scherber2010bottom}. Loss of diversity at the basal level typically causes declines in both abundance and richness of all types of consumers: herbivores, predators, parasitoids, etc. \citep{scherber2010bottom}.
     
      %\subsection*{2 Bayesian networks are a fantastic way to model bottom-up effects}
-    How population decline or extinction of one species leads to loss of other species via direct and indirect effects (i.e., secondary extinctions) is a vibrant area of research \citep{curtsdotter2011robustness, dunne2009cascading, Eklof2006}. Traditionally, there are two main approaches for studying secondary extinctions. First, there are topological models, based only on food web structure \citep{dunne2009cascading}. Here,  extinctions only affect other species in the network once a consumer has lost all of its prey and therefore must go extinct. The second approach uses dynamical models which explicitly simulate population dynamics using a system of differential equations \citep{binzer2011susceptibility}. Dynamical models take changes in prey or predator densities into account when calculating the densities of other species in the network. 
+    How population decline or extinction of one species leads to loss of other species via direct and indirect effects (i.e., secondary extinctions) is a vibrant area of research \citep{curtsdotter2011robustness, dunne2009cascading, Eklof2006}. Traditionally, there are two main approaches for studying secondary extinctions. First, there are topological models, based only on food web structure \citep{dunne2009cascading}. Here, extinctions only affect other species in the network once a consumer has lost all of its prey and therefore must go extinct. The second approach uses dynamical models which explicitly simulate population dynamics using a system of differential equations \citep{binzer2011susceptibility}. Dynamical models take changes in prey or predator densities into account when calculating the densities of other species in the network. 
     This additional detail means that realistic processes such as indirect interactions can be included, but also means that dynamical models are more parameter intensive, and simulations are more time-consuming, than topological models. 
     
     
@@ -104,11 +105,11 @@ $^\dagger$ Corresponding author:\\
     %\subsection*{5 Motif participation may similarly affect species' particular extinction risk}
     One way to incorporate more nuance into descriptions of how species fit into their communities is to define species' roles based on their participation in different motifs -- unique combinations of small numbers of interacting species~\citep{Stouffer2007,Stouffer2012}. Importantly, these `motif participation roles' capture information about species' direct and indirect interactions, incorporating larger-scale network structure into species-level descriptions~\citep{Cirtwill2015JAE}. 
     This means that two species with the same in-degrees and trophic levels can still participate in different sets of motifs if, for example, one interacts with specialists and the other interacts with generalists~\citep{Cirtwill2018FoodWebs}. 
-    This extra detail  may be useful when predicting  extinction risk since, at the network level, the frequencies of different motifs are associated with community stability \citep{prill2005dynamic, bascompte2005simple} and with changes to the composition of plant communities~\cite{giling2019plant}. 
+    This extra detail may be useful when predicting  extinction risk since, at the network level, the frequencies of different motifs are associated with community stability \citep{prill2005dynamic, bascompte2005simple} and with changes to the composition of plant communities~\cite{giling2019plant}. 
     We therefore expect that the motif structure of a network and species' participation in that structure should be related to risks due to disturbance to basal resources. 
     
            %\subsection*{Here we test...}
-    Specifically, we are interested in whether a consumer's extinction risk depends on 1) the motif profile of the full food web and 2) the motifs in which a focal species participates. 
+    Specifically, we are interested in whether a consumer's extinction risk depends on 1) the motifs in which a focal species participates and 2) the motif profile of the full food web. 
     In addition, we want to understand how the information provided by motifs is related to classical global and local food web properties in order to better synthesize information provided by different scales of network structure.
     Of the 13 three-species motifs that can occur in empirical food webs, there are four motifs that are over-represented in empirical networks and are thought to contribute to stability \citep{Stouffer2007, Borrelli2015a, giling2019plant}. These four motifs, the three-species chain, omnivory, apparent competition, and direct competition, are also the only ones which can occur in the acyclic networks required for Bayesian network simulations~\citep{Eklof2013}. 
     Therefore, we focus on these four particularly important motifs.  
@@ -142,37 +143,68 @@ $^\dagger$ Corresponding author:\\
 		
 		
 	\subsection*{Calculating persistence}	
-
-		First, we assigned all species a baseline probability of extinction ($\pi_{base}$) -- the risk of going extinct given factors not related to the food web itself. 
-		For consumer species, this also represents extinction despite all resources being present. 
-		Such events can, for example, reflect diseases or stochastic extinctions of small populations. 
-
-
-		As well as this baseline scenario, we simulated a set of scenarios where primary producers had a higher baseline probability of extinction ($\pi_{disturbed}$). 
+    % basic idea behind BN modeling
+		We use Bayesian Network modeling to calculate the persistence of each species in our simulated networks. 
+		A Bayesian Network represent a graphical model for probabilistic relationships among a set of variables. The nodes of the network represents the variables, and the links represent conditional dependencies among the variables. Each node has a set of local probability dependencies, conditional on the state of the parent nodes. 
+		In our ecological setting, species act as nodes and is a Bernoulli random variable, being either extant or extinct. The links act as feeding interactions between the nodes.
+		The extinction probability of each species is a function of the state of its resources.
+	    
+		% probability of extinction equation
+		Consider a consumer species with several resource species $n$. The extinction probability of this consumer will depend on both the total state of its resource species $n$, and on a baseline extinction probability of extinction, $\pi_{base}$. $\pi_{base}$ represent the risk of going extinct given factors not related to the food web itself, and could reflect diseases or stochastic extinctions of small populations.
+		All the species in the network retain a baseline probability of extinction, which can be different to reflect sensitivity of some groups of species.
+		If a consumer looses some resources $k$, the fraction of resources lost $f$ will be $f = (k/n)$. Note that we here make a strong assumption, where we only care about the fraction of resources lost and not the identity of the resources species.
+		
+		The response of a consumer to the loss of a fraction of its resources can be modelled in several biologically plausible ways. For example, the response could be linear or non-linear.
+		A sigmoid non-linear functional response of consumers to the loss of resources ($\alpha >1, \beta >1$) has been shown to most accurately capture the secondary extinctions produced by a dynamical model~\citep{Eklof2013}.
+		Therefore, we use a cumulative density function of a beta distribution to get each species \textit{i} probability of extinction:
+		\begin{equation}
+		\label{betafunc}
+		P(\lnot i|f) = \pi_{base} + (1 - \pi_{base}) \frac{B(f;\alpha,\beta)}{B(\alpha,\beta)}
+		\end{equation}
+		
+		If all resource species of a consumer \textit{C} are present ($f = 0$), the extinction probability will be $P(\lnot C|f) = \pi_{base}$. 
+		Similarly, if all resources are extinct ($f = 1$), the extinction probability $P(\lnot C|f)$ will be equal to 1 and the consumer will go extinct.
+		If the $f$ is not 1 nor 0, the non-linear sigmoid curve will determine the response of the consumer, which will be more severe if the fraction is high and less severe if the fraction is small. This will in turn affect the extinction probability $P(\lnot C|f)$. 
+		For a basal species, we assume that abiotic resources are always available. Therefore, a primary producer is independent of resource species and will always have $f = 0$.  
+		
+		% how we calculate persistences 
+		As consumer species depends on its resource species, we start determining the status of each primary producer in the network.
+	    Systematically, we use eqn \ref{betafunc} to receive each species probability of extinction $P(\lnot i|f)$, and next we perform Bernoulli trials. 
+	    Imagine a basal species \textit{A} with extinction probability $P(\lnot A) = \pi_{base}$ where $\pi_{base} = 0.1$. We draw a random number $r$ from a uniform distribution between $0-1$. The basal species would be considered extinct if $r < 0.1$, and extant otherwise. 
+		We use this information when performing a Bernoulli trial on a consumer \textit{C} connected to this basal species, inserting our information of the $\pi_{base}$ and fraction of resources lost $f$ of this consumer, into eqn \ref{betafunc} to 
+	    receive $P(\lnot C|f)$. In the same manner as for the basal species above, we compare $P(\lnot C|f)$ with a random number $r$, and if $r < P(\lnot C|f)$ the consumer species is considered extinct. 
+	    In this way, we evaluate each species existence, starting from the bottom and working our way up.
+	    As this method is probabilistic, we repeat these calculations 100 000 times per network, with unique random draws.
+	    For each species, we then estimate the fraction of simulations in which the species persist, and this value is the approximated probability of persistence.
+	    To approximate persistence probabilities through numerical simulation are shown to be highly efficient and produce the same result as exact methods of solving Bayesian networks \citep{Haussler2020}.
+		
+    % various disturbance scenarios
+        In our baseline scenario, primary producers had a baseline extinction probability of $\pi_{base} = 0.1$. 
+		We also simulated a set of scenarios where primary producers had a higher baseline probability of extinction ($\pi_{disturbed}$). 
 		These scenarios reflect threats to primary producers such as increased temperatures resulting in droughts, making some species more vulnerable to extinction.
 		$\pi_{disturbed}$ ranged between $0.1-0.5$, in steps of $0.08$. 
 		The highest disturbance level, $\pi_{disturbed} = 0.5$, corresponds to basal species having a 50\% risk of going extinct. 
 		Consumer species retained $\pi_{base}=0.1$ in all cases.
 		
 		
-		As well as the intrinsic baseline probability of extinction, extinction risk for consumers is affected by access to resources. 
-		When all resources are extant, the probability of extinction for a consumer $i$, $P(\lnot i)$, is equal to the baseline probability; $P(\lnot i|X_{1},...,X_{n}) = \pi_{base}$. 
-		When all resources are extinct, the consumer will go extinct; $P(\lnot i|\lnot X_{1},...,\lnot X_{n})=1$. 
+		%As well as the intrinsic baseline probability of extinction, extinction risk for consumers is affected by access to resources. 
+		%When all resources are extant, the probability of extinction for a consumer $i$, $P(\lnot i)$, is equal to the baseline probability; $P(\lnot i|X_{1},...,X_{n}) = \pi_{base}$. 
+		%When all resources are extinct, the consumer will go extinct; $P(\lnot i|\lnot X_{1},...,\lnot X_{n})=1$. 
 
 
-		Calculating $P(i)$ or $P(\lnot i)$ is less straightforward when a consumer $i$ loses a fraction $k/n = f$ of its prey. 
-		We used a sigmoid non-linear functional response of consumers to the loss of resources (Appendix \emph{S2}), which has been shown to most accurately capture the secondary extinctions produced by a dynamical model~\citep{Eklof2013}. 
-		Probabilities of extinction for resource species are used when calculating probabilities for higher level species. 
+		%Calculating $P(i)$ or $P(\lnot i)$ is less straightforward when a consumer $i$ loses a fraction $k/n = f$ of its prey. 
+		%We used a sigmoid non-linear functional response of consumers to the loss of resources (Appendix \emph{S2}), which has been shown to most accurately capture the secondary extinctions produced by a dynamical model~\citep{Eklof2013}. 
+		%Probabilities of extinction for resource species are used when calculating probabilities for higher level species. 
 
 
-		Although it is possible to solve the Bayesian network exactly \citep{Eklof2013}, this is cumbersome for larger networks. 
-		As numerical simulations are highly efficient and produce the same result \citep{Haussler2020}, we also use simulations here.
-		To compute $P(\lnot i|f)$, we calculated the fraction of resources lost ($f$) for each consumer $i$.
-		Persistence is determined by comparing $P(\lnot i|f)$ with a randomly drawn number from a uniform distribution between 0-1. 
-		If this random number is lower than $P(\lnot i|f)$, the species is considered extinct. 
-		The species' marginal probability of persistence is simply $P(i) = 1-P(\lnot i)$.
-		To minimize noise due to the random draws, we repeat these calculations 100 000 times per web, with unique random draws when calculating $P(i)$.
-		The final persistence for each species is the mean over these runs. 
+		%Although it is possible to solve the Bayesian network exactly \citep{Eklof2013}, this is cumbersome for larger networks. 
+		%As numerical simulations are highly efficient and produce the same result \citep{Haussler2020}, we also use simulations here.
+		%To compute $P(\lnot i|f)$, we calculated the fraction of resources lost ($f$) for each consumer $i$.
+		%Persistence is determined by comparing $P(\lnot i|f)$ with a randomly drawn number from a uniform distribution between 0-1. 
+		%If this random number is lower than $P(\lnot i|f)$, the species is considered extinct. 
+		%The species' marginal probability of persistence is simply $P(i) = 1-P(\lnot i)$.
+		%To minimize noise due to the random draws, we repeat these calculations 100 000 times per web, with unique random draws when calculating $P(i)$.
+		%The final persistence for each species is the mean over these runs. 
 		
 
 	\subsection*{Defining species roles}
@@ -185,7 +217,6 @@ $^\dagger$ Corresponding author:\\
         
         To provide context for species' motif participation, we also calculated network ``motif profiles'': four-dimensional vectors of the number of each three-species motif in each network~\citep{Stouffer2012}.
         To separate differences in motif structure from differences in network size (larger networks contain more motifs), we normalized motif profiles by dividing the count of each motif by the total count of all motifs. 
-        % The motif profile for each network therefore describes the proportions of each motif and has a sum of exactly one.
 		We calculated species' motif participation using the Python package \emph{pymfinder}~\citep{pymfinder}.
 
 
