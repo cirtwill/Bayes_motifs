@@ -29,7 +29,7 @@
 \title{Do motif roles provide unique information about species risk of extinction?\\ \medskip Supplementary Information}
 
 
-\author{Anna \r{A}kesson$^{1\dagger}$, Alyssa R. Cirtwill$^{2}$, Kate Wootton$^{3}$, Gyuri Barab\'{a}s$^{1}$, Anna Ekl\"{o}f$^{1}$} 
+\author{Anna \r{A}kesson$^{1\dagger}$, Alyssa R. Cirtwill$^{2}$, Kate Wootton$^{3}$, Anna Ekl\"{o}f$^{1}$} 
 \date{\small$^1$Department of Theoretical Biology, Chemistry, and Physics\\ 
 Link\"{o}ping University\\
 Link\"{o}ping, Sweden\\
@@ -100,9 +100,16 @@ $^\dagger$ Corresponding author:\\
 
 \section{Supplemental methods: Network creation}
 
+    After simulating our initial niche-model networks, we then filtered networks for biological plausibility.
+    Specifically, we removed any network containing disconnected components
+    (species or groups of species not connected to the rest of the network) 
+    or any network where any species had a shortest trophic level \textgreater6 as such high trophic levels are very uncommon in empirical food webs ~\citep{Riede2011}.
+    Any removed network was replaced with a fresh simulation and re-checked until 100 realistic networks for each size-connectance combination had been obtained.
+    
+
     A Bayesian food web depicts probabilistic relationships among a set of species where each species' probability of persistence depends upon the probabilities of its resource species persisting~\citep{Jensen_Nielsen,Eklof2013}. 
-    All persistence calculations therefore begin  by determining the status of the primary producers (who do not depend on other species).
-    Calculations continue in a strictly bottom-up manner with primary consumers (who depend only on primary producers), and so on up the network.
+    All persistence calculations therefore begin  by determining the status of the basal resources (who do not depend on other species).
+    Calculations continue in a strictly bottom-up manner with primary consumers (who depend only on basal resources), and so on up the network.
 
         
     While niche-model food webs can contain cycles (e.g., species A eats B, B eats C, and C eats A), such cycles make it impossible to calculate persistence in the Bayesian network framework~\citep{Tarjan1972}. 
@@ -127,8 +134,8 @@ $^\dagger$ Corresponding author:\\
         Consider a consumer species with several resource species $n$. 
         The extinction probability
         of this consumer will depend on both the total state of its resource species $n$, and on a
-        baseline extinction probability of extinction, $\pi_{base}$. 
-        $\pi_{base}$ represents the risk of going extinct
+        baseline extinction probability of extinction, $\pi$. 
+        $\pi$ represents the risk of going extinct
         given factors not related to the food web itself, and could reflect diseases or stochastic
         extinctions of small populations. 
         All the species in the network retain a baseline
@@ -149,11 +156,11 @@ $^\dagger$ Corresponding author:\\
         Therefore, we use a cumulative density function of a beta distribution to get each species \textit{i} probability of extinction:
         \begin{equation}
         \label{betafunc}
-        P(\lnot i|f) = \pi_{base} + (1 - \pi_{base}) \frac{B(f;\alpha,\beta)}{B(\alpha,\beta)}
+        P(\lnot i|f) = \pi + (1 - \pi) \frac{B(f;\alpha,\beta)}{B(\alpha,\beta)}
         \end{equation}
         
 
-        If all resource species of a consumer \textit{C} are present ($f = 0$), the extinction probability will be $P(\lnot C|f) = \pi_{base}$. 
+        If all resource species of a consumer \textit{C} are present ($f = 0$), the extinction probability will be $P(\lnot C|f) = \pi$. 
         Similarly, if all resources are extinct ($f = 1$), the extinction probability $P(\lnot C|f)$ will be equal to 1 and the consumer will go extinct.
         If the fraction $f$ is not 1 nor 0, the non-linear sigmoid curve will determine the response of the consumer, which will be more severe if the fraction resources lost is high and less severe if the fraction is small. This will in turn affect the extinction probability $P(\lnot C|f)$. 
         For a basal species, we assume that abiotic resources are always available. Therefore, a primary producer is independent of resource species and will always have $f = 0$.  
@@ -162,8 +169,8 @@ $^\dagger$ Corresponding author:\\
         % how we calculate persistences 
         As consumer species depends on its resource species, we start determining the status of each primary producer in the network.
         Systematically, we use eqn \ref{betafunc} to receive each species probability of extinction $P(\lnot i|f)$, and next we perform Bernoulli trials to determine whether the species goes extinct or not. 
-        Imagine a basal species \textit{A} with extinction probability $P(\lnot A) = \pi_{base}$ where $\pi_{base} = 0.1$. We draw a random number $r$ from a uniform distribution between $0-1$. The basal species would be considered extinct if $r < 0.1$, and extant otherwise. 
-        We use this information when performing a Bernoulli trial on a consumer \textit{C} connected to this basal species, inserting our information of the $\pi_{base}$ and fraction of resources lost $f$ of this consumer, into eqn \ref{betafunc} to 
+        Imagine a basal species \textit{A} with extinction probability $P(\lnot A) = \pi$ where $\pi = 0.1$. We draw a random number $r$ from a uniform distribution between $0-1$. The basal species would be considered extinct if $r < 0.1$, and extant otherwise. 
+        We use this information when performing a Bernoulli trial on a consumer \textit{C} connected to this basal species, inserting our information of the $\pi$ and fraction of resources lost $f$ of this consumer, into eqn \ref{betafunc} to 
         receive $P(\lnot C|f)$. In the same manner as for the basal species above, we compare $P(\lnot C|f)$ with a random number $r$, and if $r < P(\lnot C|f)$ the consumer species is considered extinct. 
         In this way, we evaluate each species existence, starting from the bottom and working our way up.
         As this method is probabilistic, we repeat these calculations 100 000 times per network, with unique random draws.
@@ -172,12 +179,12 @@ $^\dagger$ Corresponding author:\\
         
 
     % various disturbance scenarios
-        In our baseline scenario, primary producers had a baseline extinction probability of $\pi_{base} = 0.1$. 
-        We also simulated a set of scenarios where primary producers had a higher baseline probability of extinction ($\pi_{disturbed}$). 
-        These scenarios reflect threats to primary producers such as increased temperatures resulting in droughts, making some species more vulnerable to extinction.
-        $\pi_{disturbed}$ ranged between $0.1-0.5$, in steps of $0.08$. 
-        The highest disturbance level, $\pi_{disturbed} = 0.5$, corresponds to basal species having a 50\% risk of going extinct. 
-        Consumer species retained $\pi_{base}=0.1$ in all cases.
+        In our baseline scenario, basal resources had a baseline extinction probability of $\pi = 0.1$. 
+        We also simulated a set of scenarios where basal resources had a higher baseline probability of extinction ($\pi$). 
+        These scenarios reflect threats to basal resources such as increased temperatures resulting in droughts, making some species more vulnerable to extinction.
+        $\pi$ ranged between $0.1-0.5$, in steps of $0.08$. 
+        The highest disturbance level, $\pi = 0.5$, corresponds to basal species having a 50\% risk of going extinct. 
+        Consumer species retained $\pi=0.1$ in all cases.
         
 \clearpage
         
@@ -189,13 +196,13 @@ $^\dagger$ Corresponding author:\\
         To test this, we fit four linear mixed-effect models (LMMs; one per motif included in the Bayesian networks):
 
         \begin{equation}
-            \Psi_{ik} \approx \rho_{i} + \pi_{disturbed_k} + \rho_{i}\pi_{disturbed_k} +
+            \Psi_{ik} \approx \rho_{i} + \pi_{k} + \rho_{i}\pi_{k} +
             S_{i}:C_{i} ,
             \label{propreq}
         \end{equation}
 
 
-        \noindent where $\Psi_{ik}$ is the persistence of species $i$ during disturbance level $k$, $\rho_{i}$ is the proportion of the role of species $i$ that is made up by the focal motif, $\pi_{disturbed_k}$ is the probability of extinction for a basal resource in disturbance level $k$, and $S_{i}C_{i}$ is a random intercept for the species richness and connectance of the network containing species $i$.
+        \noindent where $\Psi_{ik}$ is the persistence of species $i$ during disturbance level $k$, $\rho_{i}$ is the proportion of the role of species $i$ that is made up by the focal motif, $\pi_{k}$ is the probability of extinction for a basal resource in disturbance level $k$, and $S_{i}C_{i}$ is a random intercept for the species richness and connectance of the network containing species $i$.
         We centered and scaled the predictors before fitting the LMMs.
         All models were fit using the R~\citep{R} function `lmer' from the package \emph{lmerTest}~\citep{lmerTest}.
         We calculated marginal (fixed effects only) and conditional (fixed and random effects) $R^2$ using the R~\citep{R} function `r.squaredGLMM' from the package \emph{MuMIn}~\citep{MuMIn}.
@@ -260,7 +267,7 @@ $^\dagger$ Corresponding author:\\
         To supplement these overall tests, we also fit four linear models relating mean persistence to network motif profiles, disturbance, and the interaction between them:
 
             \begin{equation}
-                \Psi_{ik} \approx \Bar{\rho}_{i} + \pi_{disturbed_k} + \Bar{\rho}_{i}\pi_{disturbed_k} ,
+                \Psi_{ik} \approx \Bar{\rho}_{i} + \pi_{k} + \Bar{\rho}_{i}\pi_{k} ,
                 \label{netpropeq}
             \end{equation}
         
@@ -293,9 +300,9 @@ $^\dagger$ Corresponding author:\\
         \subsubsection{Network mean persistence and network properties}
     
             Both species richness (S) and connectance (C) are known to influence persistence in both simulation studies and empirical food webs.
-            In addition, increasing the probability of extinction for basal species ($\pi_{disturbed}$ above) is intended to decrease persistence of species at higher trophic levels.
+            In addition, increasing the probability of extinction for basal species ($\pi$ above) is intended to decrease persistence of species at higher trophic levels.
             Although these effects are not the main focus of our manuscript, we must establish these background effects before measuring the effects of meso-scale structure on persistence.
-            The persistence of basal species in our simulations is determined only by their baseline probability, being either $\pi_{base} = 0.1$ or higher, dependent on $\pi_{disturbed}$.
+            The persistence of basal species in our simulations is determined only by their baseline probability, being either $\pi = 0.1$ or higher, dependent on $\pi$.
             We therefore considered only non-basal species (i.e., those with at least one prey) throughout this manuscript.
 
             To test for effects of global network properties, we fit a linear regression relating consumer species' probabilities of persistence to network size, connectance, the level of disturbance to basal resources, and all interactions between them. 
@@ -305,7 +312,7 @@ $^\dagger$ Corresponding author:\\
 
 
             \begin{equation}
-                \Psi_{ik} \approx \Sigma_{i} + \zeta_{i} + \pi_{disturbed_k} + \Sigma_{i}:\zeta_{i} + \Sigma_{i}\pi_{disturbed_k} + \zeta_{i}\pi_{disturbed_k} + \Sigma_{i}\zeta_{i}\pi_{disturbed_k},
+                \Psi_{ik} \approx \Sigma_{i} + \zeta_{i} + \pi_{k} + \Sigma_{i}:\zeta_{i} + \Sigma_{i}\pi_{k} + \zeta_{i}\pi_{k} + \Sigma_{i}\zeta_{i}\pi_{k},
                 \label{SCeq}
             \end{equation}
             where all symbols are as in equation~\ref{propreq} and~\ref{partic_SC}.
@@ -319,13 +326,13 @@ $^\dagger$ Corresponding author:\\
 
       
             \begin{equation}
-                    \Psi_{ik} \approx \delta_{i} + \pi_{disturbed_k} + \delta_{i}\pi_{disturbed_k} +
+                    \Psi_{ik} \approx \delta_{i} + \pi_{k} + \delta_{i}\pi_{k} +
                     S_{i}C_{i} ,
                     \label{degeq}
                 \end{equation}
         
             \begin{equation}
-                    \Psi_{ik} \approx \tau_{i} + \pi_{disturbed_k} + \tau_{i}\pi_{disturbed_k} +
+                    \Psi_{ik} \approx \tau_{i} + \pi_{k} + \tau_{i}\pi_{k} +
                     S_{i}C_{i} ,
                     \label{TLeq}
                 \end{equation}
@@ -411,7 +418,7 @@ $^\dagger$ Corresponding author:\\
 
     \begin{figure}[h!]
      \centering
-     % \includegraphics[width=0.8\textwidth]{figures/heatmap_STL_allCS_BP0.pdf}
+     \includegraphics[width=0.8\textwidth]{figures/heatmap_STL_allCS_BP0.pdf}
      \caption{All species across all levels experience a risk of going extinct due to causes not related to the web of $\pi = 0.1$. The sub figures show final persistence for consumers with different shortest trophic length, for increasing connectance (y-axis) and network size (x-axis). Persistence decreases with darker color in the heat map.}
      \label{fig:heatmap_stl_BP0}
     \end{figure}
@@ -419,8 +426,8 @@ $^\dagger$ Corresponding author:\\
 
     \begin{figure}[h!]
      \centering
-     % \includegraphics[width=0.8\textwidth]{figures/heatmap_STL_allCS_BP1.pdf}
-     \caption{Primary producers experience a disturbance reducing their probability to go extinct to $\pi_{disturbed} = 0.5$ All consumer species go extinct due to causes not related to the web itself with probability $\pi = 0.1$. The sub figures show final persistence for consumers with different shortest trophic length, for increasing connectance (y-axis) and network size (x-axis). Persistence decreases with darker color in the heat map.}
+     \includegraphics[width=0.8\textwidth]{figures/heatmap_STL_allCS_BP1.pdf}
+     \caption{Basal resources experience a disturbance reducing their probability to go extinct to $\pi = 0.5$ All consumer species go extinct due to causes not related to the web itself with probability $\pi = 0.1$. The sub figures show final persistence for consumers with different shortest trophic length, for increasing connectance (y-axis) and network size (x-axis). Persistence decreases with darker color in the heat map.}
      \label{fig:heatmap_stl_BP1}
     \end{figure}
 
@@ -429,20 +436,21 @@ $^\dagger$ Corresponding author:\\
 
 \section{Results: Motif-persistence relationships}
 
-    When comparing the outcomes from linear mixed-effect models (LMMs) relating persistence to motif roles across all networks (Fig. 3 and Table 1, \emph{Main Text}) with similar linear regressions (LRs) made on each single network separately, the main trends are similar but different-sized networks showed slightly different results results for some motifs (Figure temporarily in main text).%(Figure~\ref{fig:density_prop_S}). 
+    When comparing the outcomes from linear mixed-effect models (LMMs) relating persistence to motif roles across all networks (Fig. 3 and Table 1, \emph{Main Text}) with similar linear regressions (LRs) made on each single network separately, the main trends are similar but different-sized networks showed slightly different results results for some motifs (Figure~\ref{fig:density_prop_S}).
     For the three-species chain and omnivory motifs, a significant interaction between disturbance and the effect of the focal motif means that having a larger proportion of the role be made up of the chain or omnivory motif is associated with lower persistence at high levels of disturbance (Fig. 3 and Table 1, \emph{Main Text}). 
-    The same pattern holds overall for LRs fit within a network  %(Figure~\ref{fig:density_prop_S})
+    The same pattern holds overall for LRs fit within a network  (Figure~\ref{fig:density_prop_S})
     : the fraction of negative slopes for the proportion of three-species chain and omnivory motifs increases with increasing disturbance. 
-    This trend is most pronounced in large networks.% (bottom panel, Figure~\ref{fig:density_prop_S}). 
+    This trend is most pronounced in large networks. (bottom panel, Figure~\ref{fig:density_prop_S}). 
     Besides the decrease in fraction of positive slopes with increasing disturbance, the omnivory motif show a higher overall fraction of positive slopes in comparison to the three-species chain motif, corresponding to the positive main effect of omnivory (Fig. 3 and Table 1, \emph{Main Text}). 
-
-
-    \begin{figure}[h!]
-         \centering
-         % \includegraphics[width=\textwidth]{figures/prop_dens_bp_vs_S_allC.pdf}
-        \caption{Density (y-axis) of slopes (x-axis) for all simulated webs of all sizes - a visualization of how an increased proportion of each motif (different colored lines) affects persistence of consumer species. The slopes are derived from linear mixed-effect models, with a random intercept for the interaction between species richness and network size. A negative slope value reflects a negative relationship between increased participation in a motif and persistence, while a positive slope value reflects a positive relationship - an increased proportion of a specific motif increase persistence. The fraction of replicates with a slope greater than zero are stated in numbers in each sub-plot, the color corresponding to motif (legend). Columns show the result for various disturbances on the basal level, from $\pi_{disturbed} = 0.1$ (left) to $\pi_{disturbed} = 0.5$ (right). Rows show various levels of network size. The vertical line indicate zero on the x-axis.}
+    
+    
+\begin{figure}[h!]
+    \centering
+        \includegraphics[width=0.75\textwidth]{figures/prop_dens_bp_vs_S_allC.pdf}
+        \caption{Here we show the density (y-axis) of slopes (x-axis) of persistence against proportion of different motifs for all simulated webs of all connectances - a visualization of how an increased proportion of each motif (different colored lines) affects persistence of consumer species. Columns show the result for various disturbances on the basal level, from $\pi = 0.1$ (left) to $\pi = 0.5$ (right). Rows show various network sizes. The dotted, vertical line indicate zero on the x-axis. A negative slope value reflects a negative relationship between increased participation in a motif and persistence, while a positive slope value reflects a positive relationship - an increased proportion of a specific motif increase persistence. The fraction of replicates with a slope greater than zero are stated in numbers in each sub-plot, the color corresponding to each motif (legend). }
         \label{fig:density_prop_S}
-    \end{figure}
+    \end{figure}    
+
     
     
     For the apparent and direct competition motifs, the LMMs include a positive interaction between disturbance and the proportion of the motif in a species' role (Fig. 3 and Table 1; \emph{Main Text}).
@@ -801,7 +809,7 @@ $^\dagger$ Corresponding author:\\
 %         \begin{figure}[h!]
 %             \centering
 %             \includegraphics[height=0.75\textheight]{figures/persistence_vs_BSC_lm.eps}
-%             \caption{Persistence decreased strongly with increasing probability of disturbance to basal resources, while the proportion of the network made up of basal resources, network size, connectance, and their interactions had smaller effects. We show relationships with persistence for low disturbance ($\pi_{Basal}$=0.1) and high disturbance($\pi_{Basal}$=0.5). For each predictor other than disturbance, we show the relationship between the focal predictor and persistence for combinations of the lowest and highest observed values of the other predictors. For proportion of basal resources, these values were 0.02 and 0.5; for network size, 50 and 100; and for connectance, 0.02 and 0.18.}
+%             \caption{Persistence decreased strongly with increasing probability of disturbance to basal resources, while the proportion of the network made up of basal resources, network size, connectance, and their interactions had smaller effects. We show relationships with persistence for low disturbance ($\pi$=0.1) and high disturbance($\pi$=0.5). For each predictor other than disturbance, we show the relationship between the focal predictor and persistence for combinations of the lowest and highest observed values of the other predictors. For proportion of basal resources, these values were 0.02 and 0.5; for network size, 50 and 100; and for connectance, 0.02 and 0.18.}
 %             \label{fig:lm_BCS}
 %         \end{figure}
     
