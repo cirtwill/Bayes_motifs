@@ -212,18 +212,18 @@ lmdict=read_lmfile(lmfile)
 persdict=read_persfiles('stat_analysis/persistence_vs_Deg.tsv','stat_analysis/persistence_vs_TL.tsv')
 
 grace=MultiPanelGrace(colors=colors)
-for graphtype in ['Persistence','Proportion']:
+for graphtype in ['Proportion','Persistence']:
   for simple in ['Deg','TL']:
     if graphtype=='Proportion':
       graph=grace.add_graph(Panel)
       graph=format_graph(graph,simple,'Prop')
       graph=populate_graph(graph,lmdict[simple]['Prop'],simple,'Prop')
-      graph.panel_label.configure(placement='iul',char_size=1,dx=.03,dy=.03)
+      graph.panel_label.configure(placement='iul',char_size=1,dx=.02,dy=.02)
     elif graphtype=='Persistence':
       graph=grace.add_graph(Panel)
       graph=format_graph(graph,simple,'persistence')
       graph=populate_persgraph(graph,persdict[simple],simple)
-      graph.panel_label.configure(placement='iul',char_size=1,dx=.03,dy=.03)
+      graph.panel_label.configure(placement='iul',char_size=1,dx=.02,dy=.02)
       
     
 grace.multi(rows=2,cols=2,vgap=.05,hgap=.05)
