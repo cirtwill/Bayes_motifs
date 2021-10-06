@@ -65,15 +65,6 @@ $^\dagger$ Corresponding author:\\
     Additionally, we find that relationships between motif participation and persistence can synthesize the information provided by in-degree and trophic level.
     Motif participation therefore provides a relatively rich description of a species' structural role in its community and captures important trends in vulnerability to extinction.
 
-    
-
-    % Anna AA: The whole article is now approximately 4400 words (not counting fig texts); intro 850, methods 1600, results 620, discussion 1300. See discussion on section statistical analysis in the methods, I think we can make it shorter
-    % - glossary
-    % - refs
-    % - ending
-
-
-    % - Fig. 4 not much in discussion, could be a candidate for the SI? Or add more discussion about apparent competition, etc. in discussion sections per motif
 
 \begin{spacing}{2.0}
 
@@ -134,7 +125,7 @@ $^\dagger$ Corresponding author:\\
 		
 	\subsection*{Calculating persistence}	
     % basic idea behind BN modeling
-        Bayesian Networks can be used to represent species and their feeding interactions as the nodes and links of a network (see Appendix \emph{S2} for full details).
+        Bayesian networks can be used to represent species and their feeding interactions as the nodes and links of a network (see Appendix \emph{S2} for full details).
         In our setting, each species (node) is a Bernoulli random variable, being either extant or extinct. 
         The probability that a particular species is extinct is a function of the states of its resources.
         
@@ -418,11 +409,11 @@ $^\dagger$ Corresponding author:\\
     
     
     There are limitations to the approach presented here.
-    Most importantly, the Bayesian Network framework operates on a  strict bottom-up principle and therefore cannot include top-down effects in the extinction risk calculations~\citep{Eklof2013}. 
+    Most importantly, the Bayesian network framework operates on a  strict bottom-up principle and therefore cannot include top-down effects in the extinction risk calculations~\citep{Eklof2013}. 
     Here our focus was to analyze the importance of disturbances to the basal resources, in which case the Bayesian network approach captures a majority of the secondary extinctions obtained in a fully-fledged dynamical model with much greater efficiency~\citep{Eklof2013}.
     If top-down effects are important for a particular empirical system, however, our simulations may not be accurate. 
     Ongoing work using a dynamical model shows that time to extinction for species following disturbance is tightly coupled to the motifs a species participates in, and that adding top-down effects can lead omnivory to be negatively correlated with persistence \citep{Cirtwill2021_inprep}. 
-    If top-down effects are not crucial, the Bayesian Network approach could be extended by explicitly incorporating information on species traits.
+    If top-down effects are not crucial, the Bayesian network approach could be extended by explicitly incorporating information on species traits.
     In empirical webs, species traits are related to both motif participation~\citep{cirtwill2018feeding} and extinction risk~\citep{Brose2017, curtsdotter2011robustness, Cardillo2005, Purvis2000},
     adding an extra dimension of information which we do not consider here.
     
@@ -451,9 +442,8 @@ $^\dagger$ Corresponding author:\\
     \begin{figure}
         \centering
         \includegraphics[width=\textwidth]{figures/roles_vs_TL.eps}
-        \caption{As with motifs, persistence varied with simpler measures of species roles in networks. Moreover, motif frequencies correlated with in-degree and trophic level. \textbf{A-B)} Persistence increased with increasing in-degree for low levels of disturbance to basal resources but decreased with increasing degree for high levels of disturbance to basal resources.
-        Persistence declined with inceasing STL for all levels of disturbance to basal resources.
-        \textbf{C-D)} The proportion of omnivory increased with increasing degree while all other proportions decreased. The proportions of omnivory and direct competition decreased with increasing STL while the proportions of apparent competition and three-species chains increased.}
+        \caption{Motif participation correlated with in-degree and trophic level, and both of these simpler role measures were also correlated with persistence. \textbf{A-B)} The proportion of omnivory increased with increasing degree while all other proportions decreased. The proportions of omnivory and direct competition decreased with increasing STL while the proportions of apparent competition and three-species chains increased. \textbf{C-D)} Persistence increased with increasing in-degree for low levels of disturbance to basal resources but decreased with increasing degree for high levels of disturbance to basal resources.
+        Persistence declined with inceasing STL for all levels of disturbance to basal resources.}
         \label{fig:motifs_vs_TL_and_deg}
     \end{figure}        
 
