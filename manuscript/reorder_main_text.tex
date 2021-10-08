@@ -99,9 +99,9 @@ $^\dagger$ Corresponding author:\\
     On the other hand, a consumer with low trophic level may be at high risk of extinction if it consumes prey which are themselves very likely to be affected by disturbance. 
     
     %\subsection*{5 Motif participation may similarly affect species' particular extinction risk}
-    One way to incorporate more nuance into descriptions of how species fit into their communities is to define species' roles based on their participation in different motifs -- unique combinations of small numbers of interacting species~\citep{Stouffer2007,Stouffer2012}. Importantly, these `motif participation' roles capture information about species' direct and indirect interactions, incorporating larger-scale network structure into species-level descriptions~\citep{Cirtwill2015JAE}. 
+    One way to incorporate more nuance into descriptions of how species fit into their communities is to define species' roles based on their participation in different motifs -- unique combinations of small numbers of interacting species~\citep{Stouffer2007,Stouffer2012}. Importantly, these `motif participation' roles capture information about species' direct and indirect interactions, incorporating larger-scale network structure into species-level descriptions~\citep{Cirtwill2015a}. 
     This means that two species with the same in-degrees and trophic levels can still participate in different sets of motifs if, for example, one interacts with specialists and the other interacts with generalists~\citep{Cirtwill2018FoodWebs}. 
-    This extra detail may be useful when predicting  extinction risk since, at the network level, the frequencies of different motifs are associated with community stability \citep{prill2005dynamic, bascompte2005simple} and with changes to the composition of plant communities~\cite{giling2019plant}. 
+    This extra detail may be useful when predicting  extinction risk since, at the network level, the frequencies of different motifs are associated with community stability \citep{prill2005dynamic, bascompte2005simple} and with changes to the composition of plant communities \citep{giling2019plant}. 
     We therefore expect that both the motif structure of a network and species' participation in that structure should be related to risks due to disturbance to basal resources. 
     
            %\subsection*{Here we test...}
@@ -119,7 +119,7 @@ $^\dagger$ Corresponding author:\\
 		To capture a range of plausible network architectures, we simulated networks with sizes ranging from 50 to 100 species (in steps of 10) and connectances ranging from 0.02 to 0.18 (in steps of 0.04). 
 		For full details, see~\citet{Cirtwill2021_inprep}.
 		We removed any biologically unlikely networks (Appendix \emph{S1}) and replaced them with new simulated networks, repeating the process until we obtained 100 suitable networks in each combination of size and connectance.
-		All networks were rendered acyclic following~\citet{Allesina2009} and topologically sorted from lowest to highest trophic level (Appendix \emph{S1}).
+		All networks were rendered acyclic following~\citet{Allesina2009functional} and topologically sorted from lowest to highest trophic level (Appendix \emph{S1}).
 		These processing steps allow the strictly bottom-up calculation of probability of persistence used in the Bayesian network framework.
 		
 		
@@ -137,15 +137,15 @@ $^\dagger$ Corresponding author:\\
         If the focal species is a consumer with $n$ resources, of which $k$ have gone extinct, its probability of extinction depends on $\pi$ and on the fraction $f = k/n$.
         
         
-        The response of the consumer to changes in $f$ can take any form. Here we use a sigmoid non-linear function ($\alpha > 1, \beta > 1$) 
-		This type of response most accurately captures the secondary extinctions produced by dynamical models (\citealp[]{Eklof2013}; Appendix \emph{S2}).
+        The response of the consumer to changes in $f$ can take any form (Appendix \emph{S2}). Here we use a sigmoid non-linear function ($\alpha > 1, \beta > 1$).
+		This type of response most accurately captures the secondary extinctions produced by dynamical models (\citealp[]{Eklof2013}).
 		The probability of extinction for each species $i$ can therefore be represented using the cumulative density function of a beta distribution:
 		\begin{equation}
-		P(\lnot i|f) = \pi_{base} + (1 - \pi_{base}) \frac{B(f;\alpha,\beta)}{B(\alpha,\beta)}.
+		P(\lnot i|f) = \pi + (1 - \pi) \frac{B(f;\alpha,\beta)}{B(\alpha,\beta)}.
 				\label{betafunc}
         \end{equation}
 		
-		If all resource species of a consumer \textit{C} are present ($f = 0$), the extinction probability will be $P(\lnot C|f) = \pi_{base}$. 
+		If all resource species of a consumer \textit{C} are present ($f = 0$), the extinction probability will be $P(\lnot C|f) = \pi$. 
 		Similarly, if all resources are extinct ($f = 1$), the extinction probability $P(\lnot C|f)$ will be equal to 1 and the consumer will go extinct.
 		If the fraction $f$ is not 1 nor 0, the non-linear sigmoid curve will determine the response of the consumer, which will be more severe if the fraction resources lost is high and less severe if the fraction is small. This will in turn affect the extinction probability $P(\lnot C|f)$.
 		For basal resources, we assume that abiotic resources are always available and $f=0$. Following Equation \ref{betafunc}, the extinction will only depend on $\pi$.
@@ -211,7 +211,7 @@ $^\dagger$ Corresponding author:\\
                 S_{i}C_{i} ,
                 \label{propreq}
             \end{equation}
-        \noindent where $\Psi_{ik}$ is the persistence of species $i$ during disturbance level $k$, $\rho_{i}$ is the proportion of the role of species $i$ that is made up by the focal motif, $\pi_{disturbed_k}$ is the probability of extinction for a basal resource in disturbance level $k$, and $S_{i}C_{i}$ is a random intercept for the species richness and connectance of the network containing species $i$.
+        \noindent where $\Psi_{ik}$ is the persistence of species $i$ during disturbance level $k$, $\rho_{i}$ is the proportion of the role of species $i$ that is made up by the focal motif, $\pi_k$ is the probability of extinction for a basal resource in disturbance level $k$, and $S_{i}C_{i}$ is a random intercept for the species richness and connectance of the network containing species $i$.
         All predictors were centered and scaled before fitting the models.         
         To test whether these general trends were consistent across networks, we examined the distribution of slopes of simplified regressions fit to a single network and level of disturbance (Appendix \emph{3.1}).
     
@@ -219,29 +219,18 @@ $^\dagger$ Corresponding author:\\
 
 
         Different scales of network structure (e.g., local and meso-scale) are not independent. 
-        To identify correlations between network size, connectance, and participation in particular motifs, we fit a set of four linear models (LMs):
-        \begin{equation}
-            \rho_{i} \approx \Sigma_{i} + \zeta_{i} + \Sigma_{i}\zeta_{i} ,
-            \label{partic_SC}
-        \end{equation}
-        \noindent where $\rho_{i}$ is the proportion of the role of species $i$ that is made up by the focal motif,
-        $\Sigma_{i}$ is the size of the network containing species $i$, and $\zeta_{i}$ is the connectance of the network containing species $i$.
-        We fit a similar set of eight LMMs (two per motif) relating motif participation to in-degree or trophic level:
-        \begin{equation}
-            \rho_{i} \approx \delta_{i} + S_{i}C_{i} , \hspace{2cm} 
-            \rho_{i} \approx \tau_{i} + S_{i}C_{i} ,
-            \label{partic_degTL}
-        \end{equation}
-        \noindent where $\delta_{i}$ is the in-degree of species $i$, $\tau_{i}$ is the shortest trophic level of species $i$, and all other symbols are as in equation~\ref{propreq}.   
+        To identify correlations between global network structure and participation in particular motifs, we fit a series of LMs relating motif participation to network size, connectance, and their interaction (Appendix \emph{S3.2}).
+        We fit a similar set of  LMMs relating motif participation to in-degree or trophic level (Appendix \emph{S3.2}).
+        Taken together, these supplemental models demonstrate how motif participation relates to other measures of network structure.
         
         
     \subsubsection*{3) Persistence and motif profiles}
 
         As well as species-specific probabilities of persistence, the overall frequency of motifs in a network may provide information about the overall probability of any species going extinct (since they incorporate information on indirect effects).
-        We tested whether networks with similar motif profiles tend to have similar mean persistences among consumers using a PERMANOVA (Appendix \emph{S3.3}.
+        We tested whether networks with similar motif profiles tend to have similar mean persistences among consumers using a PERMANOVA (Appendix \emph{S3.3}).
         To identify the relationships between particular motifs and network mean persistence in more detail, we fit a set of four LMs (one per motif):
             \begin{equation}
-                \Psi_{ik} \approx \Bar{\rho}_{i} + \pi_{disturbed_k} + \Bar{\rho}_{i}\pi_{disturbed_k},
+                \Psi_{ik} \approx \Bar{\rho}_{i} + \pi_{k} + \Bar{\rho}_{i}\pi_{k},
                 \label{netpropeq}
             \end{equation}
         \noindent where $\Bar{\rho}_{i}$ is the proportion of the focal motif in the network's motif profile and all other symbols are as in equation~\ref{propreq}.
@@ -252,8 +241,9 @@ $^\dagger$ Corresponding author:\\
         In addition, we identify correlations between size, connectance, and particular motifs using a set of four LMs:
         \begin{equation}
             \Bar{\rho_{i}} \approx \Sigma_{i} + \zeta_{i} + \Sigma_{i}\zeta_{i}
+        \label{profile_global}
         \end{equation}
-        where all symbols are as in equations~\ref{propreq} and~\ref{netpropeq}.
+        \noindent where $\Bar{\rho}_{i}$ is the proportion of the focal motif in the network's motif profile and $\Sigma_i$ and $\zeta_{i}$ are the size and connectance of the network to which $i$ belongs.
         
     \subsubsection*{5) Persistence and network properties}
         
@@ -261,22 +251,22 @@ $^\dagger$ Corresponding author:\\
         To correctly interpret any relationships between motifs and persistence, we must consider the context of these other relationships (Appendix \emph{S3.5}).
         To identify the relationship between global network structure and mean probability of persistence within a network, we fit a linear regression:
             \begin{equation}
-                \Psi_{ik} \approx \Sigma_{i} + \zeta_{i} + \pi_{disturbed_k} + \Sigma_{i}:\zeta_{i} + \Sigma_{i}\pi_{disturbed_k} + \zeta_{i}\pi_{disturbed_k} + \Sigma_{i}\zeta_{i}\pi_{disturbed_k},
+                \Psi_{ik} \approx \Sigma_{i} + \zeta_{i} + \pi_k + \Sigma_{i}:\zeta_{i} + \Sigma_{i}\pi_k + \zeta_{i}\pi_k + \Sigma_{i}\zeta_{i}\pi_k,
                 \label{SCeq}
             \end{equation}
-        \noindent where all symbols are as in equation~\ref{propreq} and~\ref{partic_SC}.
+        \noindent where all symbols are as in equation~\ref{propreq} and~\ref{profile_global}.
         As the three-way interaction was significant, we did not simplify the model. 
 
 
         Persistence is also known to vary with local-scale measures of network structure. 
         To identify the relationships betwen local-scale properties and species' probabilities of persistence, we fit a final two LMMs:
         \begin{equation}
-                \Psi_{ik} \approx \delta_{i} + \pi_{disturbed_k} + \delta_{i}\pi_{disturbed_k} +
+                \Psi_{ik} \approx \delta_{i} + \pi_k + \delta_{i}\pi_k +
                 S_{i}C_{i} ,
                 \label{degeq}
             \end{equation}
         \begin{equation}
-                \Psi_{ik} \approx \tau_{i} + \pi_{disturbed_k} + \tau_{i}\pi_{disturbed_k} +
+                \Psi_{ik} \approx \tau_{i} + \pi_k + \tau_{i}\pi_k +
                 S_{i}C_{i} ,
                 \label{TLeq}
             \end{equation}
@@ -403,7 +393,7 @@ $^\dagger$ Corresponding author:\\
     
     % High C webs and omnivory
     Supporting this possibility, species participate more frequently in the omnivory motif in high-connectance networks \emph{and} the relationship between persistence and participation in the omnivory motif is more strongly positive (Fig.~\ref{fig:density_prop_C}).
-    These networks contain many pathways by which a bottom-up disturbance can propagate through the network, leading to stronger effects of disturbance on consumers (Table S6; \emph{Appendix S10}.
+    These networks contain many pathways by which a bottom-up disturbance can propagate through the network, leading to stronger effects of disturbance on consumers (Table S6; \emph{Appendix S10}).
     In such a network, it may be especially beneficial for a species to feed on multiple trophic levels and, in a sense, spread its risk of losing prey to bottom-up effects.
     Although species in our model cannot swap prey, the reduced extinction risk for omnivorous species resembles empirical studies showing that adaptive omnivory can increase the permanence of three-species chains~\citep{Fagan1997, Kvrivan2005, AbramsFung2010}.
     

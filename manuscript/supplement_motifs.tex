@@ -14,7 +14,14 @@
 \usepackage{xr}
 
 \newcommand{\methods}{\textit{Materials \& Methods}}
-\newcommand{\SI}{\textit{Appendix}~}
+\setcounter{section}{0}
+\renewcommand{\thesection}{S\arabic{section}}
+\setcounter{table}{0}
+\renewcommand{\thetable}{S\arabic{table}}%
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{S\arabic{figure}}%
+\setcounter{equation}{0}
+\renewcommand{\theequation}{S\arabic{equation}}
 
 \topmargin -1.5cm % 0.0cm 
 \oddsidemargin 0.0cm % 0.2cm 
@@ -53,50 +60,73 @@ $^\dagger$ Corresponding author:\\
 
 \clearpage
 
-% \section*{Table of contents}
-%     \begin{spacing}{1.0}
+\section*{Table of contents}
+    \begin{spacing}{1.0}
 
-%     \begin{enumerate}
+    \begin{enumerate}
     
-%         \item How do counts of motifs in a network profile vary with S and C? \\
+        \item Supplemental methods: Network creation \\
         
-%             \begin{itemize}
-%             \item Same methods as main text except using counts instead of proportions to define motif profiles
-%             \end{itemize}
+            \begin{itemize}
+            \item Construction of simulated networks
+            \item Filtering of biologically unrealistic networks 
+            \item Conversion of networks to acyclic form
+            \end{itemize}
             
             
-%         \item Motif profiles differed slightly between network sets
+        \item Supplemental methods: Calculating persistence
 
-%            \begin{itemize}
-%                 \item Comparing proportions of motifs in un-filtered, filtered, and acyclic networks.
-%                 \item AFAIK not referred to in text
-%             \end{itemize}    
+            \begin{itemize}
+                \item Details on functional response of consumers
+                \item Contains Eqn. S1
+            \end{itemize}    
             
         
-%          \item Persistence and count-based motif participation
+         \item Supplemental methods: Statistical analysis
 
-%            \begin{itemize}
-%                 \item Should be as main text section 4, but counts
-%             \end{itemize}
+            \begin{itemize}
+                \item Species persistence and motif participation (Eqn. S2-3)
+                \item Motif participation and network properties (Eqn. S4-6)
+                \item Network mean persistence and motif profiles (Eqn. S7)
+                \item Network motif profiles and global network structure (Eqn. S8)
+                \item Persistence and other network properties (Eqn. S9-11)
+            \end{itemize}
                 
         
-%         \item Motif-persistence relationships and network size
-%             \begin{itemize}
-%                 \item Detailed results for variability of slopes for persistence $\approx$ motif participation in networks of different sizes.
-%                 \item Main text refers to C, moved figure to Main while we check that we've got everything.
-%             \end{itemize}
+        \item Results: Persistence and motif participation
+            \begin{itemize}
+                \item Contains Table S1
+            \end{itemize}
 
 
-%         \item How does persistence vary with degree and trophic level?
+        \item Results: Participation and network properties
 
-%             \begin{itemize}
-%                 \item Heat map showing persistence vs. TL with BP=0
-%                 \item Heat map showing persistence vs. TL with BP=1
-%             \end{itemize}
+            \begin{itemize}
+                \item Contains Table S2
+                \item Contains Fig. S1
+            \end{itemize}
     
-%     \end{enumerate}
-% \end{spacing}
-% \clearpage
+        \item Results: Persistence, degree, and trophic level
+
+            \begin{itemize}
+                \item Contains Table S3
+                \item Contains Fig. S2-3
+            \end{itemize}    
+
+        \item Results: Motif-persistence relationships
+
+            \begin{itemize}
+                \item Contains Fig. S4
+            \end{itemize}    
+    
+        \item Results: Persistence and network motif profiles
+
+            \begin{itemize}
+                \item Contains Table S4
+            \end{itemize}    
+    \end{enumerate}    
+\end{spacing}
+\clearpage
 
 \section{Supplemental methods: Network creation}
 
@@ -108,15 +138,15 @@ $^\dagger$ Corresponding author:\\
     
 
     A Bayesian food web depicts probabilistic relationships among a set of species where each species' probability of persistence depends upon the probabilities of its resource species persisting~\citep{Jensen_Nielsen,Eklof2013}. 
-    All persistence calculations therefore begin  by determining the status of the basal resources (who do not depend on other species).
+    All persistence calculations therefore begin by determining the status of the basal resources (who do not depend on other species).
     Calculations continue in a strictly bottom-up manner with primary consumers (who depend only on basal resources), and so on up the network.
 
         
     While niche-model food webs can contain cycles (e.g., species A eats B, B eats C, and C eats A), such cycles make it impossible to calculate persistence in the Bayesian network framework~\citep{Tarjan1972}. 
     We therefore removed any cycles within each network by removing the link in each cycle which contributed least to the robustness of the food web, following~\citet{Allesina2009}.
-    This is achieved by first finding the set of resources for each consumer and then removing the consumer-resource connections which have the lowest eigenvalue centrality~\citep{Allesina2009}.
+    This is achieved by first finding the set of resources for each consumer and then removing the consumer-resource connections which have the lowest eigenvalue centrality~\citep{Allesina2009functional}.
     These links have the least effect on the overall stability of the network; removing them creates an acyclic network with very similar properties to the original network.
-    Next, we ordered the species from lowest to highest trophic level using a topological sorting routine following \citep{Tarjan1972, Allesinaetal2005}, ensuring that probability calculations follow a strict bottom-up order. 
+    Next, we ordered the species from lowest to highest trophic level using a topological sorting routine following \citet{Tarjan1972} and \citet{Allesinaetal2005}, ensuring that probability calculations follow a strict bottom-up order. 
     After these steps, calculations of persistence probabilities can begin.
         
 \clearpage
@@ -124,34 +154,26 @@ $^\dagger$ Corresponding author:\\
 \section{Supplemental methods: Calculating persistence}        
 
         We use Bayesian network modelling to calculate the persistence of each species in our simulated networks. 
-        A Bayesian network represents a graphical model for probabilistic relationships among a set of variables. The nodes of the network represents the variables, and the links represent conditional dependencies among the variables. Each node has a set of local probability dependencies, conditional on the state of the parent nodes. 
-        In our ecological setting, species act as nodes and are Bernoulli random variables, being either extant or extinct. The links act as feeding interactions between the nodes.
-        The extinction probability of each species is a function of the state of its resources.
-
-
-    \subsection{Baseline probability of extinction}
-
-        Consider a consumer species with several resource species $n$. 
-        The extinction probability
-        of this consumer will depend on both the total state of its resource species $n$, and on a
-        baseline extinction probability of extinction, $\pi$. 
-        $\pi$ represents the risk of going extinct
-        given factors not related to the food web itself, and could reflect diseases or stochastic
-        extinctions of small populations. 
-        All the species in the network retain a baseline
-        probability of extinction, which can be different to reflect greater sensitivity in some groups of species. 
-
-
-    \subsection{Extinction due to food-web effects}
-
-        If a consumer with $n$ resources loses $k$ of them, the fraction of resources lost $f$ will be
-        $f = (k/n)$. 
-        Note that we here make a strong assumption, where we only care about the fraction of resources lost and not the identity of the resources species.
+        A Bayesian network represents a graphical model for probabilistic relationships among a set of variables. 
+        In our ecological setting, the nodes of the network represent species and links represent feeding interactions between species.
+        In network-theory terms, the species are Bernoulli random variables, and the links represent conditional dependencies among these variables. 
+        Each node has a set of local probability dependencies, conditional on the state of the parent nodes. 
+        Since the nodes are species, their state can be either extant or extinct.
+        The extinction probability of each species is a function of the state of its resources and also depends on a baseline probability of extinction ($\pi$) representing risk of extinction due to factors unrelated to network structure.
+        In our baseline scenario, basal resources had a baseline extinction probability of $\pi = 0.1$. 
+        We also simulated a set of scenarios where basal resources had a higher baseline probability of extinction ($\pi$). 
+        These scenarios reflect threats to basal resources such as increased temperatures resulting in droughts, making some species more vulnerable to extinction.
+        $\pi$ ranged between $0.1-0.5$, in steps of $0.08$. 
+        The highest disturbance level, $\pi = 0.5$, corresponds to basal species having a 50\% risk of going extinct. 
+        Consumer species retained $\pi=0.1$ in all cases.
 
 
     \subsection{Functional response of consumers}
 
-        The response of a consumer to the loss of a fraction of its resources can be modelled in several biologically plausible ways. For example, the response could be linear or non-linear.
+        The response of a consumer to the loss of a fraction of its resources can be modelled in several biologically plausible ways: i) a topological response, where the consumer's probability of extinction is constant unless all resources are lost, ii) a linear response, in which the extinction probability increases linearly with resources loss, and iii) several nonlinear responses where the probability of extinction increases non-linearly with the fraction resource lost. 
+		The extinction probability will differ depending on the response function.
+        
+        
         A sigmoid non-linear functional response of consumers to the loss of resources ($\alpha >1, \beta >1$) has been shown to most accurately capture the secondary extinctions produced by a dynamical model~\citep{Eklof2013}.
         Therefore, we use a cumulative density function of a beta distribution to get each species \textit{i} probability of extinction:
         \begin{equation}
@@ -160,31 +182,26 @@ $^\dagger$ Corresponding author:\\
         \end{equation}
         
 
-        If all resource species of a consumer \textit{C} are present ($f = 0$), the extinction probability will be $P(\lnot C|f) = \pi$. 
+        \noindent If all resource species of a consumer \textit{C} are present ($f = 0$), the extinction probability will be $P(\lnot C|f) = \pi$. 
         Similarly, if all resources are extinct ($f = 1$), the extinction probability $P(\lnot C|f)$ will be equal to 1 and the consumer will go extinct.
         If the fraction $f$ is not 1 nor 0, the non-linear sigmoid curve will determine the response of the consumer, which will be more severe if the fraction resources lost is high and less severe if the fraction is small. This will in turn affect the extinction probability $P(\lnot C|f)$. 
         For a basal species, we assume that abiotic resources are always available. Therefore, a primary producer is independent of resource species and will always have $f = 0$.  
         
 
-        % how we calculate persistences 
-        As consumer species depends on its resource species, we start determining the status of each primary producer in the network.
-        Systematically, we use eqn \ref{betafunc} to receive each species probability of extinction $P(\lnot i|f)$, and next we perform Bernoulli trials to determine whether the species goes extinct or not. 
+        As consumer species depend on their resources, we start by determining the status of each primary producer in the network.
+        Systematically, we use Equation \ref{betafunc} to calculate each species' probability of extinction $P(\lnot i|f)$, and then perform Bernoulli trials to determine whether the species goes extinct or not. 
         Imagine a basal species \textit{A} with extinction probability $P(\lnot A) = \pi$ where $\pi = 0.1$. We draw a random number $r$ from a uniform distribution between $0-1$. The basal species would be considered extinct if $r < 0.1$, and extant otherwise. 
-        We use this information when performing a Bernoulli trial on a consumer \textit{C} connected to this basal species, inserting our information of the $\pi$ and fraction of resources lost $f$ of this consumer, into eqn \ref{betafunc} to 
-        receive $P(\lnot C|f)$. In the same manner as for the basal species above, we compare $P(\lnot C|f)$ with a random number $r$, and if $r < P(\lnot C|f)$ the consumer species is considered extinct. 
+        
+        
+        We then insert the simulated fraction of species lost into Equation \ref{betafunc} to calculate $P(\lnot C|f)$ for the consumer species \textit{C}. 
+        In the same manner as for the basal species above, we compare $P(\lnot C|f)$ with a random number $r$, and if $r < P(\lnot C|f)$ the consumer species is considered extinct. 
         In this way, we evaluate each species existence, starting from the bottom and working our way up.
+        
+        
         As this method is probabilistic, we repeat these calculations 100 000 times per network, with unique random draws.
         For each species, we then estimate the fraction of simulations in which the species persist, and this value is the approximated probability of persistence.
         To approximate persistence probabilities through numerical simulation are shown to be highly efficient and produce the same result as exact methods of solving Bayesian networks \citep{Haussler2020}.
         
-
-    % various disturbance scenarios
-        In our baseline scenario, basal resources had a baseline extinction probability of $\pi = 0.1$. 
-        We also simulated a set of scenarios where basal resources had a higher baseline probability of extinction ($\pi$). 
-        These scenarios reflect threats to basal resources such as increased temperatures resulting in droughts, making some species more vulnerable to extinction.
-        $\pi$ ranged between $0.1-0.5$, in steps of $0.08$. 
-        The highest disturbance level, $\pi = 0.5$, corresponds to basal species having a 50\% risk of going extinct. 
-        Consumer species retained $\pi=0.1$ in all cases.
         
 \clearpage
         
@@ -216,7 +233,7 @@ $^\dagger$ Corresponding author:\\
             \label{mineq}
         \end{equation}
 
-        where all symbols are as in equation~\ref{propreq}.
+        \noindent where all symbols are as in equation~\ref{propreq}.
         These regressions were fit using the R~\citep{R} base function `lm'.
         We then visually examine the distribution of slopes for the effect of motif participation across levels of disturbance, network size, and connectance. 
 
@@ -231,7 +248,7 @@ $^\dagger$ Corresponding author:\\
             \label{partic_SC}
         \end{equation}
         
-        where $\rho_{i}$ is the proportion of the role of species $i$ that is made up by the focal motif,
+        \noindent where $\rho_{i}$ is the proportion of the role of species $i$ that is made up by the focal motif,
         $\Sigma_{i}$ is the size of the network containing species $i$, and $\zeta_{i}$ is the connectance of the network containing species $i$.
         Predictors were not centered or scaled before fitting.
         All models were fit using the R~\citep{R} base function `lm'.
@@ -249,11 +266,11 @@ $^\dagger$ Corresponding author:\\
             \label{partic_deg}
         \end{equation}
         
-        where $\rho_{i}$ is the frequency with which species $i$ participtes in the focal motif, $\delta_{i}$ is the in-degree of species $i$, $\tau_{i}$ is the shortest trophic level of species $i$, $S_{i}C_{i}$ is a random effect of the combination of size and connectance for the network containing species $i$.
+        \noindent where $\rho_{i}$ is the frequency with which species $i$ participtes in the focal motif, $\delta_{i}$ is the in-degree of species $i$, $\tau_{i}$ is the shortest trophic level of species $i$, $S_{i}C_{i}$ is a random effect of the combination of size and connectance for the network containing species $i$.
         These models were fit using the R~\citep{R} function `lmer' from the package \emph{lmerTest}~\citep{lmerTest}.
 
     		
-    \subsection{How does network mean persistence vary with motif profiles?}
+    \subsection{How does mean persistence vary with motif profiles?}
 
         To test whether networks with similar motif profiles tend to have similar mean persistences among consumers, we fit a PERMANOVA relating Bray-Curtis dissimilarity in motif profiles to the mean persistence of all consumers in a network (averaged across all levels of disturbance to basal resources).
         As with the PERMANOVA relating motif participation to network properties, we fit the PERMANOVA using the R~\citep{R} function `vegan' from the package \emph{adonis}~\citep{adonis} and calculated significance based on 9999 permutations.
@@ -271,7 +288,7 @@ $^\dagger$ Corresponding author:\\
                 \label{netpropeq}
             \end{equation}
         
-        where $\Bar{\rho}_{i}$ is the proportion of the focal motif in the network's motif profile and all other symbols are as in equation~\ref{propreq}. 
+        \noindent where $\Bar{\rho}_{i}$ is the proportion of the focal motif in the network's motif profile and all other symbols are as in equation~\ref{propreq}. 
         All regressions were fit using the R~\citep{R} base function `lm'.
     
 
@@ -300,7 +317,7 @@ $^\dagger$ Corresponding author:\\
         \subsubsection{Network mean persistence and network properties}
     
             Both species richness (S) and connectance (C) are known to influence persistence in both simulation studies and empirical food webs.
-            In addition, increasing the probability of extinction for basal species ($\pi$ above) is intended to decrease persistence of species at higher trophic levels.
+            In addition, increasing the probability of extinction for basal species ($\pi$) is intended to decrease persistence of species at higher trophic levels.
             Although these effects are not the main focus of our manuscript, we must establish these background effects before measuring the effects of meso-scale structure on persistence.
             The persistence of basal species in our simulations is determined only by their baseline probability, being either $\pi = 0.1$ or higher, dependent on $\pi$.
             We therefore considered only non-basal species (i.e., those with at least one prey) throughout this manuscript.
@@ -364,7 +381,7 @@ $^\dagger$ Corresponding author:\\
 \clearpage     
 
 
-\section{Results: Motif participation and network properties}
+\section{Results: Participation and network properties}
 
 
     Motif participation varies with global-scale network properies.
@@ -436,12 +453,13 @@ $^\dagger$ Corresponding author:\\
 
 \section{Results: Motif-persistence relationships}
 
-    When comparing the outcomes from linear mixed-effect models (LMMs) relating persistence to motif roles across all networks (Fig. 3 and Table 1, \emph{Main Text}) with similar linear regressions (LRs) made on each single network separately, the main trends are similar but different-sized networks showed slightly different results results for some motifs (Figure~\ref{fig:density_prop_S}).
+    We compared the outcomes from linear mixed-effect models (LMMs) relating persistence to motif roles across all networks (Fig. 3 and Table 1, \emph{Main Text}) with similar linear regressions (LRs) made on each single network separately.
+    The main trends are similar in both analyses, but different-sized networks showed slightly different results results for some motifs when considered individually (Figure~\ref{fig:density_prop_S}).
     For the three-species chain and omnivory motifs, a significant interaction between disturbance and the effect of the focal motif means that having a larger proportion of the role be made up of the chain or omnivory motif is associated with lower persistence at high levels of disturbance (Fig. 3 and Table 1, \emph{Main Text}). 
     The same pattern holds overall for LRs fit within a network  (Figure~\ref{fig:density_prop_S})
     : the fraction of negative slopes for the proportion of three-species chain and omnivory motifs increases with increasing disturbance. 
     This trend is most pronounced in large networks. (bottom panel, Figure~\ref{fig:density_prop_S}). 
-    Besides the decrease in fraction of positive slopes with increasing disturbance, the omnivory motif show a higher overall fraction of positive slopes in comparison to the three-species chain motif, corresponding to the positive main effect of omnivory (Fig. 3 and Table 1, \emph{Main Text}). 
+    % Besides the decrease in fraction of positive slopes with increasing disturbance, the omnivory motif showed a higher overall fraction of positive slopes in comparison to the three-species chain motif, corresponding to the positive main effect of omnivory (Fig. 3 and Table 1, \emph{Main Text}). 
     
     
 \begin{figure}[h!]
