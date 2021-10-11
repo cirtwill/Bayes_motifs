@@ -168,6 +168,9 @@ graph2=format_graph(graph2,'persistence')
 for mot in ['omnivory','chain','apparent','direct']:
   graph2=populate_persgraph(graph2,mot)
 
+graph2.add_drawing_object(DrawText,x=0.5,y=0.75,loctype='world',text='Lowest disturbance',just=0,char_size=1)
+graph2.add_drawing_object(DrawText,x=0.5,y=0.34,loctype='world',text='Highest disturbance',just=0,char_size=1)
+
 graph2.legend.configure(char_size=1,loc=(0.05,0.685),loctype='world',box_linestyle=0,fill_pattern=0)
 
 grace.write_file('../../manuscript/figures/persistence_motif_profiles.eps')
