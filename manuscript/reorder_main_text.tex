@@ -290,8 +290,8 @@ $^\dagger$ Corresponding author:\\
     \subsection*{Motif participation and other network properties}
 
        Species' motif participation varied depending on the global properties of the network: size, connectance, and their interaction (Fig. S1, Table S2; \emph{Appendix S5}).
-       Species appeared most often in the apparent competition motif in all types of networks, but the frequency decreased with increasing network size and connectance.
-       The frequency with which species participated in the omnivory motif increased sharply with increasing connectance, while the frequency of the direct competition motif increased slightly with increasing network size. 
+       Species appeared most often in the apparent competition motif in all types of networks, but the proportion of apparent competition decreased with increasing network size and connectance.
+       The proportion of the omnivory motif in a species' participation role increased sharply with increasing connectance, while the proportion of the direct competition motif increased slightly with increasing network size. 
         
        Species' motif participation also varied with their in-degree and trophic level (Fig.~\ref{fig:motifs_vs_TL_and_deg}).
        Species with higher in-degree tended to have higher frequencies of participation in the omnivory motif. Proportions of the other three motifs tended to decline with increasing degree.
@@ -384,15 +384,16 @@ $^\dagger$ Corresponding author:\\
     Global-scale properties may thus  have stronger effects on network persistence by changing meso-scale properties than directly.
     
     
-    In general, average persistence was highest in networks with low frequencies of the omnivory motif and high frequencies of the apparent competition motif. 
-    These two motifs that have been shown to have consequences for the stability of ecological networks \citep{McLeod2019,Picot2018}.
-    Omnivory has been previously shown to both stabilize and destabilize communities, and the impact is highly dependent on network context \citep{bascompte2005simple, Monteiro2016}. 
-    Omnivorous interactions may not be stable in isolation but instead stabilized by interactions with other species when embedded in a larger food web \citep{Kratina2012}. 
+    In general, average persistence was highest in networks with low proportions of the omnivory motif and high proportions of the apparent competition motif. 
+    These results contrast with earlier work showing that higher numbers of omnivory motifs and lower numbers of apparent competition motifs are associated with greater food-web persistence~\citep{Stouffer2010b}.
+    By using counts of motifs rather than proportions,~\citet{Stouffer2010b} may be combining effects of total numbers of motifs with effects of motif proportions.
+    Moreover, the effect of omnivory on stability is known to be highly context-dependent \citep{bascompte2005simple, Monteiro2016,McLeod2021}. 
+    The stability of omnivory motifs in isolation depends on the strength of the omnivore-resource interaction~\citep{McLeod2021}, but at the whole-network level interactions with other species can stabilize even intrinsically unstable omnivory \citep{Kratina2012}. 
     This might be why we find different patterns between a network's motif profile (where a high proportion of omnivory indicates lower average network persistence) versus a single species motif participation (where a high proportion of the omnivory motif indicates a higher focal species persistence).
     Thus, the ideal situation appears to be being a highly omnivorous species in a low-omnivory setting. 
     
     % High C webs and omnivory
-    Supporting this possibility, species participate more frequently in the omnivory motif in high-connectance networks \emph{and} the relationship between persistence and participation in the omnivory motif is more strongly positive (Fig.~\ref{fig:density_prop_C}).
+    Supporting this possibility, species participate more frequently in the omnivory motif in high-connectance networks \emph{and} the relationship between persistence and participation in the omnivory motif is more strongly positive (Fig.~\ref{fig:density_prop_C}) as in~\citep{McLeod2021}.
     These networks contain many pathways by which a bottom-up disturbance can propagate through the network, leading to stronger effects of disturbance on consumers (Table S6; \emph{Appendix S10}).
     In such a network, it may be especially beneficial for a species to feed on multiple trophic levels and, in a sense, spread its risk of losing prey to bottom-up effects.
     Although species in our model cannot swap prey, the reduced extinction risk for omnivorous species resembles empirical studies showing that adaptive omnivory can increase the permanence of three-species chains~\citep{Fagan1997, Kvrivan2005, AbramsFung2010}.
@@ -456,8 +457,8 @@ $^\dagger$ Corresponding author:\\
     
     \begin{figure}[hb!]
         \centering
-        \includegraphics[width=.75\textwidth]{manuscript/figures/motif_proportion_lms.pdf}
-        \caption{The proportions of the four motifs in a network's motif profile were related to the mean persistence of species in the network. Specifically, persistence decreased as the proportion of omnivory in the network's motif profile increased while persistence increased with increasing proportions of the other three motifs. Interactions between motif profiles and disturbance were significant but small. Here we show the relationships of probabilities of extinction of basal resources of 0.1 (top set of lines) and 0.5 (bottom set of lines). Relationships are shown for the observed range of proportions for each motif.}
+        \includegraphics[width=\textwidth]{manuscript/figures/motif_proportion_lms.pdf}
+        \caption{The proportions of the four motifs in a network's motif profile were network size, connectance, and their interaction. The effect of connectance was much stronger than the main effect or interaction with network size. The proportion of apparent competition in a network's profile decreased with increasing connectance, while the proportion of omnivory increased. In small networks, the proportion of direct competition also decreased with increasing connectance.}
         \label{motif_proportion_lms}
     \end{figure}
 
