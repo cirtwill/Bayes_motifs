@@ -31,10 +31,9 @@ def read_dispfile(dispfile):
   for line in f:
     if line.split()[0]!='"Distance"':
       dist=float(line.split()[1][1:-1])
-      S=int(line.split()[3].split('.')[0][1:-1])
-      C=float('0.'+line.split()[3].split('.')[1][:-1])
+      S=int(line.split()[3][1:-1])
+      C=float(line.split()[4][1:-1])
       dispdict.append((S,C,dist))
-
   f.close()
   return dispdict
 
@@ -74,12 +73,12 @@ def populate_graph(graph,dispdict,graphtype):
 
   for (S,C,disp) in dispdict:
     data=graph.add_dataset([(C+(float(S-70)/5000),disp)])
-    data.symbol.configure(fill_color=S/10,color=S/10)
+    data.symbol.configure(fill_color=S/10,color=S/10,fill_pattern=0)
 
   for S in [50,60,70,80,90,100]:
     temp=graph.add_dataset([(S,S)])
     temp.line.linestyle=0
-    temp.symbol.configure(fill_color=S/10,color=S/10)
+    temp.symbol.configure(fill_color=S/10,color=S/10,fill_pattern=0)
     temp.legend=str(S)
 
   if graphtype=='heatmap':
