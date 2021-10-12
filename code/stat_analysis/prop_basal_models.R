@@ -1,4 +1,4 @@
-load.image('all_tests.Rdata')
+load('all_tests.Rdata')
 
 # Libraries to fit the non-plotted lms
 library(lme4)
@@ -119,8 +119,8 @@ BCper=with(consumers,lm(Persistence~scale(prop_Basal)*scale(Size)*scale(Connecta
 
     for(c in 1:ncol(posprops)){
         posname=colnames(posprops)[c]
-        SClm=lm(posprops[,c]~consumers$prop_Basal*consumers$Connectance)
-        write.table(summary(SClm)$coefficients,file=paste0('positions_vs_other/BC_',posname,'.tsv',sep=''),sep='\t')
+        BClm=lm(posprops[,c]~consumers$prop_Basal*consumers$Connectance)
+        write.table(summary(BClm)$coefficients,file=paste0('positions_vs_other/BC_',posname,'.tsv',sep=''),sep='\t')
     }
 
 save.image('basal_tests.Rdata')
