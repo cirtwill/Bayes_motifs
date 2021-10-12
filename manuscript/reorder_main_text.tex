@@ -207,11 +207,11 @@ $^\dagger$ Corresponding author:\\
 
         To test if participating more often in a certain motif affected a species' probability of persistence, we fit four linear mixed-effect models (LMMs; one per motif included in the Bayesian networks):
             \begin{equation}
-                \Psi_{ik} \approx \rho_{i} + \pi_{k} + \rho_{i}\pi_{k} +
-                S_{i}C_{i} ,
+                \Psi_{ink} \approx \rho_{i} + \pi_{k} + \rho_{i}\pi_{k} +
+                S_{n}C_{n} ,
                 \label{propreq}
             \end{equation}
-        \noindent where $\Psi_{ik}$ is the persistence of species $i$ during disturbance level $k$, $\rho_{i}$ is the proportion of the role of species $i$ that is made up by the focal motif, $\pi_k$ is the probability of extinction for a basal resource in disturbance level $k$, and $S_{i}C_{i}$ is a random intercept for the species richness and connectance of the network containing species $i$.
+        \noindent where $\Psi_{ink}$ is the persistence of species $i$, belonging to network $n$, during disturbance level $k$, $\rho_{i}$ is the proportion of the role of species $i$ that is made up by the focal motif, $\pi_k$ is the probability of extinction for a basal resource in disturbance level $k$, and $S_{n}C_{n}$ is a random intercept for the species richness and connectance of network $n$.
         All predictors were centered and scaled before fitting the models.         
         To test whether these general trends were consistent across networks, we examined the distribution of slopes of simplified regressions fit to a single network and level of disturbance (Appendix \emph{3.1}).
     
@@ -230,20 +230,20 @@ $^\dagger$ Corresponding author:\\
         We tested whether networks with similar motif profiles tend to have similar mean persistences among consumers using a PERMANOVA (Appendix \emph{S3.3}).
         To identify the relationships between particular motifs and network mean persistence in more detail, we fit a set of four LMs (one per motif):
             \begin{equation}
-                \Psi_{ik} \approx \Bar{\rho}_{i} + \pi_{k} + \Bar{\rho}_{i}\pi_{k},
+                \overline{\Psi_{nk}} \approx \Bar{\rho}_{n} + \pi_{k} + \Bar{\rho}_{n}\pi_{k},
                 \label{netpropeq}
             \end{equation}
-        \noindent where $\Bar{\rho}_{i}$ is the proportion of the focal motif in the network's motif profile and all other symbols are as in equation~\ref{propreq}.
+        \noindent where $\overline{\Psi_{nk}}$ is the mean persistence of all consumers in network $n$ at disturbance level $k$, $\Bar{\rho}_{n}$ is the proportion of the focal motif in the network's motif profile, and $\pi_k$ is the level of disturbance (probability of extinction for basal resources) as in equation~\ref{propreq}.
             
     \subsubsection*{4) Motif profiles and network properties}
     
         To test whether networks with the the same size and connectance have more similar motif profiles, we used a PERMANOVA~\citep{Anderson2001} of Bray-Curtis dissimilarity among motif profiles against network size, connectance, and their interaction (Appendix \emph{S3.4}). 
         In addition, we identify correlations between size, connectance, and particular motifs using a set of four LMs:
         \begin{equation}
-            \Bar{\rho_{i}} \approx \Sigma_{i} + \zeta_{i} + \Sigma_{i}\zeta_{i}
+            \Bar{\rho_{n}} \approx \Sigma_{n} + \zeta_{n} + \Sigma_{n}\zeta_{n}
         \label{profile_global}
         \end{equation}
-        \noindent where $\Bar{\rho}_{i}$ is the proportion of the focal motif in the network's motif profile and $\Sigma_i$ and $\zeta_{i}$ are the size and connectance of the network to which $i$ belongs.
+        \noindent where $\Bar{\rho}_{n}$ is the proportion of the focal motif in the motif profile of network $n$ and $\Sigma_n$ and $\zeta_{n}$ are the size and connectance of network $n$.
         
     \subsubsection*{5) Persistence and network properties}
         
@@ -251,7 +251,7 @@ $^\dagger$ Corresponding author:\\
         To correctly interpret any relationships between motifs and persistence, we must consider the context of these other relationships (Appendix \emph{S3.5}).
         To identify the relationship between global network structure and mean probability of persistence within a network, we fit a linear regression:
             \begin{equation}
-                \Psi_{ik} \approx \Sigma_{i} + \zeta_{i} + \pi_k + \Sigma_{i}:\zeta_{i} + \Sigma_{i}\pi_k + \zeta_{i}\pi_k + \Sigma_{i}\zeta_{i}\pi_k,
+                \overline{\Psi_{nk}} \approx \Sigma_{n} + \zeta_{n} + \pi_k + \Sigma_{n}:\zeta_{n} + \Sigma_{n}\pi_k + \zeta_{n}\pi_k + \Sigma_{n}\zeta_{n}\pi_k,
                 \label{SCeq}
             \end{equation}
         \noindent where all symbols are as in equation~\ref{propreq} and~\ref{profile_global}.
@@ -259,15 +259,15 @@ $^\dagger$ Corresponding author:\\
 
 
         Persistence is also known to vary with local-scale measures of network structure. 
-        To identify the relationships betwen local-scale properties and species' probabilities of persistence, we fit two final LMMs:
+        To identify the relationships between local-scale properties and species' probabilities of persistence, we fit two final LMMs:
         \begin{equation}
-                \Psi_{ik} \approx \delta_{i} + \pi_k + \delta_{i}\pi_k +
-                S_{i}C_{i} ,
+                \Psi_{ink} \approx \delta_{i} + \pi_k + \delta_{i}\pi_k +
+                S_{n}C_{n} ,
                 \label{degeq}
             \end{equation}
         \begin{equation}
-                \Psi_{ik} \approx \tau_{i} + \pi_k + \tau_{i}\pi_k +
-                S_{i}C_{i} ,
+                \Psi_{ink} \approx \tau_{i} + \pi_k + \tau_{i}\pi_k +
+                S_{n}C_{n} ,
                 \label{TLeq}
             \end{equation}
         \noindent where $\delta_{i}$ and $\tau_i$ are the in-degree and trophic level of species $i$, respectively, and all other terms are as in equation~\ref{propreq}. 
@@ -276,7 +276,7 @@ $^\dagger$ Corresponding author:\\
 \section*{Results}
 
     \subsection*{Species motif participation and species persistence} 
-    
+    % Coefficients changed slightly with network-level random effect, but conclusions similar
        The relationship between frequency of participation in a motif and a species' probability of persistence depended on the level of disturbance. 
        When disturbance ($\pi$) was low, species' persistence increased with increasing proportions of the omnivory and direct competition motifs. 
        Conversely, persistence decreased with an increasing proportion of the apparent competition motif. 
@@ -288,11 +288,12 @@ $^\dagger$ Corresponding author:\\
         The relationship between omnivory and persistence was still positive but weaker at higher levels of disturbance, and the relationship between persistence and direct competition was largely unaffected by disturbance.
 
     \subsection*{Motif participation and other network properties}
-
+        % Updated with network-level random effect. No visible change.
        Species' motif participation varied depending on the global properties of the network: size, connectance, and their interaction (Fig. S1, Table S2; \emph{Appendix S5}).
        Species appeared most often in the apparent competition motif in all types of networks, but the proportion of apparent competition decreased with increasing network size and connectance.
        The proportion of the omnivory motif in a species' participation role increased sharply with increasing connectance, while the proportion of the direct competition motif increased slightly with increasing network size. 
         
+        % Updated with network-level random effect. No visible change.    
        Species' motif participation also varied with their in-degree and trophic level (Fig.~\ref{fig:motifs_vs_TL_and_deg}).
        Species with higher in-degree tended to have higher frequencies of participation in the omnivory motif. Proportions of the other three motifs tended to decline with increasing degree.
        Species with higher trophic levels tended to have higher proportions of apparent competition and three-species chains. 
