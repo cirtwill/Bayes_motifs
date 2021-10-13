@@ -208,16 +208,14 @@ $^\dagger$ Corresponding author:\\
         To test if participating more often in a certain motif affected a species' probability of persistence, we fit four linear mixed-effect models (LMMs; one per motif included in the Bayesian networks):
             \begin{equation}
                 \Psi_{ink} \approx \rho_{i} + \pi_{k} + \rho_{i}\pi_{k} +
-                S_{n}C_{n} ,
+                S_{n}C_{n} + N_n,
                 \label{propreq}
             \end{equation}
-        \noindent where $\Psi_{ink}$ is the persistence of species $i$, belonging to network $n$, during disturbance level $k$, $\rho_{i}$ is the proportion of the role of species $i$ that is made up by the focal motif, $\pi_k$ is the probability of extinction for a basal resource in disturbance level $k$, and $S_{n}C_{n}$ is a random intercept for the species richness and connectance of network $n$.
+        \noindent where $\Psi_{ink}$ is the persistence of species $i$, belonging to network $n$, during disturbance level $k$, $\rho_{i}$ is the proportion of the role of species $i$ that is made up by the focal motif, $\pi_k$ is the probability of extinction for a basal resource in disturbance level $k$,  $S_{n}C_{n}$ is a random intercept for the species richness and connectance of network $n$, and $N_n$ is a random effect of network $n$, intended to account for the non-independence of motif participations for species in the same network.
         All predictors were centered and scaled before fitting the models.         
         To test whether these general trends were consistent across networks, we examined the distribution of slopes of simplified regressions fit to a single network and level of disturbance (Appendix \emph{3.1}).
     
     \subsubsection*{2) Participation and other network properties}    
-
-
         Different scales of network structure (e.g., local and meso-scale) are not independent. 
         To identify correlations between global network structure and participation in particular motifs, we fit a series of LMs relating motif participation to network size, connectance, and their interaction (Appendix \emph{S3.2}).
         We fit a similar set of  LMMs relating motif participation to in-degree or trophic level (Appendix \emph{S3.2}).
@@ -262,12 +260,12 @@ $^\dagger$ Corresponding author:\\
         To identify the relationships between local-scale properties and species' probabilities of persistence, we fit two final LMMs:
         \begin{equation}
                 \Psi_{ink} \approx \delta_{i} + \pi_k + \delta_{i}\pi_k +
-                S_{n}C_{n} ,
+                S_{n}C_{n} + N_n,
                 \label{degeq}
             \end{equation}
         \begin{equation}
                 \Psi_{ink} \approx \tau_{i} + \pi_k + \tau_{i}\pi_k +
-                S_{n}C_{n} ,
+                S_{n}C_{n} + N_n,
                 \label{TLeq}
             \end{equation}
         \noindent where $\delta_{i}$ and $\tau_i$ are the in-degree and trophic level of species $i$, respectively, and all other terms are as in equation~\ref{propreq}. 
@@ -297,14 +295,14 @@ $^\dagger$ Corresponding author:\\
        Species' motif participation also varied with their in-degree and trophic level (Fig.~\ref{fig:motifs_vs_TL_and_deg}).
        Species with higher in-degree tended to have higher frequencies of participation in the omnivory motif. Proportions of the other three motifs tended to decline with increasing degree.
        Species with higher trophic levels tended to have higher proportions of apparent competition and three-species chains. 
-        
-       A species persistence varies with both species in-degree and trophic level (Fig.~\ref{fig:motifs_vs_TL_and_deg}; \emph{Appendix S6}). Increased trophic level is generally associated with decreasing species persistence, although the rate of decline is slower at high disturbance (Table S3, \emph{Appendix S6}).
+        % Updated with network-level random effect. No visible change.   
+       A species' persistence varies with both species in-degree and trophic level (Fig.~\ref{fig:motifs_vs_TL_and_deg}; \emph{Appendix S6}). Increased trophic level is generally associated with decreasing species persistence, although the rate of decline is slower at high disturbance (Table S3, \emph{Appendix S6}).
        In-degree shows an even stronger interaction with disturbance; having more prey species is associated with higher persistence without disturbance, but lower persistence at high levels of disturbance.
         
         
     \subsection*{Consistency in effects of motif participation on species persistence}
 
-        
+        %Update not needed
         When fitting regressions of persistence against motif participation for each network separately, networks with high connectance generally showed more consistent relationships between persistence and motif participation, i.e., sharper peaks of the density distributions (Fig.~\ref{fig:density_prop_C}).
         However, this trend varied at different levels of disturbance, especially for the direct competition and omnivory motifs.
         At low and medium connectances there was little change in the distribution of slopes for direct competition across all levels of disturbance. 
@@ -315,8 +313,8 @@ $^\dagger$ Corresponding author:\\
 
 
     \subsection*{Network motif profiles and network mean persistence}
-    
-        The overall motif profile of a network was related to the average persistence of consumers ($F_{1,2998}$=571, $p$\textless0.001). 
+        % Updated to use means instead of all species
+        The overall motif profile of a network was related to the average persistence of consumers ($F_{1,2998}$=645, $p$\textless0.001), although this result must be considered tentative due to non-homogeneous distribution of roles (\emph{Appendix S8}). 
         Average persistence was higher in networks with higher proportions of the chain, direct competition, and apparent competition motifs (Table S4, \emph{Appendix S8}). 
         Conversely, average persistence was lower in networks with higher proportions of the omnivory motif. 
         These trends were consistent across levels of disturbance (Fig.~\ref{fig:motif_profile_persistence}, Table S4), \emph{Appendix S8}).% Network persistence varies between networks with different dispersion of motif profiles ($F_{134,2865}$=2.19$\times10^{24}$, $p$=\textless0.001). For example, networks with more variable motif profiles have higher persistence ($\beta$=0.183, $p$\textless0.001).
