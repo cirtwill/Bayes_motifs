@@ -34,11 +34,6 @@ consumers$prop_direct=consumers$m36/consumers$total_motifs
 consumers$prop_omni=consumers$m38/consumers$total_motifs
 consumers$netID=paste(consumers$Size,consumers$Connectance,consumers$Network,sep=':')
 
-# Section 1: How does persistence vary with global network properties?
-
-    SCper=with(consumers,lm(Persistence~scale(Size)*scale(Connectance)*scale(Disturbance)))
-    SCper_randnet=with(consumers,lmer(Persistence~scale(Size)*scale(Connectance)*scale(Disturbance)+(1|netID)))
-
 
 # Section 2: How do motif profiles vary with S and C?
     motdata=read.table('../../data/3sp_motif_profiles.tsv',header=TRUE)
@@ -137,6 +132,10 @@ consumers$netID=paste(consumers$Size,consumers$Connectance,consumers$Network,sep
     # LM dispersion ~ mean persistence
     persist_lm=lm(persist_disp$distances~round(motdata$persistence,3))
 
+# Section 1: How does persistence vary with global network properties?
+
+    # SCper=with(consumers,lm(Persistence~scale(Size)*scale(Connectance)*scale(Disturbance)))
+    SCper_mean=with(simdata,lm(per~scale(Size)*scale(Connectance)*scale(dist)))
 
 # Section 4: How does persistence vary with proportions?
     # # lmer with random intercepts for each level of S:C
@@ -164,14 +163,14 @@ consumers$netID=paste(consumers$Size,consumers$Connectance,consumers$Network,sep
 
 # Section 5. How does persistence vary with degree and TL?
     # Persistence vs. STL and Degree
-    TLper=with(consumers,lmer(Persistence~scale(STL)*scale(Disturbance)+(1|Global)))
-    Degper=with(consumers,lmer(Persistence~scale(in_Degree)*scale(Disturbance)+(1|Global)))
+    # TLper=with(consumers,lmer(Persistence~scale(STL)*scale(Disturbance)+(1|Global)))
+    # Degper=with(consumers,lmer(Persistence~scale(in_Degree)*scale(Disturbance)+(1|Global)))
 
     TLper_randnet=with(consumers,lmer(Persistence~scale(STL)*scale(Disturbance)+(1|Global)+(1|netID)))
     Degper_randnet=with(consumers,lmer(Persistence~scale(in_Degree)*scale(Disturbance)+(1|Global)+(1|netID)))
 
-    write.table(summary(TLper)$coefficients,file='persistence_vs_TL.tsv',sep='\t')
-    write.table(summary(Degper)$coefficients,file='persistence_vs_Deg.tsv',sep='\t')
+    write.table(summary(TLper_randnet)$coefficients,file='persistence_vs_TL.tsv',sep='\t')
+    write.table(summary(Degper_randnet)$coefficients,file='persistence_vs_Deg.tsv',sep='\t')
 
 
 # Section 6. How does motif participation vary with other properties?
