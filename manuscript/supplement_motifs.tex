@@ -469,12 +469,12 @@ $^\dagger$ Corresponding author:\\
     % Besides the decrease in fraction of positive slopes with increasing disturbance, the omnivory motif showed a higher overall fraction of positive slopes in comparison to the three-species chain motif, corresponding to the positive main effect of omnivory (Fig. 3 and Table 1, \emph{Main Text}). 
     
     
-\begin{figure}[h!]
-    \centering
-        \includegraphics[width=0.75\textwidth]{figures/prop_dens_bp_vs_S_allC.pdf}
-        \caption{Here we show the density (y-axis) of slopes (x-axis) of persistence against proportion of different motifs for all simulated webs of all connectances - a visualization of how an increased proportion of each motif (different colored lines) affects persistence of consumer species. Columns show the result for various disturbances on the basal level, from $\pi = 0.1$ (left) to $\pi = 0.5$ (right). Rows show various network sizes. The dotted, vertical lines indicate zero on the x-axis. A negative slope value reflects a negative relationship between increased participation in a motif and persistence, while a positive slope value reflects a positive relationship - an increased proportion of a specific motif increase persistence. The fraction of replicates with a slope greater than zero are stated in numbers in each sub-plot, the color corresponding to each motif (legend). }
-        \label{fig:density_prop_S}
-    \end{figure}    
+    \begin{figure}[h!]
+        \centering
+            \includegraphics[width=0.75\textwidth]{figures/prop_dens_bp_vs_S_allC.pdf}
+            \caption{Here we show the density (y-axis) of slopes (x-axis) of persistence against proportion of different motifs for all simulated webs of all connectances - a visualization of how an increased proportion of each motif (different colored lines) affects persistence of consumer species. Columns show the result for various disturbances on the basal level, from $\pi = 0.1$ (left) to $\pi = 0.5$ (right). Rows show various network sizes. The dotted, vertical lines indicate zero on the x-axis. A negative slope value reflects a negative relationship between increased participation in a motif and persistence, while a positive slope value reflects a positive relationship - an increased proportion of a specific motif increase persistence. The fraction of replicates with a slope greater than zero are stated in numbers in each sub-plot, the color corresponding to each motif (legend). }
+            \label{fig:density_prop_S}
+        \end{figure}    
 
     
     
@@ -489,27 +489,32 @@ $^\dagger$ Corresponding author:\\
                 
 \section{Persistence and motif profiles}
 
-    Persistence varied with the frequencies of different motifs in a network profile.
+    % Updated and expanded to include permanova tests
+    Persistence varied with the frequencies of different motifs in a network profile ($F_{1,2998}$=645, $p$\textless0.001 for a PERMANOVA of dissimilarity in motif profiles against mean persistence).
+    However, motif profiles were not evenly distributed across mean persistences ($F_{134,2865}$=1.77, $p$\textless0.001 for an ANOVA of dissimilarity in motif profiles against mean persistence, rounded to 3 decimal places).
+    Specifically, motif profiles were more variable (higher dissimilarities) in networks with higher mean persistence.
+    As non-homogeneous variability can cause a PERMANOVA to return a false positive~\citep{Anderson2001}, this means that we must treat our PERMANOVA result as tentative and place more weight on the single-motif regressions.
 
-    
+
+    % Updated to use mean instead of all species
     \begin{table}[h!]
-        \caption{Coefficients ($\beta$) for models relating persistence to the proportion of a network profile, the level of disturbance to basal resources (corresponding to a probability of extinction ranging between 0.1 and 0.5), and their interaction. Predictors were centered and scaled before model fitting. All effects were significant ($p$\textless0.001). We also provide the $R^2$. }
+        \caption{Coefficients ($\beta$) for models relating persistence to the proportion of a network profile, the level of disturbance to basal resources (corresponding to a probability of extinction ranging between 0.1 and 0.5), and their interaction. Predictors were centered and scaled before model fitting. All effects were significant ($p$\textless0.05). We also provide the $R^2$ (multiple $R^2$). }
         \label{motif_profile_tab}
         \centering
         \begin{tabular}{c|c c c c c | c}
             Motif & Intercept & Proportion & Disturbance & Interaction & $R^2$\\
             \hline
-            Omnivory & 0.572 & -0.0133 & -0.139 & -4.89$\times10^{-4}$ & 0.908 \\
-            Apparent competition & 0.572 & 0.0105 & -0.139 & 4.78$\times10^{-4}$ & 0.905 \\
-            Direct competition & 0.572 & 2.62$\times10^{-3}$ & -0.139 & 3.84$\times10^{-4}$ & 0.901 \\
-            Three-species chain & 0.572 & 6.12$\times10^{-3}$ & -0.139 & -1.90$\times10^{-4}$ & 0.901 \\ 
+            Omnivory & 0.574 & -0.0140 & -0.139 & -5.59$\times10^{-4}$ & 0.968 \\
+            Apparent competition & 0.574 & 0.0112 & -0.139 & 5.90$\times10^{-4}$ & 0.964 \\
+            Direct competition & 0.574 & 3.38$\times10^{-3}$ & -0.139 & 1.81$\times10^{-4}$ & 0.958 \\
+            Three-species chain & 0.574 & 5.80$\times10^{-3}$ & -0.138 & -3.07$\times10^{-5}$ & 0.960 \\ 
         \end{tabular}
     \end{table}
 \clearpage
 
 
 \section{Motif profiles and global properties}
-
+% No update needed
 
     A network's normalized motif profile (i.e., proportions of the total made up by each motif) was related to the network's size, connectance, and the interaction between them ($F_{1,2996}$=74.3, $p$\textless0.001; $F_{1,2996}$=4203, $p$\textless0.001; and $F_{1,2996}$=27.8, $p$\textless0.001, respectively in a PERMANOVA of dissimilarity in normalized network motif profiles against network size, connectance, and their interaction).
     However, normalized motif profiles were not homogeneously variable across levels of network size, connectance, or their interaction  ($F_{5,2994}$=16.8, $p$\textless0.001; $F_{4,2995}$=31.7, $p$\textless0.001; and $F_{29,2970}$=11.9, $p$\textless0.001 for ANOVAs of dispersion of motif profiles against size, connectance, and combinations of size and connectance, respectively).These differences in variability can cause false positives in the PERMANOVA test. Variability was highest in small and low-connectance networks (Fig.~\ref{dispersion_normmotifs}).
@@ -547,7 +552,7 @@ $^\dagger$ Corresponding author:\\
 
     Connectance and species richness had smaller effects on consumer persistence than disturbance (Figs.~\ref{fig:lm_CS}, \ref{fig:heatmap_CS}, Table~\ref{tab:per_vs_SC}).
 
-
+    % updated to use network means rather than all species
     \begin{figure}[h!]
         \centering
         \includegraphics[width=0.95\textwidth]{figures/persistence_vs_SC_lm.eps}
