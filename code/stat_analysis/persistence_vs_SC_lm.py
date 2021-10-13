@@ -33,14 +33,14 @@ scales={
 }
 
 lms={
-  'Intercept': 5.723e-01,
-  'Size':-5.148e-04,
+  'Intercept': 0.5743430,
+  'Size':-0.0004818,
   'Connectance':-1.293e-02,
-  'Disturbance':-1.393e-01,
-  'Size:Connectance':-5.245e-04,
-  'Size:Disturbance':-3.485e-03,
-  'Connectance:Disturbance':-6.998e-05,
-  'Size:Connectance:Disturbance':-2.693e-04 }
+  'Disturbance':-0.0136768,
+  'Size:Connectance':-0.0009770,
+  'Size:Disturbance':-0.0034566,
+  'Connectance:Disturbance':-0.0002251,
+  'Size:Connectance:Disturbance':-0.0003969 }
 
 Blms={'Intercept':5.777e-01,
       'Basal':2.841e-02,

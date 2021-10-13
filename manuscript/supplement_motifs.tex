@@ -329,14 +329,14 @@ $^\dagger$ Corresponding author:\\
             The persistence of basal species in our simulations is determined only by their baseline probability, being either $\pi = 0.1$ or higher, dependent on $\pi$.
             We therefore considered only non-basal species (i.e., those with at least one prey) throughout this manuscript.
 
-            To test for effects of global network properties, we fit a linear regression relating consumer species' probabilities of persistence to network size, connectance, the level of disturbance to basal resources, and all interactions between them. 
+            To test for effects of global network properties, we fit a linear regression relating the mean of consumer species' probabilities of persistence in a network to network size, connectance, the level of disturbance to basal resources, and all interactions between them. 
             All predictors were centered and scaled before fitting the model. 
             As the three-way interaction was significant, we did not simplify the model.
             All models were fit using the R~\citep{R} base function `lm'.
 
 
             \begin{equation}
-                \Psi_{ink} \approx \Sigma_{n} + \zeta_{n} + \pi_{k} + \Sigma_{n}:\zeta_{n} + \Sigma_{n}\pi_{k} + \zeta_{n}\pi_{k} + \Sigma_{n}\zeta_{n}\pi_{k},
+                \overline{\Psi_{nk}} \approx \Sigma_{n} + \zeta_{n} + \pi_k + \Sigma_{n}:\zeta_{n} + \Sigma_{n}\pi_k + \zeta_{n}\pi_k + \Sigma_{n}\zeta_{n}\pi_k,
                 \label{SCeq}
             \end{equation}
             where all symbols are as in equation~\ref{propreq} and~\ref{partic_SC}.
@@ -351,13 +351,13 @@ $^\dagger$ Corresponding author:\\
       
             \begin{equation}
                     \Psi_{ink} \approx \delta_{i} + \pi_{k} + \delta_{i}\pi_{k} +
-                    S_{n}C_{n} ,
+                    S_{n}C_{n} + N_n,
                     \label{degeq}
                 \end{equation}
         
             \begin{equation}
                     \Psi_{ink} \approx \tau_{i} + \pi_{k} + \tau_{i}\pi_{k} +
-                    S_{n}C_{n} ,
+                    S_{n}C_{n} N_n,
                     \label{TLeq}
                 \end{equation}
         
@@ -373,7 +373,7 @@ $^\dagger$ Corresponding author:\\
     % Updated with new random effect
     \begin{table}[h!]
         \centering
-        \caption{Coefficients ($\beta$) and $p$-values ($p$) for models relating persistence to the proportion of a species' role made up by the focal motif, the level of disturbance to basal resources (corresponding to a probability of extinction ranging between 0.1 and 0.5), and their interaction, as well as random effects to account for differences in persistence across levels of network size and connectance and connectance (Equation~\ref{propreq}). Predictors were centered and scaled before model fitting. We also provide the marginal $R^2_M$ (fixed effects only) and conditional $R^2_C$ (fixed and random effects) for each model.}
+        \caption{Coefficients ($\beta$) and $p$-values ($p$) for models relating persistence to the proportion of a species' role made up by the focal motif, the level of disturbance to basal resources (corresponding to a probability of extinction ranging between 0.1 and 0.5), and their interaction, as well as random effects to account for differences in persistence across levels of network size, connectance, and network ID  (Equation~\ref{propreq}). Predictors were centered and scaled before model fitting. We also provide the marginal $R^2_M$ (fixed effects only) and conditional $R^2_C$ (fixed and random effects) for each model.}
         \label{tab:proportion}                \footnotesize
         \begin{tabular}{c|c c | c c | c c | c c | c c |}
         & \multicolumn{2}{c|}{Intercept} & \multicolumn{2}{c|}{Proportion} & \multicolumn{2}{c|}{Disturbance} & \multicolumn{2}{c|}{Interaction} & \multicolumn{2}{c|}{$R^2$} \\
@@ -427,15 +427,16 @@ $^\dagger$ Corresponding author:\\
 
     Persistence varies with in-degree, trophic level, and their interaction.
 
+    % Updated with network-level random effect
     \begin{table}[h!]
-        \caption{Coeffcients ($\beta$) for regressions of consumers' probabilities of persistence against simple measures of species' role (STL or in-degree), level of disturbance to basal resources, and their interaction. Predictors were centered and scaled before model fitting. All $p$-values were \textless0.001. The level of disturbance is reflected by basal resources having a baseline probability of extinction ranging between $0.1 - 0.5$.}
+        \caption{Coeffcients ($\beta$) for linear mixed-effect models of consumers' probabilities of persistence against simple measures of species' role (STL or in-degree), level of disturbance to basal resources, and their interaction, as well as a random effect of network ID. Predictors were centered and scaled before model fitting. All $p$-values were \textless0.001. The level of disturbance is reflected by basal resources having a baseline probability of extinction ranging between $0.1 - 0.5$.}
         \label{tab:per_vs_TLdeg}
         \centering
         \begin{tabular}{l|c  c  c |}
             Simple role measure & Role & Disturbance & Interaction \\
             \hline
-            STL & -0.0218 & -0.139 & 0.00508 \\
-            in-degree & -0.00130 & -0.139 & -0.00908 \\
+            STL & -0.0210 & -0.139 & 0.00508 \\
+            in-degree & -0.00188 & -0.139 & -0.00908 \\
         \end{tabular}
     \end{table}
 
@@ -564,22 +565,23 @@ $^\dagger$ Corresponding author:\\
     \end{figure}
 
 
+    % Updated to use mean rather than all species.
     \begin{table}[hb!]
-        \caption{Persistence of consumers within a network depends on network size (S) and connectance (C), the level of disturbance to basal resources (D), and interactions between them. Here we show the effect sizes ($\beta$) and $p$-values for the regression described above. All predictors were centered and scaled before fitting the model. The level of disturbance corresponds to basal resources having a probability of extinction ranging between $0.1 - 0.5$ (see \emph{Methods}).
+        \caption{Mean persistence of consumers within a network depends on network size (S) and connectance (C), the level of disturbance to basal resources (D), and interactions between them. Here we show the effect sizes ($\beta$) and $p$-values for the regression described above. All predictors were centered and scaled before fitting the model. The level of disturbance corresponds to basal resources having a probability of extinction ranging between $0.1 - 0.5$ (see \emph{Methods}).
         }
         \label{tab:per_vs_SC}
         \centering
         \begin{tabular}{c|c c |}
             Predictor & $\beta$ & $p$-value \\
             \hline
-            Intercept & 0.572 & \textless0.001 \\
-            Size & -5.15$\times10^{-4}$  & \textless0.001 \\
-            Connectance & -0.0129 & \textless0.001 \\
+            Intercept & 0.574 & \textless0.001 \\
+            Size & -4.82$\times10^{-4}$  & 0.011 \\
+            Connectance & -0.0137 & \textless0.001 \\
             Disturbance & -0.139 & \textless0.001 \\
-            S:C & -5.24$\times10^{-4}$ & \textless0.001 \\
-            S:D & -3.48$\times10^{-3}$ & \textless0.001 \\
-            C:D & -7.00$\times10^{-5}$ & 0.095 \\
-            S:C:D: & -2.69$\times10^{-4}$ & \textless0.001 \\
+            S:C & -9.77$\times10^{-4}$ & \textless0.001 \\
+            S:D & -3.46$\times10^{-3}$ & \textless0.001 \\
+            C:D & -2.25$\times10^{-4}$ & 0.233 \\
+            S:C:D: & -3.97$\times10^{-4}$ & 0.036 \\
         \end{tabular}
     \end{table}
 
