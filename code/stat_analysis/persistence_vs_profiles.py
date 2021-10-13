@@ -39,18 +39,18 @@ mot_ranges={
 }
 
 scales={ # center, scale
-  'omnivory':(0.169822,0.07561787),
-  'apparent':(0.4169211,0.06134048),
-  'direct':(0.1805743,0.04025804),
-  'chain':(0.2326826,0.04136131),
-  'Disturbance':(0.3,0.1366261)
+  'omnivory':(0.1641884,0.07895101),
+  'apparent':(0.4222605,0.06446181),
+  'direct':(0.1787041,0.0407462),
+  'chain':(0.234847,0.04233961),
+  'Disturbance':(0.3,0.1366298)
 }
 
 lms={ # Intercept, motif, disturbance, interaction
-  'omnivory':(5.723e-01,-1.328e-02,-1.393e-01,-4.886e-04),
-  'apparent':(5.723e-01,1.053e-02,-1.393e-01,4.781e-04),
-  'direct':(5.723e-01,2.618e-03,-1.393e-01,3.844e-04),
-  'chain':(0.5723309,0.0061244,-0.1393351,-0.0001900)  
+  'omnivory':(0.5743430145,-0.0140077658,-0.1385163991,-0.0005586564),
+  'apparent':(0.574343015,0.011206293,-0.138516399,0.000589999),
+  'direct':(0.5743430145,0.0033850297,-0.1385163991,0.0001809503),
+  'chain':(5.743430e-01,5.801241e-03,-1.385164e-01,-3.067919e-05)  
 }
 
 motif_names={'omnivory':'Omnivory','apparent':'Apparent competition','direct':'Direct competition','chain':'Three-species chain'}
