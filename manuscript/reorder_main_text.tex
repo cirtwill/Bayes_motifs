@@ -56,15 +56,14 @@ $^\dagger$ Corresponding author:\\
 \section*{Abstract}
 
 
-    Bottom-up effects of disturbance to basal resources can strongly affect the persistence of consumers.
-    However, predicting which species will be most affected by increasing disturbance is not straightforward.
-    In-degree and trophic level are known to affect a consumer's vulnerability to bottom-up disturbance, but these are relatively coarse measures of a species' place in a food web.
-    Here we explore how roles based on participation in three-species motifs are related to persistence, and how these motif-based roles relate to simpler measures.
-    We show that a consumer species' frequency of participation in different motifs is related to its probability of persistence. Similarly, the overall motif profile of a network was related to the average persistence of its consumer species.
-    Notably, we found that networks containing a higher proportion of the `omnivory' motif tend to have lower mean persistence following disturbance to basal species, while more frequent participation in the omnivory motif was associated with higher probability of persistence.
+    Bottom-up effects of disturbances to basal resources can strongly affect the persistence of consumers, but it is difficult to predict which species will be most affected by increasing disturbance.
+    Coarse measures of a species' structural role, like in-degree and trophic level, are known to affect a consumer's vulnerability to bottom-up disturbance.
+    We are interested in whether a richer set of species roles based on participation in three-species motifs is also related to persistence, and how these motif-based roles relate to simpler measures.
+    We show that a consumer species' participation in different motifs is related to its probability of persistence. 
+    Similarly, the overall motif profile of a network was related to the average persistence of consumer species.
+    Notably, we found that networks containing a higher proportion of the `omnivory' motif tend to have lower mean persistence following disturbance, while more frequent participation in the omnivory motif was associated with higher species-level probabilities of persistence.
     Additionally, we find that relationships between motif participation and persistence can synthesize the information provided by in-degree and trophic level.
-    Motif participation therefore provides a relatively rich description of a species' structural role in its community and captures important trends in vulnerability to extinction.
-
+    Motif participation therefore captures important trends in vulnerability to extinction and provides a rich description of species' structural roles in their communities.
 
 \begin{spacing}{2.0}
 
@@ -247,28 +246,13 @@ $^\dagger$ Corresponding author:\\
         
         Persistence is known to vary with global-scale and local-scale network properties.
         To correctly interpret any relationships between motifs and persistence, we must consider the context of these other relationships (Appendix \emph{S3.5}).
-        To identify the relationship between global network structure and mean probability of persistence within a network, we fit a linear regression:
-            \begin{equation}
-                \overline{\Psi_{nk}} \approx \Sigma_{n} + \zeta_{n} + \pi_k + \Sigma_{n}:\zeta_{n} + \Sigma_{n}\pi_k + \zeta_{n}\pi_k + \Sigma_{n}\zeta_{n}\pi_k,
-                \label{SCeq}
-            \end{equation}
-        \noindent where all symbols are as in equation~\ref{propreq} and~\ref{profile_global}.
+        To identify the relationship between global network structure and mean probability of persistence within a network, we fit a linear regression relating mean persistence to network size, connectance, disturbance, and their interactions (Eg. S9).
         As the three-way interaction was significant, we did not simplify the model. 
 
 
         Persistence is also known to vary with local-scale measures of network structure. 
-        To identify the relationships between local-scale properties and species' probabilities of persistence, we fit two final LMMs:
-        \begin{equation}
-                \Psi_{ink} \approx \delta_{i} + \pi_k + \delta_{i}\pi_k +
-                S_{n}C_{n} + N_n,
-                \label{degeq}
-            \end{equation}
-        \begin{equation}
-                \Psi_{ink} \approx \tau_{i} + \pi_k + \tau_{i}\pi_k +
-                S_{n}C_{n} + N_n,
-                \label{TLeq}
-            \end{equation}
-        \noindent where $\delta_{i}$ and $\tau_i$ are the in-degree and trophic level of species $i$, respectively, and all other terms are as in equation~\ref{propreq}. 
+        To identify the relationships between local-scale properties and species' probabilities of persistence, we fit two final LMMs relating a consumer's persistence to disturbance, in-degree or STL, and the interaction between disturbance and the local-scale measure (Eq. S10-S11).
+        These LMMs also included random effects to account for the effects of global network structure and network ID on persistence.
 
 
 \section*{Results}
@@ -385,7 +369,7 @@ $^\dagger$ Corresponding author:\\
     
     In general, average persistence was highest in networks with low proportions of the omnivory motif and high proportions of the apparent competition motif. 
     These results contrast with earlier work showing that higher numbers of omnivory motifs and lower numbers of apparent competition motifs are associated with greater food-web persistence~\citep{Stouffer2010b}.
-    By using counts of motifs rather than proportions,~\citet{Stouffer2010b} may be combining effects of total numbers of motifs with effects of motif proportions.
+    By using counts of motifs rather than proportions,~\citet{Stouffer2010b} may be mixing effects of total numbers of motifs with effects of motif proportions.
     Moreover, the effect of omnivory on stability is known to be highly context-dependent \citep{bascompte2005simple, Monteiro2016,McLeod2021}. 
     The stability of omnivory motifs in isolation depends on the strength of the omnivore-resource interaction~\citep{McLeod2021}, but at the whole-network level interactions with other species can stabilize even intrinsically unstable omnivory \citep{Kratina2012}. 
     This might be why we find different patterns between a network's motif profile (where a high proportion of omnivory indicates lower average network persistence) versus a single species motif participation (where a high proportion of the omnivory motif indicates a higher focal species persistence).
