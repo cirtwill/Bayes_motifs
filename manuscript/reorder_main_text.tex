@@ -25,7 +25,8 @@
 
 \usepackage{authblk}
 
-\title{Does motif participation provide unique information about species risk of extinction?}
+
+\title{Species motif participation provides unique information about species risk of extinction}
 
 \author{Anna \r{A}kesson$^{1\dagger}$, Alyssa R. Cirtwill$^{2}$, Kate L. Wootton$^{3}$, Anna Ekl\"{o}f$^{1}$} 
 \date{\small$^1$Department of Theoretical Biology, Chemistry, and Physics\\ 
@@ -46,6 +47,7 @@ $^\dagger$ Corresponding author:\\
 
 \begin{document} 
 \maketitle 
+\linenumbers
 \raggedright
 
 \setlength{\parindent}{15pt} 
@@ -78,7 +80,7 @@ $^\dagger$ Corresponding author:\\
     This additional detail means that realistic processes such as indirect interactions can be included, but also means that dynamical models are more parameter intensive, and simulations are more time-consuming, than topological models. 
     
     
-    A middle‐ground approach for simulating secondary extinctions is to use  Bayesian networks \citep{Eklof2013}. 
+    A middle‐ground approach for simulating secondary extinctions is to use Bayesian networks \citep{Eklof2013}. 
     In this framework, a consumer's probability of extinction depends on the fraction of resources lost and on a baseline probability of extinction which captures causes unrelated to the network structure (e.g., disease, stochastic extinction of small populations).
     Modelling Bayesian networks is fast and computationally efficient, allowing analysis of networks with high species richness \citep{Haussler2020}. 
     As consumers do not affect the extinction probabilities of their resources, Bayesian networks can only capture bottom-up effects of disturbances within networks. 
@@ -169,8 +171,7 @@ $^\dagger$ Corresponding author:\\
 		
     % various disturbance scenarios
         In our baseline scenario, basal resources had an extinction probability of $\pi = 0.1$. 
-		To simulate various threats to basal resources, making some species more vulnerable to extinction, we increase the affected species' probability of extinction ($\pi$). 
-		We increased $\pi$ for basal resources from $0.10$ to $0.5$, in steps of $0.08$. 
+		To simulate various threats to basal resources, making some species more vulnerable to extinction, we increase the affected species' probability of extinction from $0.10$ to $0.5$, in steps of $0.08$. 
 		The highest disturbance level, $\pi = 0.5$, corresponds to basal species having a 50\% risk of going extinct. 
 		Consumer species retained $\pi=0.1$ in all cases.
 		
@@ -246,7 +247,7 @@ $^\dagger$ Corresponding author:\\
         
         Persistence is known to vary with global-scale and local-scale network properties.
         To correctly interpret any relationships between motifs and persistence, we must consider the context of these other relationships (Appendix \emph{S3.5}).
-        To identify the relationship between global network structure and mean probability of persistence within a network, we fit a linear regression relating mean persistence to network size, connectance, disturbance, and their interactions (Eg. S9).
+        To identify the relationship between global network structure and mean probability of persistence within a network, we fit a linear regression relating mean persistence to network size, connectance, disturbance, and their interactions (Eq. S9).
         As the three-way interaction was significant, we did not simplify the model. 
 
 
@@ -399,11 +400,9 @@ $^\dagger$ Corresponding author:\\
     
 \section*{Acknowledgements}
 
-    The authors thank György Barabás for excellent discussion of the ideas in this manuscript. ARC is supported by a Finnish Academy postdoctoral research grant (\#332999).
+    The authors thank György Barabás for excellent discussion of the ideas in this manuscript. AÅ is supported by the Swedish Research Council for Sustainable Development Formas (\#2015-01262) granted to AE. ARC is supported by a Finnish Academy postdoctoral research grant (\#332999).
 
 \clearpage    
-
-\section*{Figure captions}
 
 \section*{Figures}
     
