@@ -173,6 +173,8 @@ graph2.add_drawing_object(DrawText,x=0.5,y=0.34,loctype='world',text='Highest di
 
 graph2.legend.configure(char_size=1,loc=(0.05,0.685),loctype='world',box_linestyle=0,fill_pattern=0)
 
+grace.graphs[0].set_view(0.07,0.07,0.95,0.7)
+
 grace.write_file('../../manuscript/figures/persistence_motif_profiles.eps')
 
 

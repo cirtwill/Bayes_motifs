@@ -190,10 +190,10 @@ def populate_persgraph(graph,persdict,simple):
       data.legend=str(basal_p)
 
   if simple=='TL':
-    graph.add_drawing_object(DrawText,text='Basal species',x=5.25,y=0.58,loctype='world',char_size=.75) 
-    graph.add_drawing_object(DrawText,text='extinction',x=5.25,y=0.52,loctype='world',char_size=.75) 
-    graph.add_drawing_object(DrawText,text='probability',x=5.25,y=0.47,loctype='world',char_size=.75) 
-    graph.legend.configure(char_size=.75,loc=(5.25,0.45),loctype='world',box_linestyle=0,fill_pattern=0)
+    graph.add_drawing_object(DrawText,text='Basal species',x=5.25,y=0.71,loctype='world',char_size=.75) 
+    graph.add_drawing_object(DrawText,text='extinction',x=5.25,y=0.65,loctype='world',char_size=.75) 
+    graph.add_drawing_object(DrawText,text='probability',x=5.25,y=0.58,loctype='world',char_size=.75) 
+    graph.legend.configure(char_size=.75,loc=(5.25,0.55),loctype='world',box_linestyle=0,fill_pattern=0)
 
 
   return graph
@@ -228,10 +228,10 @@ for graphtype in ['Proportion','Persistence']:
     
 grace.multi(rows=2,cols=2,vgap=.05,hgap=.05)
 grace.hide_redundant_labels()
-# grace.set_row_xaxislabel(label='in-degree (number of prey)',row=0,colspan=(None,None),char_size=1,perpendicular_offset=.05)
-# grace.set_row_xaxislabel(label='Trophic level (STL)',row=1,colspan=(None,None),char_size=1,perpendicular_offset=.05)
-# grace.set_col_yaxislabel(label='Count of motif',col=0,rowspan=(None,None),char_size=1,perpendicular_offset=.07)
-# grace.set_col_yaxislabel(label='Proportion of motif role',col=1,rowspan=(None,None),char_size=1,perpendicular_offset=.07)
+grace.graphs[0].set_view(0.10, 0.55, 0.5, 0.85)
+grace.graphs[1].set_view(0.55, 0.55, 0.95, 0.85)
+grace.graphs[2].set_view(0.10, 0.2, 0.5, 0.5)
+grace.graphs[3].set_view(0.55, 0.2, 0.95, 0.5)
 
 grace.write_file('../manuscript/figures/roles_vs_TL.eps')
 
