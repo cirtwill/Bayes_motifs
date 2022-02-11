@@ -1,0 +1,51 @@
+import sys
+import os
+import pymfinder as py
+
+def main():
+
+    webdir='../data/empirical/edgelists/'
+    roledir='../data/roles/empirical/'
+    motifdir='../data/motif_frequencies/empirical/'
+    pardir='../data/motif_participation/empirical/'
+
+    for web in os.listdir(webdir):
+      if web not in ['ythanjacob.tsv','weddell.tsv','kongsfjorden.tsv']:
+        infile=webdir+web
+        print web
+
+        size=3
+        motfile=motifdir+web.split('.tsv')[0]+'.motifs_'+str(size)
+        parfile=pardir+web.split('.tsv')[0]+'.participation_'+str(size)
+        rolefile=roledir+web.split('.tsv')[0]+'.roles_'+str(size)
+
+        result=py.motif_roles(infile,motifsize=size,stoufferIDs=False,allroles=True)
+        motifs=str(result).split('node')[0]
+        roles='node'+str(result).split('node')[1]
+
+        presult=py.motif_participation(infile,motifsize=size,stoufferIDs=False,allmotifs=True)
+        partic=str(presult).split('node')[1]
+
+        e=open(parfile,'w')
+        e.write(partic)
+        e.close()
+        
+        f=open(rolefile,'w')
+        f.write(roles)
+        f.close()
+
+        g=open(motfile,'w')
+        g.write(motifs)
+        g.close()
+
+        # size=4
+        # parfile2=pardir+web.split('.tsv')[0]+'.participation_'+str(size)          
+        # presult=py.motif_participation(infile,motifsize=size,stoufferIDs=False,allmotifs=True)
+        # partic=str(presult).split('node')[1]
+
+        # e=open(parfile2,'w')
+        # e.write(partic)
+        # e.close()
+
+if __name__ == '__main__':
+  main()
