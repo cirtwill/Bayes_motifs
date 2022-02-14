@@ -370,19 +370,19 @@ $^\dagger$ Corresponding author:\\
 
     Persistence varied with motif participation.
 
-    % Updated with new random effect
+    % Updated with new random effect, converted to data-scale
     \begin{table}[h!]
         \centering
-        \caption{Coefficients ($\beta$) and $p$-values ($p$) for models relating persistence to the proportion of a species' role made up by the focal motif, the level of disturbance to basal resources (corresponding to a probability of extinction ranging between 0.1 and 0.5), and their interaction, as well as random effects to account for differences in persistence across levels of network size, connectance, and network ID  (Equation~\ref{propreq}). Predictors were centered and scaled before model fitting. We also provide the marginal $R^2_M$ (fixed effects only) and conditional $R^2_C$ (fixed and random effects) for each model.}
+        \caption{Coefficients ($\beta$) and $p$-values ($p$) for models relating persistence to the proportion of a species' role made up by the focal motif, the level of disturbance to basal resources (corresponding to a probability of extinction ranging between 0.1 and 0.5), and their interaction, as well as random effects to account for differences in persistence across levels of network size, connectance, and network ID  (Equation~\ref{propreq}). Predictors were centered and scaled before model fitting; coefficients refer to a unit increase in each parameter. We also provide the marginal $R^2_M$ (fixed effects only) and conditional $R^2_C$ (fixed and random effects) for each model.}
         \label{tab:proportion}                \footnotesize
         \begin{tabular}{c|c c | c c | c c | c c | c c |}
         & \multicolumn{2}{c|}{Intercept} & \multicolumn{2}{c|}{Proportion} & \multicolumn{2}{c|}{Disturbance} & \multicolumn{2}{c|}{Interaction} & \multicolumn{2}{c|}{$R^2$} \\
         Motif & $\beta$ & $p$ & $\beta$ & $p$ & $\beta$ & $p$ & $\beta$ & $p$ & $R^2_M$ & $R^2_C$ \\
         \hline
-        3-sp Chain & 0.574 & \textless0.001 & -0.00492 & \textless0.001 & -0.139 & \textless0.001 & -0.00337 & \textless0.001 & 0.900 & 0.912 \\
-        App. Com. & 0.574 & \textless0.001 & -0.00390 & \textless0.001 & -0.139 & \textless0.001 & 0.00410 & \textless0.001 & 0.900 & 0.911 \\
-        Dir. Com. & 0.574 & \textless0.001 & 0.00607 & \textless0.001 & -0.139 & \textless0.001 & 0.000256 & \textless0.001 & 0.901 & 0.911 \\
-        Omnivory & 0.575 & \textless0.001 & 0.00806 & \textless0.001 & -0.139 & \textless0.001 & -0.00198 & \textless0.001 & 0.894 & 0.912 \\
+        3-sp Chain & 0.578 & \textless0.001 & -0.00360 & \textless0.001 & -0.0154 & \textless0.001 & 8.39$\times10^{-5}$& \textless0.001 & 0.866 & 0.914 \\
+        App. Com. & 0.579 & \textless0.001 & -0.00239 & \textless0.001 & -0.0154 & \textless0.001 & -2.70$\times10^{-5}$ & \textless0.001 & 0.822 & 0.882 \\
+        Dir. Com. & 0.577 & \textless0.001 & 7.74$\times10^{-4}$ & \textless0.001 & -0.0154 & \textless0.001 & -3.76$\times10^{-5}$ & \textless0.001 & 0.833 & 0.866 \\
+        Omnivory & 0.577 & \textless0.001 & -0.00146 & \textless0.001 & -0.0154 & \textless0.001 & 4.22$\times10^{-5}$ & \textless0.001 & 0.842 & 0.877 \\
         \end{tabular}
     \end{table}        
 \clearpage     
