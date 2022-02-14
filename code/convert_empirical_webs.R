@@ -28,7 +28,8 @@ for (g in goodfiles){
     
     A <- topo_sort_acyclic(A)
     # image(t(apply(A,2,rev)))
-
+    print(dim(A))
+    print(sum(A)/(nrow(A)*(nrow(A)-1)))
     # Calculate the PATL to sort good webs
     FW <- list()
     FW$M <- t(A)
