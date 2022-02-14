@@ -1,0 +1,177 @@
+
+\documentclass[12pt]{article} 
+\usepackage{amsmath} 
+\usepackage[dvips]{graphicx}
+\usepackage{multirow} 
+\usepackage{geometry} 
+\usepackage{pdflscape}
+\usepackage{amsmath}
+\usepackage[labelfont=bf]{caption} 
+\usepackage{setspace}
+\usepackage[running]{lineno} 
+% \usepackage[numbers,sort]{natbib}
+\usepackage[round]{natbib} 
+\usepackage{array}
+\usepackage[table]{xcolor}
+\usepackage{xr}
+
+\newcommand{\us}{\rm \setlength{\leftskip}{0.3cm} \setlength{\rightskip}{0.3cm}}
+\newcommand{\them}{\it \setlength{\leftskip}{0cm} \setlength{\rightskip}{0cm}}
+
+\topmargin -1.5cm % 0.0cm 
+\oddsidemargin 0.0cm % 0.2cm 
+\textwidth 6.5in
+\textheight 9.0in % 21cm
+\footskip 1.0cm % 1.0cm
+
+\usepackage{authblk}
+
+\setlength{\parskip}{0.8em}
+\setlength{\parindent}{0em}
+\bibpunct{(}{)}{,}{a}{}{,}
+\clubpenalty = 10000
+\widowpenalty = 10000
+
+
+\title{RESPONSE LETTER \\Species motif participation provides unique information about species risk of extinction}
+
+\author{Anna \r{A}kesson$^{1\dagger}$, Alyssa R. Cirtwill$^{2}$, Kate L. Wootton$^{3}$, Anna Ekl\"{o}f$^{1}$} 
+\date{\small$^1$Department of Theoretical Biology, Chemistry, and Physics\\ 
+Link\"{o}ping University\\
+Link\"{o}ping, Sweden\\
+\medskip
+\small$^2$Department of Agricultural Sciences\\
+University of Helsinki\\
+Helsinki, Finland\\
+\medskip
+\small$^3$ BioFrontiers Institute\\
+University of Colorado, Boulder\\
+U.S.A.
+\medskip
+$^\dagger$ Corresponding author:\\
+}
+
+
+\begin{document} 
+\maketitle 
+\linenumbers
+\raggedright
+
+\setlength{\parindent}{15pt} 
+
+
+\subsection*{Associate Editor}
+\them
+I enjoyed reading this paper, as did the two reviewers, and I would argue that there is the potential to make a large contribution to the literature on this new way of looking at trophic webs. I found the argument for using motifs much more compelling than previous generations of methods in this area.  The major point for improvement however is to make this manuscript more approachable by and useful to empiricists.  
+
+\us
+bla 
+
+\them 
+The following highlights key areas for improvement: first, as reviewer 1 argues, the text can be clarified and made more direct towards the specific goals of the paper, as well as making some of the terminology more transparent.  Second, as reviewer 2 argues there is scope for including a figure about the motifs in the context of their food web to facilitate the understanding about their structure and ecological meaning.  The top of Figure 1 helps, but there is room to expand.  Last, the authors generate what they argue are "a range of plausible network architectures".  But there is never any comparison of these architecture to empirical networks.  Nor is there any calculation of the key motif parameters on empirical data (for example the x-axis of figure 1). It will expand the audience for this manuscript greatly to include some empirical data to help empiricists understand for example in well-studied systems, what is the proportion of these different motifs.  This comparison does not need to be exhaustive, but it will serve two main roles in the manuscript: (1) provide support for the assertion that the authors have generated "a range of plausible network architectures" and (2) allow empiricists to understand how these simulations relate to real ecosystems.  
+
+\subsection*{Referee: 1}
+
+Comments to the Author(s)
+Thank you for the opportunity to review this paper. I found it very interesting and appreciated the comparison between motifs and more “classic” network metrics. I have a couple major concerns which I do not anticipate being that difficult to address, and some smaller comments.
+First, I think the introduction could be clearer. I think it spent too much time discussing bottom up effects, which I appreciate because that is one of the major limitations to this approach, however, I think some of the text could be better spent setting up some of the additional questions of the paper and clarifying various terminology (e.g. local, meso, and global scale gets thrown about, but is a bit of a surprise).
+
+Second, I found the analysis, particularly the divvying up into 5 parts rather circular. We know that connectance and species richness has a large impact on both motif expression and on persistence. Instead of multiple separate analyses, I think these can all be included in one large model. Moreover, I would be interested in an analysis which pits trophic level and in-degree against the motifs. In particular, collecting data on trophic level is much easier than collecting entire food web data for motif roles.
+
+Third, I realize that this technique is already published on, however, some of the limitations of the technique may impact the utility of the results. I think the study would be greatly enhanced by a smaller comparison of a more traditional dynamic food web model approach and this approach – even just placed in the appendix. I note that the authors rely quite heavily on a paper on BioRxivs which has done something similar, so anticipate this wouldn’t be that difficult, but would be very convincing.
+
+Finally, I appreciate that the authors have used similar methods in a paper on BioRxiv – however, the current study relies quite heavily on it in the methodology. To my knowledge this paper is not peer-reviewed (or at least not yet) and thus I am less inclined to accept these citations as appropriate rationale for various decisions.
+
+Smaller comments
+
+Line 65 – 70: I agree that in-degree and trophic level may be coarse description of a species’ role within its food-web. However, the examples provided do not convince me that species’ roles based on motifs are a more nuanced way of describing a species’ role within its food web since the two examples provided refer to the influence disturbance may have on a basal resource – an influence that I’m not convinced a species’ role based on motifs will impact.  
+I do think that species’ roles based on motifs are a more nuanced way of describing species’ roles, and I am interested in the central question of this paper – however, this rationale would not convince me if I was unfamiliar with motifs/species roles/finer scale network descriptors.  As this is a central tenet of the paper I think the argument needs to be constructed better. Furthermore, just because a metric is coarse does not mean it is not an effective predictor – and when applying theoretical/computational results to empirical systems sometimes coarse is better. It is easier to measure the trophic position of a species using stable isotopes and approximate extinction probabilities than it is to construct an entire food web.
+
+Line 82-84: This sentence doesn’t quite make sense to me.
+
+Line 86: is this “focal” species the consumer mentioned in line 85?
+
+Line 86: the impact of the motif profile of the full food web on the consumer’s extinction risk has come as a bit of a surprise to me. I think this could have been introduced better in the introduction – not extensively because I think it is probably a secondary question, but at this point I have no hypotheses for why I would even expect the motif profile of the full food web to out perform the motifs in which a focal species participates.
+
+Line 87 – 89: similar to comment above – I think the idea of global and local food web properties has not been introduced at all, nor the classic food web properties (which ones are being measured? Only the four specific motifs thought to contribute to stability are mentioned).
+
+Line 92 – 95: this seems to be a flaw to the Bayesian network simulations – we know that mutual predation happens in food webs – especially if the food web isn’t explicitly size structured, and when nested within the broader food web context these feedback loops may have stabilizing, or destabilizing effects.
+
+Line 149 – 152: these seem like large limitations to me.
+
+Line 164 – 166: Does this normalization control for differences in connectance? It seems like the more connected the networks are the higher degree species will have, and then connectance (definitively known to impact species persistence) will be a major driver
+
+Line 182: what is network mean persistence? Species persistence is the probability of species persistence referred to in the methods? Be explicit. Also, what are the “other network properties”?
+
+Line 192: the idea of disturbance level came as a surprise – a careful reading of the methods pinpointed where you discuss this, however it is not discussed in the statistical analysis part, or in the main objectives of the paper at the end of the introduction.
+
+Line 193: Does it make sense to include Sn and Cn as random intercepts if it is known that both of these values impact 1) the number of motifs (which I don’t think has been rigorously controlled for – see above) and 2) network persistence? (same with eq’n S3)
+
+Line 197 – 199: This sounds more statistically rigorous here than it does in the appendix where these are just visually compared.
+
+Line 201: I have no idea what local and meso-scale refer to. Likewise global.
+
+Line 200-206: The statistical analyses of the various components of this study seem very circular to me. Various local metrics depend on global metrics but treated differently in each step. There must be a more appropriate statistical technique for considering all of these moving parts in a comprehensive manner – even using model selection to compare.
+
+Line 214: Why mean, and why not just that network persistence?
+
+Line 247-254: This would all be greatly enhanced if there were some error bars on the figures.
+
+Line 259-262: This result seems odd to me. Is this just because all of the potential apparent competition interactions are filled first, and really is more of an artefact of the constraints about the types of motifs that are possible within these networks? And perhaps the connectances being explored are unrealistic given these constraints?
+
+Line 289: Odd use of direct competition when most other papers use exploitative competition
+
+Line 334: in-degree and trophic level are not sufficient to explain the trends, yet there is a strong negative correlation between apparent competition and in-degree. This seems contradictory.
+SI references incomplete (search (?))
+
+\subsection*{Referee: 2}
+
+
+Comments to the Author(s)
+The authors present an interesting study about how motif based measures can improve our understanding of species persistence in food webs after bottom up disturbances. The idea of this study is original and the authors made a great effort to explain a novel methodology, such as motifs, in a clear way. In addition, I consider the exploration of relationships among level of disturbances, network structural properties, species level indices and species persistence very important and necessary to understand food webs stability and to help future authors to select the most appropriate variables according to their goals.
+I found the introduction very easy to follow with an appropriate background supporting the goals of the study allowing to link concepts such as secondary extinction, network structure and motifs. Perhaps authors might reduce the number of paragraphs of the introduction by simply joining some of them. For example, I would suggest to join the second and third paragraph since both refer to the approaches for studying secondary extinctions. Similarly, I would suggest to join the fourth and fifth paragraph because both explain how the structure of different scales (whole-network and species level) affect the response to disturbances.
+Furthermore, the methods and statistical analysis were consistent with the proposed goals and very well written. I would like to highlight the correct use of motifs that authors made in the ms, which allows them to deduce new ecological information in addition to common network indices. Perhaps authors might include a figure with the used motifs in the appendix to facilitate the understanding about their structure and ecological meaning. Regarding the results and discussion section, I found them very well written and fluent. However, because of the great number of results, I would suggest keeping consistency between the subtitles in the section methods and results referring to the same goal.
+
+Minor revisions
+
+Line 16: I suggest changing the word “vulnerability” to “species persistence” to keep consistency along the manuscript.
+
+Line 23-26: this sentence could be clearer. Perhaps authors could rephrase to: “The structure of the plant community affects stability across all levels of ecosystem organization, which is crucial for sustaining a healthy energy flow in the ecosystem as a whole (Proulx et al., 2010; Scherber et al., 2010, Rosenblatt & Schmitz, 2016). For example, the loss of diversity…”
+
+Line 57-59: This sentence seems counterintuitive to me. How could more connected networks be more resistant to secondary extinctions than less connected ones? A higher connectance indicates more pathways available where the energy flows, promoting the propagation of a disturbance (Vieira & Almeida-Neto, 2015). Please justify your statement.
+Vieira, M. C., & Almeida‐Neto, M. (2015). A simple stochastic model for complex coextinctions in mutualistic networks: robustness decreases with connectance. Ecology Letters, 18(2), 144-152.
+
+Line 61: Please add new cites to sustain the statement. For example:
+Gilarranz, L. J., Rayfield, B., Liñán-Cembrano, G., Bascompte, J., & Gonzalez, A. (2017). Effects of network modularity on the spread of perturbation impact in experimental metapopulations. Science, 357(6347), 199-201.
+
+Line 112: Please add “, respectively” after “network”.
+
+Line 161: Perhaps authors might add a figure of the four three-species motifs in the appendix explaining the ecological meaning of each structure. I think this could help readers to understand motifs.
+
+Line 187: Please add “Species” before “persistence” in the title to improve clarity.
+
+Line 200: Please add “Motif” before “participation” in the sentence.
+
+Line 207: Add “Network” before “persistence” in the title.
+
+Line 240: Please keep consistency between the subtitles in the section methods and results referring to the same goal.
+
+Line 270-272: Interesting. This could be related to the connectance of the species. Consumers with higher number of prey might have lower persistence at higher levels of disturbances because the disturbance has more pathways to propagate and reach the consumer.
+
+Line 330-331: Unclear the expression “, and interactions among,”. Please rephrase.
+
+Line 357-358: Unclear the expression “than directly”. Please explain.
+
+Line 376: Please remove the italic formatting of the word “and”.
+
+Figure 5: Please rephrase the first sentence to: “The proportions of the four motifs in a network's motif profile were related to network size, connectance, and their interaction.”
+
+Appendix:
+
+Page 3: Please remove the expression “(?)” from the sentence in the third paragraph.
+
+Page 7: Please remove the expression “(?)” from the last sentence.
+
+Page 10: Please remove the expression “(?)” from the first paragraph of the section S3.3.
+
+\end{document}

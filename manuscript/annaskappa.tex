@@ -21,8 +21,8 @@
 \oddsidemargin 0.0cm % 0.2cm 
 \textwidth 6.5in
 \textheight 9.0in % 21cm
-\footskip 1.0cm % 1.0cm
-
+%\footskip 1.0cm % 1.0cm
+\usepackage[parfill]{parskip}
 \usepackage{authblk}
 
 
@@ -47,10 +47,10 @@ $^\dagger$ Corresponding author:\\
 
 \begin{document} 
 \maketitle 
-\linenumbers
-\raggedright
 
-\setlength{\parindent}{15pt} 
+%\raggedright
+
+%\setlength{\parindent}{15pt} 
 
 
 \section*{Abstract}
@@ -65,8 +65,12 @@ $^\dagger$ Corresponding author:\\
     Additionally, we find that relationships between motif participation and persistence can synthesize the information provided by in-degree and trophic level.
     Motif participation therefore captures important trends in vulnerability to extinction and provides a rich description of species' structural roles in their communities.
 
-\begin{spacing}{2.0}
 
+\doublespacing
+\linenumbers
+\setlength{\parindent}{0.0ex} 
+\setlength{\parskip}{2ex}
+\footskip 1.0cm % 1.0cm
 \clearpage
 \section*{Introduction}
 
@@ -474,7 +478,6 @@ $^\dagger$ Corresponding author:\\
 \bibliographystyle{ecollett} 
 \bibliography{anna_bib_new} % Abbreviate journal titles.
 
-\end{spacing}
 
 \end{document}
 
