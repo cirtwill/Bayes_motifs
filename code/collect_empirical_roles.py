@@ -21,12 +21,12 @@ def read_persistence_file(persfile,role_dict):
 
   f=open(persfile,'r')
   for line in f:
-    if line.split()[0]!='"sp_no"':
-      sp='"sp'+''.join(line.split()[1].split('"'))+'"'
-      indeg=int(line.split()[2])
-      outdeg=int(line.split()[3])
-      STL=int(line.split()[4])
-      per=float(line.split()[5])
+    if line.split()[0]!='"per"':
+      per=float(line.split()[1])
+      sp='"sp'+''.join(line.split()[2].split('"'))+'"'
+      indeg=int(line.split()[3])
+      outdeg=int(line.split()[4])
+      STL=int(line.split()[5])
       basal_p=float(line.split()[6])
       web=line.split()[7].split('.')[0].split('"')[1]
       persdict[web][basal_p][sp]=(str(per))

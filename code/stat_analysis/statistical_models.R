@@ -155,10 +155,10 @@ consumers$netID=paste(consumers$Size,consumers$Connectance,consumers$Network,sep
     propdirect_lmer1_randnet<-with(consumers,lmer(Persistence~scale(prop_direct)*scale(Disturbance)+(1|Global)+(1|netID)))
     propomni_lmer1_randnet<-with(consumers,lmer(Persistence~scale(prop_omni)*scale(Disturbance)+(1|Global)+(1|netID)))
 
-    R2chain_randnet=r.squaredGLMM(propchain_lmer1,null=lmer(consumers$Persistence~(1|Global)+(1|netID)))
-    R2app_randnet=r.squaredGLMM(propapparent_lmer1,null=lmer(consumers$Persistence~(1|Global)+(1|netID)))
-    R2dir_randnet=r.squaredGLMM(propdirect_lmer1,null=lmer(consumers$Persistence~(1|Global)+(1|netID)))
-    R2omni_randnet=r.squaredGLMM(propomni_lmer1,null=lmer(consumers$Persistence~(1|Global)+(1|netID)))
+    R2chain_randnet=r.squaredGLMM(propchain_lmer1_randnet,null=lmer(consumers$Persistence~(1|Global)+(1|netID)))
+    R2app_randnet=r.squaredGLMM(propapparent_lmer1_randnet,null=lmer(consumers$Persistence~(1|Global)+(1|netID)))
+    R2dir_randnet=r.squaredGLMM(propdirect_lmer1_randnet,null=lmer(consumers$Persistence~(1|Global)+(1|netID)))
+    R2omni_randnet=r.squaredGLMM(propomni_lmer1_randnet,null=lmer(consumers$Persistence~(1|Global)+(1|netID)))
 
 
 # Section 5. How does persistence vary with degree and TL?
