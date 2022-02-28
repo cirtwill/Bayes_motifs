@@ -162,10 +162,15 @@ def main():
   # print 'TLs and degrees read'
 
 
-  linear_TLdict,linear_degdict,linear_perdict=read_persistence_file('../data/all_empirical.tsv',partic_dict)
+  # linear_TLdict,linear_degdict,linear_perdict=read_persistence_file('../data/all_empirical_linear.tsv',partic_dict)
+  # print 'persistence read'
+  # collect_and_print_3sp('../data/empirical_3sp_roles_participation_linear.tsv',role_dict,good_positions,partic_dict,good_motifs,linear_degdict,linear_TLdict,linear_perdict)
+  # print '3sp role files complete'
+
+  nonlinear_TLdict,nonlinear_degdict,nonlinear_perdict=read_persistence_file('../data/all_empirical_nonlinear.tsv',partic_dict)
   print 'persistence read'
-  collect_and_print_3sp('../data/empirical_3sp_roles_participation.tsv',role_dict,good_positions,partic_dict,good_motifs,linear_degdict,linear_TLdict,linear_perdict)
-  print '3sp role files complete'
+  collect_and_print_3sp('../data/empirical_3sp_roles_participation_nonlinear.tsv',role_dict,good_positions,partic_dict,good_motifs,nonlinear_degdict,nonlinear_TLdict,nonlinear_perdict)
+  print 'nonlinear 3sp role files complete'
       
 
 if __name__ == '__main__':

@@ -11,7 +11,7 @@ library(vegan)
 library(MuMIn)
 
 
-data<-read.table(file = '../../data/empirical_3sp_roles_participation.tsv', sep = '\t', header = TRUE)
+data<-read.table(file = '../../data/empirical_3sp_roles_participation_nonlinear.tsv', sep = '\t', header = TRUE)
 data$Disturbance<-0.1+0.4*data$Basal_p
 # ONLY FIT MODELS ON CONSUMERS!!!
 consumers<-data[which(data$in_Degree>0),]
@@ -83,7 +83,7 @@ consumers$netID=paste(consumers$Size,consumers$Connectance,consumers$Network,sep
         interdata2$S[r]=strsplit(levelcode,':')[[1]][1]
         interdata2$C[r]=strsplit(levelcode,':')[[1]][2]
     }
-    write.table(interdata2,file='empirical_proportion_variability_SC.tsv',sep='\t')
+    write.table(interdata2,file='empirical_proportion_variability_SC_nonlinear.tsv',sep='\t')
 
     # LMs - no need for network-level random effect since it's within-network motif profiles
     pchainlm=with(motdata,lm(prop_chain~Size*Connectance))
@@ -136,7 +136,7 @@ consumers$netID=paste(consumers$Size,consumers$Connectance,consumers$Network,sep
     # SCper=with(consumers,lm(Persistence~scale(Size)*scale(Connectance)*scale(Disturbance)))
     SCper_mean=with(simdata,lm(per~scale(Size)*scale(Connectance)*scale(dist)))
 
-# Section 4: How does persistence vary with proportions?
+# Section 4: How does persistence vary with proportions? Note that global==netID for the empirical webs
     # # lmer with random intercepts for each level of S:C
     consumers$Global=paste0(consumers$Size,':',consumers$Connectance)
     propchain_lmer1<-with(consumers,lmer(Persistence~scale(prop_chain)*scale(Disturbance)+(1|Global)))
@@ -148,16 +148,6 @@ consumers$netID=paste(consumers$Size,consumers$Connectance,consumers$Network,sep
     R2app=r.squaredGLMM(propapparent_lmer1,null=lmer(consumers$Persistence~(1|Global)))
     R2dir=r.squaredGLMM(propdirect_lmer1,null=lmer(consumers$Persistence~(1|Global)))
     R2omni=r.squaredGLMM(propomni_lmer1,null=lmer(consumers$Persistence~(1|Global)))
-    # Random intercepts for S:C and network ID. Conclusions same as above.
-    propchain_lmer1_randnet<-with(consumers,lmer(Persistence~scale(prop_chain)*scale(Disturbance)+(1|Global)+(1|netID)))
-    propapparent_lmer1_randnet<-with(consumers,lmer(Persistence~scale(prop_apparent)*scale(Disturbance)+(1|Global)+(1|netID)))
-    propdirect_lmer1_randnet<-with(consumers,lmer(Persistence~scale(prop_direct)*scale(Disturbance)+(1|Global)+(1|netID)))
-    propomni_lmer1_randnet<-with(consumers,lmer(Persistence~scale(prop_omni)*scale(Disturbance)+(1|Global)+(1|netID)))
-
-    R2chain_randnet=r.squaredGLMM(propchain_lmer1_randnet,null=lmer(consumers$Persistence~(1|Global)+(1|netID)))
-    R2app_randnet=r.squaredGLMM(propapparent_lmer1_randnet,null=lmer(consumers$Persistence~(1|Global)+(1|netID)))
-    R2dir_randnet=r.squaredGLMM(propdirect_lmer1_randnet,null=lmer(consumers$Persistence~(1|Global)+(1|netID)))
-    R2omni_randnet=r.squaredGLMM(propomni_lmer1_randnet,null=lmer(consumers$Persistence~(1|Global)+(1|netID)))
 
 
 # Section 5. How does persistence vary with degree and TL?
@@ -165,11 +155,11 @@ consumers$netID=paste(consumers$Size,consumers$Connectance,consumers$Network,sep
     # TLper=with(consumers,lmer(Persistence~scale(STL)*scale(Disturbance)+(1|Global)))
     # Degper=with(consumers,lmer(Persistence~scale(in_Degree)*scale(Disturbance)+(1|Global)))
 
-    TLper_randnet=with(consumers,lmer(Persistence~scale(STL)*scale(Disturbance)+(1|Global)+(1|netID)))
-    Degper_randnet=with(consumers,lmer(Persistence~scale(in_Degree)*scale(Disturbance)+(1|Global)+(1|netID)))
+    TLper=with(consumers,lmer(Persistence~scale(STL)*scale(Disturbance)+(1|Global)))
+    Degper=with(consumers,lmer(Persistence~scale(in_Degree)*scale(Disturbance)+(1|Global)))
 
-    write.table(summary(TLper_randnet)$coefficients,file='empirical_persistence_vs_TL.tsv',sep='\t')
-    write.table(summary(Degper_randnet)$coefficients,file='empirical_persistence_vs_Deg.tsv',sep='\t')
+    write.table(summary(TLper_randnet)$coefficients,file='empirical_persistence_vs_TL_nonlinear.tsv',sep='\t')
+    write.table(summary(Degper_randnet)$coefficients,file='empirical_persistence_vs_Deg_nonlinear.tsv',sep='\t')
 
 
 # Section 6. How does motif participation vary with other properties?
@@ -188,51 +178,39 @@ consumers$netID=paste(consumers$Size,consumers$Connectance,consumers$Network,sep
     # results[4,]=c("Direct",summary(direct_prop)$coefficients[,1])
     # write.table(results,file='roles_vs_SC.tsv',sep='\t')
     # # Results qualitatively similar with network-level ranef
-    omni_prop_randnet=with(subdata,lmer(prop_omni~Size*Connectance+(1|netID)))
-    chain_prop_randnet=with(subdata,lmer(prop_chain~Size*Connectance+(1|netID)))
-    apparent_prop_randnet=with(subdata,lmer(prop_apparent~Size*Connectance+(1|netID)))
-    direct_prop_randnet=with(subdata,lmer(prop_direct~Size*Connectance+(1|netID)))
+    omni_prop=with(subdata,lm(prop_omni~Size*Connectance))
+    chain_prop=with(subdata,lm(prop_chain~Size*Connectance))
+    apparent_prop=with(subdata,lm(prop_apparent~Size*Connectance))
+    direct_prop=with(subdata,lm(prop_direct~Size*Connectance))
     results=matrix(nrow=4,ncol=5)
     results[1,]=c("Omnivory",summary(omni_prop_randnet)$coefficients[,1])
     results[2,]=c("Chain",summary(chain_prop_randnet)$coefficients[,1])
     results[3,]=c("Apparent",summary(apparent_prop_randnet)$coefficients[,1])
     results[4,]=c("Direct",summary(direct_prop_randnet)$coefficients[,1])
-    write.table(results,file='empirical_roles_vs_SC.tsv',sep='\t')
+    write.table(results,file='empirical_roles_vs_SC_nonlinear.tsv',sep='\t')
 
     # # Deg and TL
-    # # relating counts and proportions to degree, TL (repeats analysis in Cirwill & Wootton, in prep.)
-    # # Degree, prop
-    # chain_deg_prop=with(consumers[which(consumers$Disturbance==0.1),],lmer(prop_chain~in_Degree+(1|Global)))
-    # omni_deg_prop=with(consumers[which(consumers$Disturbance==0.1),],lmer(prop_omni~in_Degree+(1|Global)))
-    # apparent_deg_prop=with(consumers[which(consumers$Disturbance==0.1),],lmer(prop_apparent~in_Degree+(1|Global)))
-    # direct_deg_prop=with(consumers[which(consumers$Disturbance==0.1),],lmer(prop_direct~in_Degree+(1|Global)))
-    # # TL, prop
-    # chain_TL_prop=with(consumers[which(consumers$Disturbance==0.1),],lmer(prop_chain~STL+(1|Global)))
-    # omni_TL_prop=with(consumers[which(consumers$Disturbance==0.1),],lmer(prop_omni~STL+(1|Global)))
-    # apparent_TL_prop=with(consumers[which(consumers$Disturbance==0.1),],lmer(prop_apparent~STL+(1|Global)))
-    # direct_TL_prop=with(consumers[which(consumers$Disturbance==0.1),],lmer(prop_direct~STL+(1|Global)))
-
-    chain_deg_prop_randnet=with(consumers[which(consumers$Disturbance==0.1),],lmer(prop_chain~in_Degree+(1|Global)+(1|netID)))
-    omni_deg_prop_randnet=with(consumers[which(consumers$Disturbance==0.1),],lmer(prop_omni~in_Degree+(1|Global)+(1|netID)))
-    apparent_deg_prop_randnet=with(consumers[which(consumers$Disturbance==0.1),],lmer(prop_apparent~in_Degree+(1|Global)+(1|netID)))
-    direct_deg_prop_randnet=with(consumers[which(consumers$Disturbance==0.1),],lmer(prop_direct~in_Degree+(1|Global)+(1|netID)))
+    chain_deg_prop=with(consumers[which(consumers$Disturbance==0.1),],lmer(prop_chain~in_Degree+(1|Global)))
+    omni_deg_prop=with(consumers[which(consumers$Disturbance==0.1),],lmer(prop_omni~in_Degree+(1|Global)))
+    apparent_deg_prop=with(consumers[which(consumers$Disturbance==0.1),],lmer(prop_apparent~in_Degree+(1|Global)))
+    direct_deg_prop=with(consumers[which(consumers$Disturbance==0.1),],lmer(prop_direct~in_Degree+(1|Global)))
     # TL, prop
-    chain_TL_prop_randnet=with(consumers[which(consumers$Disturbance==0.1),],lmer(prop_chain~STL+(1|Global)+(1|netID)))
-    omni_TL_prop_randnet=with(consumers[which(consumers$Disturbance==0.1),],lmer(prop_omni~STL+(1|Global)+(1|netID)))
-    apparent_TL_prop_randnet=with(consumers[which(consumers$Disturbance==0.1),],lmer(prop_apparent~STL+(1|Global)+(1|netID)))
-    direct_TL_prop_randnet=with(consumers[which(consumers$Disturbance==0.1),],lmer(prop_direct~STL+(1|Global)+(1|netID)))
+    chain_TL_prop=with(consumers[which(consumers$Disturbance==0.1),],lmer(prop_chain~STL+(1|Global)))
+    omni_TL_prop=with(consumers[which(consumers$Disturbance==0.1),],lmer(prop_omni~STL+(1|Global)))
+    apparent_TL_prop=with(consumers[which(consumers$Disturbance==0.1),],lmer(prop_apparent~STL+(1|Global)))
+    direct_TL_prop=with(consumers[which(consumers$Disturbance==0.1),],lmer(prop_direct~STL+(1|Global)))
 
     results=matrix(nrow=8,ncol=7)
     colnames(results)=c("Predctor","Role","Motif","Intercept","Intercept_SD","Pred_slope","Pred_SD")
-    results[1,]=c("Deg","Prop","Chain",summary(chain_deg_prop_randnet)$coefficients[1,1:2],summary(chain_deg_prop_randnet)$coefficients[2,1:2])
-    results[2,]=c("Deg","Prop","Omnivory",summary(omni_deg_prop_randnet)$coefficients[1,1:2],summary(omni_deg_prop_randnet)$coefficients[2,1:2])
-    results[3,]=c("Deg","Prop","Apparent",summary(apparent_deg_prop_randnet)$coefficients[1,1:2],summary(apparent_deg_prop_randnet)$coefficients[2,1:2])
-    results[4,]=c("Deg","Prop","Direct",summary(direct_deg_prop_randnet)$coefficients[1,1:2],summary(direct_deg_prop_randnet)$coefficients[2,1:2])
-    results[5,]=c("TL","Prop","Chain",summary(chain_TL_prop_randnet)$coefficients[1,1:2],summary(chain_TL_prop_randnet)$coefficients[2,1:2])
-    results[6,]=c("TL","Prop","Omnivory",summary(omni_TL_prop_randnet)$coefficients[1,1:2],summary(omni_TL_prop_randnet)$coefficients[2,1:2])
-    results[7,]=c("TL","Prop","Apparent",summary(apparent_TL_prop_randnet)$coefficients[1,1:2],summary(apparent_TL_prop_randnet)$coefficients[2,1:2])
-    results[8,]=c("TL","Prop","Direct",summary(direct_TL_prop_randnet)$coefficients[1,1:2],summary(direct_TL_prop_randnet)$coefficients[2,1:2])
-    write.table(results,file='empirical_roles_vs_TL_Deg.tsv',sep='\t')
+    results[1,]=c("Deg","Prop","Chain",summary(chain_deg_prop)$coefficients[1,1:2],summary(chain_deg_prop)$coefficients[2,1:2])
+    results[2,]=c("Deg","Prop","Omnivory",summary(omni_deg_prop)$coefficients[1,1:2],summary(omni_deg_prop)$coefficients[2,1:2])
+    results[3,]=c("Deg","Prop","Apparent",summary(apparent_deg_prop)$coefficients[1,1:2],summary(apparent_deg_prop)$coefficients[2,1:2])
+    results[4,]=c("Deg","Prop","Direct",summary(direct_deg_prop)$coefficients[1,1:2],summary(direct_deg_prop)$coefficients[2,1:2])
+    results[5,]=c("TL","Prop","Chain",summary(chain_TL_prop)$coefficients[1,1:2],summary(chain_TL_prop)$coefficients[2,1:2])
+    results[6,]=c("TL","Prop","Omnivory",summary(omni_TL_prop)$coefficients[1,1:2],summary(omni_TL_prop)$coefficients[2,1:2])
+    results[7,]=c("TL","Prop","Apparent",summary(apparent_TL_prop)$coefficients[1,1:2],summary(apparent_TL_prop)$coefficients[2,1:2])
+    results[8,]=c("TL","Prop","Direct",summary(direct_TL_prop)$coefficients[1,1:2],summary(direct_TL_prop)$coefficients[2,1:2])
+    write.table(results,file='empirical_roles_vs_TL_Deg_nonlinear.tsv',sep='\t')
 
 
 # Not repeating position materials with network-level random effect since we're not using them.
@@ -264,7 +242,7 @@ consumers$netID=paste(consumers$Size,consumers$Connectance,consumers$Network,sep
 #     }
 
 # # Other, supplemental tests:\
-save.image('empirical_all_tests.Rdata')
+save.image('empirical_all_tests_nonlinear.Rdata')
 
 
 # # Do proportions of motifs vary due to network processing?
