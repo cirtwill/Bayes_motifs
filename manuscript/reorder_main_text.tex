@@ -63,7 +63,7 @@ $^\dagger$ Corresponding author:\\
     Similarly, the overall motif profile of a network was related to the average persistence of consumer species.
     Notably, we found that networks containing a higher proportion of the `omnivory' motif tend to have lower mean persistence following disturbance, while more frequent participation in the omnivory motif was associated with higher species-level probabilities of persistence.
     Additionally, we find that relationships between motif participation and persistence can synthesize the information provided by in-degree and trophic level.
-    Motif participation therefore captures important trends in vulnerability to extinction and provides a rich description of species' structural roles in their communities.
+    Motif participation therefore captures important trends in species persistence and provides a rich description of species' structural roles in their communities.
 
 \begin{spacing}{2.0}
 
@@ -124,7 +124,7 @@ $^\dagger$ Corresponding author:\\
 		
 	\subsection*{Calculating persistence}	
     % basic idea behind BN modeling
-        Bayesian networks can be used to represent species and their feeding interactions as the nodes and links of a network (see Appendix \emph{S2} for full details).
+        Bayesian networks can be used to represent species and their feeding interactions as the nodes and links of a network, respectively (see Appendix \emph{S2} for full details).
         In our setting, each species (node) is a Bernoulli random variable, being either extant or extinct. 
         The probability that a particular species is extinct is a function of the states of its resources.
         
@@ -201,7 +201,7 @@ $^\dagger$ Corresponding author:\\
 	All analyses are briefly described below and were performed using the R~\citep{R} packages \emph{lmerTest}~\citep{lmerTest}, \emph{MuMIn}~\citep{MuMIn}, and \emph{vegan}~\citep{vegan}.
 
     
-    \subsubsection*{1) Persistence and motif participation}
+    \subsubsection*{1) Species persistence and motif participation}
 
         To test if participating more often in a certain motif affected a species' probability of persistence, we fit four linear mixed-effect models (LMMs; one per motif included in the Bayesian networks):
             \begin{equation}
@@ -213,14 +213,14 @@ $^\dagger$ Corresponding author:\\
         All predictors were centered and scaled before fitting the models.         
         To test whether these general trends were consistent across networks, we examined the distribution of slopes of simplified regressions fit to a single network and level of disturbance (Appendix \emph{3.1}).
     
-    \subsubsection*{2) Participation and other network properties}    
+    \subsubsection*{2) Motif participation and other network properties}    
         Different scales of network structure (e.g., local and meso-scale) are not independent. 
         To identify correlations between global network structure and participation in particular motifs, we fit a series of LMs relating motif participation to network size, connectance, and their interaction (Appendix \emph{S3.2}).
         We fit a similar set of  LMMs relating motif participation to in-degree or trophic level (Appendix \emph{S3.2}).
         Taken together, these supplemental models demonstrate how motif participation relates to other measures of network structure.
         
         
-    \subsubsection*{3) Persistence and motif profiles}
+    \subsubsection*{3) Network persistence and motif profiles}
 
         As well as species-specific probabilities of persistence, the overall frequency of motifs in a network may provide information about the overall probability of any species going extinct (since they incorporate information on indirect effects).
         We tested whether networks with similar motif profiles tend to have similar mean persistences among consumers using a PERMANOVA (Appendix \emph{S3.3}).
@@ -375,7 +375,7 @@ $^\dagger$ Corresponding author:\\
     Thus, the ideal situation appears to be being a highly omnivorous species in a low-omnivory setting. 
     
     % High C webs and omnivory
-    Supporting this possibility, species participate more frequently in the omnivory motif in high-connectance networks \emph{and} the relationship between persistence and participation in the omnivory motif is more strongly positive (Fig.~\ref{fig:density_prop_C}) as in~\citep{McLeod2021}.
+    Supporting this possibility, species participate more frequently in the omnivory motif in high-connectance networks and the relationship between persistence and participation in the omnivory motif is more strongly positive (Fig.~\ref{fig:density_prop_C}) as in~\citep{McLeod2021}.
     These networks contain many pathways by which a bottom-up disturbance can propagate through the network, leading to stronger effects of disturbance on consumers (Table S6; \emph{Appendix S10}).
     In such a network, it may be especially beneficial for a species to feed on multiple trophic levels and, in a sense, spread its risk of losing prey to bottom-up effects.
     Although species in our model cannot swap prey, the reduced extinction risk for omnivorous species resembles empirical studies showing that adaptive omnivory can increase the permanence of three-species chains~\citep{Fagan1997, Kvrivan2005, AbramsFung2010}.
@@ -438,7 +438,7 @@ $^\dagger$ Corresponding author:\\
     \begin{figure}[hb!]
         \centering
         \includegraphics[width=\textwidth]{manuscript/figures/motif_proportion_lms.pdf}
-        \caption{The proportions of the four motifs in a network's motif profile were network size, connectance, and their interaction. The effect of connectance was much stronger than the main effect or interaction with network size. The proportion of apparent competition in a network's profile decreased with increasing connectance, while the proportion of omnivory increased. In small networks, the proportion of direct competition also decreased with increasing connectance.}
+        \caption{The proportions of the four motifs in a network's motif profile were related to network size, connectance, and their interaction. The effect of connectance was much stronger than the main effect or interaction with network size. The proportion of apparent competition in a network's profile decreased with increasing connectance, while the proportion of omnivory increased. In small networks, the proportion of direct competition also decreased with increasing connectance.}
         \label{motif_proportion_lms}
     \end{figure}
 
