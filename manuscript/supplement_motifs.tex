@@ -149,7 +149,7 @@ $^\dagger$ Corresponding author:\\
 
         
     While niche-model food webs can contain cycles (e.g., species A eats B, B eats C, and C eats A), such cycles make it impossible to calculate persistence in the Bayesian network framework~\citep{Tarjan1972}. 
-    We therefore removed any cycles within each network by removing the link in each cycle which contributed least to the robustness of the food web, following~\citet{Allesina2009}.
+    We therefore removed any cycles within each network by removing the link in each cycle which contributed least to the robustness of the food web, following~\citet{Allesina2009functional}.
     This is achieved by first finding the set of resources for each consumer and then removing the consumer-resource connections which have the lowest eigenvalue centrality~\citep{Allesina2009functional}.
     These links have the least effect on the overall stability of the network; removing them creates an acyclic network with very similar properties to the original network.
     Next, we ordered the species from lowest to highest trophic level using a topological sorting routine following \citet{Tarjan1972} and \citet{Allesinaetal2005}, ensuring that probability calculations follow a strict bottom-up order. 
@@ -956,7 +956,7 @@ $^\dagger$ Corresponding author:\\
 % \clearpage
 
 
-\bibliography{anna_bib} % Abbreviate journal titles.
+\bibliography{anna_bib_new} % Abbreviate journal titles.
 \bibliographystyle{ecollett} 
 
 \end{spacing}
