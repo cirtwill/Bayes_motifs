@@ -17,7 +17,7 @@ from PyGrace.Extensions.colorbar import SolidRectangle, ColorBar
 from PyGrace.axis import LINEAR_SCALE, LOGARITHMIC_SCALE
 from PyGrace.Styles.el import ElGraph, ElLogColorBar
 
-colors=ColorBrewerScheme('Spectral', reverse=True,n=180)  # The blue is very beautiful but maybe harder to see.
+colors=ColorBrewerScheme('Spectral', reverse=True,n=18)  # The blue is very beautiful but maybe harder to see.
 colors.add_color(173,132,191,'Purple')
 colors.add_color(34,90,34,'Green')
 # colors.add_color(120,120,120,'grey')
@@ -26,29 +26,66 @@ colors.add_color(34,90,34,'Green')
 
 # Want to use AC, DC as x's, chain, omni as y's
 
-def read_motif_profiles(motfile):
-  profiles={'AC':{'chain':{},'omnivory':{}},'DC':{'chain':{},'omnivory':{}}}
-  netinfo={}
+def read_motif_roles(motfile):
+  profiles={}
   f=open(motfile,'r')
   for line in f:
     if line.split()[0]!='Size':
       S=int(line.split()[0])
       C=float(line.split()[1])
-      ID=line.split()[2]
-      AC=int(line.split()[3])
-      chain=int(line.split()[4])
-      DC=int(line.split()[5])
-      omnivory=int(line.split()[6])
-      total=int(line.split()[7])
-      profiles['AC']['chain'][ID]=[((float(AC)/float(total),float(chain)/float(total)))]
-      profiles['AC']['omnivory'][ID]=[((float(AC)/float(total),float(omnivory)/float(total)))]
-      profiles['DC']['chain'][ID]=[((float(DC)/float(total),float(chain)/float(total)))]
-      profiles['DC']['omnivory'][ID]=[((float(DC)/float(total),float(omnivory)/float(total)))]
-      netinfo[ID]=((S,C))
-
+      basal_p=float(line.split()[2])
+      ID=line.split()[3]
+      if ID not in profiles:
+        profiles[ID]={'AC':[],'DC':[],'chain':[],'omnivory':[],'S':S,'C':C}
+      sp=line.split()[4]
+      persis=line.split()[5]
+      deg=float(line.split()[6])
+      out_deg=line.split()[7]
+      STL=line.split()[8]
+      PATL=line.split()[9]
+      chain=int(line.split()[10])
+      DC=int(line.split()[11])
+      omnivory=int(line.split()[12])
+      AC=int(line.split()[13])
+      total=chain+DC+omnivory+AC
+      if basal_p==1.0 and deg>0: # Only want one per network
+        profiles[ID]['AC'].append(float(AC)/float(total))
+        profiles[ID]['DC'].append(float(DC)/float(total))
+        profiles[ID]['chain'].append(float(chain)/float(total))
+        profiles[ID]['omnivory'].append(float(omnivory)/float(total))
   f.close()
 
-  return profiles,netinfo
+  return profiles
+
+def read_empirical_motif_roles(motfile):
+  profiles={}
+  f=open(motfile,'r')
+  for line in f:
+    if line.split()[0]!='Size':
+      S=int(line.split()[0])
+      C=float(line.split()[1])
+      basal_p=float(line.split()[2])
+      ID=line.split()[3]
+      if ID not in profiles:
+        profiles[ID]={'AC':[],'DC':[],'chain':[],'omnivory':[],'S':S,'C':C}
+      sp=line.split()[4]
+      persis=line.split()[5]
+      deg=float(line.split()[6])
+      out_deg=line.split()[7]
+      STL=line.split()[8]
+      chain=float(line.split()[9])
+      DC=float(line.split()[10])
+      omnivory=float(line.split()[11])
+      AC=float(line.split()[12])
+      total=chain+DC+omnivory+AC
+      if basal_p==1.0 and deg>0: # Only want one per network
+        profiles[ID]['AC'].append(float(AC)/float(total))
+        profiles[ID]['DC'].append(float(DC)/float(total))
+        profiles[ID]['chain'].append(float(chain)/float(total))
+        profiles[ID]['omnivory'].append(float(omnivory)/float(total))
+  f.close()
+
+  return profiles
 
 def format_graph(graph,xtype,ytype):
   graph.yaxis.bar.linewidth=1
@@ -56,7 +93,7 @@ def format_graph(graph,xtype,ytype):
   graph.frame.linewidth=1
 
   if xtype=='DC':
-    graph.world.xmin=0.075
+    graph.world.xmin=0.05
   else:
     graph.world.xmin=0.25
 
@@ -76,29 +113,48 @@ def format_graph(graph,xtype,ytype):
 
   return graph
 
-def populate_graph(graph,xtype,ytype,sim_profiles,sim_info,emp_profiles,emp_info):
+def populate_graph(graph,xtype,ytype,sim_profiles,emp_profiles):
 
-  for ID in sim_profiles[xtype][ytype]:
-    (S,C)=sim_info[ID]
+  for ID in sim_profiles:
+    xmean=np.mean(sim_profiles[ID][xtype])
+    xse=np.std(sim_profiles[ID][xtype])/math.sqrt(len(sim_profiles[ID][xtype]))
+    C=sim_profiles[ID]['C']
+    ymean=np.mean(sim_profiles[ID][ytype])
+    yse=np.std(sim_profiles[ID][ytype])/math.sqrt(len(sim_profiles[ID][ytype]))
     # print int(C*100)
-    sims=graph.add_dataset(sim_profiles[xtype][ytype][ID],type='xy')
+    sims=graph.add_dataset([(xmean,ymean,xse,yse)],type='xydxdy')
     sims.line.linestyle=0
-    sims.symbol.configure(fill_pattern=0,shape=1,color=int(100*C))
+    sims.symbol.configure(fill_pattern=1,shape=1,color=int(100*C),fill_color=int(100*C),size=.25)
+    sims.errorbar.configure(riser_linewidth=.5,linewidth=.5,size=.25,color=int(100*C))
 
-  for ID in emp_profiles[xtype][ytype]:
+  for ID in emp_profiles:
+    xmean=np.mean(emp_profiles[ID][xtype])
+    xse=np.std(emp_profiles[ID][xtype])/math.sqrt(len(emp_profiles[ID][xtype]))
+    C=emp_profiles[ID]['C']
+    ymean=np.mean(emp_profiles[ID][ytype])
+    yse=np.std(emp_profiles[ID][ytype])/math.sqrt(len(emp_profiles[ID][ytype]))
     print ID
-    (S,C)=emp_info[ID]
     # print int(C*100)
-    ems=graph.add_dataset(emp_profiles[xtype][ytype][ID],type='xy')
+    ems=graph.add_dataset([(xmean,ymean,xse,yse)],type='xydxdy')
     ems.line.linestyle=0
     ems.symbol.configure(fill_pattern=1,shape=2,fill_color=int(100*C),color=int(100*C))
+    ems.errorbar.configure(riser_linewidth=.5,linewidth=.5,size=.25,color=int(100*C))
 
-    graph.add_drawing_object(DrawText,text=str.capitalize(ID.split('_')[0]),char_size=.55,x=emp_profiles[xtype][ytype][ID][0][0],
-      y=emp_profiles[xtype][ytype][ID][0][1],loctype='world',just=2)
+    # graph.add_drawing_object(DrawText,text=str.capitalize(ID.split('_')[0]),char_size=.55,x=emp_profiles[xtype][ytype][ID][0][0],
+    #   y=emp_profiles[xtype][ytype][ID][0][1],loctype='world',just=2)
 
-  # ems=graph.add_dataset(emp_profiles[xtype][ytype])
-  # ems.line.linestyle=0
-  # ems.symbol.configure(color=5,fill_pattern=1,fill_color=0)
+
+  return graph
+
+def add_legend(graph):
+  for C in [0.02,0.06,0.1,0.14,0.18]:
+    dat=graph.add_dataset([(100,100)])
+    dat.line.linestyle=0
+    dat.symbol.configure(size=.5,shape=1,color=int(100*C),fill_color=int(100*C))
+    dat.legend=str(C)
+
+  graph.legend.configure(loc=(0.45,0.3),loctype='world',char_size=.5,box_linestyle=0,fill_pattern=0)
+  graph.add_drawing_object(DrawText,text='Connectance',x=0.45,y=0.305,loctype='world',char_size=.6)
 
   return graph
 
@@ -110,8 +166,8 @@ def populate_graph(graph,xtype,ytype,sim_profiles,sim_info,emp_profiles,emp_info
 ###############################################################################################
 ###############################################################################################
 
-sim_profiles,sim_info=read_motif_profiles('../data/3sp_motif_profiles.tsv')
-emp_profiles,emp_info=read_motif_profiles('../data/3sp_empirical_motif_profiles.tsv')
+sim_profiles=read_motif_roles('../data/3sp_roles_participation.tsv')
+emp_profiles=read_empirical_motif_roles('../data/empirical_3sp_roles_participation_nonlinear.tsv')
 
 grace=MultiPanelGrace(colors=colors)
 grace.add_label_scheme('dummy',['A','B','C','D','Season length','F','G','H'])
@@ -120,8 +176,10 @@ for x in ['AC','DC']:
   for y in ['chain','omnivory']:
     graph=grace.add_graph(Panel)
     graph=format_graph(graph,x,y)
-    graph=populate_graph(graph,x,y,sim_profiles,sim_info,emp_profiles,emp_info)
+    graph=populate_graph(graph,x,y,sim_profiles,emp_profiles)
     graph.panel_label.configure(placement='iul',char_size=1,dx=.03,dy=.01)
+    if x=='DC' and y=='omnivory':
+      graph=add_legend(graph)
 
 grace.multi(rows=2,cols=2,vgap=.07,hgap=.07)
 grace.hide_redundant_labels()
@@ -135,5 +193,5 @@ grace.hide_redundant_labels()
 # grace.graphs[1].set_view(0.57,0.45,0.95,0.70)
 # grace.graphs[2].set_view(0.15,0.15,0.53,0.40)
 # grace.graphs[3].set_view(0.57,0.15,0.95,0.40)
-grace.write_file('../manuscript/figures/empirical_motif_profiles.eps')
+grace.write_file('../manuscript/figures/empirical_mean_roles.eps')
 

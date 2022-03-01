@@ -17,7 +17,7 @@ from PyGrace.Extensions.colorbar import SolidRectangle, ColorBar
 from PyGrace.axis import LINEAR_SCALE, LOGARITHMIC_SCALE
 from PyGrace.Styles.el import ElGraph, ElLogColorBar
 
-colors=ColorBrewerScheme('Spectral', reverse=True,n=180)  # The blue is very beautiful but maybe harder to see.
+colors=ColorBrewerScheme('Spectral', reverse=True,n=18)  # The blue is very beautiful but maybe harder to see.
 colors.add_color(173,132,191,'Purple')
 colors.add_color(34,90,34,'Green')
 # colors.add_color(120,120,120,'grey')
