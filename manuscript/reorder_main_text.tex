@@ -71,7 +71,9 @@ $^\dagger$ Corresponding author:\\
 \section*{Introduction}
 
     %\subsection*{1 Why are bottom-up effects important for understanding stability?}
-     The plant community is the foundation upon which the myriad species in terrestrial food webs depend for their survival. Disturbances in the plant community have been shown to affect important ecosystem properties such as primary \citep{Hector1999} and secondary production \citep{borer2012plant}, soil respiration and carbon cycling \citep{chen2019plant} and consumer diversity \citep{scherber2010bottom, Baiser2016}. The stability of the plant community is crucial for sustaining a healthy energy flow in the ecosystem as a whole \citep{Rosenblatt2016} and the structure of the plant community affects stability across all levels of ecosystem organization \citep{proulx2010diversity,scherber2010bottom}. Loss of diversity at the basal level typically causes declines in both abundance and richness of all types of consumers: herbivores, predators, parasitoids, etc. \citep{scherber2010bottom}.
+     The plant community is the foundation upon which the myriad species in terrestrial food webs depend for their survival. Disturbances in the plant community have been shown to affect important ecosystem properties such as primary \citep{Hector1999} and secondary production \citep{borer2012plant}, soil respiration and carbon cycling \citep{chen2019plant} and consumer diversity \citep{scherber2010bottom, Baiser2016}.
+     The structure of the plant community affects stability across all levels of ecosystem organization, which is crucial for sustaining a healthy energy flow in the ecosystem as a whole~\citep{proulx2010diversity,scherber2010bottom,Rosenblatt2016}. 
+     For example, the loss of diversity at the basal level typically causes declines in both abundance and richness of all types of consumers: herbivores, predators, parasitoids, etc. \citep{scherber2010bottom}.
     
      %\subsection*{2 Bayesian networks are a fantastic way to model bottom-up effects}
     How population decline or extinction of one species leads to loss of other species via direct and indirect effects (i.e., secondary extinctions) is a vibrant area of research \citep{Santos2021,curtsdotter2011robustness, dunne2009cascading, Eklof2006}. Traditionally, there are two main approaches for studying secondary extinctions. First, there are topological models, based only on food web structure \citep{dunne2009cascading}. Here, extinctions only affect other species in the network once a consumer has lost all of its prey and therefore must go extinct. The second approach uses dynamical models which explicitly simulate population dynamics using a system of differential equations \citep{binzer2011susceptibility}. Dynamical models take changes in prey or predator densities into account when calculating the densities of other species in the network. 
@@ -179,7 +181,8 @@ $^\dagger$ Corresponding author:\\
         A species' ``motif participation role'' is the frequency with which a focal species appears in each of the motifs present in a network~\citep{Stouffer2012}.
         In our case, these are four-dimensional vectors since only four three-species motifs can appear in acyclic networks.
         As we are interested in relationships between the type of motif participated in rather than the total number of motifs, we normalized participation vectors by dividing each count by the total number of motifs the species appears in.
-        Note, however, that this normalization does not necessarily control for differences due to degree \emph{per se} as high- and low-degree species may also tend to participate in different types of motifs.
+        Note, however, that this normalization does not necessarily control for differences due to degree or connectance as high- and low-degree species (or species in more- and less-connected networks) may also tend to participate in different types of motifs.
+        We address the potential associations between motif participation, degree, and connectance explicitly below. 
         
         
         To provide context for species' motif participation, we also calculated network ``motif profiles'': four-dimensional vectors of the number of each three-species motif in each network~\citep{Stouffer2012}.
@@ -220,7 +223,7 @@ $^\dagger$ Corresponding author:\\
         Taken together, these supplemental models demonstrate how motif participation relates to other measures of network structure.
         
         
-    \subsubsection*{3) Network persistence and motif profiles}
+    \subsubsection*{3) Network mean persistence and motif profiles}
 
         As well as species-specific probabilities of persistence, the overall frequency of motifs in a network may provide information about the overall probability of any species going extinct (since they incorporate information on indirect effects).
         We tested whether networks with similar motif profiles tend to have similar mean persistences among consumers using a PERMANOVA (Appendix \emph{S3.3}).
@@ -256,7 +259,7 @@ $^\dagger$ Corresponding author:\\
 
 \section*{Results}
 
-    \subsection*{Species motif participation and species persistence} 
+    \subsection*{Species persistence and motif participation} 
     % Coefficients changed slightly with network-level random effect, but conclusions similar
        The relationship between frequency of participation in a motif and a species' probability of persistence depended on the level of disturbance. 
        When disturbance ($\pi$) was low, species' persistence increased with increasing proportions of the omnivory and direct competition motifs. 
@@ -282,20 +285,19 @@ $^\dagger$ Corresponding author:\\
        A species' persistence varies with both species in-degree and trophic level (Fig.~\ref{fig:motifs_vs_TL_and_deg}; \emph{Appendix S6}). Increased trophic level is generally associated with decreasing species persistence, although the rate of decline is slower at high disturbance (Table S3, \emph{Appendix S6}).
        In-degree shows an even stronger interaction with disturbance; having more prey species is associated with higher persistence without disturbance, but lower persistence at high levels of disturbance.
         
-        
-    \subsection*{Consistency in effects of motif participation on species persistence}
+        \subsubsection*{Consistency in effects of motif participation on species persistence}
+    
+            %Update not needed
+            When fitting regressions of persistence against motif participation for each network separately, networks with high connectance generally showed more consistent relationships between persistence and motif participation, i.e., sharper peaks of the density distributions (Fig.~\ref{fig:density_prop_C}).
+            However, this trend varied at different levels of disturbance, especially for the direct competition and omnivory motifs.
+            At low and medium connectances there was little change in the distribution of slopes for direct competition across all levels of disturbance. 
+            At high connectances, however, the proportion of positive slopes was both lower overall and decreased with increasing disturbance. 
+            For the omnivory motif these trends were reversed. 
+            Moreover, the omnivory motif has a particularly broad distribution of slopes (i.e., an inconsistent relationship to persistence) when network connectance was low. 
+            Network size had a much smaller effect than connectance (Fig. S4; \emph{Appendix S7}).
 
-        %Update not needed
-        When fitting regressions of persistence against motif participation for each network separately, networks with high connectance generally showed more consistent relationships between persistence and motif participation, i.e., sharper peaks of the density distributions (Fig.~\ref{fig:density_prop_C}).
-        However, this trend varied at different levels of disturbance, especially for the direct competition and omnivory motifs.
-        At low and medium connectances there was little change in the distribution of slopes for direct competition across all levels of disturbance. 
-        At high connectances, however, the proportion of positive slopes was both lower overall and decreased with increasing disturbance. 
-        For the omnivory motif these trends were reversed. 
-        Moreover, the omnivory motif has a particularly broad distribution of slopes (i.e., an inconsistent relationship to persistence) when network connectance was low. 
-        Network size had a much smaller effect than connectance (Fig. S4; \emph{Appendix S7}).
 
-
-    \subsection*{Network motif profiles and network mean persistence}
+    \subsection*{Network mean persistence and motif profiles}
         % Updated to use means instead of all species
         The overall motif profile of a network was related to the average persistence of consumers ($F_{1,2998}$=645, $p$\textless0.001), although this result must be considered tentative due to non-homogeneous distribution of roles (\emph{Appendix S8}). 
         Average persistence was higher in networks with higher proportions of the chain, direct competition, and apparent competition motifs (Table S4, \emph{Appendix S8}). 
@@ -303,7 +305,7 @@ $^\dagger$ Corresponding author:\\
         These trends were consistent across levels of disturbance (Fig.~\ref{fig:motif_profile_persistence}, Table S4), \emph{Appendix S8}).% Network persistence varies between networks with different dispersion of motif profiles ($F_{134,2865}$=2.19$\times10^{24}$, $p$=\textless0.001). For example, networks with more variable motif profiles have higher persistence ($\beta$=0.183, $p$\textless0.001).
 
 
-    \subsection*{Network motif profiles and global network properties}
+    \subsection*{Motif profiles and network properties}
 
         Although the PERMANOVA test relating overall motif profiles to network properties was not reliable (Fig. S5, \emph{Appendix S9}), 
         connectance was significantly related to the frequencies of different motifs in a network when considering motifs individually (Fig.~\ref{motif_proportion_lms}).
@@ -342,7 +344,7 @@ $^\dagger$ Corresponding author:\\
     The relationship between participation in the omnivory motif and persistence connects motif participation with both in-degree and trophic level.
     Species participation in the omnivory motif was associated with greater persistence, especially at low levels of disturbance.
     This is consistent with a strong negative correlation between omnivory and trophic level (leading to the overall positive effect of omnivory) and a strong positive correlation with in-degree (leading to the reduced benefit of omnivory at high levels of disturbance). 
-    Motifs can thus act as a tool for synthesizing the information provided by, and interactions among, other measures of a species' place in its community.
+    Motifs can thus act as a tool for synthesizing the information provided by other measures of a species' place in its community and for understanding the interactions among these measures.
     
     
     % Degree and TL don't explain everything
@@ -394,6 +396,8 @@ $^\dagger$ Corresponding author:\\
     Our results also underscore the importance of considering the level of disturbance when identifying which species are most at risk of extinction.
     There were strong interactions between the level of disturbance and the relationships between persistence and multiple measures of species roles (motifs and in-degree).
     These simulated results echo other warnings about `tipping points' where previously beneficial traits can become risky~\citep{Latty2019,Golubski2016,Tylianakis2014}.
+    For example, at low levels of disturbance a high degree may be protective since species can compensate if one or a few prey are lost. 
+    At high disturbance, however, a high-degree species is likely to be affected by disturbances through many paths and have lower persistence.
     These disturbance effects mean that efforts to define a set of target species for conservation interactions must take the current (and future) level of disturbance the community experiences into account.
     
 \section*{Acknowledgements}
