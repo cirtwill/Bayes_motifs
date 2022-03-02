@@ -116,7 +116,7 @@ $^\dagger$ Corresponding author:\\
 
 		We generated a realistic set of simulated networks based on the niche model~\citep{Williams2000,Stouffer2007} using the function "nichemodel" within the Julia~\citep{Bezanson2017julia} package \emph{BioEnergeticFoodWebs}~\citep{bioenergfw}. 
 		To capture a range of plausible network architectures, we simulated networks with sizes (S) ranging from 50 to 100 species (in steps of 10) and connectances (C) ranging from 0.02 to 0.18 (in steps of 0.04). 
-		For full details, see~\citet{Cirtwill2021_inprep}.
+		For full details, se \emph{Appendix S1}.
 		We removed any biologically unlikely networks (Appendix \emph{S1}) and replaced them with new simulated networks, repeating the process until we obtained 100 suitable networks in each combination of size and connectance.
 		All networks were rendered acyclic following~\citet{Allesina2009functional} and topologically sorted from lowest to highest trophic level (Appendix \emph{S1}).
 		These processing steps allow the strictly bottom-up calculation of probability of persistence used in the Bayesian network framework.
@@ -179,7 +179,7 @@ $^\dagger$ Corresponding author:\\
         A species' ``motif participation role'' is the frequency with which a focal species appears in each of the motifs present in a network~\citep{Stouffer2012}.
         In our case, these are four-dimensional vectors since only four three-species motifs can appear in acyclic networks.
         As we are interested in relationships between the type of motif participated in rather than the total number of motifs, we normalized participation vectors by dividing each count by the total number of motifs the species appears in.
-        Note, however, that this normalization does \emph{not} control for differences due to degree \emph{per se} as high-degree species also tend to participate in different types of motifs than low-degree species~\citep{Cirtwill2021_inprep}.
+        Note, however, that this normalization does not necessarily control for differences due to degree \emph{per se} as high- and low-degree species may also tend to participate in different types of motifs.
         
         
         To provide context for species' motif participation, we also calculated network ``motif profiles'': four-dimensional vectors of the number of each three-species motif in each network~\citep{Stouffer2012}.
