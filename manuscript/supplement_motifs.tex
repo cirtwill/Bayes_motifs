@@ -129,7 +129,9 @@ $^\dagger$ Corresponding author:\\
 
             \begin{itemize}
                 \item Contains Table S4
-            \end{itemize}    
+            \end{itemize}   
+        
+        \item Glossary    
     \end{enumerate}    
 \end{spacing}
 \clearpage
@@ -270,7 +272,7 @@ $^\dagger$ Corresponding author:\\
 
         \begin{equation}
             \rho_{in} \approx \tau_{i} + S_{n}C_{n} + N_n,
-            \label{partic_deg}
+            \label{partic_tl}
         \end{equation}
         
         \noindent where $\rho_{in}$ is the frequency with which species $i$, belonging to network $n$, participates in the focal motif, $\delta_{i}$ is the in-degree of species $i$, $\tau_{i}$ is the shortest trophic level of species $i$, $S_{n}C_{n}$ is a random effect of the combination of size and connectance for network $n$, and $N_n$ is a random effect of network ID.
@@ -280,7 +282,7 @@ $^\dagger$ Corresponding author:\\
     \subsection{How does mean persistence vary with motif profiles?}
 
         To test whether networks with similar motif profiles tend to have similar mean persistences among consumers, we fit a PERMANOVA relating Bray-Curtis dissimilarity in motif profiles to the mean persistence of all consumers in a network (averaged across all levels of disturbance to basal resources).
-        As with the PERMANOVA relating motif participation to network properties, we fit the PERMANOVA using the R~\citep{R} function `vegan' from the package \emph{adonis}~\citep{adonis} and calculated significance based on 9999 permutations.
+        As with the PERMANOVA relating motif participation to network properties, we fit the PERMANOVA using the R~\citep{R} function `vegan' from the package \emph{adonis} and calculated significance based on 9999 permutations.
 
 
         We then tested whether dispersion was homogeneous across levels of persistence using an ANOVA and whether there was a linear relationship between persistence (rounded to three decimal places) and variability of motif profiles using a linear regression.
@@ -592,6 +594,31 @@ $^\dagger$ Corresponding author:\\
 
 \clearpage
 
+\section{Glossary}
+
+ \begin{table}[h!]
+ \label{glossary}
+ \caption{Glossary of terms relating to motifs and Bayesian networks}
+     \footnotesize{
+ \begin{tabular}{l|l}
+     Term & Definition \\
+     \hline
+     Motif & Set of $n$ interacting species. In this case, $n=3$ \\
+     Network motif profile & Vector describing the frequency of each motif in the network. \\
+     & Normalised by dividing counts of each motif by the total across all motifs.\\
+     Motif participation role & Vector describing the frequency with which a focal species appears in each motif.\\
+     & Normalised by dividing counts for each motif by the total across all motifs. \\
+     Bayesian network & A directed acyclic graph, used to predict species' likelihood of persistence. \\
+     Network persistence & The mean likelihood of consumers in a network not going extinct.\\
+     Species persistence & The individual likelihood of a species not going extinct.\\
+     In-degree & Number of prey species to a consumer species.\\
+     Trophic level (STL) & The shortest food chain between the focal species and any basal species.\\
+     Disturbance ($\pi_{disturbed}$) & Probability of extinction of a basal resource when extra disturbance is added. \\
+     Baseline extinction &  When no disturbance is applied, $\pi_{base}$=0.1.\\
+ \end{tabular}}
+ \end{table}
+ 
+\clearpage 
 
 % \section{SH: Persistence and motif roles}
 
