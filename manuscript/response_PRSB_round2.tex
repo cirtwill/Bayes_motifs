@@ -108,12 +108,25 @@ if you have TL and degree you also have the motif profile of a species (disagree
 \them
 Third, I realize that this technique is already published on, however, some of the limitations of the technique may impact the utility of the results. I think the study would be greatly enhanced by a smaller comparison of a more traditional dynamic food web model approach and this approach – even just placed in the appendix. I note that the authors rely quite heavily on a paper on BioRxivs which has done something similar, so anticipate this wouldn’t be that difficult, but would be very convincing.
 
-\us Alyssa - written response that including a whole second paper is beyond the scope and that paper is under review
+\us We agree that a comparison between Bayesian and dynamical simulations could be interesting, however performing such a comparison is beyond the scope of this manuscript. As the Reviewer notes, a subset of the authors of this manuscript are working on an analysis of the relationships between motif participation and persistence in a dynamical framework (currently under review). We do not believe that including the material from this second paper in an appendix (where few people will see it) is justified when there are already several comparisons of extinctions simulated by Bayesian and dynamical approaches (e.g.,~\citealp[]{Eklof2013a,others}).
+
+
+In addition, we feel that the Reviewer has over-estimated our reliance on the BioRxiv pre-print currently under review. Our previous draft had only three references to this pre-print: when describing the generation of simulated networks, when noting that degree and motif participation are not independent, and when briefly comparing the dynamical and Bayesian results in the discussion.
+To address this mis-perception, we have now removed two of these references.
+We present the full network-generation methods in \emph{Appendix 1} and, to avoid confusion by referring to results presented in the preprint, have softened our language to say that degree and motif participation \emph{may} be correlated. 
+The latter is not a major point in our manuscript; we mention it only to emphasize that controlling for the total number of motifs in which a species appears does not necessarily control for degree. 
+Thus, we see some overlap in the associations of persistence with degree and with normalised motifs.
+
+
+We have retained the reference to the pre-print in the discussion because this brief comparison of results using dynamical and Bayesian simulations appears to be exactly what the Reviewer has asked for.
+As the Reviewer points out, different approaches to simulating disturbance can have different results, and we explicit mention the main differences in the Discussion. 
+As the pre-print is freely available to any who wish to critically examine it, we believe that this is a good compromise between maintaining conciseness of the present manuscript and comparing different simulation approaches.
+
 
 \them
 Finally, I appreciate that the authors have used similar methods in a paper on BioRxiv – however, the current study relies quite heavily on it in the methodology. To my knowledge this paper is not peer-reviewed (or at least not yet) and thus I am less inclined to accept these citations as appropriate rationale for various decisions.
 
-\us Alyssa - change citations to original papers, not BiorXiv 
+\us See above. The only methodological tie between the two manuscripts was when simulating the networks. The underlying software used is peer-reviewed~\citep{Delmas2017} and has been used in several other published studies, as well as the pre-print originally referenced (currently under review). To avoid the mis-perception that we rely on unproven methods, we now present the full network-generation methods in an Appendix.
 
 \them
 Smaller comments
@@ -156,7 +169,18 @@ Line 149 – 152: these seem like large limitations to me.
 \them
 Line 164 – 166: Does this normalization control for differences in connectance? It seems like the more connected the networks are the higher degree species will have, and then connectance (definitively known to impact species persistence) will be a major driver
 
-\us not explicitly, control for the effect of C as a random effect. Most interested in comparing species within the same web. Alyssa
+\us To the extent that species in higher-connectance networks tend to participate in more motifs, this normalization does address connectance, however that is not its main purpose and it has been tested whether normalizing motif roles in this way fully controls for connectance.
+Since this normalization does not remove correlations between degree and motif participation (as discussed in~\citealp[]{Cirtwill2021_inprep}), we are not confident in making such a claim.
+Instead, to control for connectance explicitly, we include it (and species richness) in a random effect in all regressions where it is not a main effect. 
+We take this approach because re-evaluating the known effects of connectance and species richness is not a major theme in the manuscript.
+We are more interested in comparing extinction risk for species within the same food web (where connectance is constant) than between food webs (where connectance, species richness, and --in empirical systems-- local conditions will have large effects).
+We have lightly revised the methods section to make this focus clearer and to state that, while our motif role normalization does not control for degree or connectance, we do explicitly consider how degree and connectance (as well as species richness and trophic level) may be related. 
+
+
+
+    ``Note, however, that this normalization does not necessarily control for differences due to degree or connectance as high- and low-degree species (or species in more- and less-connected networks) may also tend to participate in different types of motifs.
+    We address the potential associations between motif participation, degree, and connectance explicitly below.''
+
 
 \them
 Line 182: what is network mean persistence? Species persistence is the probability of species persistence referred to in the methods? Be explicit. Also, what are the “other network properties”?
@@ -256,13 +280,13 @@ Changed.
 \them
 Line 23-26: this sentence could be clearer. Perhaps authors could rephrase to: “The structure of the plant community affects stability across all levels of ecosystem organization, which is crucial for sustaining a healthy energy flow in the ecosystem as a whole (Proulx et al., 2010; Scherber et al., 2010, Rosenblatt & Schmitz, 2016). For example, the loss of diversity…”
 
-\us yep
+\us Changed as suggested.
 
 \them
 Line 57-59: This sentence seems counterintuitive to me. How could more connected networks be more resistant to secondary extinctions than less connected ones? A higher connectance indicates more pathways available where the energy flows, promoting the propagation of a disturbance (Vieira \& Almeida-Neto, 2015). Please justify your statement.
 Vieira, M. C., \& Almeida‐Neto, M. (2015). A simple stochastic model for complex coextinctions in mutualistic networks: robustness decreases with connectance. Ecology Letters, 18(2), 144-152.
 
-\us Expand explanation of why high connectance can be good sometimes (more prey available to switch to, albeit more disturbance pathways). Probably a good way to introduce size of disturbance - many pathways of a small disturbance may not matter, many pathways of a large more severe
+\us Alyssa: Expand explanation of why high connectance can be good sometimes (more prey available to switch to, albeit more disturbance pathways). Probably a good way to introduce size of disturbance - many pathways of a small disturbance may not matter, many pathways of a large more severe
 
 \them
 Line 61: Please add new cites to sustain the statement. For example:
@@ -303,17 +327,17 @@ Done.
 \them
 Line 240: Please keep consistency between the subtitles in the section methods and results referring to the same goal.
 
-\us
+\us We have revised the subtitles to be consistent. Thank you for the suggestion.
 
 \them
 Line 270-272: Interesting. This could be related to the connectance of the species. Consumers with higher number of prey might have lower persistence at higher levels of disturbances because the disturbance has more pathways to propagate and reach the consumer.
 
-\us 
+\us Need to check the line, but if this is talking about degree then I'm not sure about the difference between degree and connectance at the species level
 
 \them
 Line 330-331: Unclear the expression “, and interactions among,”. Please rephrase.
 
-\us
+\us We have revised this line to ``Motifs can thus act as a tool for synthesizing the information provided by other measures of a species' place in its community and for understanding the interactions among these measures.'' and hope that this is now clear.
 
 \them
 Line 357-358: Unclear the expression “than directly”. Please explain.
