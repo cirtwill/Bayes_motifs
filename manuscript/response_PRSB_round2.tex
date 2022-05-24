@@ -68,6 +68,10 @@ Anna E
 Last, the authors generate what they argue are "a range of plausible network architectures".  But there is never any comparison of these architecture to empirical networks.  Nor is there any calculation of the key motif parameters on empirical data (for example the x-axis of figure 1). It will expand the audience for this manuscript greatly to include some empirical data to help empiricists understand for example in well-studied systems, what is the proportion of these different motifs.  This comparison does not need to be exhaustive, but it will serve two main roles in the manuscript: (1) provide support for the assertion that the authors have generated "a range of plausible network architectures" and (2) allow empiricists to understand how these simulations relate to real ecosystems.  
 
 \us
+
+This definitely sounds like the AE just wants a comparison of motif frequencies with empirical networks - much easier than showing same results! 
+
+
 Alyssa - this week (or bother me why not)
 Webs referenced in the niche model vs empirical motifs paper
 
@@ -93,7 +97,8 @@ The introduction has been re-written, and is hopefully clearer now regarding ter
 \them
 Second, I found the analysis, particularly the divvying up into 5 parts rather circular. We know that connectance and species richness has a large impact on both motif expression and on persistence. Instead of multiple separate analyses, I think these can all be included in one large model. 
 
-\us - Alyssa: S and C important but not main focus, so want to address them and then move on to more detailed things.
+\us [[May be related to some of the confusion about the purpose of different tests. Make sure the question asked by each analysis is clearer now.]] 
+- Alyssa: S and C important but not main focus, so want to address them and then move on to more detailed things.
 a written response here (and something brief in the paper)
 
 \them
@@ -130,9 +135,16 @@ Finally, I appreciate that the authors have used similar methods in a paper on B
 Smaller comments
 
 Line 65 – 70: I agree that in-degree and trophic level may be coarse description of a species’ role within its food-web. However, the examples provided do not convince me that species’ roles based on motifs are a more nuanced way of describing a species’ role within its food web since the two examples provided refer to the influence disturbance may have on a basal resource – an influence that I’m not convinced a species’ role based on motifs will impact.  
+
+
+\us We have revised the introduction throughout, and have taken care to clearly link the extra information given by motifs to our intuition about extinction risk. In particular, motifs give information about a consumer's prey that may reflect the prey's risk of extinction and thereby the predators' risk (e.g., a predator consuming generalist prey will participate in many three-species chain motifs).
+
+
 I do think that species’ roles based on motifs are a more nuanced way of describing species’ roles, and I am interested in the central question of this paper – however, this rationale would not convince me if I was unfamiliar with motifs/species roles/finer scale network descriptors.  As this is a central tenet of the paper I think the argument needs to be constructed better. Furthermore, just because a metric is coarse does not mean it is not an effective predictor – and when applying theoretical/computational results to empirical systems sometimes coarse is better. It is easier to measure the trophic position of a species using stable isotopes and approximate extinction probabilities than it is to construct an entire food web.
 
-\us Degree is better than TL and then you still need the whole web - mention limits of stable isotopes (stable isotope guy maybe?) ... Address this in the new (conceptual?) figure. Show motif profiles that should experience strong and weak effects of bottom-up disturbance 
+\us In our analysis, in-degree was a much stronger predictor of extinction risk than trophic level. We thus do not escape the need for full food-web information to predict extinction risk using coarse measures, even if we accept that stable isotope analyses are much less work than constructing a full food web (and whether stable isotopes are easier than constructing a full food web seems to largely depend on how many species are of interest ... we are not convinced that obtaining SI trophic levels for 100 species would be easier that estimating the full food web). Regardless, we are not suggesting that motifs replace degree or trophic level as all four metrics can be calculated using the same data. We are interested in showing that motifs can provide information about extinction risk that is not given by degree and trophic level.
+
+[[Make sure conceptual figure shows how species with same degree, TL can participate in different motifs and have different risks - consumer with degree=2 consuming two specialists vs. consuming two generalists should make the point]]
 
 \them
 Line 82-84: This sentence doesn’t quite make sense to me.
@@ -150,20 +162,20 @@ Rephrased, yes it is the same species, i.e. do the extinction risk of a consumer
 Line 86: the impact of the motif profile of the full food web on the consumer’s extinction risk has come as a bit of a surprise to me. I think this could have been introduced better in the introduction – not extensively because I think it is probably a secondary question, but at this point I have no hypotheses for why I would even expect the motif profile of the full food web to out perform the motifs in which a focal species participates.
 
 \us
-We have now revised the introduction to introduce the motif profile of the whole network and its potential relevance to species-level extinction risk [[check]] and hope that the purpose of these analyses is now clearer.
-[[edit to be nicer]]We did not expect that the motif profile of a full food web to outperform the impact of a species motif participation, instead, this was done to investigate whether the full profile of a web would give some additional information, in "average" terms. 
+We have now revised the introduction to introduce the motif profile of the whole network and its potential relevance to species-level extinction risk [[check - yes, I think so]] and hope that the purpose of these analyses is now clearer.
+Note that we do not expect the frequencies of motifs at the network to out-perform species-level motif participation. In fact, we do not compare the predictive abilities of motif profiles and motif participation as these models relate to different things. We connect network-level motif profiles to the network-level average extinction risk of all consumers and species-level motif participation to species-level extinction risk of one consumer at a time. We regret the confusion about the goals of our different analyses in the previous draft and hope that it is now clear how our analyses fit together.
 
 
 
 \them
 Line 87 – 89: similar to comment above – I think the idea of global and local food web properties has not been introduced at all, nor the classic food web properties (which ones are being measured? Only the four specific motifs thought to contribute to stability are mentioned).
 
-\us We have revised the introduction to more clearly introduce these concepts.
+\us We have revised the introduction to more clearly introduce these concepts. [[yes]]
 
 \them
 Line 92 – 95: this seems to be a flaw to the Bayesian network simulations – we know that mutual predation happens in food webs – especially if the food web isn’t explicitly size structured, and when nested within the broader food web context these feedback loops may have stabilizing, or destabilizing effects.
 
-\us This is now re-written, and we describe this limitation of the Bayesian network framework in the Methods section [[might need to make this more explicit in the methods section, it is now mentioned a bit here and there, also add references to Allesina lab papers if we have some additional?]]
+\us In revising the introduction, we now introduce the Bayesian network approach and its limitations in the methods section. [[might need to make this more explicit in the methods section, it is now mentioned a bit here and there, also add references to Allesina lab papers if we have some additional?]] [[I think it would be good to reiterate around this line that most secondary extinctions are captured well by the Bayesian framework. It does seem a little hard to believe that acyclic webs work so weel if you're new.]]
 
 \them
 Line 149 – 152: these seem like large limitations to me.
@@ -195,13 +207,13 @@ Added clarifications to to point 3 and 5 where we had "network mean persistence"
 \them
 Line 192: the idea of disturbance level came as a surprise – a careful reading of the methods pinpointed where you discuss this, however it is not discussed in the statistical analysis part, or in the main objectives of the paper at the end of the introduction.
 
-\us This concept is now introduced in the introduction [[but should we discuss it a bit more also in the statistical analysis? we mention the different disturbance levels in the end of the methods section Calculating persistence]]
+\us This concept is now introduced in the introduction [[Disturbance is introduced, but different effects of different severities not clear yet.]] [[but should we discuss it a bit more also in the statistical analysis? we mention the different disturbance levels in the end of the methods section Calculating persistence]]
 
 \them
 Line 193: Does it make sense to include Sn and Cn as random intercepts if it is known that both of these values impact 1) the number of motifs (which I don’t think has been rigorously controlled for – see above) and 2) network persistence? (same with eq’n S3)
 
-\us Frequency normalisation explicitly controls for total number of motifs, removing that potential (not proven to our knowledge) effect of S and C. To our knowledge, we are the first to explore whether S and C affect motif profiles ... 
-We have them as random intercepts to account for 2 since this is indeed a known effect and we aren't interested in re-inventing the wheel
+\us We explicitly control for differences in the number of motifs through the frequency normalisation discussed above. We include the random intercepts to account for potential effects of Sn and Cn on network persistence that are \emph{not} due to effects on the total number of motifs. We agree with the Reviewer that the effects of Sn and Cn are well-known and important to account for, but they are not the main focus of our manuscript. We are therefore comfortable with keeping them as random effects in these equations.
+
 
 \them
 Line 197 – 199: This sounds more statistically rigorous here than it does in the appendix where these are just visually compared.
@@ -216,7 +228,7 @@ Line 201: I have no idea what local and meso-scale refer to. Likewise global.
 \them
 Line 200-206: The statistical analyses of the various components of this study seem very circular to me. Various local metrics depend on global metrics but treated differently in each step. There must be a more appropriate statistical technique for considering all of these moving parts in a comprehensive manner – even using model selection to compare.
 
-\us See response to XX ... probably need to repeat that our focus is not to throw away degree
+\us See response to XX ... probably need to repeat that our focus is not to throw away degree [[Definitely need to clarify our modelling framework]]
 
 \them
 Line 214: Why mean, and why not just that network persistence?
@@ -293,7 +305,7 @@ Line 23-26: this sentence could be clearer. Perhaps authors could rephrase to: �
 Line 57-59: This sentence seems counterintuitive to me. How could more connected networks be more resistant to secondary extinctions than less connected ones? A higher connectance indicates more pathways available where the energy flows, promoting the propagation of a disturbance (Vieira \& Almeida-Neto, 2015). Please justify your statement.
 Vieira, M. C., \& Almeida‐Neto, M. (2015). A simple stochastic model for complex coextinctions in mutualistic networks: robustness decreases with connectance. Ecology Letters, 18(2), 144-152.
 
-\us Alyssa: Expand explanation of why high connectance can be good sometimes (more prey available to switch to, albeit more disturbance pathways). Probably a good way to introduce size of disturbance - many pathways of a small disturbance may not matter, many pathways of a large more severe
+\us Alyssa: Expand explanation of why high connectance can be good sometimes (more prey available to switch to, albeit more disturbance pathways). Probably a good way to introduce size of disturbance - many pathways of a small disturbance may not matter, many pathways of a large more severe [[I think the current version does a succinct job of showing the good and bad of connectance]]
 
 \them
 Line 61: Please add new cites to sustain the statement. For example:
