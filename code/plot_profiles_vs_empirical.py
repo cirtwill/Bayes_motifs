@@ -227,6 +227,8 @@ def populate_graph(graph,sim_profiles,emp_profiles):
         if net=='WEB242' and mot=='AC':
           dat.legend='NZ Stream'
       else:
+        if mot=='AC':
+          print net
         dat.symbol.configure(shape=2,color=14,fill_pattern=0,linewidth=1)
         if net=='WEB181' and mot=='AC':
           dat.legend='Other invert-dominated'
