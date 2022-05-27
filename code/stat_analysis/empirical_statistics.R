@@ -11,7 +11,8 @@ library(vegan)
 library(MuMIn)
 
 
-data<-read.table(file = '../../data/empirical_3sp_roles_participation_nonlinear.tsv', sep = '\t', header = TRUE)
+# data<-read.table(file = '../../data/global_verts_3sp_roles_participation_nonlinear.tsv', sep = '\t', header = TRUE)
+data<-read.table(file = '../../data/global_verts_3sp_roles_participation_linear.tsv', sep = '\t', header = TRUE)
 data$Disturbance<-0.1+0.4*data$Basal_p
 # ONLY FIT MODELS ON CONSUMERS!!!
 consumers<-data[which(data$in_Degree>0),]
@@ -36,7 +37,7 @@ consumers$netID=paste(consumers$Size,consumers$Connectance,consumers$Network,sep
 
 
 # Section 2: How do motif profiles vary with S and C?
-    motdata=read.table('../../data/3sp_empirical_motif_profiles.tsv',header=TRUE)
+    motdata=read.table('../../data/3sp_global_verts_motif_profiles.tsv',header=TRUE)
     motdata$mot_total=rowSums(motdata[,4:7])
     motdata$prop_chain=motdata$m12/motdata$mot_total
     motdata$prop_apparent=motdata$m6/motdata$mot_total
@@ -83,7 +84,8 @@ consumers$netID=paste(consumers$Size,consumers$Connectance,consumers$Network,sep
         interdata2$S[r]=strsplit(levelcode,':')[[1]][1]
         interdata2$C[r]=strsplit(levelcode,':')[[1]][2]
     }
-    write.table(interdata2,file='empirical_proportion_variability_SC_nonlinear.tsv',sep='\t')
+    write.table(interdata2,file='global_verts_proportion_variability_SC_linear.tsv',sep='\t')
+    # write.table(interdata2,file='global_verts_proportion_variability_SC_nonlinear.tsv',sep='\t')
 
     # LMs - no need for network-level random effect since it's within-network motif profiles
     pchainlm=with(motdata,lm(prop_chain~Size*Connectance))
@@ -158,8 +160,10 @@ consumers$netID=paste(consumers$Size,consumers$Connectance,consumers$Network,sep
     TLper=with(consumers,lmer(Persistence~scale(STL)*scale(Disturbance)+(1|Global)))
     Degper=with(consumers,lmer(Persistence~scale(in_Degree)*scale(Disturbance)+(1|Global)))
 
-    write.table(summary(TLper_randnet)$coefficients,file='empirical_persistence_vs_TL_nonlinear.tsv',sep='\t')
-    write.table(summary(Degper_randnet)$coefficients,file='empirical_persistence_vs_Deg_nonlinear.tsv',sep='\t')
+    # write.table(summary(TLper)$coefficients,file='global_verts_persistence_vs_TL_nonlinear.tsv',sep='\t')
+    # write.table(summary(Degper)$coefficients,file='global_verts_persistence_vs_Deg_nonlinear.tsv',sep='\t')
+    write.table(summary(TLper)$coefficients,file='global_verts_persistence_vs_TL_linear.tsv',sep='\t')
+    write.table(summary(Degper)$coefficients,file='global_verts_persistence_vs_Deg_linear.tsv',sep='\t')
 
 
 # Section 6. How does motif participation vary with other properties?
@@ -183,11 +187,12 @@ consumers$netID=paste(consumers$Size,consumers$Connectance,consumers$Network,sep
     apparent_prop=with(subdata,lm(prop_apparent~Size*Connectance))
     direct_prop=with(subdata,lm(prop_direct~Size*Connectance))
     results=matrix(nrow=4,ncol=5)
-    results[1,]=c("Omnivory",summary(omni_prop_randnet)$coefficients[,1])
-    results[2,]=c("Chain",summary(chain_prop_randnet)$coefficients[,1])
-    results[3,]=c("Apparent",summary(apparent_prop_randnet)$coefficients[,1])
-    results[4,]=c("Direct",summary(direct_prop_randnet)$coefficients[,1])
-    write.table(results,file='empirical_roles_vs_SC_nonlinear.tsv',sep='\t')
+    results[1,]=c("Omnivory",summary(omni_prop)$coefficients[,1])
+    results[2,]=c("Chain",summary(chain_prop)$coefficients[,1])
+    results[3,]=c("Apparent",summary(apparent_prop)$coefficients[,1])
+    results[4,]=c("Direct",summary(direct_prop)$coefficients[,1])
+    # write.table(results,file='global_verts_roles_vs_SC_nonlinear.tsv',sep='\t')
+    write.table(results,file='global_verts_roles_vs_SC_linear.tsv',sep='\t')
 
     # # Deg and TL
     chain_deg_prop=with(consumers[which(consumers$Disturbance==0.1),],lmer(prop_chain~in_Degree+(1|Global)))
@@ -210,7 +215,8 @@ consumers$netID=paste(consumers$Size,consumers$Connectance,consumers$Network,sep
     results[6,]=c("TL","Prop","Omnivory",summary(omni_TL_prop)$coefficients[1,1:2],summary(omni_TL_prop)$coefficients[2,1:2])
     results[7,]=c("TL","Prop","Apparent",summary(apparent_TL_prop)$coefficients[1,1:2],summary(apparent_TL_prop)$coefficients[2,1:2])
     results[8,]=c("TL","Prop","Direct",summary(direct_TL_prop)$coefficients[1,1:2],summary(direct_TL_prop)$coefficients[2,1:2])
-    write.table(results,file='empirical_roles_vs_TL_Deg_nonlinear.tsv',sep='\t')
+    # write.table(results,file='global_verts_roles_vs_TL_Deg_nonlinear.tsv',sep='\t')
+    write.table(results,file='global_verts_roles_vs_TL_Deg_linear.tsv',sep='\t')
 
 
 # Not repeating position materials with network-level random effect since we're not using them.
@@ -242,7 +248,8 @@ consumers$netID=paste(consumers$Size,consumers$Connectance,consumers$Network,sep
 #     }
 
 # # Other, supplemental tests:\
-save.image('empirical_all_tests_nonlinear.Rdata')
+# save.image('global_verts_all_tests_nonlinear.Rdata')
+save.image('global_verts_all_tests_linear.Rdata')
 
 
 # # Do proportions of motifs vary due to network processing?

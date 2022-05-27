@@ -1,6 +1,23 @@
 import os
 import sys
 
+def CSreader(roledir): # Read the edgelists, calculate S and C, make a dict.
+  Cdict={}
+  for web in os.listdir(roledir):
+    S=set()
+    L=set()
+    f=open(roledir+web,'r')
+    for line in f:
+      (pred,prey)=line.split()
+      S.add(pred)
+      S.add(prey)
+      L.add((pred,prey))
+    f.close()
+    C=float(len(L))/float(len(S)**2)
+    Cdict[web.split('.tsv')[0]]=((len(S),C))
+  return Cdict
+
+
 # Creates a dictionary with motif counts listed by species, connectance, network, motif.
 def read_role_file(roledir):
   role_dict={}
@@ -23,7 +40,7 @@ def read_role_file(roledir):
   return role_dict
 
 
-def write_motif_file(role_dict,outfile):
+def write_motif_file(role_dict,Cdict,outfile):
   f=open(outfile,'w')
   f.write('Size\tConnectance\tNetwork\tm6\tm12\tm36\tm38\tTotal\n')
   for web in role_dict:
@@ -37,16 +54,17 @@ def write_motif_file(role_dict,outfile):
 
   return
 
-# Calculated S and C=L/(S*(S-1)) for empirical webs
-Cdict={'kongsfjorden':(260,0.024),'loughhyne':(341,0.043),'reef_noSynodus':(242,0.056),
-    'stmarks':(141,0.089),'weddell':(490,0.060),'ythanjacob':(88,0.051)}
+# # Calculated S and C=L/(S*(S-1)) for empirical webs
+# Cdict={'kongsfjorden':(260,0.024),'loughhyne':(341,0.043),'reef_noSynodus':(242,0.056),
+#     'stmarks':(141,0.089),'weddell':(490,0.060),'ythanjacob':(88,0.051)}
 
 def main():
+  Cdict=CSreader('../data/empirical/global_verts/edgelists/')
   # role_dict takes s, c, network, motif: count
   # only motifs 6, 12, 36, 38 exist in the Bayesian networks
-  motif_dict=read_role_file('../data/motif_frequencies/empirical/')
+  motif_dict=read_role_file('../data/motif_frequencies/empirical/global_verts/')
 
-  write_motif_file(motif_dict,'../data/3sp_empirical_motif_profiles.tsv')
+  write_motif_file(motif_dict,Cdict,'../data/3sp_global_verts_motif_profiles.tsv')
   print 'Motif roles read'
 
 

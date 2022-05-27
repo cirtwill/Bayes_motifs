@@ -4,10 +4,10 @@ import pymfinder as py
 
 def main():
 
-    webdir='../data/empirical/edgelists/'
-    roledir='../data/roles/empirical/'
-    motifdir='../data/motif_frequencies/empirical/'
-    pardir='../data/motif_participation/empirical/'
+    webdir='../data/empirical/global_verts/edgelists/'
+    roledir='../data/roles/empirical/global_verts/'
+    motifdir='../data/motif_frequencies/empirical/global_verts/'
+    pardir='../data/motif_participation/empirical/global_verts/'
 
     for web in os.listdir(webdir):
       infile=webdir+web

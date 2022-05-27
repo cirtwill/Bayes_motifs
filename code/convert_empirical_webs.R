@@ -19,10 +19,10 @@ topo_sort_acyclic <- function(A) {
     return(A[o,o])
 }
 
-goodfiles=as.character(list.files(path="../data/empirical/matrix/", full.names=FALSE, pattern="*.tsv"))
+goodfiles=as.character(list.files(path="../data/empirical/global_verts/matrix/", full.names=FALSE, pattern="*.tsv"))
 for (g in goodfiles){
     print(g)
-    A <- read.table(paste("../data/empirical/matrix/",g,sep=''), sep="\t", row.names=1, header=TRUE)
+    A <- read.table(paste("../data/empirical/global_verts/matrix/",g,sep=''), sep="\t", row.names=1, header=TRUE)
     rownames(A) <- colnames(A) <- 1:nrow(A) 
     # image(t(apply(A,2,rev)))
     
@@ -38,9 +38,9 @@ for (g in goodfiles){
     # Let's only keep the ones with max PATL<6
     # Also indexing by "good webs" so I know how many to re-run
 
-    write.table(A, file=paste("../data/empirical/acyclic_matrix/",g,sep=''), sep=",")
+    write.table(A, file=paste("../data/empirical/global_verts/acyclic_matrix/",g,sep=''), sep=",")
     edges=get.edgelist(graph.adjacency(as.matrix(A)))
-    write.table(edges,file=paste0('../data/empirical/edgelists/',g,sep=''),sep='\t',row.names=FALSE,col.names=FALSE)
+    write.table(edges,file=paste0('../data/empirical/global_verts/edgelists/',g,sep=''),sep='\t',row.names=FALSE,col.names=FALSE)
 }
 
 

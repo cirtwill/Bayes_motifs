@@ -1,6 +1,22 @@
 import os
 import sys
 
+def CSreader(roledir): # Read the edgelists, calculate S and C, make a dict.
+  Cdict={}
+  for web in os.listdir(roledir):
+    S=set()
+    L=set()
+    f=open(roledir+web,'r')
+    for line in f:
+      (pred,prey)=line.split()
+      S.add(pred)
+      S.add(prey)
+      L.add((pred,prey))
+    f.close()
+    C=float(len(L))/float(len(S)**2)
+    Cdict[web.split('.tsv')[0]]=((len(S),C))
+  return Cdict
+
 # Then bin the species according to ... things, like in Benno's paper.
 # Then do some stats and send to Anna.
 def read_persistence_file(persfile,role_dict):
@@ -26,7 +42,10 @@ def read_persistence_file(persfile,role_dict):
       sp='"sp'+''.join(line.split()[2].split('"'))+'"'
       indeg=int(line.split()[3])
       outdeg=int(line.split()[4])
-      STL=int(line.split()[5])
+      try:
+        STL=int(line.split()[5])
+      except ValueError:
+        STL=10000
       basal_p=float(line.split()[6])
       web=line.split()[7].split('.')[0].split('"')[1]
       persdict[web][basal_p][sp]=(str(per))
@@ -120,56 +139,70 @@ def sort_nonzero_roles(role_dict,full_positions):
   return good_motifs
 
 
-def collect_and_print_3sp(outfile,role_dict,good_positions,partic_dict,good_motifs,degdict,TLdict,persdict):
+def collect_and_print_3sp(outfile,role_dict,Cdict,good_positions,partic_dict,good_motifs,degdict,TLdict,persdict):
+
+  nomotif_species=set()
   f=open(outfile,'w')
   f.write('Size\tConnectance\tBasal_p\tNetwork\tSpecies\tPersistence\tin_Degree\tout_Degree\tSTL\tm')
   f.write('\tm'.join(sorted(good_motifs[3]))+'\tp')
   f.write('\tp'.join(sorted(good_positions))+'\n')
   for web in persdict:
+    print web
     for bp in [0.0,0.2,0.4,0.6,0.8,1.0]:
       for sp in persdict[web][bp]: # Seems to be only non-basal species?
+        # Particdict doesn't include all species - some may not be in 3sp motifs
+        # Especially in webs
         f.write(str(Cdict[web][0])+'\t'+str(Cdict[web][1])+'\t')
         f.write('\t'.join([str(bp),web,sp]))
         f.write('\t'+persdict[web][bp][sp])
         f.write('\t'+'\t'.join(degdict[web][bp][sp]))
         f.write('\t'+str(TLdict[web][bp][sp]))
         for motif in sorted(good_motifs[3]):
-          f.write('\t'+str(partic_dict[web][sp][3][motif]))
+          if sp in partic_dict[web]:
+            f.write('\t'+str(partic_dict[web][sp][3][motif]))
+          else:
+            f.write('\t0')
+            nomotif_species.add((web,sp))
         for pos in sorted(good_positions):
-          f.write('\t'+str(role_dict[web][sp][pos]))
+          if sp in partic_dict[web]:
+            f.write('\t'+str(role_dict[web][sp][pos]))
+          else:
+            f.write('\t0')
         f.write('\n')
   f.close()
-
+  for web in sorted(persdict):
+    missing=[]
+    for (w,s) in nomotif_species:
+      if w==web:
+        missing.append(s)
+    print web, len(missing), "Not present in 3sp motifs"
+  print len(persdict.keys())
   return
 
-# Calculated S and C=L/(S*(S-1)) for empirical webs
-Cdict={'kongsfjorden':(260,0.024),'loughhyne':(341,0.043),'reef_noSynodus':(242,0.056),
-    'stmarks':(141,0.089),'weddell':(490,0.060),'ythanjacob':(88,0.051)}
-
-
 def main():
+  Cdict=CSreader('../data/empirical/global_verts/edgelists/')
   # role_dict takes s, c, network, species, position: count
   # full_positions is a full set of positions
-  role_dict,full_positions=read_role_file('../data/roles/empirical/')
+  role_dict,full_positions=read_role_file('../data/roles/empirical/global_verts/')
   good_positions=sort_nonzero_roles(role_dict,full_positions)
   print 'roles read'
   # partic_dict takes s, c, network, species, size, motif: count
   # full_motifs is a dict for size: motif
-  partic_dict,full_motifs=read_participation_file('../data/motif_participation/empirical/')
+  partic_dict,full_motifs=read_participation_file('../data/motif_participation/empirical/global_verts/')
   good_motifs=sort_nonzero_positions(partic_dict,full_motifs)
   print 'participation read'
   # TLdict,degdict=read_TL_file('../data/TL/',role_dict) # Role dict to give a reference of i's
   # print 'TLs and degrees read'
 
 
-  # linear_TLdict,linear_degdict,linear_perdict=read_persistence_file('../data/all_empirical_linear.tsv',partic_dict)
-  # print 'persistence read'
-  # collect_and_print_3sp('../data/empirical_3sp_roles_participation_linear.tsv',role_dict,good_positions,partic_dict,good_motifs,linear_degdict,linear_TLdict,linear_perdict)
-  # print '3sp role files complete'
-
-  nonlinear_TLdict,nonlinear_degdict,nonlinear_perdict=read_persistence_file('../data/all_empirical_nonlinear.tsv',partic_dict)
+  linear_TLdict,linear_degdict,linear_perdict=read_persistence_file('../data/global_verts_linear.tsv',partic_dict)
   print 'persistence read'
-  collect_and_print_3sp('../data/empirical_3sp_roles_participation_nonlinear.tsv',role_dict,good_positions,partic_dict,good_motifs,nonlinear_degdict,nonlinear_TLdict,nonlinear_perdict)
+  collect_and_print_3sp('../data/global_verts_3sp_roles_participation_linear.tsv',role_dict,Cdict,good_positions,partic_dict,good_motifs,linear_degdict,linear_TLdict,linear_perdict)
+  print '3sp role files complete'
+
+  nonlinear_TLdict,nonlinear_degdict,nonlinear_perdict=read_persistence_file('../data/global_verts_nonlinear.tsv',partic_dict)
+  print 'persistence read'
+  collect_and_print_3sp('../data/global_verts_3sp_roles_participation_nonlinear.tsv',role_dict,Cdict,good_positions,partic_dict,good_motifs,nonlinear_degdict,nonlinear_TLdict,nonlinear_perdict)
   print 'nonlinear 3sp role files complete'
       
 

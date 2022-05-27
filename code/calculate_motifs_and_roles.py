@@ -4,10 +4,10 @@ import pymfinder as py
 
 def main():
 
-    webdir='../data/edgelists/acyclic/'
-    motifdir='../data/motif_frequencies/acyclic/'
-    roledir='../data/roles/acyclic/'
-    pardir='../data/motif_participation/acyclic/'
+    webdir='../data/edgelists/original/'
+    motifdir='../data/motif_frequencies/original/'
+    roledir='../data/roles/original/'
+    pardir='../data/motif_participation/original/'
 
     for s in sorted(os.listdir(webdir)):
       try:
