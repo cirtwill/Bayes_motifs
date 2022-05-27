@@ -28,7 +28,7 @@
 
 \title{Species motif participation provides unique information about species risk of extinction}
 
-\author{Anna \r{A}kesson$^{1\dagger}$, Alyssa R. Cirtwill$^{2}$, Kate L. Wootton$^{3}$, Anna Ekl\"{o}f$^{1}$} 
+\author{Anna \r{A}kesson$^{1*}$, Alyssa R. Cirtwill$^{2*\dagger}$, Kate L. Wootton$^{3}$, Anna Ekl\"{o}f$^{1}$} 
 \date{\small$^1$Department of Theoretical Biology, Chemistry, and Physics\\ 
 Link\"{o}ping University\\
 Link\"{o}ping, Sweden\\
@@ -41,7 +41,10 @@ Helsinki, Finland\\
 University of Colorado, Boulder\\
 U.S.A.
 \medskip
+* Joint first authors
+\medskip
 $^\dagger$ Corresponding author:\\
+
 }
 
 
@@ -97,15 +100,21 @@ $^\dagger$ Corresponding author:\\
     These `motif participation' roles capture information about species' direct and indirect interactions, incorporating larger-scale network structure into species-level descriptions~\citep{Cirtwill2015a,Cirtwill2018FoodWebs}. 
     By allowing researchers to distinguish between, for example, consumers of specialists and generalists, motif participation may complement degree and trophic level to more fully predict species' extinction risk. 
     
-    While the potential relationships between motif participation and species-level extinction risk have not yet been tested to our knowledge, it has been shown that the frequencies of different motifs within a whole network are associated with community stability \citep{prill2005dynamic, bascompte2005simple} and with changes to the composition of plant communities \citep{giling2019plant}. This indicate that motifs may provide additional information on network resilience to disturbances. 
+    While the potential relationships between motif participation and species-level extinction risk have not yet been tested to our knowledge, it has been shown that the frequencies of different motifs within a whole network are associated with community stability \citep{prill2005dynamic, bascompte2005simple} and with changes to the composition of plant communities \citep{giling2019plant}. 
+    Given these relationships between network-level motif frequencies and overall community stability, it is worth investigating whether a species' participation in different motifs also affects its extinction risk.
+    We are also interested in whether the relationships between network structure and extinction risk depend on the severity of disturbance experienced by the community.
+
     
-    The severity of disturbances impacting structure forming species, i.e., plant species, is important for how the food web respond \citep{}. Naturally, the magnitude of the effect will increase with severity of the disturbance \citep{}, but additionally disturbances impacting structure forming species, i.e., plant species, may fundamentally alter food web structure \citep{byrnes2011climate}. This has been shown in several studies where the magnitude of the disturbances alter the competition between species in the benthic community \citep{detmer2021variation} and change the percent coverage of different taxonomic groups \citep{carnell2020more} in kelp forests. 
+    Naturally, a larger disturbance tends to lead to more secondary extinctions \citep{}.
+    Disturbances to plant species can also affect some consumers more strongly than others  \citep{byrnes2011climate}. 
+    In empirical studies of kelp forests, the magnitude of the disturbances to basal resources can alter the competition between species in the benthic community \citep{detmer2021variation} and change the percent coverage of different taxonomic groups \citep{carnell2020more}. 
     
-    While these studies uncovered the potential influence of network-level motif frequencies on network stability, a disturbance may likely alter the network and the interactions between species in different ways. 
-    This can affect the influence of motif frequencies on network stability, as it has been demonstrated that a previously unstable motif may appear stabilizing dependent on interactions with other species \citep{Kratina2012}. 
+    
+    %While these studies uncovered the potential influence of network-level motif frequencies on network stability, a disturbance may likely alter the network and the interactions between species in different ways. 
+    %This can affect the influence of motif frequencies on network stability, as it has been demonstrated that omnivory may appear stabilizing dependent on interactions with other species \citep{Kratina2012}. 
 
 %\subsection*{Here we test...}
-   Here, we are interested in whether a consumer's extinction risk of going secondary extinct depends on 1) the motifs in which the species participates, 2) the motif profile of the full food web and 3) the severity of the disturbance. %We address this in scenarios with various levels of disturbance targeting the basal level.
+   Here, we are interested in whether a consumer's extinction risk of going secondarily extinct depends on 1) the motifs in which the species participates, 2) the motif profile of the full food web and 3) the severity of the disturbance to the basal level. %We address this in scenarios with various levels of disturbance targeting the basal level.
     In addition, we want to understand how the information provided by motifs is related to other global and local food web properties in order to better synthesize information provided by different scales of network structure.
     We model secondary extinction probabilities using Bayesian networks \citep{Eklof2013, Haussler2020}. 
     We focus our analyse on the four network motifs that are over-represented in empirical networks and additionally have been shown to contribute to network stability; the three-species chain, omnivory, apparent competition, and direct competition \citep{Stouffer2007, Borrelli2015a, giling2019plant}.
@@ -163,7 +172,17 @@ $^\dagger$ Corresponding author:\\
 
 \section*{Methods}
 
-    \subsection*{Bayesian network framework}	Traditionally, there are two main approaches for studying secondary extinctions. First, there are topological models, based only on food web structure \citep{dunne2009cascading}. Here, extinctions only affect other species in the network once a consumer has lost all of its prey and therefore must go extinct. 
+	\subsection*{Initial network construction}
+
+		We generated a realistic set of simulated networks based on the niche model~\citep{Williams2000,Stouffer2007} using the function "nichemodel" within the Julia~\citep{Bezanson2017julia} package \emph{BioEnergeticFoodWebs}~\citep{bioenergfw}. 
+		To capture a range of plausible network architectures, we simulated networks with sizes (S) ranging from 50 to 100 species (in steps of 10) and connectances (C) ranging from 0.02 to 0.18 (in steps of 0.04). 
+		For full details, se \emph{Appendix S1}.
+		We removed any biologically unlikely networks (Appendix \emph{S1}) and replaced them with new simulated networks, repeating the process until we obtained 100 suitable networks in each combination of size and connectance.
+
+
+    \subsection*{Modelling secondary extinction using Bayesian networks}
+
+    Traditionally, there are two main approaches for studying secondary extinctions. First, there are topological models, based only on food web structure \citep{dunne2009cascading}. Here, extinctions only affect other species in the network once a consumer has lost all of its prey and therefore must go extinct. 
     The second approach uses dynamical models which explicitly simulate population dynamics using a system of differential equations \citep{binzer2011susceptibility}. Dynamical models take changes in prey or predator densities into account when calculating the densities of other species in the network. 
     This additional detail means that realistic processes such as indirect interactions can be included, but also means that dynamical models are more parameter intensive, and simulations are more time-consuming, than topological models. 
     
@@ -171,18 +190,14 @@ $^\dagger$ Corresponding author:\\
     A middle‐ground approach for simulating secondary extinctions is to use Bayesian networks \citep{Eklof2013}. 
     In this framework, a consumer's probability of extinction depends on the fraction of resources lost and on a baseline probability of extinction which captures causes unrelated to the network structure (e.g., disease, stochastic extinction of small populations).
     Modelling Bayesian networks is fast and computationally efficient, allowing analysis of networks with high species richness \citep{Haussler2020}. 
+    This increased speed allows us to simulate a range of disturbance severity rather than single species removals as in many previous studies~\citep{}.
+    Moreover, Bayesian network simulations are less parameter-intensive than dynamical models, meaning that they are less sensitive to assumptions made in the modelling process~\citep{}.
+    
     As consumers do not affect the extinction probabilities of their resources, Bayesian networks can only capture bottom-up effects of disturbances within networks. 
     However, Bayesian networks do capture the majority of secondary extinctions captured by dynamical models \citep{Eklof2013}.
-    This emphasizes the importance of bottom-up effects in food webs and makes Bayesian networks the ideal framework to use when studying them. 
-
-	\subsection*{Initial network construction}
-
-		We generated a realistic set of simulated networks based on the niche model~\citep{Williams2000,Stouffer2007} using the function "nichemodel" within the Julia~\citep{Bezanson2017julia} package \emph{BioEnergeticFoodWebs}~\citep{bioenergfw}. 
-		To capture a range of plausible network architectures, we simulated networks with sizes (S) ranging from 50 to 100 species (in steps of 10) and connectances (C) ranging from 0.02 to 0.18 (in steps of 0.04). 
-		For full details, se \emph{Appendix S1}.
-		We removed any biologically unlikely networks (Appendix \emph{S1}) and replaced them with new simulated networks, repeating the process until we obtained 100 suitable networks in each combination of size and connectance.
-		All networks were rendered acyclic following~\citet{Allesina2009functional} and topologically sorted from lowest to highest trophic level (Appendix \emph{S1}).
-		These processing steps allow the strictly bottom-up calculation of probability of persistence used in the Bayesian network framework.
+    [[Something about strong bottom-up effects in empirical studies]]
+	To make the simulated networks compatible with the Bayesian simulation framework, all networks were rendered acyclic following~\citet{Allesina2009functional} and topologically sorted from lowest to highest trophic level (Appendix \emph{S1}).
+	These processing steps allow the strictly bottom-up calculation of probability of persistence.
 	
 		
 	\subsection*{Calculating persistence}	
