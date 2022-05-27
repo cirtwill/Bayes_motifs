@@ -77,6 +77,7 @@ $^\dagger$ Corresponding author:\\
             \item Construction of simulated networks
             \item Filtering of biologically unrealistic networks 
             \item Conversion of networks to acyclic form
+            \item Comparison of empirical and simulated networks
             \end{itemize}
             
             
@@ -195,6 +196,51 @@ $^\dagger$ Corresponding author:\\
         After these steps, calculations of persistence probabilities can begin.
         
 \clearpage
+
+
+    \subsection*{Comparison of empirical and simulated networks}
+    
+    
+        Although previous work has shown that the niche model replicates the motif structure of empirical networks~\citep{Stouffer2005a,Stouffer2006}, we provide a comparison of the motif profiles and consumer motif participation for our simulated networks and the highest-quality empirical networks we could find within the same size range.
+        For this comparison, we obtained all networks containing 50-100 species from \citet{globalwebdb}.
+        We then removed networks where sets of predators and prey were completely different (i.e., bipartite networks) or links were not clear (i.e., +/- effects rather than predation specifically).
+        This yielded five vertebrate-dominated food webs describing the California coast in different years, four invertebrate-dominated food webs describing mainland US streams, 23 invertebrate-dominated food webs describing New Zealand streams, and five other invertebrate-dominated food webs.
+        We note that most of these webs were compiled by just three research groups.
+        Moreover, many of the webs are repeated samples of the same site  or closely-grouped sites.
+        This means that these empirical networks cannot be considered fully independent samples.
+        
+        
+        \begin{figure}
+            \includegraphics[width=\textwidth]{figures/motif_profiles_participation_vs_empirical.eps}
+            \caption{\textbf{A)} Proportions of acyclic motifs in the motif profiles of empirical and simulated networks. Mean proportions ($\pm$SD) in the simulated networks are indicated in black, with the range of proportions in the simulated networks indicated by black boxes. \textbf{B)} Proportions of acyclic motifs in the motif participation vectors of consumers in simulated and empirical networks.}
+            \label{empirical_compare}
+        \end{figure}
+        
+    \subsubsection*{Comparing motif profiles}
+    
+      The proportions of omnivory and apparent competition in the motif profiles of simulated networks matched those of the empirical webs fairly well, but many of the empirical webs had higher proportions of direct competition and lower proportions of the three-species chain than any simulated web.
+      The empirical webs with high proportions of direct competition tend to be invertebrate-dominated webs representing small streams.
+      High proportions of direct competition in these system suggest large numbers of fairly generalist herbivore/detritivores, with relatively few secondary consumers present to create chains.
+    
+    
+      A few webs had lower proportions of apparent competition than any simulated web but similar proportions of the other motifs.
+      Most of these webs represented the California coast in different years (2003-2007).
+      Basal resources in these webs were highly aggregated into only two size classes of phytoplankton and three types of detritus.
+      This aggregation at the basal level leads to artificial ``specialisation'' in consumers with low trophic levels who may consume, for example, many species of phytoplankton that are grouped into a single size class.
+      As the basal resources in our simulated networks are not aggregated, our webs feature higher proportions of apparent competition as seen in the other empirical webs.
+    
+    
+    \subsubsection*{Comparing motif participation}
+      
+      Despite the differences in network motif profiles between some of the empirical food webs and the simulated webs, we note that the motif participation of consumers in the simulated webs entirely spans the range of motif participation for consumers in the empirical webs.
+      Consumers in the NZ stream food webs had higher proportions of direct competition and lower proportions of apparent competition than the mean of the simulated webs, consistent with the network motif profiles.
+      Nonetheless, the greater differences in network profiles than consumer motif participation suggests that the largest differences between the simulated and empirical networks are in the roles of basal resources.
+      In empirical webs, basal resources are often highly aggregated. 
+      Improved resolution at the basal level should improve the correspondence between simulated and empirical webs and allow better modelling of empirical communities.
+    
+
+        
+        
 
 \section{Calculating persistence}        
 
