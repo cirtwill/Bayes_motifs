@@ -127,7 +127,7 @@ def populate_graph(graph,motif,lmdict):
     uperr=graph.add_dataset(upper)
     uperr.symbol.shape=0
     uperr.line.linestyle=0
-    uperr.fill.configure(type=2,color=5,pattern=1)
+    uperr.fill.configure(type=2,color=4,pattern=1)
 
     derr=graph.add_dataset(lower)
     derr.symbol.shape=0
