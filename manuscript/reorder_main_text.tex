@@ -83,7 +83,7 @@ $^\dagger$ Corresponding author\\
     Several global (whole-network) as well as local (single-species) properties are known to influence how species respond to disturbances. Two well-known, influential global properties are network size, the number of species present in the network, and network connectance, the number of realized feeding interactions.
     Based on simulations of random networks, large networks were initially thought to be less stable~\citep{May1972}.
     The presence of large, stable, empirical networks has spurred research into how other structural characteristics, including connectance, may allow large numbers of species to persist~\citep{Dunne2002}.
-    Highly-connected networks may be more resistant to secondary extinctions because consumers, on average, have access to a larger number of prey species and can switch from a declining or extinct prey to another resource~\citep{Dunne2002, Eklof2006,Baumgartner2020}. However, a well-connected network also includes more pathways through which a disturbance can spread~\citep{Dunne2004,Vieira2015}.
+    Highly-connected networks may be more resistant to secondary extinctions because consumers, on average, have access to a larger number of prey species and can switch from a declining or extinct prey to another resource~\citep{Dunne2002, Eklof2006,Baumgartner2015}. However, a well-connected network also includes more pathways through which a disturbance can spread~\citep{Dunne2004,Vieira2015}.
     Depending on the strength and arrangements of interactions, this means that species may be impacted through several paths, amplifying the original disturbance and causing more secondary extinctions.
     The net effect of connectance on extinction therefore likely depends on finer-scale network structure, as well as the type and severity of disturbance.
     
@@ -478,17 +478,17 @@ $^\dagger$ Corresponding author\\
 
 \section*{Figures}
     
-            
     \begin{figure}[hb!]
         \centering
-        \includegraphics[width=0.85\textwidth]{figures/prop_lmer_allCS.pdf}
-        \caption{The effect of proportion of the role (x-axis) made up by various motifs (columns) on persistence (y-axis). The effect of participating in each motif is based on linear mixed-effect models following Equation~\ref{propreq}, except that models for each  disturbance level are fitted separately. The different colored lines indicate the probability of extinction of basal species, from $\pi_{disturbed} = 0.1$ (top, purple; no disturbance) to $\pi_{disturbed} = 0.5$ (bottom, yellow; high disturbance). Note that omnivory made up a smaller proportion of species' roles than other motifs; lines are plotted over the observed ranges of motif participation.}
-    \label{fig:prop_lmer_all}
+        \includegraphics[width=0.85\textwidth]{manuscript/figures/concept_motif.png}
+        \caption{Conceptual figure of a toy food web showing how species with similar degree and trophic level can have different motif participation. }
+    \label{fig:concept}
     \end{figure}
-        
+
+
     \begin{figure}[hb!]
         \centering
-        \includegraphics[width=0.85\textwidth]{figures/persistence_vs_motifs.eps}
+        \includegraphics[width=0.85\textwidth]{figures/persistence_vs_motifs_labs.eps}
         \caption{The effect of proportion of the role (x-axis) made up by various motifs (columns) on persistence (y-axis). The effect of participating in each motif is based on the fixed effects in Equation~\ref{propreq}. The different colored lines indicate the probability of extinction of basal species, from $\pi_{disturbed} = 0.1$ (top, purple; no disturbance) to $\pi_{disturbed} = 0.5$ (bottom, yellow; high disturbance). 95\% confidence intervals for each line are shown in grey. Note that omnivory made up a smaller proportion of species' roles than other motifs; lines are plotted over the observed ranges of motif participation.}
     \label{fig:prop_lmer_all}
     \end{figure}
