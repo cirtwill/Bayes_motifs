@@ -187,12 +187,15 @@ $^\dagger$ Corresponding author\\
         A middle‐ground approach for simulating secondary extinctions is to use Bayesian networks \citep{Eklof2013}. 
         In this framework, a consumer's probability of extinction depends on the fraction of resources lost and on a baseline probability of extinction which captures causes unrelated to the network structure (e.g., disease, stochastic extinction of small populations).
         Modelling Bayesian networks is fast and computationally efficient, allowing analysis of networks with high species richness \citep{Haussler2020}. 
-        This increased speed allows us to simulate a range of disturbance severity rather than single species removals as in many previous studies~\citep{}.
-        Moreover, Bayesian network simulations are less parameter-intensive than dynamical models, meaning that they are less sensitive to assumptions made in the modelling process~\citep{}.
+        This increased speed allows us to simulate a range of disturbance severity rather than single species removals as in many previous studies~\citealp[e.g.,]{Memmott2004,Staniczenko2010,Dunne2004,Cirtwill2021_inprep}.
+        Moreover, Bayesian network simulations are less parameter-intensive than dynamical models, meaning that they are less sensitive to assumptions made in the modelling process~\citep{Eklof2013}.
         
         As consumers do not affect the extinction probabilities of their resources, Bayesian networks can only capture bottom-up effects of disturbances within networks. 
         However, Bayesian networks do capture the majority of secondary extinctions captured by dynamical models \citep{Eklof2013}.
-        [[Something about strong bottom-up effects in empirical studies]]
+        Moreover, bottom-up effects are often strong in empirical systems.
+        For example, bottom-up effects regulate zoo-plankton communities in freshwater lakes, regulating zoo-plankton communities \citep{li2020bottom} and control abundances and biomass of vertebrate species in several terrestrial systems \citep{Dobson2009food, Mduma1999food, Georgiadis2007}.
+    
+    
     	To make the simulated networks compatible with the Bayesian simulation framework, all networks were rendered acyclic following~\citet{Allesina2009functional} and topologically sorted from lowest to highest trophic level (Appendix \emph{S1}).
     	These processing steps allow the strictly bottom-up calculation of probability of persistence.
     	
@@ -480,8 +483,8 @@ $^\dagger$ Corresponding author\\
     
     \begin{figure}[hb!]
         \centering
-        \includegraphics[width=0.85\textwidth]{manuscript/figures/concept_motif.png}
-        \caption{Conceptual figure of a toy food web showing how species with similar degree and trophic level can have different motif participation. }
+        \includegraphics[width=1.0\textwidth]{manuscript/figures/concept_motifs_ab.png}
+        \caption{Conceptual figure of a toy food web. \textbf{a)} This web contains examples of the four motifs present in an acyclic Bayesian network; apparent competition (blue), three-species chain (purple), omnivory (green), and direct competition (yellow). Note that the nodes participate in more motifs than the ones highlighted. \textbf{b)} In the same food web, species with similar degree and trophic level can have different motif participation; here species A (light grey node with links in the same motif colored light grey) participates in only two chains while species B (dark grey node with its direct consumption links colored dark grey) participates in chains more than tree times more frequently. Inserted table shows the number of times A and B, respectively, participate in the four different motifs.}
     \label{fig:concept}
     \end{figure}
 
