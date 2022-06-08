@@ -30,6 +30,13 @@ colors.add_color(253,174,97,'Rorange1')
 colors.add_color(244,109,67,'Rorange2')
 colors.add_color(213,62,79,'Rred1')
 colors.add_color(158,1,66,'Rred2')
+colors.add_color(204,199,242,'Gpurple')
+colors.add_color(210,246,249,'Gblue')
+colors.add_color(192,244,235,'Ggreen')
+colors.add_color(211,250,204,'Ggreen2')
+colors.add_color(240,255,222,'Ggreen3')
+colors.add_color(245,245,221,'Gyellow')
+
 
 # colors.add_color(120,120,120,'grey')
 # colors.add_color(255,125,125,'lightish_red')
@@ -127,7 +134,7 @@ def populate_graph(graph,motif,lmdict):
     uperr=graph.add_dataset(upper)
     uperr.symbol.shape=0
     uperr.line.linestyle=0
-    uperr.fill.configure(type=2,color=4,pattern=1)
+    uperr.fill.configure(type=2,color=j+11,pattern=1)
 
     derr=graph.add_dataset(lower)
     derr.symbol.shape=0
