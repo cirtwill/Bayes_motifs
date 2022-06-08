@@ -151,9 +151,13 @@ consumers$netID=paste(consumers$Size,consumers$Connectance,consumers$Network,sep
     # R2omni=r.squaredGLMM(propomni_lmer1,null=lmer(consumers$Persistence~(1|Global)))
     # Random intercepts for S:C and network ID. Conclusions same as above.
     propchain_lmer1_randnet<-with(consumers,lmer(Persistence~scale(prop_chain)*scale(Disturbance)+(1|Global)+(1|netID)))
+    write.table(summary(propchain_lmer1_randnet)$coefficients,file='chain_lm.tsv',sep='\t')
     propapparent_lmer1_randnet<-with(consumers,lmer(Persistence~scale(prop_apparent)*scale(Disturbance)+(1|Global)+(1|netID)))
+    write.table(summary(propapparent_lmer1_randnet)$coefficients,file='apparent_lm.tsv',sep='\t')
     propdirect_lmer1_randnet<-with(consumers,lmer(Persistence~scale(prop_direct)*scale(Disturbance)+(1|Global)+(1|netID)))
+    write.table(summary(propdirect_lmer1_randnet)$coefficients,file='direct_lm.tsv',sep='\t')
     propomni_lmer1_randnet<-with(consumers,lmer(Persistence~scale(prop_omni)*scale(Disturbance)+(1|Global)+(1|netID)))
+    write.table(summary(propomni_lmer1_randnet)$coefficients,file='omnivory_lm.tsv',sep='\t')
 
     R2chain_randnet=r.squaredGLMM(propchain_lmer1_randnet,null=lmer(consumers$Persistence~(1|Global)+(1|netID)))
     R2app_randnet=r.squaredGLMM(propapparent_lmer1_randnet,null=lmer(consumers$Persistence~(1|Global)+(1|netID)))
