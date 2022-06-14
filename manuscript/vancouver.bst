@@ -1091,7 +1091,6 @@ FUNCTION {format.vol.num}
     }
   if$ *
 }
-
 FUNCTION {format.vol.num.pages}
 { volume field.or.null
   duplicate$ empty$ 'skip$
@@ -1099,16 +1098,6 @@ FUNCTION {format.vol.num.pages}
       "volume" bibinfo.check
     }
   if$
-  number "number" bibinfo.check duplicate$ empty$ 'skip$
-    {
-      swap$ duplicate$ empty$
-        { "there's a number but no volume in " cite$ * warning$ }
-        'skip$
-      if$
-      swap$
-      "(" swap$ * ")" *
-    }
-  if$ *
   format.journal.pages
 }
 
