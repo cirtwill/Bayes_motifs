@@ -298,7 +298,8 @@ $^\dagger$ Corresponding author\\
        Persistence was not significantly related to the proportion of the three-species chain motif (Figure~\ref{fig:prop_lmer_all}; upper lines in each panel).
             
             
-        At high levels of disturbance, a species' persistence decreased as the proportion of the three-species chain in its motif profile increased. Persistence increased as the proportion of any other motif increased (Figure~\ref{fig:prop_lmer_all}; lower lines in each panel). 
+        At high levels of disturbance, a species' persistence decreased as the proportion of the three-species chain in its motif profile increased.
+        Persistence increased as the proportion of any other motif increased (Figure~\ref{fig:prop_lmer_all}; lower lines in each panel). 
         This means that increased disturbance strengthened the effects of the three-species chain motif and changed the direction of the effect of the apparent competition motif  (Figure~\ref{fig:prop_lmer_all}, Table S1, \emph{Appendix S4}).
         The relationship between omnivory and persistence was still positive but weaker at higher levels of disturbance, and the relationship between persistence and direct competition was largely unaffected by disturbance.
 
@@ -313,8 +314,10 @@ $^\dagger$ Corresponding author\\
         Species with higher in-degree tended to have higher frequencies of participation in the omnivory motif. Proportions of the other three motifs tended to decline with increasing degree.
         Species with higher trophic levels tended to have higher proportions of apparent competition and three-species chains. 
         % Updated with network-level random effect. No visible change.   
-        A species' persistence varies with both species in-degree and trophic level (Fig.~\ref{fig:motifs_vs_TL_and_deg}; \emph{Appendix S6}). Increased trophic level is generally associated with decreasing species persistence, although the rate of decline is slower at high disturbance (Table S3, \emph{Appendix S6}).
+        A species' persistence varies with both species in-degree and trophic level (Fig.~\ref{fig:motifs_vs_TL_and_deg}; \emph{Appendix S6}). 
+        Increased trophic level is generally associated with decreasing species persistence, although the rate of decline is slower at high disturbance (Table S3, \emph{Appendix S6}).
         In-degree shows an even stronger interaction with disturbance; having more prey species is associated with higher persistence without disturbance, but lower persistence at high levels of disturbance.
+        
         
         \subsubsection*{Consistency in effects of motif participation on species persistence}
     
@@ -367,7 +370,7 @@ $^\dagger$ Corresponding author\\
     
     
     % Degree and TL are both important for omnivory
-    The relationship between participation in the omnivory motif and persistence connects motif participation with both in-degree and trophic level.
+    The relationship between participation in the omnivory motif and persistence connects motif participation with both in-degree and trophic level (STL).
     Species participation in the omnivory motif was associated with greater persistence, especially at low levels of disturbance.
     This is consistent with a strong negative correlation between omnivory and trophic level (leading to the overall positive effect of omnivory) and a strong positive correlation with in-degree (leading to the reduced benefit of omnivory at high levels of disturbance). 
     Motifs can thus act as a tool for synthesizing the information provided by other measures of a species' place in its community and for understanding the interactions among these measures.
@@ -403,7 +406,7 @@ $^\dagger$ Corresponding author\\
     Thus, the ideal situation appears to be being a highly omnivorous species in a low-omnivory setting. 
     
     % High C webs and omnivory
-    Supporting this possibility, species participate more frequently in the omnivory motif in high-connectance networks and the relationship between persistence and participation in the omnivory motif is more strongly positive (Fig.~\ref{fig:density_prop_C}) as in~\cite{McLeod2021}.
+    Supporting this possibility, species participate more frequently in the omnivory motif in high-connectance networks and the relationship between persistence and participation in the omnivory motif is more strongly positive (Fig.~\ref{fig:density_prop_C}) as in~\citet{McLeod2021}.
     These networks contain many pathways by which a bottom-up disturbance can propagate through the network, leading to stronger effects of disturbance on consumers (Table S6; \emph{Appendix S10}).
     In such a network, it may be especially beneficial for a species to feed on multiple trophic levels and, in a sense, spread its risk of losing prey to bottom-up effects.
     Although species in our model cannot swap prey, the reduced extinction risk for omnivorous species resembles empirical studies showing that adaptive omnivory can increase the permanence of three-species chains~\citep{Fagan1997, Kvrivan2005, AbramsFung2010}.
@@ -419,7 +422,7 @@ $^\dagger$ Corresponding author\\
     adding an extra dimension of information which we do not consider here.
     
     In summary, our results show that participating in different three-species motifs is related to a species' risk of extinction following a bottom-up disturbance, and that these relationships synthesize information provided by other, simpler measures of species roles.
-    Most interestingly, our results also underscore the importance of considering the level of disturbance when identifying which species are most at risk of extinction.
+    Critically, our results also underscore the importance of considering the level of disturbance when identifying which species are most at risk of extinction.
     There were strong interactions between the level of disturbance and the relationships between persistence and multiple measures of species roles (motifs and in-degree).
     These simulated results echo other warnings about `tipping points' where previously beneficial traits can become risky~\citep{Latty2019,Golubski2016,Tylianakis2014}.
     For example, at low levels of disturbance a high degree may be protective since species can compensate if one or a few prey are lost. 
@@ -444,8 +447,9 @@ $^\dagger$ Corresponding author\\
         \begin{figure}[hb!]
         \centering
         \includegraphics[width=1.0\textwidth]{manuscript/figures/concept_fig_ver2.png}
-        \caption{Conceptual figure of a toy food web. \textbf{a)} This food web contains examples of the four motifs (present in an acyclic directed networks): apparent competition (blue), three-species chain (purple), omnivory (green), and direct competition (yellow). These motifs capture different ways in which disturbances to basal resources can propagate through the network. For example, a disturbance to the bottom species in a three-species chain will have a direct effect on the middle species but only indirectly affect the top species while a disturbance to the bottom species in an omnivory motif will have a direct effect on the middle species and direct and indirect effects on the top species. 
-        Note that the nodes participate in more motifs than the ones highlighted. \textbf{b)} In the same food web, species with similar degree and trophic level can have different motif participation; here species A (light grey node with links in the same motif colored light grey) participates in only two chains while species B (dark grey node with its direct consumption links colored dark grey) participates in chains more than tree times more frequently. Inserted table shows the number of times A and B, respectively, participate in the four different motifs. This example highlight that species A may then have a higher risk of going secondary extinct due to its dependence on specialist prey species, compared to species B who depends om generalist prey species. This relationships are captured by the species motif profiles, but not their trophic level or degree.}
+        \caption{Conceptual figure of a toy food web. \textbf{a)} This food web contains examples of the four motifs: apparent competition (blue), three-species chain (purple), omnivory (green), and direct competition (yellow). These motifs capture different ways in which disturbances to basal resources can propagate through the network. For example, a disturbance to the bottom species in a three-species chain will have a direct effect on the middle species but only indirectly affect the top species while a disturbance to the bottom species in an omnivory motif will have a direct effect on the middle species and direct and indirect effects on the top species. 
+        Note that the nodes participate in more motifs than the ones highlighted. \textbf{b)} In the same food web, species with identical degree and trophic level can have different motif participation; here species A (light grey node with links in the same motif colored light grey) participates in only two chains while species B (dark grey node with its direct consumption links colored dark grey) participates in chains more than tree times more frequently (see inserted table for counts of participation in all four motifs). 
+        Despite having equal degree and trophic level, species A may be at greater risk of going extinct than species B because of its dependence on specialist prey species. Two-thirds of the prey of species B are generalists and therefore more likely to survive a disturbance to basal resources. By including information about indirect interactions, motif profiles reflect this difference between species A and B while trophic level and degree do not.}
     \label{fig:concept}
     \end{figure}
 
