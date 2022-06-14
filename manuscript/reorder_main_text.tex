@@ -9,7 +9,7 @@
 \usepackage{setspace}
 \usepackage[running]{lineno} 
 % \usepackage[numbers,sort]{natbib}
-\usepackage[round]{natbib} 
+\usepackage[numbers]{natbib} 
 \usepackage{array}
 \usepackage[table]{xcolor}
 \usepackage{xr}
@@ -197,7 +197,7 @@ $^\dagger$ Corresponding author\\
 		
 	\subsection*{Initial network construction}
 
-		We generated a realistic set of simulated networks based on the niche model~\citep{Williams2000,Stouffer2007} using the function ``nichemodel'' within the Julia~\citep{Bezanson2017julia} package \emph{BioEnergeticFoodWebs}~\citep{bioenergfw}. 
+		We generated a realistic set of simulated networks based on the niche model~\citep{Williams2000,Stouffer2007} using the function ``nichemodel'' within the Julia~\citep{Bezanson2017julia} package \emph{BioEnergeticFoodWebs}~\citep{bioenergfw,Delmas2017}. 
 		To capture a range of plausible network architectures, we simulated networks with sizes (S) ranging from 50 to 100 species (in steps of 10) and connectances (C) ranging from 0.02 to 0.18 (in steps of 0.04). 
 		For full details and a comparison to empirical networks, see \emph{Appendix S1}.
 		We removed any biologically unlikely networks (Appendix \emph{S1}) and replaced them with new simulated networks, repeating the process until we obtained 100 suitable networks in each combination of size and connectance.
@@ -520,7 +520,7 @@ $^\dagger$ Corresponding author\\
 % "probability of extinction" or "level of disturbance" for the different disturbace scenarios?
 
 
-\bibliographystyle{ecollett} 
+\bibliographystyle{unsrtnat} 
 \bibliography{anna_bib_new} % Abbreviate journal titles.
 
 \end{spacing}
