@@ -71,6 +71,14 @@ $^\dagger$ Corresponding author:\\
 
     \begin{enumerate}
     
+        \item Calculating persistence
+
+            \begin{itemize}
+                \item Details on functional response of consumers
+                \item Contains Eqn. S1
+            \end{itemize}    
+            
+
         \item Network creation \\
         
             \begin{itemize}
@@ -81,14 +89,6 @@ $^\dagger$ Corresponding author:\\
             \end{itemize}
             
             
-        \item Calculating persistence
-
-            \begin{itemize}
-                \item Details on functional response of consumers
-                \item Contains Eqn. S1
-            \end{itemize}    
-            
-        
         \item Statistical analysis
 
             \begin{itemize}
@@ -156,6 +156,62 @@ $^\dagger$ Corresponding author:\\
 \end{spacing}
 \clearpage
 
+\linenumbers
+\section{Calculating persistence}        
+
+        We use Bayesian network modelling to calculate the persistence of each species in our simulated networks. 
+        A Bayesian network represents a graphical model for probabilistic relationships among a set of variables. 
+        In our ecological setting, the nodes of the network represent species and links represent feeding interactions between species.
+        In network-theory terms, the species are Bernoulli random variables, and the links represent conditional dependencies among these variables. 
+        Each node has a set of local probability dependencies, conditional on the state of the parent nodes. 
+        Since the nodes are species, their state can be either extant or extinct.
+        The extinction probability of each species is a function of the state of its resources and also depends on a baseline probability of extinction ($\pi$) representing risk of extinction due to factors unrelated to network structure.
+        In our baseline scenario, basal resources had a baseline extinction probability of $\pi = 0.1$. 
+        We also simulated a set of scenarios where basal resources had a higher baseline probability of extinction ($\pi$). 
+        These scenarios reflect threats to basal resources such as increased temperatures resulting in droughts, making some species more vulnerable to extinction.
+        $\pi$ ranged between $0.1-0.5$, in steps of $0.08$. 
+        The highest disturbance level, $\pi = 0.5$, corresponds to basal species having a 50\% risk of going extinct. 
+        Consumer species retained $\pi=0.1$ in all cases.
+
+
+    \subsection{Functional response of consumers}
+
+        The response of a consumer to the loss of a fraction of its resources can be modelled in several biologically plausible ways: i) a topological response, where the consumer's probability of extinction is constant unless all resources are lost, ii) a linear response, in which the extinction probability increases linearly with resources loss, and iii) several nonlinear responses where the probability of extinction increases non-linearly with the fraction resource lost. 
+        The extinction probability will differ depending on the response function.
+        
+        
+        A sigmoid non-linear functional response of consumers to the loss of resources ($\alpha >1, \beta >1$) has been shown to most accurately capture the secondary extinctions produced by a dynamical model~\citep{Eklof2013}.
+        Therefore, we use a cumulative density function of a beta distribution to get each species \textit{i} probability of extinction:
+        \begin{equation}
+        \label{betafunc}
+        P(\lnot i|f) = \pi + (1 - \pi) \frac{B(f;\alpha,\beta)}{B(\alpha,\beta)}
+        \end{equation}
+        
+
+        \noindent If all resource species of a consumer \textit{C} are present ($f = 0$), the extinction probability will be $P(\lnot C|f) = \pi$. 
+        Similarly, if all resources are extinct ($f = 1$), the extinction probability $P(\lnot C|f)$ will be equal to 1 and the consumer will go extinct.
+        If the fraction $f$ is not 1 nor 0, the non-linear sigmoid curve will determine the response of the consumer, which will be more severe if the fraction resources lost is high and less severe if the fraction is small. This will in turn affect the extinction probability $P(\lnot C|f)$. 
+        For a basal species, we assume that abiotic resources are always available. Therefore, a primary producer is independent of resource species and will always have $f = 0$.  
+        
+
+        As consumer species depend on their resources, we start by determining the status of each primary producer in the network.
+        Systematically, we use Equation \ref{betafunc} to calculate each species' probability of extinction $P(\lnot i|f)$, and then perform Bernoulli trials to determine whether the species goes extinct or not. 
+        Imagine a basal species \textit{A} with extinction probability $P(\lnot A) = \pi$ where $\pi = 0.1$. We draw a random number $r$ from a uniform distribution between $0-1$. The basal species would be considered extinct if $r < 0.1$, and extant otherwise. 
+        
+        
+        We then insert the simulated fraction of species lost into Equation \ref{betafunc} to calculate $P(\lnot C|f)$ for the consumer species \textit{C}. 
+        In the same manner as for the basal species above, we compare $P(\lnot C|f)$ with a random number $r$, and if $r < P(\lnot C|f)$ the consumer species is considered extinct. 
+        In this way, we evaluate each species existence, starting from the bottom and working our way up.
+        
+        
+        As this method is probabilistic, we repeat these calculations 100 000 times per network, with unique random draws.
+        For each species, we then estimate the fraction of simulations in which the species persist, and this value is the approximated probability of persistence.
+        To approximate persistence probabilities through numerical simulation are shown to be highly efficient and produce the same result as exact methods of solving Bayesian networks \citep{Haussler2020}.
+        
+        
+\clearpage
+
+
 \section{Network creation}
 
     \subsection*{Generation of simulated networks}
@@ -195,8 +251,6 @@ $^\dagger$ Corresponding author:\\
         Next, we ordered the species from lowest to highest trophic level using a topological sorting routine following \citet{Tarjan1972} and \citet{Allesinaetal2005}, ensuring that probability calculations follow a strict bottom-up order. 
         After these steps, calculations of persistence probabilities can begin.
         
-\clearpage
-
 
     \subsection*{Comparison of empirical and simulated networks}
     
@@ -242,62 +296,8 @@ $^\dagger$ Corresponding author:\\
       Improved resolution at the basal level should improve the correspondence between simulated and empirical webs and allow better modelling of empirical communities.
     
 
-        
-        
+\clearpage        
 
-\section{Calculating persistence}        
-
-        We use Bayesian network modelling to calculate the persistence of each species in our simulated networks. 
-        A Bayesian network represents a graphical model for probabilistic relationships among a set of variables. 
-        In our ecological setting, the nodes of the network represent species and links represent feeding interactions between species.
-        In network-theory terms, the species are Bernoulli random variables, and the links represent conditional dependencies among these variables. 
-        Each node has a set of local probability dependencies, conditional on the state of the parent nodes. 
-        Since the nodes are species, their state can be either extant or extinct.
-        The extinction probability of each species is a function of the state of its resources and also depends on a baseline probability of extinction ($\pi$) representing risk of extinction due to factors unrelated to network structure.
-        In our baseline scenario, basal resources had a baseline extinction probability of $\pi = 0.1$. 
-        We also simulated a set of scenarios where basal resources had a higher baseline probability of extinction ($\pi$). 
-        These scenarios reflect threats to basal resources such as increased temperatures resulting in droughts, making some species more vulnerable to extinction.
-        $\pi$ ranged between $0.1-0.5$, in steps of $0.08$. 
-        The highest disturbance level, $\pi = 0.5$, corresponds to basal species having a 50\% risk of going extinct. 
-        Consumer species retained $\pi=0.1$ in all cases.
-
-
-    \subsection{Functional response of consumers}
-
-        The response of a consumer to the loss of a fraction of its resources can be modelled in several biologically plausible ways: i) a topological response, where the consumer's probability of extinction is constant unless all resources are lost, ii) a linear response, in which the extinction probability increases linearly with resources loss, and iii) several nonlinear responses where the probability of extinction increases non-linearly with the fraction resource lost. 
-		The extinction probability will differ depending on the response function.
-        
-        
-        A sigmoid non-linear functional response of consumers to the loss of resources ($\alpha >1, \beta >1$) has been shown to most accurately capture the secondary extinctions produced by a dynamical model~\citep{Eklof2013}.
-        Therefore, we use a cumulative density function of a beta distribution to get each species \textit{i} probability of extinction:
-        \begin{equation}
-        \label{betafunc}
-        P(\lnot i|f) = \pi + (1 - \pi) \frac{B(f;\alpha,\beta)}{B(\alpha,\beta)}
-        \end{equation}
-        
-
-        \noindent If all resource species of a consumer \textit{C} are present ($f = 0$), the extinction probability will be $P(\lnot C|f) = \pi$. 
-        Similarly, if all resources are extinct ($f = 1$), the extinction probability $P(\lnot C|f)$ will be equal to 1 and the consumer will go extinct.
-        If the fraction $f$ is not 1 nor 0, the non-linear sigmoid curve will determine the response of the consumer, which will be more severe if the fraction resources lost is high and less severe if the fraction is small. This will in turn affect the extinction probability $P(\lnot C|f)$. 
-        For a basal species, we assume that abiotic resources are always available. Therefore, a primary producer is independent of resource species and will always have $f = 0$.  
-        
-
-        As consumer species depend on their resources, we start by determining the status of each primary producer in the network.
-        Systematically, we use Equation \ref{betafunc} to calculate each species' probability of extinction $P(\lnot i|f)$, and then perform Bernoulli trials to determine whether the species goes extinct or not. 
-        Imagine a basal species \textit{A} with extinction probability $P(\lnot A) = \pi$ where $\pi = 0.1$. We draw a random number $r$ from a uniform distribution between $0-1$. The basal species would be considered extinct if $r < 0.1$, and extant otherwise. 
-        
-        
-        We then insert the simulated fraction of species lost into Equation \ref{betafunc} to calculate $P(\lnot C|f)$ for the consumer species \textit{C}. 
-        In the same manner as for the basal species above, we compare $P(\lnot C|f)$ with a random number $r$, and if $r < P(\lnot C|f)$ the consumer species is considered extinct. 
-        In this way, we evaluate each species existence, starting from the bottom and working our way up.
-        
-        
-        As this method is probabilistic, we repeat these calculations 100 000 times per network, with unique random draws.
-        For each species, we then estimate the fraction of simulations in which the species persist, and this value is the approximated probability of persistence.
-        To approximate persistence probabilities through numerical simulation are shown to be highly efficient and produce the same result as exact methods of solving Bayesian networks \citep{Haussler2020}.
-        
-        
-\clearpage
         
 \section{Statistical analysis}
 
