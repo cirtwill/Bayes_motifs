@@ -1,0 +1,143 @@
+%%% canterbury-letter.sty - University of Canterbury style (for letter class)
+%%  1995/10/23 - Convert to LaTeX2e, add Stanford logo
+%% 1999/11/29 - modified to make more general (Emma Pease)
+%% 2000/03/18 - added black and white logo option bw-logo (Christoper Manning)
+%% 2000/09/01 - put in no-logo and britdate options (Christopher Manning)
+%% 2011/05/06 - made this baby mine (Daniel B. Stouffer)
+
+% What the user can define:
+% \mailcode{mailcode}  
+% \zipcode{zipcode}  only define if not in 94305
+% \address{855 Serra Street\\ Stanford University\\ Stanford, CA 94305-4115}
+%  \address supercedes \location, \department, and \telephone
+% \location{Room 374}  acts as a modifier to the Standard Institutional address
+% \department{Department of XXX}  department name
+% \telephone{phone number} 
+% \name{Sender's name}  required
+
+% Class options:
+% color-logo: print the logo in color
+%% bw-logo: print the logo in black and white, not color
+% no-logo: include no logo nor ``Stanford University'' text -- for printing
+%               on real letterhead
+% addressright: Place your address indented to right with date, not on
+%               the left margin
+% britdate: format the address day month year, not month day, year
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{UH-letter}[2019/01/21 UH letterhead]
+\RequirePackage[dvips]{graphicx}
+\RequirePackage[export]{adjustbox}
+
+\def\logo{                      %create Logo and from address
+\null\vspace{-60pt}\begingroup
+{\head}
+\vspace{-10pt}
+\endgroup\par}
+
+\def\completeaddress{\hbox{\vtop{\hsize=1\textwidth\small\rm%
+                   \fromaddress}}\hfill
+                   \hbox{\@date}}
+
+% sets the default header image at the top
+\def\head{\includegraphics[width=0.5\columnwidth,right]{HY_logo_Eng}}
+
+% sets the image for a signature
+
+\def\signature{\includegraphics[width=0.135\columnwidth]{alyssa-sig}}
+
+%+cm
+\DeclareOption{no-logo}{\def\logo{}}
+\DeclareOption{no-signature}{\def\signature{}}
+
+\DeclareOption{addressright}{\def\completeaddress{\hspace*{\longindentation}
+\parbox{\indentedwidth}{\raggedright {\small\rm%
+                   \fromaddress}\\[2ex]
+                   \mbox{\@date}}}}
+
+\DeclareOption{britdate}{\renewcommand*{\today}{\number\day\space
+   \ifcase\month\or
+   January\or February\or March\or April\or May\or June\or
+   July\or August\or September\or October\or November\or December\fi
+   \space\number\year}}
+
+\ProcessOptions
+
+% increase the indent for right stuff a little to 55%
+\longindentation=.55\textwidth
+\indentedwidth=\textwidth
+\advance\indentedwidth -\longindentation
+
+\newcommand*{\position}[1]{\def\fromposition{#1}}
+\newcommand*{\url}[1]{\def\fromurl{#1}}
+\newcommand*{\email}[1]{\def\fromemail{#1}}
+\newcommand*{\fax}[1]{\def\faxnum{#1}}
+\newcommand*{\department}[1]{\def\deptname{#1}}
+\newcommand*{\institute}[1]{\def\instname{#1}}
+\newcommand*{\cityzip}[1]{\def\cityzipinfo{#1}}
+\newcommand*{\street}[1]{\def\streetname{#1}}
+
+
+\position{Postdoctoral fellow}
+\url{http://cirtwill.github.io}
+\telephone{\\}
+\fax{\\}
+\email{alyssa.cirtwill@helsinki.fi}
+\institute{University of Helsinki}
+\street{\\}
+\cityzip{Helsinki, Finland}
+%customization for letter format
+\oddsidemargin   5pt %0.004cm      % Left margin on odd-numbered pages.
+\evensidemargin  5pt %0.004cm      % Left margin on even-numbered pages.
+\textwidth 445pt
+\textheight 630pt
+\topmargin -40pt
+
+\ifx\fromaddress\@empty         %create default address
+\def\fromaddress{{\sffamily{\scriptsize \fromname \vspace*{-3pt} \\
+      \fromposition
+      \vspace*{5pt} \\
+      \ifx\deptname\@empty \else \deptname \fi
+      \ifx\telephonenum\@empty \vspace*{-3pt} \\ \else
+      \hfill Phone~~\telephonenum \vspace*{-3pt} \\ \fi
+      \ifx\instname\@empty University of Helsinki \else \instname \fi
+      %\ifx\faxnum\@empty \vspace*{-3pt} \\ \else
+      %\hfill Fax~~\faxnum \vspace*{-3pt} \\ \fi
+      \hfill \fromemail \vspace*{-3pt} \\
+      \ifx\streetname\@empty \vspace*{-3pt} \else \streetname \fi
+      \ifx\fromurl\@empty  \else \hfill \fromurl \fi \vspace*{-3pt}\\
+      \ifx\cityzipinfo\@empty  \else \cityzip \fi
+  }}}
+\fi
+
+\def\ps@headings{\def\@oddhead{\rm To \ignorespaces\toname \hfil \today
+    \hfil Page \thepage}\def\@oddfoot{}}
+
+\def\@texttop{\vskip 0pt}
+
+\def\opening#1{\logo            %Create all up to start of
+                                        % text
+   \vspace{-42pt}
+   \completeaddress\par
+  \thispagestyle{empty} 
+  \vspace{-\parskip}
+  {\raggedright \toname \\ \toaddress \par}%
+  \vspace{.5\parskip}%
+  #1\par\nobreak}
+
+\def\closing#1{\par\nobreak\vspace{\parskip}%
+  \stopbreaks
+  \noindent
+  \ifx\@empty\fromaddress\else
+  \hspace*{\longindentation}\fi
+  \parbox{\indentedwidth}{\raggedright
+       \ignorespaces #1\\[6\medskipamount]%
+       \ifx\@empty\fromsig
+           \fromname
+       \else \fromsig \fi\strut}%
+   \par
+   \vspace*{-2.4cm}\hspace*{7.2cm}
+   \signature
+   }
+
+
