@@ -82,7 +82,7 @@ for (i in 1:length(species)){
                 # persistence calculations
                 persistence <- tibble(
                     sp_no=rownames(A), ## species numbers
-                    per = bayes_ntw_MC(A, Pb, 1, 1, 100000) %>% # input: number of species, 
+                    per = bayes_ntw_MC(A, Pb, 3, 3, 100000) %>% # input: number of species, 
                                                                 # probability of extinction vector, 
                                                                 # alpha and beta for the functional response of consumers, 
                                                                 # 100k evals of BN
@@ -100,7 +100,7 @@ for (i in 1:length(species)){
                 } else{
                     collect <- bind_rows(collect, df2)
                 }
-                save(collect, file=paste0("Results_restricted/Linear/", sp_no, "/", connectance, "/TESTweb_",web_no, ".RData"))
+                save(collect, file=paste0("Results_restricted/Nonlinear/", sp_no, "/", connectance, "/TESTweb_",web_no, ".RData"))
             }
         }
     }
