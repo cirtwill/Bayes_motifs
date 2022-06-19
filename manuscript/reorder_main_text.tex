@@ -91,7 +91,7 @@ $^\dagger$ Corresponding author\\
     
     Species-level properties known to affect species' responses to disturbances include trophic level (a measure of the path length between a consumer and a basal resource) and in-degree (number of prey items of a predator). 
     These can also be referred to as local properties of the network.
-    Species with high trophic levels (long paths to basal resources) and low in-degree (few prey) are generally at higher risks of secondary extinction \citep{binzer2011susceptibility, Eklof2006}, and disturbances to plant populations cause particularly many secondary extinctions \citep{Curtsdotter2011}. %including secondary extinction due to reduced plant populations.
+    Species with high trophic levels (long paths to basal resources) and low in-degree (few prey) are generally at higher risks of secondary extinction \citep{binzer2011susceptibility, Eklof2006}, and disturbances to plant populations cause particularly many secondary extinctions \citep{Curtsdotter2011}. 
     However, in-degree and trophic level are both relatively coarse descriptions of a species' role in its food web~\citep{Cirtwill2018FoodWebs}. 
     A more detailed perspective is desirable since, as well as the properties of the consumer itself, a consumer's risk of secondary extinction after a disturbance to plants depends on the extinction risk of its prey.
     For example, a generalist consuming many specialist (and therefore high-risk) prey may be at greater risk of extinction than a specialist which consumes a highly generalist resource that is less likely to go extinct (Fig.~\ref{fig:concept}).
@@ -120,7 +120,7 @@ $^\dagger$ Corresponding author\\
 
 
 %\subsection*{Here we test...}
-    Here, we are interested in whether a consumer's extinction risk of going secondarily extinct depends on 1) the motifs in which the species participates, 2) the motif profile of the full food web and 3) the severity of the disturbance to the basal level. %We address this in scenarios with various levels of disturbance targeting the basal level.
+    Here, we are interested in whether a consumer's extinction risk of going secondarily extinct depends on 1) the motifs in which the species participates, 2) the motif profile of the full food web and 3) the severity of the disturbance to the basal level. 
     In addition, we want to understand how the information provided by motifs is related to other global and local food web properties in order to better synthesize information provided by different scales of network structure.
     We use synthetic networks and model secondary extinctions using Bayesian networks \citep{Eklof2013, Haussler2020}. 
     As Bayesian networks are computationally efficient (see Methods), we are able to simulate a wide range of disturbance intensities and test whether meso-scale network structure also interacts with severity of the disturbance.
@@ -290,7 +290,7 @@ $^\dagger$ Corresponding author\\
 \section*{Results}
 
     \subsection*{Species persistence and motif participation} 
-    % Coefficients changed slightly with network-level random effect, but conclusions similar
+    
        The relationship between frequency of participation in a motif and a species' probability of persistence depended on the level of disturbance. 
        When disturbance ($\pi$) was low, species' persistence increased with increasing proportions of the omnivory and direct competition motifs. 
        Conversely, persistence decreased with an increasing proportion of the apparent competition motif. 
@@ -303,16 +303,15 @@ $^\dagger$ Corresponding author\\
         The relationship between omnivory and persistence was still positive but weaker at higher levels of disturbance, and the relationship between persistence and direct competition was largely unaffected by disturbance.
 
     \subsection*{Motif participation and other network properties}
-        % Updated with network-level random effect. No visible change.
+        
         Species' motif participation varied depending on the global properties of the network: size, connectance, and their interaction (Fig. S1, Table S2; \emph{Appendix S5}).
         Species appeared most often in the apparent competition motif in all types of networks, but the proportion of apparent competition decreased with increasing network size and connectance.
         The proportion of the omnivory motif in a species' participation role increased sharply with increasing connectance, while the proportion of the direct competition motif increased slightly with increasing network size. 
 
-        % Updated with network-level random effect. No visible change.    
+        
         Species' motif participation also varied with their in-degree and trophic level (Fig.~\ref{fig:motifs_vs_TL_and_deg}).
         Species with higher in-degree tended to have higher frequencies of participation in the omnivory motif. Proportions of the other three motifs tended to decline with increasing degree.
         Species with higher trophic levels tended to have higher proportions of apparent competition and three-species chains. 
-        % Updated with network-level random effect. No visible change.   
         A species' persistence varies with both species in-degree and trophic level (Fig.~\ref{fig:motifs_vs_TL_and_deg}; \emph{Appendix S6}). 
         Increased trophic level is generally associated with decreasing species persistence, although the rate of decline is slower at high disturbance (Table S3, \emph{Appendix S6}).
         In-degree shows an even stronger interaction with disturbance; having more prey species is associated with higher persistence without disturbance, but lower persistence at high levels of disturbance.
@@ -320,7 +319,6 @@ $^\dagger$ Corresponding author\\
         
         \subsubsection*{Consistency in effects of motif participation on species persistence}
     
-            %Update not needed
             When fitting regressions of persistence against motif participation for each network separately, networks with high connectance generally showed more consistent relationships between persistence and motif participation, i.e., sharper peaks of the density distributions (Fig.~\ref{fig:density_prop_C}).
             However, this trend varied at different levels of disturbance, especially for the direct competition and omnivory motifs.
             At low and medium connectances there was little change in the distribution of slopes for direct competition across all levels of disturbance. 
@@ -331,11 +329,11 @@ $^\dagger$ Corresponding author\\
 
 
     \subsection*{Network mean persistence and motif profiles}
-        % Updated to use means instead of all species
+        
         The overall motif profile of a network was related to the average persistence of consumers ($F_{1,2998}$=645, $p$\textless0.001), although this result must be considered tentative due to non-homogeneous distribution of roles (\emph{Appendix S8}). 
         Average persistence was higher in networks with higher proportions of the three-species chain, direct competition, and apparent competition motifs (Table S4, \emph{Appendix S8}). 
         Conversely, average persistence was lower in networks with higher proportions of the omnivory motif. 
-        These trends were consistent across levels of disturbance (Fig.~\ref{fig:motif_profile_persistence}, Table S4), \emph{Appendix S8}).% Network persistence varies between networks with different dispersion of motif profiles ($F_{134,2865}$=2.19$\times10^{24}$, $p$=\textless0.001). For example, networks with more variable motif profiles have higher persistence ($\beta$=0.183, $p$\textless0.001).
+        These trends were consistent across levels of disturbance (Fig.~\ref{fig:motif_profile_persistence}, Table S4), \emph{Appendix S8}).
 
 
     \subsection*{Motif profiles and network properties}
@@ -347,7 +345,6 @@ $^\dagger$ Corresponding author\\
     
 
 
-% Appendices SA (persistence vs. S,C), SH-I (analyses with motif positions), SJ-K (repeated analyses with number of basal resources instead of disturbance) not referred to in text. Keeping SH-K in commented-out form in case reviewers ask. We should refer to SA somewhere in Discussion (will be Appendix 10).
 
 
 \section*{Discussion}
