@@ -159,16 +159,16 @@ for lm in ['apparent','direct','omnivory','chain']:
   graph=populate_graph(graph,lm)
   graph.panel_label.configure(placement='ouc',char_size=1,dx=.03,dy=.01)
 
-grace.multi(rows=2,cols=2,vgap=.03,hgap=.04)
+grace.multi(rows=2,cols=2,vgap=.05,hgap=.04)
 grace.hide_redundant_labels()
-grace.set_row_xaxislabel(label='Connectance',row=1,colspan=(None,None),char_size=1,perpendicular_offset=.05,just=2)
-grace.set_col_yaxislabel(label='Proportion of total motifs',col=0,rowspan=(None,None),char_size=1,perpendicular_offset=.05,just=2)
+grace.set_col_yaxislabel(label='Proportion of total motifs',col=0,rowspan=(None,None),char_size=1,perpendicular_offset=.06,just=2)
 # grace.set_row_xaxislabel(label='Day of year',row=2,colspan=(None,None),char_size=1,perpendicular_offset=.05)
 for graph in grace.graphs:
   print graph.get_view()
-grace.graphs[0].set_view(0.15,0.45,0.53,0.70)
-grace.graphs[1].set_view(0.57,0.45,0.95,0.70)
-grace.graphs[2].set_view(0.15,0.15,0.53,0.40)
-grace.graphs[3].set_view(0.57,0.15,0.95,0.40)
+grace.graphs[0].set_view(0.15, 0.6010588235294116,0.53,0.95)
+grace.graphs[1].set_view(0.57, 0.6010588235294116,0.95,0.95)
+grace.graphs[2].set_view(0.15,0.18211764705882338,0.53,0.5310588235294116)
+grace.graphs[3].set_view(0.57,0.18211764705882338,0.95,0.5310588235294116)
+# grace.add_drawing_object(DrawText,text='Connectance',loctype='view',x=.55,y=0.08,char_size=1,just=2)
 grace.write_file('../manuscript/figures/motif_proportion_lms.eps')
 
