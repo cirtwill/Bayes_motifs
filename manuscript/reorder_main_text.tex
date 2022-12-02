@@ -61,7 +61,7 @@ $^\dagger$ Corresponding author\\
 
     Bottom-up effects of disturbances to basal resources can strongly affect the persistence of consumers, but it is difficult to predict which species will be most affected by increasing disturbance.
     Coarse measures of a species' structural role, like in-degree and trophic level, are known to affect a consumer's vulnerability to bottom-up disturbance.
-    We are interested in whether a richer set of species roles based on participation in three-species motifs is also related to persistence, and how these motif-based roles relate to simpler measures.
+    We are interested in whether a richer set of species roles --based on participation in three-species motifs-- is also related to persistence and how these motif-based roles relate to simpler measures.
     We show that a consumer species' participation in different motifs is related to its probability of persistence. 
     Similarly, the overall motif profile of a network is related to the average persistence of consumer species.
     Notably, we found that networks containing a higher proportion of the `omnivory' motif tend to have lower mean persistence following disturbance, while more frequent participation in the omnivory motif was associated with higher species-level probabilities of persistence.
@@ -81,10 +81,10 @@ $^\dagger$ Corresponding author\\
 
 
     %\subsection*{2 Global and local network properties are known to affect stability}
-    How disturbances, such as population decline or extinction, lead to loss of other species via direct and indirect effects (i.e., secondary extinctions) has long been a vibrant area of research \citep{Santos2021,curtsdotter2011robustness, dunne2009cascading, Eklof2006}.
+    How disturbances such as population decline or extinction lead to the loss of species via direct and indirect effects (i.e., secondary extinctions) has long been a vibrant area of research \citep{Santos2021,curtsdotter2011robustness, dunne2009cascading, Eklof2006}.
     Several global (whole-network) as well as local (single-species) properties are known to influence how species respond to disturbances. Two well-known, influential global properties are network size, the number of species present in the network, and network connectance, the number of realized feeding interactions.
     Based on simulations of random networks, large networks were initially thought to be less stable~\citep{May1972}.
-    The indisputable presence of large, stable, empirical networks has spurred research into how other structural characteristics, including connectance, may allow large numbers of species to persist~\citep{Dunne2002}.
+    The indisputable presence of large, persistent empirical networks has spurred research into how other structural characteristics, including connectance, may allow large numbers of species to persist~\citep{Dunne2002}.
     Highly-connected networks may be more resistant to secondary extinctions because consumers, on average, have access to a larger number of prey species and can switch from a declining or extinct prey to another resource~\citep{Dunne2002, Eklof2006,Baumgartner2015}. However, a well-connected network also includes more pathways through which a disturbance can spread~\citep{Dunne2004, Vieira2015}. Depending on the strength and arrangements of interactions, this means that species may be impacted through several paths, amplifying the original disturbance and causing more secondary extinctions.
     The net effect of connectance on extinction therefore likely depends on finer-scale (species-level) network structure, as well as the type and severity of disturbance.
     
@@ -156,7 +156,7 @@ $^\dagger$ Corresponding author\\
 		
 		If all resource species of a consumer \textit{C} are present ($f = 0$), the extinction probability will be $P(\lnot C|f) = \pi$. 
 		Similarly, if all resources are extinct ($f = 1$), the extinction probability $P(\lnot C|f)$ will be equal to 1 and the consumer will go extinct.
-		If the fraction $f$ is not 1 nor 0, the non-linear sigmoid curve will determine the response of the consumer, which will be more severe if the fraction resources lost is high and less severe if the fraction is small. This will in turn affect the extinction probability $P(\lnot C|f)$.
+		If the fraction $f$ is neither 1 nor 0, the non-linear sigmoid curve will determine the response of the consumer, which will be more severe if the fraction resources lost is high and less severe if the fraction is small. This will in turn affect the extinction probability $P(\lnot C|f)$.
 		For basal resources, we assume that abiotic resources are always available and $f=0$. 
 		Following Equation \ref{betafunc}, the extinction probability of a basal resource will only depend on $\pi$.
 		Note that we here assume that only the fraction, and not the identity, of the resources lost is important. 
@@ -388,7 +388,7 @@ $^\dagger$ Corresponding author\\
     As well as clarifying the relationships between network structure and the effect of bottom-up disturbance on particular species, motifs were also related to the mean probability of persistence across all species in a network.
     In fact, a network's motif profile had a stronger relationship to mean persistence compared to both network size and connectance. 
     This suggests that network motif profiles may be more useful than global network properties when predicting mean extinction risk of species in a network.
-    Connectance did, however, affect which motifs were most common within a network. 
+    Connectance did, however, affect which motifs were most common within a network and therefore cannot be entirely ignored. 
     Highly-connected networks tended to contain higher frequencies of the omnivory motif, which includes more links than the other three-species motifs considered here.
     Global-scale properties may therefore indirectly affect network persistence by changing meso-scale properties, such as the distribution of motifs. 
     
@@ -412,7 +412,7 @@ $^\dagger$ Corresponding author\\
     Most importantly, the Bayesian network framework operates on a strict bottom-up principle and therefore cannot include top-down effects in the extinction risk calculations~\citep{Eklof2013}. 
     Here our focus was to analyze the importance of disturbances to the basal resources, in which case the Bayesian network approach captures a majority of the secondary extinctions obtained in a fully-fledged dynamical model with much greater efficiency~\citep{Eklof2013}.
     If top-down effects are important for a particular empirical system, however, our simulations may not be accurate. 
-    Ongoing work using a dynamical model shows that time to extinction for species following disturbance is tightly coupled to the motifs a species participates in, and that adding top-down effects can lead omnivory to be negatively correlated with persistence \citep{Cirtwill2021_inprep}. 
+    For example, one recent study using a dynamical model shows that time to extinction for species following disturbance is tightly coupled to the motifs a species participates in, and that adding top-down effects can lead omnivory to be negatively correlated with persistence \citep{Cirtwill2021_inprep}. 
     If top-down effects are not crucial, the Bayesian network approach could be extended by explicitly incorporating information on species traits.
     In empirical webs, species traits are related to both motif participation~\citep{cirtwill2018feeding} and extinction risk~\citep{Brose2017, curtsdotter2011robustness, Cardillo2005, Purvis2000},
     adding an extra dimension of information which we do not consider here.
