@@ -9,10 +9,11 @@
 \usepackage{setspace}
 \usepackage[running]{lineno} 
 % \usepackage[numbers,sort]{natbib}
-\usepackage[numbers]{natbib} 
+\usepackage[sort]{natbib} 
 \usepackage{array}
 \usepackage[table]{xcolor}
 \usepackage{xr}
+\usepackage{indentfirst}
 
 \newcommand{\methods}{\textit{Materials \& Methods}}
 \newcommand{\SI}{\textit{Appendix}~}
@@ -44,33 +45,41 @@ University of Colorado, Boulder, Boulder, U.S.A.\\
 \medskip
 * Joint first authors\\
 \medskip
-$^\dagger$ Corresponding author\\
+$^\dagger$ Corresponding author email: alyssa.cirtwill@gmail.com\\
 }
 
 
 \begin{document} 
 \maketitle 
-\linenumbers
 \raggedright
 
 \setlength{\parindent}{15pt} 
 
-
-\section*{Abstract}
-
-
-    Bottom-up effects of disturbances to basal resources can strongly affect the persistence of consumers, but it is difficult to predict which species will be most affected by increasing disturbance.
-    Coarse measures of a species' structural role, like in-degree and trophic level, are known to affect a consumer's vulnerability to bottom-up disturbance.
-    We are interested in whether a richer set of species roles --based on participation in three-species motifs-- is also related to persistence and how these motif-based roles relate to simpler measures.
-    We show that a consumer species' participation in different motifs is related to its probability of persistence. 
-    Similarly, the overall motif profile of a network is related to the average persistence of consumer species.
-    Notably, we found that networks containing a higher proportion of the `omnivory' motif tend to have lower mean persistence following disturbance, while more frequent participation in the omnivory motif was associated with higher species-level probabilities of persistence.
-    Additionally, we find that relationships between motif participation and persistence can synthesize the information provided by in-degree and trophic level.
-    Motif participation therefore captures important trends in species persistence and provides a rich description of species' structural roles in their communities.
-
-\begin{spacing}{2.0}
+\section*{Running headline}
+Motif participation describes extinction risk
 
 \clearpage
+
+\section*{Summary}
+
+
+    \indent{1. Bottom-up effects of disturbances to basal resources can strongly affect the persistence of consumers, but it is difficult to predict which species will be most affected by increasing disturbance.} \\
+    2. Coarse measures of a species' structural role, like in-degree and trophic level, are known to affect a consumer's vulnerability to bottom-up disturbance. \\
+    3. We are interested in whether a richer set of species roles --based on participation in three-species motifs-- is also related to persistence and how these motif-based roles relate to simpler measures. \\
+    4. We show that a consumer species' participation in different motifs is related to its probability of persistence. \\ 
+    5. Similarly, the overall motif profile of a network is related to the average persistence of consumer species. \\
+    6. Notably, we found that networks containing a higher proportion of the `omnivory' motif tend to have lower mean persistence following disturbance, while more frequent participation in the omnivory motif was associated with higher species-level probabilities of persistence. \\
+    7. Additionally, we find that relationships between motif participation and persistence can synthesize the information provided by in-degree and trophic level. \\
+    8. Motif participation therefore captures important trends in species persistence and provides a rich description of species' structural roles in their communities.
+
+
+\section*{Key-words}
+    food web, degree, trophic level, omnivory, competition
+
+
+\begin{spacing}{2.0}
+\linenumbers
+
 \section*{Introduction} %New
 
     %\subsection*{1 Why are bottom-up effects important for understanding stability?}
@@ -510,7 +519,7 @@ $^\dagger$ Corresponding author\\
 % "probability of extinction" or "level of disturbance" for the different disturbace scenarios?
 
 
-\bibliographystyle{vancouver} 
+\bibliographystyle{jae} 
 \bibliography{anna_bib_new} % Abbreviate journal titles.
 
 \end{spacing}
