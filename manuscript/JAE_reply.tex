@@ -1,0 +1,192 @@
+\documentclass[12pt]{article} 
+\usepackage{amsmath} 
+\usepackage[dvips]{graphicx}
+\usepackage{multirow} 
+\usepackage{geometry} 
+\usepackage{pdflscape}
+\usepackage[labelfont=bf]{caption} 
+\usepackage{setspace}
+\usepackage[running]{lineno} 
+% \usepackage[numbers,sort]{natbib}
+\usepackage[round]{natbib} 
+\usepackage{array}
+\usepackage[table]{xcolor}
+
+\topmargin -1.5cm % 0.0cm 
+\oddsidemargin 0.0cm % 0.2cm 
+\textwidth 6.5in
+\textheight 9.0in % 21cmhttps://www.overleaf.com/project/6048001a3ac22e3aff2ced4a
+\footskip 1.0cm % 1.0cm
+
+\newenvironment{refquote}{\bigskip \begin{it}}{\end{it}\medskip}
+
+\usepackage{authblk}
+
+\begin{document}
+
+
+\section*{Reply to Editor}
+
+    \begin{refquote}
+        Decision by the Editor (Prof. Darren Evans):
+
+        Thank you for submitting your manuscript to Journal of Animal Ecology.
+
+        I have now received reviewers' reports and the Associate Editor's comments on your manuscript and looked at it myself. As you can see from their comment below, they liked aspects of your work but raised a number of issues around context and clarity. As a result, I cannot accept this current version of the manuscript but I am giving you the option to submit a revised version of the manuscript for consideration.
+
+        Although we are giving you the option to complete a major revision on this manuscript, please note that acceptance and publication is not guaranteed. Your revised manuscript is due on 18-Jun-2023. If you foresee any problems with meeting this deadline, please contact the editorial office at: admin@journalofanimalecology.org
+
+    \end{refquote}
+    
+
+    \textbf{R:} 
+
+
+\clearpage
+
+\section*{Reply to Associate Editor}
+
+    \begin{refquote}
+
+        Associate Editor Comments for Authors:
+        Dear Alyssa Cirtwill,
+
+        Thank you for submitting the above manuscript to Journal of Animal Ecology. The manuscript has now been evaluated by two independent referees. Both of them agree that this study is interesting. However, they have raised some issues that should be addressed in a revision. Among these, lack of clarity in the multitude of concepts used throughout the manuscript has been highlighted by both referees. Also, certain results need more contextualisation. The writing structure, mainly in the introduction and discussion sections, are not easy to follow, and some figures are difficult to interpret (e.g. Figure 4). In sum, the manuscript would benefit from increasing clarity, context and making the study goal more focused. One of the referees also points to certain aspects of the statistical analysis that need to be clarified. These issues should be addressed in a revised manuscript.
+
+        I hope that these comments and those of the reviewers assist the authors in preparing a revision.
+
+        Best wishes,
+
+        Daniel Montoya
+        Associate Editor of Journal of Animal Ecology
+
+    \end{refquote}
+
+
+    \textbf{R:}
+
+
+\clearpage
+
+\section*{Reply to Reviewer \#1}
+
+    \begin{refquote}
+
+        In this paper the authors examine how a species' participation in different three-species motifs within a food web impacts their probability of persistence. They apply a Bayesian network approach to determine whether a species goes extinct following a disturbance, focusing on disturbance to the basal trophic levels.
+
+        Overall I felt this was a very good paper. The introduction laid out the context in a clear and concise manner, and I thought the methods were well described, both in terms of what was done as well as potential limitations of the approach. I also liked the different links that were tested between motif profiles and both global and local network properties. 
+
+    \end{refquote}
+
+
+    \subsection*{Comments}
+
+        \begin{enumerate}
+
+            \item One concern I had is in regards to the statistical analysis. Given the use of lmer, I assume that the error distribution was assumed to be Gaussian, though the response variable is constrained to be between 0 and 1. It may be more appropriate to use a binomial or quasi-binomial error distribution (using glmer).
+
+            \textbf{R:} 
+
+            \item The only other comment I had was that Fig. 4 was a bit difficult to interpret. I was wondering if it might not be better to facet across motif and connectance, with each panel showing that motif's slope distribution at different disturbance levels. I think this would make it easier to compare the distributions for each motif, which is what the text of the results seemed to focus on.
+
+            \textbf{R:}
+
+        \end{enumerate}
+
+\clearpage
+
+\section*{Reply to Reviewer \#2}
+
+    \begin{refquote}
+
+        The theme of this study certainly captured my attention and interest, and the overall concepts explored in the article speaks to a broad audience of researchers. Although the topics introduced in the article are related, I found that the authors incorporated a few too many high-level ideas
+        and did not unpack all of them, causing the goal of the study to be somewhat difficult to determine. For example, in the introduction, the authors begin their first paragraph by talking about disturbance in plant communities. Although disturbance is clearly relevant to consumer persistence, it would be clearer if the authors began by providing insight and definitions of what a motif is, why it is important, and how it relates to consumer persistence. With this jumping off point, the authors could mention that disturbance in plant communities influences consumers differentially depending on their structural configuration (i.e., motif). As it is in its current form, it feels like the authors are jumping from one idea to the next without clarifying the details of any one of them.
+
+        I feel that this study includes a lot of work and analysis that is meaningful. For example, at line 195-196, the authors state “This suggests that network motif profiles may be more useful than global network properties when predicting mean extinction risk of species in a network.”. To me, this sentence highlights how their results fit into an up-and-coming area of ecological research: monitoring the likelihood of consumer persistence in efficient ways. Nonetheless, I found the structure of the writing in the introduction and discussion difficult to follow and some of the key points from the results were not easy to interpret because the authors have so many different conceptual ideas incorporated throughout the article.
+
+    \end{refquote}
+
+
+    \textbf{R:} 
+
+
+    \subsection*{Specific comments}
+
+        \begin{enumerate}
+
+            \item Summary: I found that the ideas explored in the paper were somewhat unclear from the summary. Is the overall goal of the study to understand participation in a motif (what I understood from the abstract and title) or is it to understand how the presence of particular sub-webs (i.e., motifs) influences persistence? It seems like it is both from the results presented, but the authors highlight the former extensively and leave the latter as more of an after-thought. This may be addressed by simply taking out words like “additionally” from the start of the last few summary points.
+
+            \textbf{R:}
+
+            \item Introduction Line 13-16: The wording here makes it seem like species loss is both the stressor/disturbance and the response variable. This would be clearer if the authors clarify whether they are studying the effects of disturbance at the primary producer level on consumer persistence right away. It wouldalso be helpful to define exactly what definition of disturbance they are referring to in the introduction.
+
+            \textbf{R:}
+
+            \item Line 42-44: I am uncertain of what this sentence is trying to convey. In the sentence prior to this one, the authors suggest that trophic level and in-degree are too coarse of descriptors. Then, instead of providing insight into why or how more detailed metrics would be desirable, they mention that the consumer’s risk of extinction is dependent on its prey. It is unclear how prey-dependent extinction of consumers is related to the coarseness of the metrics used to analyze food webs. This sentence might be highlighting a key point in the article, but as it is currently written it is very difficult to understand what this sentence intends to describe.
+
+            \textbf{R:}
+
+            \item Line 48: This paragraph contains important information to understanding the concept of motifs; however, I found that the description of motif participation is vague and difficult to interpret in the context of this study. For example, the “second-step indirect interactions the species are affected by, thereby capturing important structures that are missed by global and local properties” does not provide any details that would help the reader understand why motif participation is a relevant metric. Specifically, what important structures are the authors referring to here, and how are they captured by the second-step indirect interactions? Further, is there a better way to describe what a second-step indirect interaction is? I am unsure what the authors mean by this.
+
+            \textbf{R:}
+
+            \item Line 87-88: Local and global food web properties has been mentioned more than once but it is unclear what these properties are specifically. Perhaps defining what this is referring to earlier on in the introduction would make it more clear to the reader.
+
+            \textbf{R:}
+
+            \item Line 92-95: The authors bring up many conceptual topics in their introduction, but perhaps the most relevant topic: network motif structures, has been almost entirely overlooked in terms of providing background information to the reader about which motifs are most common, how they influence energy transfer, and what encourages the establishment of the different motif structures across food webs. The authors mention that they will be investigating food chain, omnivory, apparent and direct competition motifs only briefly at the end of the introduction. From my perspective, the authors are missing key details about what is already known about how these different structural configurations of sub-webs can influence stability and consumer persistence. For example, networks with a high degree of omnivory may be more stable than simple food chains, but this depends on the strength of the omnivorous interactions among trophic guilds. It would be helpful to provide more insight into the gaps in knowledge surrounding the prevalence of these motifs in food webs more generally, and why this would help food web researchers understand consumer persistence and how it is related to resilience/stability since this is where I see the greatest amount of novelty from this article.
+
+            \textbf{R:}
+
+            \item Methods: Line 98: The authors have not specified what species/trophic guilds are being considered as secondary extinctions in this study. Is a primary extinction at the primary producer level? Is a secondary extinction referring to an extinction of a species that relies on a species that has faced disturbance-induced extinction? This should be clarified.
+
+            \textbf{R:}
+
+            \item Line 104-107: I am not convinced that this is always the case. Many dynamical models are simplified and allow researchers to use key parameters to model food webs and understand how major flows of energy transfer influence consumer persistence.
+
+            \textbf{R:} 
+
+            \item Line 108: I am not well-versed in Bayesian statistics and will therefore refrain from evaluating the methodology used here. I am hopeful that the other reviewers will be able to provide feedback on this section of the article.
+
+            \textbf{R:}
+
+            \item Line 185: The authors should provide information about how they have determined what networks would be more biologically likely than others.
+
+            \textbf{R:}
+
+            \item Line 192: It is not obvious how the authors have decided to define a focal species in their study. It should be made clear what trophic guild or species they are specifically looking at in each of these networks as the wording now is quite vague.
+
+            \textbf{R:}
+
+            \item Line 194-195: It is unclear whether this is a general phenomenon or specific to this study. I am also uncertain of whether the vectors that the authors are referring to related to the number of species in the motifs or the number of motifs in a network.
+
+            \textbf{R:}
+
+            \item Results: Overall, I found the results difficult to interpret, mainly because of the number of results presented. I had issue understanding what figure 2 was showing, since the x-axis “proportion of role” was not alluded to described as an explanatory variable anywhere in the text. I wasn’t able to determine how the authors expected the probability of persistence to change across this gradient for each of the motifs, and how the results may have deviated from that expectation. This problem was mirrored in most of the figures presented.
+
+            \textbf{R:}
+
+            \item Network mean persistence and motif profiles: The ways in which persistence is related to motif profiles is interesting and valuable to explore; however, I am concerned with some of the interpretation of these results. Specifically, higher proportions of omnivory may lead to reduced average persistence if the average interaction strengths among organisms are strong; however, many food webs are composed of weakly interacting species where omnivory increases the likelihood of community-level persistence. Similarly, apparent competition is known to be destabilizing to food webs when energy is drastically diverted away from one species. The results presented here counter those examples, so it is important that the authors provide well-founded context for these findings.
+
+            \textbf{R:}
+
+            \item Discussion: I found the discussion section relatively well-written, and the authors pointed out how their analyses may be relevant in understanding how motif participation may be an important metric to consider when aiming to conserve species and prevent extinction.
+
+            \textbf{R:}
+
+            \item However, I am concerned that the authors do not provide any analysis for top-down effects on persistence. Although they are forthcoming about this (line 428-430), the interpretation of their analysis may be less relevant in the context of managing real food webs since predation does of course influence persistence.
+
+            \textbf{R:}
+
+            \item I feel that the discussion would be greatly improved if the authors focus in on one idea rather than three at once (i.e., disturbance strength; mean network persistence; motif participation). I am left trying to discern how motif participation affects persistence and have not been able to fully understand this, and I initially was under the impression that this was the ultimate goal of the study.
+
+            \textbf{R:}
+
+        \end{enumerate}
+
+\clearpage
+
+    \bibliographystyle{ecollett} 
+    \bibliography{manual} % Do not abbreviate journal titles, papers with >
+
+\end{document}
