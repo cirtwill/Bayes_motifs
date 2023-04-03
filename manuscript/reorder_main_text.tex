@@ -129,11 +129,11 @@ Motif participation describes extinction risk
 
 
 %\subsection*{Here we test...}
-    Here, we are interested in whether a consumer's extinction risk of going secondarily extinct depends on 1) the motifs in which the species participates, 2) the motif profile of the full food web and 3) the severity of the disturbance to the basal level. 
+    Here, we are interested in whether a consumer's extinction risk after disturbance to the plant community (i.e., its risk of secondary extinction) depends on 1) the motifs in which the species participates, 2) the motif profile of the full food web and 3) the severity of the disturbance to the basal level. 
     In addition, we want to understand how the information provided by motifs is related to other global and local food web properties in order to better synthesize information provided by different scales of network structure.
     We use synthetic networks and model secondary extinctions using Bayesian networks \citep{Eklof2013, Haussler2020}. 
     As Bayesian networks are computationally efficient (see Methods), we are able to simulate a wide range of disturbance intensities and test whether meso-scale network structure also interacts with severity of the disturbance.
-    We focus our analyse on the four network motifs that are over-represented in empirical networks and additionally have been shown to contribute to network stability: the three-species chain, omnivory, apparent competition, and direct competition \citep{Stouffer2007, Borrelli2015a, giling2019plant}.
+    We focus our analysis on the four network motifs that are over-represented in empirical networks and additionally have been shown to contribute to network stability: the three-species chain, omnivory, apparent competition, and direct competition \citep{Stouffer2007, Borrelli2015a, giling2019plant}.
    
     
 
@@ -143,7 +143,7 @@ Motif participation describes extinction risk
 
     \subsection*{Modelling secondary extinction using Bayesian networks}
 
-        Traditionally, there are two main approaches for studying secondary extinctions. First, there are topological models, based only on food web structure \citep{dunne2009cascading}. Here, extinctions only affect other species in the network once a consumer has lost all of its prey and therefore must go extinct. 
+        Traditionally, there are two main approaches for studying secondary extinctions (i.e., extinctions of species that were not directly disturbed). First, there are topological models, based only on food web structure \citep{dunne2009cascading}. Here, extinctions only affect other species in the network once a consumer has lost all of its prey and therefore must go extinct. 
         The second approach uses dynamical models which explicitly simulate population dynamics using a system of differential equations \citep{binzer2011susceptibility}. Dynamical models take changes in prey or predator densities into account when calculating the densities of other species in the network. 
         This additional detail means that realistic processes such as indirect interactions can be included, but also means that dynamical models are highly parameter intensive and simulations are much more time-consuming than topological models. 
         
