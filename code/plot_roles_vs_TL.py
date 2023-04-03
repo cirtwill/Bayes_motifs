@@ -1,9 +1,9 @@
 import sys
 import os
-import math
-import random
-from decimal import *
-import numpy as np
+# import math
+# import random
+# from decimal import *
+# import numpy as np
 
 #Pygrace libraries
 from PyGrace.grace import Grace
@@ -91,7 +91,7 @@ def format_graph(graph,simple,roletype):
     graph.world.ymax=.600000001
     graph.yaxis.tick.major=.2
     graph.yaxis.ticklabel.configure(format='decimal',prec=1,char_size=.75)
-    graph.yaxis.label.text='Proportion of motif role'
+    graph.yaxis.label.text='Proportion of motif in role'
   elif roletype=='Count':
     graph.world.ymax=600
     graph.yaxis.tick.major=200
