@@ -1,9 +1,6 @@
 import sys
 import os
-# import math
-# import random
-# from decimal import *
-# import numpy as np
+import math
 
 #Pygrace libraries
 from PyGrace.grace import Grace
@@ -47,10 +44,10 @@ scales={ # center, scale
 }
 
 lms={ # Intercept, motif, disturbance, interaction
-  'omnivory':(0.5743430145,-0.0140077658,-0.1385163991,-0.0005586564),
-  'apparent':(0.574343015,0.011206293,-0.138516399,0.000589999),
-  'direct':(0.5743430145,0.0033850297,-0.1385163991,0.0001809503),
-  'chain':(5.743430e-01,5.801241e-03,-1.385164e-01,-3.067919e-05)  
+  'omnivory':(0.325913,-0.062579,-0.595877,0.003218),
+  'apparent':(0.325782,0.050071,-0.595667,-0.001998),
+  'direct':(0.3255830,0.0150797,-0.5953395,-0.0005337),
+  'chain':(0.325632,0.025985,-0.595410,-0.002531)  
 }
 
 motif_names={'omnivory':'Omnivory','apparent':'Apparent competition','direct':'Direct competition','chain':'Three-species chain'}
@@ -137,8 +134,9 @@ def populate_persgraph(graph,motif):
     for x in [minx,maxx]:
       scalx=(x-scales[motif][0])/scales[motif][1]
       y=lms[motif][0]+scalx*lms[motif][1]+scaldist*lms[motif][2]+scalx*scaldist*lms[motif][3]
+      logity=math.exp(y)/(1+math.exp(y))
 
-      dats.append((x,y))
+      dats.append((x,logity))
 
     data=graph.add_dataset(dats)
     data.symbol.shape=0
