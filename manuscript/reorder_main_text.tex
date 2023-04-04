@@ -244,7 +244,7 @@ Motif participation describes extinction risk
         
         \subsubsection*{1) Species persistence and motif participation}
 
-            To test if participating more often in a certain motif affected a species' probability of persistence, we fit four linear mixed-effect models (LMMs; one per motif included in the Bayesian networks):
+            To test if participating more often in a certain motif affected a species' probability of persistence, we fit four general linear mixed-effect models with binomial error distribution (GLMMs; one per motif included in the Bayesian networks):
                 \begin{equation}
                     \Psi_{ink} \approx \rho_{i} + \pi_{k} + \rho_{i}\pi_{k} +
                     S_{n}C_{n} + N_n,
@@ -258,7 +258,7 @@ Motif participation describes extinction risk
             
             Properties which refer to different scales of network structure, including different amounts of direct and indirect interactions with the focal species, are not independent. 
             To identify correlations between global network structure (i.e., the whole network) and participation in particular motifs (a meso-scale description of species roles), we fit a series of LMs relating motif participation to network size, connectance, and their interaction (Appendix \emph{S3.2}).
-            We fit a similar set of  LMMs relating motif participation to in-degree or trophic level (i.e., local measures of a species' role; Appendix \emph{S3.2}).
+            We fit a similar set of  GLMMs relating motif participation to in-degree or trophic level (i.e., local measures of a species' role; Appendix \emph{S3.2}).
             Taken together, these supplemental models demonstrate how motif participation relates to other measures of network structure.
             
             
@@ -292,8 +292,8 @@ Motif participation describes extinction risk
 
 
             Persistence is also known to vary with local-scale measures of network structure. 
-            To identify the relationships between local-scale properties and species' probabilities of persistence, we fit two final LMMs relating a consumer's persistence to disturbance, in-degree or STL, and the interaction between disturbance and the local-scale measure (Eq. S10-S11).
-            These LMMs also included random effects to account for the effects of global network structure and network ID on persistence.
+            To identify the relationships between local-scale properties and species' probabilities of persistence, we fit two final GLMMs relating a consumer's persistence to disturbance, in-degree or STL, and the interaction between disturbance and the local-scale measure (Eq. S10-S11).
+            These GLMMs also included random effects to account for the effects of global network structure and network ID on persistence.
 
 
 \section*{Results}
@@ -347,10 +347,10 @@ Motif participation describes extinction risk
 
     \subsection*{Motif profiles and network properties}
 
-        Although the PERMANOVA test relating overall motif profiles to network properties was not reliable (Fig. S5, \emph{Appendix S9}), 
-        connectance was significantly related to the frequencies of different motifs in a network when considering motifs individually (Fig.~\ref{motif_proportion_lms}).
-        Network size and the interaction between network size and connectance did not strongly affect the frequencies of most motifs.
-        Considering each motif separately, the proportions of apparent competition and three-species chains in a network's motif profile tended to decrease with increasing connectance while the proportion of omnivory increased with increasing connectance (Table S5, \emph{Appendix S9}). 
+        Considering each motif separately, the proportion of the omnivory motif in a network's motif profile increased significantly with increasing connectance (Fig.~\ref{motif_proportion_lms}, Table S5, \emph{Appendix S9}).
+        The proportions of other motifs in a network's profile were not related to network size, connectance, or their interaction.
+        Consistent with the results of these GLMMs, a PERMANOVA test suggested that a network's motif profile as a whole was related to network size and connectance.
+        However, the assumption of equal variance across groups was violated for this test and the PERMANOVA results should therefore be considered indicative only.
     
 
 
