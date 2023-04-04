@@ -598,7 +598,7 @@ $^\dagger$ Corresponding author\\
     % In conclusion, species richness does not considerably alter the trends visible in the LMMs. High species richness more clearly display an interaction between motif proportion, persistences and disturbance levels, while this effect is smaller with low species richness. 
 \clearpage
                 
-\section{Persistence and motif profiles}
+\section{Persistence and motif profiles} [[updated]]
 
     % Updated and expanded to include permanova tests
     Persistence varied with the frequencies of different motifs in a network profile ($F_{1,2998}$=645, $p$\textless0.001 for a PERMANOVA of dissimilarity in motif profiles against mean persistence).
@@ -609,18 +609,17 @@ $^\dagger$ Corresponding author\\
 
     % Updated to use mean instead of all species
     \begin{table}[hb!]
-        \caption{Coefficients ($\beta$) for models relating persistence to the proportion of a network profile made up by a focal motif, the level of disturbance to basal resources (corresponding to a probability of extinction ranging between 0.1 and 0.5), and their interaction. Predictors were centered and scaled before model fitting; coefficients refer to a unit increase in predictors. We also provide the marginal $R^2$ value for each regression. }
+        \caption{Coefficients ($\beta$) for models relating persistence to the proportion of a network profile made up by a focal motif, the level of disturbance to basal resources (corresponding to a probability of extinction ranging between 0.1 and 0.5), and their interaction. Coefficients in \textbf{bold} are significant ($\alpha$\textless0.005). Predictors were centered and scaled before model fitting; coefficients refer to a unit increase in predictors. We also provide McFadden's pseudo-$R^2$ value for each regression. }
         \label{motif_profile_tab}
         \centering
         \footnotesize
-        \begin{tabular}{c|c c | c c | c c | c c | c }
-        & \multicolumn{2}{c|}{Intercept} & \multicolumn{2}{c|}{Proportion} & \multicolumn{2}{c|}{Disturbance} & \multicolumn{2}{c|}{Interaction} & \\
-        Motif & $\beta$ & $p$ & $\beta$ & $p$ & $\beta$ & $p$ & $\beta$ & $p$ & $R^2_M$ \\
+        \begin{tabular}{c|c c c c c | c }
+        Motif & Intercept & Proportion & Disturbance & Interaction &  pseudo-$R^2$ \\
             \hline
-            Omnivory & 0.574 & \textless0.001 & 5.81$\times10^{-3}$ & \textless0.001 & -0.0189 & \textless0.001 & -1.775$\times10^{-7}$ & 0.885 & 0.960 \\
-            Apparent competition & 0.574 & \textless0.001 & 7.22$\times10^{-4}$ & \textless0.001 & -0.0189 & \textless0.001 & 5.20$\times10^{-6}$ & 0.003 & 0.964 \\
-            Direct competition & 0.574 & \textless0.001 &  1.38$\times10^{-4}$ & \textless0.001 & -0.0189 & \textless0.001 & 1.01$\times10^{-6}$ & 0.400 & 0.964 \\
-            Three-species chain & 0.574 & \textless0.001 & 7.22$\times10^{-4}$ & \textless0.001 & -0.0189 & \textless0.001 & 5.20$\times10^{-6}$ & 0.003 & 0.964 \\ 
+            Three-species chain & \textbf{0.326} &  0.0260 & \textbf{-0.595} & -2.53$\times10^{-3}$ & 0.*958 \\
+            Apparent competition & \textbf{0.326} & \textbf{0.0501} & \textbf{-0.596} & -2.00$\times10^{-3}$ & 0.962 \\
+            Direct competition & \textbf{0.326} & 0.0151 & \textbf{-0.595} & -5.34$\times10^{-4}$ & 0.956 \\
+            Omnivory & \textbf{0.326} & \textbf{-0.0626} & \textbf{-0.596} & 3.22$\times10^{-3}$ & 0.966 \\
         \end{tabular}
     \end{table}
 \clearpage
@@ -646,7 +645,7 @@ $^\dagger$ Corresponding author\\
 
      \begin{table}[hb!]
         \centering
-        \caption{Coefficients for general linear regressions relating the proportion of each motif in the total motif profile of a network to network size, connectance, and their interaction. Coefficients in \textbf{bold} are significant (\textless0.05). The regression was fit using a binomial error distribution and logit link function.}
+        \caption{Coefficients for general linear regressions relating the proportion of each motif in the total motif profile of a network to network size, connectance, and their interaction. Coefficients in \textbf{bold} are significant ($\alpha$\textless0.05). The regression was fit using a binomial error distribution and logit link function.}
        \label{network_prop_lms}
        \begin{tabular}{c|c c c c c}
             Motif & Intercept & Size & Connectance & Interaction \\
