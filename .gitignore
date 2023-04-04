@@ -1,10 +1,26 @@
-*
-!.gitignore
+code/*.pyc
+
+manuscript/*.bbl
+manuscript/*.log
+manuscript/*.aux
+manuscript/*.ps
+manuscript/*.pdf
+manuscript/*.dvi
+manuscript/*.blg
+manuscript/figure/*.pdf
+manuscript/figure/*.png
+
+data/*.RData
+data/*.zip
+data/*.png
+
+data/edgelists/*
+data/motif_*
+data/perms_deg/*
+data/roles/*
 
 
-!manuscript/*.tex
-
-
-
-!code/*.R
-!code/*.py
+code/*.Rdata
+code/*/*.Rdata
+code/*.tsv
+code/*/*.tsv

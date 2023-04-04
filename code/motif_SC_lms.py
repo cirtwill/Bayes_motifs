@@ -1,9 +1,6 @@
 import sys
 import os
 import math
-import random
-from decimal import *
-import numpy as np
 
 #Pygrace libraries
 from PyGrace.grace import Grace
@@ -55,38 +52,34 @@ def format_graph(graph,graphtype):
   return graph
 
 def total_dataset(nettype):
-  if nettype=='total':
-    I=-2.846e+03
-    s=4.662e+01
-    c=-2.122e+05
-    sc=4.716e+03
-  elif nettype=='chain':
-    I=0.2617064
-    s=0.0001775
-    c=-0.1566627
-    sc=-0.0032675
+  if nettype=='chain':
+    I=-1.038068
+    s=0.001026
+    c=-0.795159
+    sc=-0.019323
   elif nettype=='apparent':
-    I=5.409e-01
-    s=-5.058e-04
-    c=-1.001e+00
-    sc=2.590e-03
+    I=0.168403
+    s=-0.002028
+    c=-4.094017
+    sc=0.010249
   elif nettype=='direct':
-    I=1.926e-01
-    s=-3.563e-05
-    c=-5.556e-01
-    sc=5.917e-03
+    I=-1.4206660
+    s=-0.0003694
+    c=-3.9670780
+    sc=0.0423147
   elif nettype=='omnivory':
-    I=4.824e-03
-    s=3.639e-04
-    c=1.714e+00
-    sc=-5.239e-03
+    I=-2.989315
+    s=0.003146
+    c=12.874525
+    sc=-0.036079
 
   datadict={}
   for S in [50,60,70,80,90,100]:
     dataset=[]
     for C in [0.02,0.06,0.1,0.14,0.18]:
       y=I+S*s+C*c+S*C*sc
-      dataset.append((C,y))
+      logity=math.exp(y)/(1+math.exp(y))
+      dataset.append((C,logity))
     datadict[S]=dataset
 
   return datadict
@@ -129,26 +122,6 @@ def populate_graph(graph,nettype):
 #
 ###############################################################################################
 ###############################################################################################
-
-
-grace=MultiPanelGrace(colors=colors)
-# grace.add_label_scheme('dummy',['Start of flowering','Mass flowering','Inferred peak','End of flowering','Season length','F','G','H'])
-# grace.set_label_scheme('dummy')
-for lm in ['mot_total']:
-  graph=grace.add_graph(Panel)
-  graph=format_graph(graph,'total')
-  graph=populate_graph(graph,'total')
-  graph.panel_label.configure(placement='iul',char_size=1,dx=.03,dy=.03)
-
-# grace.multi(rows=3,cols=2,vgap=.09,hgap=.04)
-# grace.hide_redundant_labels()
-# grace.set_row_xaxislabel(label='Degree (Number of interaction partners per species)',row=1,colspan=(None,None),char_size=1,perpendicular_offset=.05)
-# grace.set_row_xaxislabel(label='Day of year',row=2,colspan=(None,None),char_size=1,perpendicular_offset=.05)
-# for graph in grace.graphs:
-  # print graph.get_view()
-graph.set_view(0.15,0.15,0.95,0.65)
-grace.write_file('../manuscript/figures/motif_context_lms.eps')
-
 
 grace=MultiPanelGrace(colors=colors)
 grace.add_label_scheme('dummy',['Apparent competition','Direct competition','Omnivory','3-species chain','Season length','F','G','H'])
