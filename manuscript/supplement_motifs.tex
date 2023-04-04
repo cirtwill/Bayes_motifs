@@ -328,7 +328,7 @@ $^\dagger$ Corresponding author\\
     \subsection{How does species persistence vary with motif participation?}
 
         We are first interested in whether participating more often in a certain motif (e.g., direct competition) might increase a species' probability of persistence.
-        To test this, we fit four linear mixed-effect models (LMMs; one per motif included in the Bayesian networks):
+        To test this, we fit four general linear mixed-effect models with binomial error distribution (GLMMs; one per motif included in the Bayesian networks):
 
         \begin{equation}
             \Psi_{ink} \approx \rho_{i} + \pi_{k} + \rho_{i}\pi_{k} +
@@ -339,8 +339,8 @@ $^\dagger$ Corresponding author\\
 
         \noindent where $\Psi_{ink}$ is the persistence of species $i$, belonging to network $n$, during disturbance level $k$, $\rho_{i}$ is the proportion of the role of species $i$ that is made up by the focal motif, $\pi_{k}$ is the probability of extinction for a basal resource in disturbance level $k$, and $S_{n}C_{n}$ is a random intercept for the species richness and connectance of the network containing species $i$, and $N_n$ is a random effect of network ID.
         The network-level random effect accounts for the fact that species in the same network are not independent.
-        We centered and scaled the predictors before fitting the LMMs.
-        All models were fit using the R~\citep{R} function `lmer' from the package \emph{lmerTest}~\citep{lmerTest}.
+        We centered and scaled the predictors before fitting the GLMMs.
+        All models were fit using the R~\citep{R} function `glmer' from the package \emph{lmerTest}~\citep{lmerTest}.
         We calculated marginal (fixed effects only) and conditional (fixed and random effects) $R^2$ using the R~\citep{R} function `r.squaredGLMM' from the package \emph{MuMIn}~\citep{MuMIn}.
 
         
@@ -572,10 +572,10 @@ $^\dagger$ Corresponding author\\
 
 \section{Within-network motif-persistence relationships}
 
-    We compared the outcomes from linear mixed-effect models (LMMs) relating persistence to motif roles across all networks (Fig. 3 and Table 1, \emph{Main Text}) with similar linear regressions (LRs) made on each single network separately.
+    We compared the outcomes from linear mixed-effect models (GLMMs) relating persistence to motif roles across all networks (Fig. 3 and Table 1, \emph{Main Text}) with similar general linear regressions (GLRs) made on each single network separately.
     The main trends are similar in both analyses, but different-sized networks showed slightly different results for some motifs when considered individually (Figure~\ref{fig:density_prop_S}).
     For the three-species chain and omnivory motifs, a significant interaction between disturbance and the effect of the focal motif means that having a larger proportion of the role be made up of the chain or omnivory motif is associated with lower persistence at high levels of disturbance (Fig. 3 and Table 1, \emph{Main Text}). 
-    The same pattern holds overall for LRs fit within a network  (Figure~\ref{fig:density_prop_S}): the fraction of negative slopes for the proportion of three-species chain and omnivory motifs increases with increasing disturbance. 
+    The same pattern holds overall for GLRs fit within a network  (Figure~\ref{fig:density_prop_S}): the fraction of negative slopes for the proportion of three-species chain and omnivory motifs increases with increasing disturbance. 
     This trend is most pronounced in large networks. (bottom panel, Figure~\ref{fig:density_prop_S}). 
     % Besides the decrease in fraction of positive slopes with increasing disturbance, the omnivory motif showed a higher overall fraction of positive slopes in comparison to the three-species chain motif, corresponding to the positive main effect of omnivory (Fig. 3 and Table 1, \emph{Main Text}). 
     
@@ -626,12 +626,14 @@ $^\dagger$ Corresponding author\\
 \clearpage
 
 
-\section{Motif profiles and global properties}
+\section{Motif profiles and global properties} [[updated]]
     % No update needed
 
     A network's normalized motif profile (i.e., proportions of the total made up by each motif) was related to the network's size, connectance, and the interaction between them ($F_{1,2996}$=74.3, $p$\textless0.001; $F_{1,2996}$=4203, $p$\textless0.001; and $F_{1,2996}$=27.8, $p$\textless0.001, respectively in a PERMANOVA of dissimilarity in normalized network motif profiles against network size, connectance, and their interaction).
     However, normalized motif profiles were not homogeneously variable across levels of network size, connectance, or their interaction  ($F_{5,2994}$=16.8, $p$\textless0.001; $F_{4,2995}$=31.7, $p$\textless0.001; and $F_{29,2970}$=11.9, $p$\textless0.001 for ANOVAs of dispersion of motif profiles against size, connectance, and combinations of size and connectance, respectively). 
     These differences in variability can cause false positives in the PERMANOVA test. Variability was highest in small and low-connectance networks (Fig.~\ref{dispersion_normmotifs}).
+    A series of general linear regressions support the relationship between network motif profiles and global structural properties.
+    Specifically, the frequency of the omnivory motif increased in more-connected networks (Table~\ref{network_prop_lms}) while the frequencies of other motifs were not significantly related to network size or connectance.
 
 
    \begin{figure}[hb!]
@@ -642,19 +644,17 @@ $^\dagger$ Corresponding author\\
     \end{figure}
 
 
-    The frequencies of the four possible motifs were related to global network properties.
-
-    \begin{table}[hb!]
+     \begin{table}[hb!]
         \centering
-        \caption{Coefficients for linear regressions relating the proportion of each motif in the total motif profile of a network to network size, connectance, and their interaction. Coefficients in \textbf{bold} are significant (\textless0.05).}
+        \caption{Coefficients for general linear regressions relating the proportion of each motif in the total motif profile of a network to network size, connectance, and their interaction. Coefficients in \textbf{bold} are significant (\textless0.05). The regression was fit using a binomial error distribution and logit link function.}
        \label{network_prop_lms}
        \begin{tabular}{c|c c c c c}
             Motif & Intercept & Size & Connectance & Interaction \\
             \hline
-            Three-species Chain & \textbf{0.262} & \textbf{1.78$\times10^{-4}$} & \textbf{-0.157} & \textbf{-3.27$\times10^{-3}$} \\
-            Apparent Competition & \textbf{0.541} & \textbf{-5.06$\times10^{-4}$} & \textbf{-1.00} & \textbf{2.59$\times10^{-3}$} \\
-            Direct Competition & \textbf{0.193} & -3.56$\times10^{-5}$ & \textbf{-0.556} & \textbf{5.92$\times10^{-3}$} \\
-            Omnivory & 4.82$\times10^{-3}$ & \textbf{3.64$\times10^{-4}$} & \textbf{1.71} & \textbf{-5.24$\times10^{-3}$}\\
+            Three-species Chain & \textbf{-1.04} & 0.001 & -0.795 & -0.019 \\
+            Apparent Competition & 0.168 & -0.002 & -4.09 & 0.010 \\
+            Direct Competition & \textbf{-1.42} & -3.69$\times10^{-4}$ & -3.97 & 0.042 \\
+            Omnivory & \textbf{-2.99} & 0.003 & \textbf{12.9} & -0.036\\
             \hline
             \end{tabular}
     \end{table}        
