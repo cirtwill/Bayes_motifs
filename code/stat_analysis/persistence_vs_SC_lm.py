@@ -1,9 +1,6 @@
 import sys
 import os
 import math
-import random
-from decimal import *
-import numpy as np
 
 #Pygrace libraries
 from PyGrace.grace import Grace
@@ -33,14 +30,14 @@ scales={
 }
 
 lms={
-  'Intercept': 0.5743430,
-  'Size':-0.0004818,
-  'Connectance':-1.293e-02,
-  'Disturbance':-0.0136768,
-  'Size:Connectance':-0.0009770,
-  'Size:Disturbance':-0.0034566,
-  'Connectance:Disturbance':-0.0002251,
-  'Size:Connectance:Disturbance':-0.0003969 }
+  'Intercept': 0.3259301,
+  'Size':-0.0007211,
+  'Connectance':-0.0611595,
+  'Disturbance':-0.5959284,
+  'Size:Connectance':-0.0044764,
+  'Size:Disturbance':-0.0162922,
+  'Connectance:Disturbance':0.0045203,
+  'Size:Connectance:Disturbance':-0.0013456 }
 
 Blms={'Intercept':5.777e-01,
       'Basal':2.841e-02,
@@ -135,8 +132,8 @@ def populate_persgraph(graph,simple):
         scalmain=(level-scales[simple][0])/scales[simple][1]
         base3=base2+scalmain*lms[simple]+scalbp*scalmain*lms[simple+':Disturbance']
         final=base3+scalmain*scalalt*lms['Size:Connectance']+scalmain*scalalt*scalbp*lms['Size:Connectance:Disturbance']
-
-        dats.append((level,final))
+        logy=math.exp(final)/(1+math.exp(final))
+        dats.append((level,logy))
 
       data=graph.add_dataset(dats)
       if al==altlevels[0]:
@@ -278,29 +275,29 @@ grace.hide_redundant_labels()
 
 grace.write_file('../../manuscript/figures/persistence_vs_SC_lm.eps')
 
+## I don't think we use this figure
+# grace=MultiPanelGrace(colors=colors)
 
-grace=MultiPanelGrace(colors=colors)
-
-for simple in ['Size','Connectance','Basal']:
-  for dist in [0.1, 0.5]:
-    graph2=grace.add_graph(Panel)
-    graph2=format_graph(graph2,simple)
-    if simple=='Size':
-      graph2.add_drawing_object(DrawText,text='Disturbance: '+str(dist),char_size=0.75,x=75,y=1.1,loctype='world',just=2)
-    graph2=populate_graph(graph2,simple,dist)
-    graph2.panel_label.configure(placement='iul',char_size=.75,dx=.02,dy=.02)
+# for simple in ['Size','Connectance','Basal']:
+#   for dist in [0.1, 0.5]:
+#     graph2=grace.add_graph(Panel)
+#     graph2=format_graph(graph2,simple)
+#     if simple=='Size':
+#       graph2.add_drawing_object(DrawText,text='Disturbance: '+str(dist),char_size=0.75,x=75,y=1.1,loctype='world',just=2)
+#     graph2=populate_graph(graph2,simple,dist)
+#     graph2.panel_label.configure(placement='iul',char_size=.75,dx=.02,dy=.02)
     
 
-# dummy=grace.add_graph(Panel)
-# dummy=format_graph(dummy,'dummy')
+# # dummy=grace.add_graph(Panel)
+# # dummy=format_graph(dummy,'dummy')
 
-grace.multi(rows=3,cols=2,vgap=.09,hgap=.07)
-grace.hide_redundant_labels()
-grace.set_row_xaxislabel(label='Network size',row=0,colspan=(None,None),char_size=1,perpendicular_offset=.05)
-grace.set_row_xaxislabel(label='Connectance',row=1,colspan=(None,None),char_size=1,perpendicular_offset=.05)
-grace.set_row_xaxislabel(label='Proportion basal',row=2,colspan=(None,None),char_size=1,perpendicular_offset=.05)
-grace.set_col_yaxislabel(label='Mean Persistence',col=0,rowspan=(None,None),char_size=1,perpendicular_offset=.07)
-# grace.set_col_yaxislabel(label='High disturbance',col=1,rowspan=(None,None),char_size=1,perpendicular_offset=.07)
+# grace.multi(rows=3,cols=2,vgap=.09,hgap=.07)
+# grace.hide_redundant_labels()
+# grace.set_row_xaxislabel(label='Network size',row=0,colspan=(None,None),char_size=1,perpendicular_offset=.05)
+# grace.set_row_xaxislabel(label='Connectance',row=1,colspan=(None,None),char_size=1,perpendicular_offset=.05)
+# grace.set_row_xaxislabel(label='Proportion basal',row=2,colspan=(None,None),char_size=1,perpendicular_offset=.05)
+# grace.set_col_yaxislabel(label='Mean Persistence',col=0,rowspan=(None,None),char_size=1,perpendicular_offset=.07)
+# # grace.set_col_yaxislabel(label='High disturbance',col=1,rowspan=(None,None),char_size=1,perpendicular_offset=.07)
 
-grace.write_file('../../manuscript/figures/persistence_vs_BSC_lm.eps')
+# grace.write_file('../../manuscript/figures/persistence_vs_BSC_lm.eps')
 
