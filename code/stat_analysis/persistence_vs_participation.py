@@ -160,10 +160,10 @@ def populate_persgraph(graph,motif):
       # 5SE is a silly error bar, just using to test plotting.
       for x in range(minx,maxx):
         scalx=(float(x)/100-scales[motif][0])/scales[motif][1]
-        y=lms[motif][0]+2*offset[motif][0]
-        y+=scalx*(lms[motif][1]+2*offset[motif][1])
-        y+=scaldist*(lms[motif][2]+2*offset[motif][2])
-        y+=scalx*scaldist*(lms[motif][3]+2*offset[motif][3])
+        y=lms[motif][0]+1.96*offset[motif][0]
+        y+=scalx*(lms[motif][1]+1.96*offset[motif][1])
+        y+=scaldist*(lms[motif][2]+1.96*offset[motif][2])
+        y+=scalx*scaldist*(lms[motif][3]+1.96*offset[motif][3])
 
         logity=math.exp(y)/(1+math.exp(y))
 

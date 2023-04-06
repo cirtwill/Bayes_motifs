@@ -57,7 +57,7 @@ consumers$netID=paste(consumers$Size,consumers$Connectance,consumers$Network,sep
         consumers$net_omni[r]=motdata$prop_omni[which(motdata$netID==net)]
     }
 
-    total_lm=with(motdata,glm(mot_total~Size*Connectance,family='binomial'))
+    total_lm=with(motdata,lm(mot_total~Size*Connectance))
     summary(total_lm)
 
     # PERMANOVA and variability of motif profiles
@@ -86,6 +86,7 @@ consumers$netID=paste(consumers$Size,consumers$Connectance,consumers$Network,sep
     write.table(interdata2,file='proportion_variability_SC.tsv',sep='\t')
 
     # LMs - no need for network-level random effect since it's within-network motif profiles
+    # Network motif profiles vs. global properties
     pchainlm=with(motdata,glm(prop_chain~Size*Connectance,family='binomial'))
     pomnilm=with(motdata,glm(prop_omni~Size*Connectance,family='binomial'))
     papplm=with(motdata,glm(prop_apparent~Size*Connectance,family='binomial'))
@@ -110,11 +111,14 @@ consumers$netID=paste(consumers$Size,consumers$Connectance,consumers$Network,sep
     simdata$dist=as.numeric(as.character(simdata$dist))
 
     # Mean persistence ~ chain, omni, apparent, direct with disturbance
-    netchain_mean=with(simdata,glm(per~scale(prop_chain)*scale(dist)g))
-    netomni_mean=with(simdata,glm(per~scale(prop_omni)*scale(dist)g))
-    netapparent_mean=with(simdata,glm(per~scale(prop_apparent)*scale(dist)g))
-    netdirect_mean=with(simdata,glm(per~scale(prop_direct)*scale(dist)),family='binomial')
-
+    netchain_mean=with(simdata,glm(per~scale(prop_chain)*scale(dist),family='binomial'))
+    with(summary(netchain_mean),1-deviance/null.deviance) # McFadden's pseudo r-squared
+    netomni_mean=with(simdata,glm(per~scale(prop_omni)*scale(dist),family='binomial'))
+    with(summary(netomni_mean),1-deviance/null.deviance) # McFadden's pseudo r-squared    
+    netapparent_mean=with(simdata,glm(per~scale(prop_apparent)*scale(dist),family='binomial'))
+    with(summary(netapparent_mean),1-deviance/null.deviance) # McFadden's pseudo r-squared
+    netdirect_mean=with(simdata,glm(per~scale(prop_direct)*scale(dist),family='binomial'))
+    with(summary(netdirect_mean),1-deviance/null.deviance) # McFadden's pseudo r-squared
 
     # PERMANOVA needs to be on mean persistence across levels of disturbance, for size constraints.
     for(r in 1:nrow(motdata)){
@@ -130,7 +134,7 @@ consumers$netID=paste(consumers$Size,consumers$Connectance,consumers$Network,sep
     # ANOVA of dispersion~mean persistence
     persist_anova=anova(persist_disp)
     # LM dispersion ~ mean persistence
-    persist_lm=glm(persist_disp$distances~round(motdata$persistence,3),family='binomial')
+    persist_lm=lm(persist_disp$distances~round(motdata$persistence,3))
 
 # Section 1: How does persistence vary with global network properties?
 
@@ -139,8 +143,8 @@ consumers$netID=paste(consumers$Size,consumers$Connectance,consumers$Network,sep
 
 # Section 4: How does persistence vary with proportions?
     # # lmer with random intercepts for each level of S:C
-    # consumers$Global=paste0(consumers$Size,':',consumers$Connectance)
-    # propchain_lmer1<-with(consumers,lmer(Persistence~scale(prop_chain)*scale(Disturbance)+(1|Global)))
+    consumers$Global=paste0(consumers$Size,':',consumers$Connectance)
+    # propchain_lmer1<-with(consumers,glmer(Persistence~scale(prop_chain)*scale(Disturbance)+(1|Global),family='binomial'))
     # propapparent_lmer1<-with(consumers,lmer(Persistence~scale(prop_apparent)*scale(Disturbance)+(1|Global)))
     # propdirect_lmer1<-with(consumers,lmer(Persistence~scale(prop_direct)*scale(Disturbance)+(1|Global)))
     # propomni_lmer1<-with(consumers,lmer(Persistence~scale(prop_omni)*scale(Disturbance)+(1|Global)))
@@ -150,19 +154,28 @@ consumers$netID=paste(consumers$Size,consumers$Connectance,consumers$Network,sep
     # R2dir=r.squaredGLMM(propdirect_lmer1,null=lmer(consumers$Persistence~(1|Global)))
     # R2omni=r.squaredGLMM(propomni_lmer1,null=lmer(consumers$Persistence~(1|Global)))
     # Random intercepts for S:C and network ID. Conclusions same as above.
-    propchain_lmer1_randnet<-with(consumers,glmer(Persistence~scale(prop_chain)*scale(Disturbance)+(1|Global)+(1|netID),family='binomial'))
-    write.table(summary(propchain_lmer1_randnet)$coefficients,file='chain_lm.tsv',sep='\t')
-    propapparent_lmer1_randnet<-with(consumers,glmer(Persistence~scale(prop_apparent)*scale(Disturbance)+(1|Global)+(1|netID),family='binomial'))
-    write.table(summary(propapparent_lmer1_randnet)$coefficients,file='apparent_lm.tsv',sep='\t')
-    propdirect_lmer1_randnet<-with(consumers,glmer(Persistence~scale(prop_direct)*scale(Disturbance)+(1|Global)+(1|netID),family='binomial'))
+    # Singular, removing network effect
+    # propchain_lmer1_randnet<-with(consumers,glmer(Persistence~scale(prop_chain)*scale(Disturbance)+(1|Global)+(1|netID),family='binomial',control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5))))
+    propchain_lmer1<-with(consumers,glmer(Persistence~scale(prop_chain)*scale(Disturbance)+(1|Global),family='binomial',control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5))))
+    # Converged, random effect explains 0 variance.
+    write.table(summary(propchain_lmer1)$coefficients,file='chain_lm.tsv',sep='\t')
+    R2chain_randnet=r.squaredGLMM(propchain_lmer1,null=glmer(consumers$Persistence~(1|consumers$Global),family='binomial'))
+
+    # Not converging. Removing network effect.
+    # propapparent_lmer1_randnet<-with(consumers,glmer(Persistence~scale(prop_apparent)*scale(Disturbance)+(1|Global)+(1|netID),family='binomial',control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5))))
+    propapparent_lmer1<-with(consumers,glmer(Persistence~scale(prop_apparent)*scale(Disturbance)+(1|Global),family='binomial',control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5))))
+    write.table(summary(propapparent_lmer1)$coefficients,file='apparent_lm.tsv',sep='\t')
+    R2app_randnet=r.squaredGLMM(propapparent_lmer1_randnet,null=glmer(consumers$Persistence~(1|consumers$Global)+(1|consumers$netID),family='binomial'))
+
+    propdirect_lmer1_randnet<-with(consumers,glmer(Persistence~scale(prop_direct)*scale(Disturbance)+(1|consumers$Global)+(1|consumers$netID),family='binomial',control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5))))
     write.table(summary(propdirect_lmer1_randnet)$coefficients,file='direct_lm.tsv',sep='\t')
-    propomni_lmer1_randnet<-with(consumers,glmer(Persistence~scale(prop_omni)*scale(Disturbance)+(1|Global)+(1|netID),family='binomial'))
+
+
+    propomni_lmer1_randnet<-with(consumers,glmer(Persistence~scale(prop_omni)*scale(Disturbance)+(1|consumers$Global)+(1|consumers$netID),family='binomial',control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5))))
     write.table(summary(propomni_lmer1_randnet)$coefficients,file='omnivory_lm.tsv',sep='\t')
 
-    R2chain_randnet=r.squaredGLMM(propchain_lmer1_randnet,null=glmer(consumers$Persistence~(1|Global)+(1|netID),family='binomial'))
-    R2app_randnet=r.squaredGLMM(propapparent_lmer1_randnet,null=glmer(consumers$Persistence~(1|Global)+(1|netID),family='binomial'))
-    R2dir_randnet=r.squaredGLMM(propdirect_lmer1_randnet,null=glmer(consumers$Persistence~(1|Global)+(1|netID),family='binomial'))
-    R2omni_randnet=r.squaredGLMM(propomni_lmer1_randnet,null=glmer(consumers$Persistence~(1|Global)+(1|netID),family='binomial'))
+    R2dir_randnet=r.squaredGLMM(propdirect_lmer1_randnet,null=glmer(consumers$Persistence~(1|consumers$Global)+(1|consumers$netID),family='binomial'))
+    R2omni_randnet=r.squaredGLMM(propomni_lmer1_randnet,null=glmer(consumers$Persistence~(1|consumers$Global)+(1|consumers$netID),family='binomial'))
 
 
 # Section 5. How does persistence vary with degree and TL?
