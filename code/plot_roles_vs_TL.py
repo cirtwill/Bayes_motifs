@@ -16,12 +16,12 @@ from PyGrace.Styles.el import ElGraph, ElLogColorBar
 
 colors=ColorBrewerScheme('Greys',n=10)  # The blue is very beautiful but maybe harder to see.
 # Match Anna's ggplot colours
-colors.add_color(94,79,162,'Rpurple')
-colors.add_color(50,136,189,'Rblue')
-colors.add_color(102,194,165,'Rgreen1')
-colors.add_color(171,221,164,'Rgreen2')
-colors.add_color(230,245,152,'Rgreen3')
-colors.add_color(255,255,191,'Ryellow1')
+colors.add_color(158,101,184,'Rpurple')
+colors.add_color(145,148,215,'Rblue')
+colors.add_color(42,120,142,'Rgreen1')
+colors.add_color(34,168,132,'Rgreen2')
+colors.add_color(122,209,81,'Rgreen3')
+colors.add_color(253,231,37,'Ryellow')
 colors.add_color(254,224,139,'Ryellow2')
 colors.add_color(253,174,97,'Rorange1')
 colors.add_color(244,109,67,'Rorange2')
@@ -113,16 +113,16 @@ def format_graph(graph,simple,roletype):
 def populate_graph(graph,minidict,simple,roletype):
   for motif in ['Apparent','Chain','Omnivory','Direct']:
     if motif=='Apparent':
-      j=13
+      j=12
       sty=2
     elif motif=='Chain':
       j=14
       sty=3
     elif motif=='Direct':
-      j=18
+      j=15
       sty=5
     else:
-      j=20
+      j=18
       sty=1
     dats=[]
     lower=[]
@@ -171,8 +171,8 @@ def populate_persgraph(graph,persdict,simple):
 
   print persdict.keys()
 
-  j=12
-  for basal_p in [0,0.18,0.26,0.34,0.42,0.5]:
+  j=13
+  for basal_p in [0.1,0.18,0.26,0.34,0.42,0.5]:
     p=(basal_p-0.3)/0.1366261
 
     dats=[]
@@ -191,9 +191,9 @@ def populate_persgraph(graph,persdict,simple):
     data.symbol.shape=0
     data.line.configure(linestyle=1,linewidth=3.5,color=j)
 
-    j+=1
     if simple=='TL':
       data.legend=str(basal_p)
+    j+=1
 
   if simple=='TL':
     graph.add_drawing_object(DrawText,text='Basal species',x=5.25,y=0.71,loctype='world',char_size=.75) 
