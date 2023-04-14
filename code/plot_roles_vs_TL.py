@@ -1,9 +1,6 @@
 import sys
 import os
-# import math
-# import random
-# from decimal import *
-# import numpy as np
+import math
 
 #Pygrace libraries
 from PyGrace.grace import Grace
@@ -122,18 +119,24 @@ def populate_graph(graph,minidict,simple,roletype):
       j=14
       sty=3
     elif motif=='Direct':
-      j=16
+      j=18
       sty=5
     else:
-      j=19
+      j=20
       sty=1
     dats=[]
     lower=[]
     upper=[]
     for x in range(0,100):
-      dats.append((x,minidict[motif][0]+x*minidict[motif][2]))
-      lower.append((x,minidict[motif][0]-minidict[motif][1]+x*(minidict[motif][2]-minidict[motif][3])))
-      upper.append((x,minidict[motif][0]+minidict[motif][1]+x*(minidict[motif][2]+minidict[motif][3])))
+      y=minidict[motif][0]+x*minidict[motif][2]
+      logity=math.exp(y)/(1+math.exp(y))
+      dats.append((x,logity))
+      lowy=minidict[motif][0]-minidict[motif][1]+x*(minidict[motif][2]-minidict[motif][3])
+      logitlow=math.exp(lowy)/(1+math.exp(lowy))
+      lower.append((x,logitlow))
+      upy=minidict[motif][0]+minidict[motif][1]+x*(minidict[motif][2]+minidict[motif][3])
+      logitup=math.exp(upy)/(1+math.exp(upy))
+      upper.append((x,logitup))
 
     upply=graph.add_dataset(upper)
     upply.symbol.shape=0
@@ -179,7 +182,10 @@ def populate_persgraph(graph,persdict,simple):
       skex=(x-cent)/scal
       xcomp=persdict['(Intercept)'][0]+skex*persdict[key][0]
       bcomp=p*persdict['scale(Disturbance)'][0]+skex*p*persdict[key+':scale(Disturbance)'][0]
-      dats.append((x,xcomp+bcomp))
+      y=xcomp+bcomp
+      logity=math.exp(y)/(1+math.exp(y))
+
+      dats.append((x,logity))
 
     data=graph.add_dataset(dats)
     data.symbol.shape=0
@@ -209,7 +215,7 @@ def populate_persgraph(graph,persdict,simple):
 # # Far too many species to see anything. Going to apply stats.
 lmfile='stat_analysis/roles_vs_TL_Deg.tsv'
 lmdict=read_lmfile(lmfile)
-persdict=read_persfiles('stat_analysis/persistence_vs_Deg.tsv','stat_analysis/persistence_vs_TL.tsv')
+persdict=read_persfiles('stat_analysis/persistence_vs_Deg_norandom.tsv','stat_analysis/persistence_vs_TL.tsv')
 
 grace=MultiPanelGrace(colors=colors)
 for graphtype in ['Proportion','Persistence']:
