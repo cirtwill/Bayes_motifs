@@ -293,31 +293,44 @@ save.image('all_tests.Rdata')
     # apparent_deg_prop_net=with(consumers[which(consumers$Disturbance==0.1),],glmer(prop_apparent~in_Degree+(1|netID),family='binomial'))
     apparent_deg_prop=with(consumers[which(consumers$Disturbance==0.1),],glm(prop_apparent~in_Degree,family='binomial'))
 
+    direct_deg_prop_randnet=with(consumers[which(consumers$Disturbance==0.1),],glmer(prop_direct~in_Degree+(1|Global)+(1|netID),family='binomial'))
+    direct_deg_prop_global=with(consumers[which(consumers$Disturbance==0.1),],glmer(prop_direct~in_Degree+(1|Global),family='binomial'))
+    direct_deg_prop_net=with(consumers[which(consumers$Disturbance==0.1),],glmer(prop_direct~in_Degree+(1|netID),family='binomial'))
+    direct_deg_prop=with(consumers[which(consumers$Disturbance==0.1),],glm(prop_direct~in_Degree,family='binomial'))
+
+
 
     # TL, prop
-    chain_TL_prop_randnet=with(consumers[which(consumers$Disturbance==0.1),],glmer(prop_chain~STL+(1|Global)+(1|netID),family='binomial'))
-    chain_TL_prop_global=with(consumers[which(consumers$Disturbance==0.1),],glmer(prop_chain~STL+(1|Global),family='binomial'))
-    chain_TL_prop_net=with(consumers[which(consumers$Disturbance==0.1),],glmer(prop_chain~STL+(1|netID),family='binomial'))
+    # chain_TL_prop_randnet=with(consumers[which(consumers$Disturbance==0.1),],glmer(prop_chain~STL+(1|Global)+(1|netID),family='binomial'))
+    # chain_TL_prop_global=with(consumers[which(consumers$Disturbance==0.1),],glmer(prop_chain~STL+(1|Global),family='binomial'))
+    # chain_TL_prop_net=with(consumers[which(consumers$Disturbance==0.1),],glmer(prop_chain~STL+(1|netID),family='binomial'))
     chain_TL_prop=with(consumers[which(consumers$Disturbance==0.1),],glm(prop_chain~STL,family='binomial'))
 
+    # omni_TL_prop_randnet=with(consumers[which(consumers$Disturbance==0.1),],glmer(prop_omni~STL+(1|Global)+(1|netID),family='binomial'))
+    # omni_TL_prop_global=with(consumers[which(consumers$Disturbance==0.1),],glmer(prop_omni~STL+(1|Global),family='binomial'))
+    # omni_TL_prop_net=with(consumers[which(consumers$Disturbance==0.1),],glmer(prop_omni~STL+(1|netID),family='binomial'))
+    omni_TL_prop=with(consumers[which(consumers$Disturbance==0.1),],glm(prop_omni~STL,family='binomial'))
 
+    # apparent_TL_prop_randnet=with(consumers[which(consumers$Disturbance==0.1),],glmer(prop_apparent~STL+(1|Global)+(1|netID),family='binomial'))
+    # apparent_TL_prop_global=with(consumers[which(consumers$Disturbance==0.1),],glmer(prop_apparent~STL+(1|Global),family='binomial'))
+    # apparent_TL_prop_net=with(consumers[which(consumers$Disturbance==0.1),],glmer(prop_apparent~STL+(1|netID),family='binomial'))
+    apparent_TL_prop=with(consumers[which(consumers$Disturbance==0.1),],glm(prop_apparent~STL,family='binomial'))
 
-
-    omni_TL_prop_randnet=with(consumers[which(consumers$Disturbance==0.1),],glmer(prop_omni~STL+(1|Global),family='binomial'))
-    apparent_TL_prop_randnet=with(consumers[which(consumers$Disturbance==0.1),],glmer(prop_apparent~STL+(1|Global),family='binomial'))
-    direct_TL_prop_randnet=with(consumers[which(consumers$Disturbance==0.1),],glmer(prop_direct~STL+(1|Global),family='binomial'))
-
+    # direct_TL_prop_randnet=with(consumers[which(consumers$Disturbance==0.1),],glmer(prop_direct~STL+(1|Global)+(1|netID),family='binomial'))
+    # direct_TL_prop_global=with(consumers[which(consumers$Disturbance==0.1),],glmer(prop_direct~STL+(1|Global),family='binomial'))
+    # direct_TL_prop_net=with(consumers[which(consumers$Disturbance==0.1),],glmer(prop_direct~STL+(1|netID),family='binomial'))
+    direct_TL_prop=with(consumers[which(consumers$Disturbance==0.1),],glm(prop_direct~STL,family='binomial'))
 
     results=matrix(nrow=8,ncol=7)
     colnames(results)=c("Predctor","Role","Motif","Intercept","Intercept_SD","Pred_slope","Pred_SD")
-    results[1,]=c("Deg","Prop","Chain",summary(chain_deg_prop_randnet)$coefficients[1,1:2],summary(chain_deg_prop_randnet)$coefficients[2,1:2])
-    results[2,]=c("Deg","Prop","Omnivory",summary(omni_deg_prop_randnet)$coefficients[1,1:2],summary(omni_deg_prop_randnet)$coefficients[2,1:2])
-    results[3,]=c("Deg","Prop","Apparent",summary(apparent_deg_prop_randnet)$coefficients[1,1:2],summary(apparent_deg_prop_randnet)$coefficients[2,1:2])
-    results[4,]=c("Deg","Prop","Direct",summary(direct_deg_prop_randnet)$coefficients[1,1:2],summary(direct_deg_prop_randnet)$coefficients[2,1:2])
-    results[5,]=c("TL","Prop","Chain",summary(chain_TL_prop_randnet)$coefficients[1,1:2],summary(chain_TL_prop_randnet)$coefficients[2,1:2])
-    results[6,]=c("TL","Prop","Omnivory",summary(omni_TL_prop_randnet)$coefficients[1,1:2],summary(omni_TL_prop_randnet)$coefficients[2,1:2])
-    results[7,]=c("TL","Prop","Apparent",summary(apparent_TL_prop_randnet)$coefficients[1,1:2],summary(apparent_TL_prop_randnet)$coefficients[2,1:2])
-    results[8,]=c("TL","Prop","Direct",summary(direct_TL_prop_randnet)$coefficients[1,1:2],summary(direct_TL_prop_randnet)$coefficients[2,1:2])
+    results[1,]=c("Deg","Prop","Chain",summary(chain_deg_prop)$coefficients[1,1:2],summary(chain_deg_prop)$coefficients[2,1:2])
+    results[2,]=c("Deg","Prop","Omnivory",summary(omni_deg_prop)$coefficients[1,1:2],summary(omni_deg_prop)$coefficients[2,1:2])
+    results[3,]=c("Deg","Prop","Apparent",summary(apparent_deg_prop)$coefficients[1,1:2],summary(apparent_deg_prop)$coefficients[2,1:2])
+    results[4,]=c("Deg","Prop","Direct",summary(direct_deg_prop)$coefficients[1,1:2],summary(direct_deg_prop)$coefficients[2,1:2])
+    results[5,]=c("TL","Prop","Chain",summary(chain_TL_prop)$coefficients[1,1:2],summary(chain_TL_prop)$coefficients[2,1:2])
+    results[6,]=c("TL","Prop","Omnivory",summary(omni_TL_prop)$coefficients[1,1:2],summary(omni_TL_prop)$coefficients[2,1:2])
+    results[7,]=c("TL","Prop","Apparent",summary(apparent_TL_prop)$coefficients[1,1:2],summary(apparent_TL_prop)$coefficients[2,1:2])
+    results[8,]=c("TL","Prop","Direct",summary(direct_TL_prop)$coefficients[1,1:2],summary(direct_TL_prop)$coefficients[2,1:2])
     write.table(results,file='roles_vs_TL_Deg.tsv',sep='\t')
 
 
