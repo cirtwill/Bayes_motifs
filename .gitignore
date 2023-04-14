@@ -7,8 +7,8 @@ manuscript/*.ps
 manuscript/*.pdf
 manuscript/*.dvi
 manuscript/*.blg
-manuscript/figure/*.pdf
-manuscript/figure/*.png
+manuscript/figures/*.pdf
+manuscript/figures/*.png
 
 data/*.RData
 data/*.zip
