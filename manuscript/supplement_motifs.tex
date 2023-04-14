@@ -342,6 +342,9 @@ $^\dagger$ Corresponding author\\
         We centered and scaled the predictors before fitting the GLMMs.
         All models were fit using the R~\citep{R} function `glmer' from the package \emph{lmerTest}~\citep{lmerTest}.
         We calculated marginal (fixed effects only) and conditional (fixed and random effects) $R^2$ using the R~\citep{R} function `r.squaredGLMM' from the package \emph{MuMIn}~\citep{MuMIn}.
+        Due to model singularity, we removed the network-level random effect and re-fit the models.
+        After re-fitting, the models converged but the estimated variance explained by the random intercept was 0.
+        We therefore removed this random effect as well and re-fit the model as a general linear model including only the fixed effects described above.
 
         
         We were also interested in whether these general trends were consistent across networks with different global properties and different levels of disturbance. 
@@ -478,37 +481,35 @@ $^\dagger$ Corresponding author\\
 
 \clearpage
 
-\section{Persistence and motif participation}
+\section{Persistence and motif participation} [updated]
 
-    Persistence varied with motif participation.
+    Persistence was significantly related to the proportion of each motif in the species' role (Table~\ref{tab:proportion}). Persistence tended to increase with increasing proportions of the direct competition and, at high levels of disturbance, increasing frequencies of the apparent competition motif. Persistence tended to decrease with increasing proportions of the omnivory motif and, at high levels of disturbance, the three-species chain.
 
     % Updated with new random effect, converted to data-scale
     \begin{table}[ht!]
         \centering
-        \caption{Coefficients ($\beta$) and $p$-values ($p$) for models relating persistence to the proportion of a species' role made up by the focal motif, the level of disturbance to basal resources (corresponding to a probability of extinction ranging between 0.1 and 0.5), and their interaction, as well as random effects to account for differences in persistence across levels of network size, connectance, and network ID  (Equation~\ref{propreq}). Predictors were centered and scaled before model fitting; coefficients refer to a unit increase in each parameter. We also provide the marginal $R^2_M$ (fixed effects only) and conditional $R^2_C$ (fixed and random effects) for each model.}
+        \caption{Coefficients ($\beta$) for general linear models relating persistence to the proportion of a species' role made up by the focal motif, the level of disturbance to basal resources (corresponding to a probability of extinction ranging between 0.1 and 0.5), and their interaction  (Equation~\ref{propreq}). Coefficients in \textbf{bold} are significant ($\alpha$\textless0.005). Models were fit using a binomial error distribution and logit link function. Predictors were centered and scaled before model fitting. We also provide McFadden's pseudo-$R^2$ for each model.}
         \label{tab:proportion}                \footnotesize
-        \begin{tabular}{c|c c | c c | c c | c c | c c }
-        & \multicolumn{2}{c|}{Intercept} & \multicolumn{2}{c|}{Proportion} & \multicolumn{2}{c|}{Disturbance} & \multicolumn{2}{c|}{Interaction} & \multicolumn{2}{c}{$R^2$} \\
-        Motif & $\beta$ & $p$ & $\beta$ & $p$ & $\beta$ & $p$ & $\beta$ & $p$ & $R^2_M$ & $R^2_C$ \\
+        \begin{tabular}{c|c c c c | c }
+        Motif & Intercept & Proportion & Disturbance & Interaction & pseudo-$R^2$  \\
         \hline
-        3-sp Chain & 0.574 & \textless0.001 & -6.25$\times10^{-4}$ & \textless0.001 & -0.0190 & \textless0.001 & -5.86$\times10^{-5}$& \textless0.001 & 0.900 & 0.912 \\
-        App. Com. & 0.574 & \textless0.001 & -5.71$\times10^{-4}$ & \textless0.001 & -0.0190 & \textless0.001 & 8.19$\times10^{-5}$ & \textless0.001 & 0.900 & 0.911 \\
-        Dir. Com. & 0.574 & \textless0.001 & 6.95$\times10^{-4}$ & \textless0.001 & -0.0190 & \textless0.001 & 4.01$\times10^{-6}$ & \textless0.001 & 0.901 & 0.911 \\
-        Omnivory & 0.574 & \textless0.001 & 8.12$\times10^{-4}$ & \textless0.001 & -0.0190 & \textless0.001 & -2.73$\times10^{-5}$ & \textless0.001 & 0.894 & 0.912 \\
+        3-sp Chain & \textbf{2.90} & \textbf{-0.204} & \textbf{-5.42} & \textbf{0.138} & 0.895 \\
+        App. Com. & \textbf{0.317} & -2.63$\times10^{-3}$ & \textbf{-5.98478} & \textbf{1.95$\times10^{-2}$} & 0.895 \\
+        Dir. Com. & \textbf{0.317} & \textbf{3.03$\times10^{-2}$} & \textbf{-0.599} & -1.67$\times10^{-3}$ &  0.897 \\
+        Omnivory & \textbf{0.317} & \textbf{-1.81$\times10^{-2}$} & \textbf{-0.598} & \textbf{-7.76$\times10^{-3}$} & 0.895 \\
         \end{tabular}
     \end{table}        
 \clearpage     
 
-\section{Participation and network properties}
-
+\section{Participation and network properties} [not updated yet]
 
     Motif participation varies with global-scale network properies.
     % Updated with network-level random effect
     \begin{table}[hb!]
         \centering
         \caption{Motif participation varies with size and connectance. Here we give the range and mean ($\pm$ standard deviation) proportion of each motif in species' motif participation vectors. 
-        We also show the effects ($\beta$) and $p$-values for network size, connectance, and their interaction in linear mixed-effect models predicting the proportion of each motif in a participation vector.
-        These models also included a random effect of network ID, as species within the same network are not independent.
+        We also show the coefficients ($\beta$) for network size, connectance, and their interaction in general linear mixed-effect models predicting the proportion of each motif in a participation vector.
+        These models also included a random effect of network ID, as species within the same network are not independent and were fit with a binomial error distribution and logit link function.
         Predictors were not centered or standardized before model fitting. Motifs are ordered according to mean proportion.}
         % Relevant lms are pchainlm, pomnilm, papplm, pdirlm}
         \label{tab:partic_vs_SC}   
@@ -532,23 +533,49 @@ $^\dagger$ Corresponding author\\
         \caption{The proportion of each motif in a consumer's participation vector varied with network size, connectance, and their interaction. These relationships were steepest for apparent competition and omnivory.}
         \label{fig:roles_vs_SC}
     \end{figure}
+
+
+    Motif participation also varied with a species' degree and trophic level.
+    \begin{table}[hb!]
+        \centering
+        \caption{Motif participation varies with in-degree and trophic level. Here we show the coefficients for models relating the frequency of each motif in a species' participation vector to in-degree or trophic level (8 models in total). [[Random effect?]]
+        Coefficients in \textbf{bold} are significant ($\alpha$=0.05).
+        All models were fit with binomial error distribution and logit link function.
+        Predictors were not centered or standardized before model fitting. Motifs are ordered according to mean proportion.}
+        % Relevant lms are pchainlm, pomnilm, papplm, pdirlm}
+        \label{tab:partic_vs_SC}   
+        \footnotesize
+        \begin{tabular}{c|c c }
+            Motif & in-degree & TL \\
+            \hline
+            3-sp Chain & \\
+            App. Comp & \\
+            Dir. Comp & \\
+            Omnivory & \\
+            \hline
+            \end{tabular}
+            \end{table}
+    
+
+
+    
 \clearpage 
 
-\section{Persistence, degree, and trophic level}
+\section{Persistence, degree, and trophic level} [updated]
 
 
-    Persistence varies with in-degree, trophic level, and their interaction.
+    Persistence varies with in-degree, trophic level, and their interactions with disturbance.
 
     % Updated with network-level random effect
     \begin{table}[hb!]
-        \caption{Coeffcients ($\beta$) for linear mixed-effect models of consumers' probabilities of persistence against simple measures of species' role (STL or in-degree), level of disturbance to basal resources, and their interaction, as well as a random effect of network ID. Predictors were centered and scaled before model fitting. All $p$-values were \textless0.001. The level of disturbance is reflected by basal resources having a baseline probability of extinction ranging between $0.1 - 0.5$.  We also provide the marginal $R^2_M$ (fixed effects only) and conditional $R^2_C$ (fixed and random effects) for each model.}
+        \caption{Coeffcients ($\beta$) for general linear mixed-effect models of consumers' probabilities of persistence against simple measures of species' role (STL or in-degree), level of disturbance to basal resources, and their interaction, as well as a random effect of global network properties (size and connectance). The model for STL was singular when including the random effect, so we removed this term and re-fit the model as a general linear model with fixed effects only. All models had binomial error distribution. Predictors were centered and scaled before model fitting. All $p$-values were \textless0.001. The level of disturbance is reflected by basal resources having a baseline probability of extinction ranging between $0.1 - 0.5$.  We also provide the marginal $R^2_M$ (fixed effects only) and conditional $R^2_C$ (fixed and random effects) for the in-degree model and the pseudo-$R^2$ for the STL model.}
         \label{tab:per_vs_TLdeg}
         \centering
         \begin{tabular}{l|c  c  c | c c  }
             Simple role measure & Role & Disturbance & Interaction & R$^2_M$ & R$^2_C$ \\
             \hline
-            STL & -0.0101 & -0.0190 & 3.34$\times10^{4}$ & 0.922 & 0.95 \\
-            in-degree & -0.0236 & -0.0190 & -0.0155 & 0.903 & 0.936 \\
+            STL & -0.0977 & -0.600 & 0.0302 & 0.920 & NA \\
+            in-degree & -1.30$\times10^{-3}$ & -0.139 & -9.08$\times10^{-3}$ & 0.903 & 0.914 \\
         \end{tabular}
     \end{table}
 
@@ -661,16 +688,16 @@ $^\dagger$ Corresponding author\\
     
             
 
-\section{Persistence and global network properties}
+\section{Persistence and global network properties} [updated]
 
-    Connectance and species richness had smaller effects on consumer persistence than disturbance (Figs.~\ref{fig:lm_CS}, \ref{fig:heatmap_CS}, Table~\ref{tab:per_vs_SC}).
+    Connectance had a smaller, but significant, effect on consumer persistence than disturbance (Figs.~\ref{fig:lm_CS}, \ref{fig:heatmap_CS}, Table~\ref{tab:per_vs_SC}).
+    Network size had no effect on consumer persistence in these simulated networks.
 
     % updated to use network means rather than all species
     \begin{figure}[hb!]
         \centering
         \includegraphics[width=\textwidth]{figures/persistence_vs_SC_lm.eps}
-        \caption{Persistence decreased strongly with increasing probability of disturbance to basal resources, while network size, connectance, and their interaction had smaller effects. \textbf{A)} Persistence decreased slightly with increasing network size at high levels of disturbance, increased slightly with increasing network size at low levels of disturbance, and did not vary noticeably with network size at moderate levels of disturbance. Networks with lower connectance (dotted line) had slightly higher persistence than networks with moderate (solid line) or high (dashed line) connectance.
-        \textbf{B)} Persistence decreased with increasing connectance for all levels of disturbance and network size. Network size (line types) did not strongly affect these relationships.}
+        \caption{Persistence decreased strongly with increasing probability of disturbance to basal resources and decreased slightly, but significantly, with increasing connectance. The effects of network size and interactions between predictors were not significant. }
         \label{fig:lm_CS}
     \end{figure}
 
@@ -686,21 +713,21 @@ $^\dagger$ Corresponding author\\
 
     % Updated to use mean rather than all species.
     \begin{table}[hb!]
-        \caption{Mean persistence of consumers within a network depends on network size (S) and connectance (C), the level of disturbance to basal resources (D), and interactions between them. Here we show the effect sizes ($\beta$) and $p$-values for the regression described above. All predictors were centered and scaled before fitting the model; coefficients refer to a unit increase in predictors. The level of disturbance corresponds to basal resources having a probability of extinction ranging between $0.1 - 0.5$ (see \emph{Methods}). The regression had $R^2$=
+        \caption{Mean persistence of consumers within a network depends on connectance (C) and the level of disturbance to basal resources (D), but not network size (S) or interactions between global properties. Here we show the effect sizes ($\beta$) and $p$-values for the general linear model described above. The model was fit using a binomial error distribution and logic link function. All predictors were centered and scaled before fitting the model;. The level of disturbance corresponds to basal resources having a probability of extinction ranging between $0.1 - 0.5$ (see \emph{Methods}). McFadden's pseudo-$R^2$=0.966.
         }
         \label{tab:per_vs_SC}
         \centering
         \begin{tabular}{c|c c |}
             Predictor & $\beta$ & $p$-value \\
             \hline
-            Intercept & 0.574 & \textless0.001 \\
-            Size & -8.22$\times10^{-3}$  & 0.011 \\
-            Connectance & -7.74 & \textless0.001 \\
-            Disturbance & -0.0189 & \textless0.001 \\
-            S:C & -9.43$\times10^{-4}$ & \textless0.001 \\
-            S:D & -8.07$\times10^{-3}$ & \textless0.001 \\
-            C:D & -1.74$\times10^{-6}$ & 0.233 \\
-            S:C:D: & -5.24$\times10^{-5}$ & 0.036 \\
+            Intercept & 0.326 & \textless0.001 \\
+            Size & -7.21$\times10^{-4}$  & 0.964 \\
+            Connectance & -6.12$\times10^{-2}$& \textless0.001 \\
+            Disturbance & -0.596 & \textless0.001 \\
+            S:C & -4.48$\times10^{-3}$ & 0.777 \\
+            S:D & -1.63$\times10^{-2}$ & 0.316 \\
+            C:D & -4.52$\times10^{-3}$ & 0.781 \\
+            S:C:D: & -1.35$\times10^{-3}$ & 0.934 \\
         \end{tabular}
     \end{table}
 
