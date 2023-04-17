@@ -1,9 +1,6 @@
 import sys
 import os
 import math
-import random
-from decimal import *
-import numpy as np
 
 #Pygrace libraries
 from PyGrace.grace import Grace
@@ -19,8 +16,8 @@ from PyGrace.Styles.el import ElGraph, ElLogColorBar
 
 colors=ColorBrewerScheme('Greys',n=10)  # The blue is very beautiful but maybe harder to see.
 # Match Anna's ggplot colours
-colors.add_color(68,1,84,'Rpurple')
-colors.add_color(65,68,135,'Rblue')
+colors.add_color(158,101,184,'Rpurple')
+colors.add_color(145,148,215,'Rblue')
 colors.add_color(42,120,142,'Rgreen1')
 colors.add_color(34,168,132,'Rgreen2')
 colors.add_color(122,209,81,'Rgreen3')
@@ -87,26 +84,38 @@ def format_graph(graph,simple):
 
 def populate_persgraph(graph,xprop,val,netprops):
   print xprop, val
-  j=12
   for motif in netprops:
+    if motif=='Apparent':
+      j=12
+      sty=2
+    elif motif=='Chain':
+      j=14
+      sty=3
+    elif motif=='Direct':
+      j=15
+      sty=5
+    else:
+      j=18
+      sty=1
     betas=netprops[motif]
     dats=[]
     if xprop=='S':
       for x in [50,60,70,80,90,100]:
         y=betas[0]+x*betas[1]+val*betas[2]+x*val*betas[3]
-        dats.append((x,y))
+        logity=math.exp(y)/(1+math.exp(y))
+        dats.append((x,logity))
     elif xprop=='C':
       for x in [0.02,0.06,0.1,0.14,0.18]:
         y=betas[0]+x*betas[2]+val*betas[1]+x*val*betas[3]      
-        dats.append((x,y))
+        logity=math.exp(y)/(1+math.exp(y))
+        dats.append((x,logity))
 
     data=graph.add_dataset(dats)
     data.symbol.shape=0
-    data.line.configure(linestyle=1,linewdith=1.5,color=j)
+    data.line.configure(linestyle=sty,linewdith=1.5,color=j)
 
-    if xprop=='C' and val==50:
+    if xprop=='C' and val==70:
       data.legend=motif_names[motif]
-    j+=3
 
   graph.legend.configure(box_linestyle=0,box_fill_pattern=0,char_size=.75,loc=(0.21,0.5),loctype='world')
   return graph
@@ -124,24 +133,22 @@ datafile='roles_vs_SC.tsv'
 netprops=read_datafile(datafile)
 
 grace=MultiPanelGrace(colors=colors)
-grace.add_label_scheme('dummy',['C=0.02','S=50','C=0.1','S=70','C=0.18','S=100'])
+grace.add_label_scheme('dummy',['C=0.1','S=70'])
 grace.set_label_scheme('dummy')
 
 
-for i in [0,1,2]:
-  for xprop in ['S','C']:
-    if xprop=='S':
-      vals=[0.02,0.1,0.18]
-    elif xprop=='C':
-      vals=[50,70,100]
-    val=vals[i]
-    graph2=grace.add_graph(Panel)
-    graph2=format_graph(graph2,xprop)
-    graph2=populate_persgraph(graph2,xprop,val,netprops)
-    graph2.panel_label.configure(placement='iul',char_size=.75,dx=.02,dy=.02)
+for xprop in ['S','C']:
+  if xprop=='S':
+    val=0.1
+  elif xprop=='C':
+    val=70
+  graph2=grace.add_graph(Panel)
+  graph2=format_graph(graph2,xprop)
+  graph2=populate_persgraph(graph2,xprop,val,netprops)
+  graph2.panel_label.configure(placement='iul',char_size=.75,dx=.02,dy=.02)
 
 
-grace.multi(rows=3,cols=2,vgap=.06,hgap=.06)
+grace.multi(rows=1,cols=2,vgap=.06,hgap=.06)
 grace.hide_redundant_labels()
 grace.set_col_yaxislabel(label='Proportion of motif participation',col=0,rowspan=(None,None),char_size=1,perpendicular_offset=.07)
 
