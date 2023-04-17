@@ -530,7 +530,7 @@ $^\dagger$ Corresponding author\\
     \begin{figure}[ht!]
         \centering
         \includegraphics[height=.4\textheight]{figures/participation_vs_SC.eps}
-        \caption{The proportion of each motif in a consumer's participation vector varied with network size, connectance, and their interaction. These relationships were steepest for apparent competition and omnivory.}
+        \caption{The proportion of each motif in a consumer's participation vector varied sigificantly with connectance but not with network size or the interaction between size and connectance. Because the interaction was not significant, we show relationships for intermediate values of size and connectance when plotting against the other variable. These relationships were steepest for apparent competition and omnivory.}
         \label{fig:roles_vs_SC}
     \end{figure}
 
@@ -538,8 +538,7 @@ $^\dagger$ Corresponding author\\
     Motif participation also varied with a species' degree and trophic level.
     \begin{table}[hb!]
         \centering
-        \caption{Motif participation varies with in-degree and trophic level. Here we show the coefficients for models relating the frequency of each motif in a species' participation vector to in-degree or trophic level (8 models in total). [[Random effect?]]
-        Coefficients in \textbf{bold} are significant ($\alpha$=0.05).
+        \caption{Motif participation varies with in-degree and trophic level. Here we show the coefficients for models relating the frequency of each motif in a species' participation vector to in-degree or trophic level (8 models in total). All relationships were significant ($\alpha$=0.05).
         All models were fit with binomial error distribution and logit link function.
         Predictors were not centered or standardized before model fitting. Motifs are ordered according to mean proportion.}
         % Relevant lms are pchainlm, pomnilm, papplm, pdirlm}
@@ -548,10 +547,10 @@ $^\dagger$ Corresponding author\\
         \begin{tabular}{c|c c }
             Motif & in-degree & TL \\
             \hline
-            3-sp Chain & \\
-            App. Comp & \\
-            Dir. Comp & \\
-            Omnivory & \\
+                3-sp Chain & \textbf{-6.99$\times10^{-3}$} & \textbf{9.84$\times10^{-2}$} \\
+            Omnivory & \textbf{2.29$\times10^{-2}$} & \textbf{-2.27$\times10^{-1}$}\\
+            App. Comp & \textbf{-8.76$\times10^{-3}$} & \textbf{2.40$\times10^{-1}$}\\
+            Dir. Comp & \textbf{-1.43$\times10^{-3}$} & \textbf{-2.52$\times10^{-1}$}\\
             \hline
             \end{tabular}
             \end{table}
@@ -580,20 +579,20 @@ $^\dagger$ Corresponding author\\
     \end{table}
 
 
-    \begin{figure}[hb!]
-     \centering
-     \includegraphics[width=.9\textwidth]{figures/heatmap_STL_allCS_BP0.eps}
-     \caption{All species across all levels experience a risk of going extinct due to causes not related to the web of $\pi = 0.1$. The panels show final persistence for consumers with different shortest trophic level, for increasing connectance (y-axis) and network size (x-axis). Persistence decreases with darker color in the heat map.}
-     \label{fig:heatmap_stl_BP0}
-    \end{figure}
+    % \begin{figure}[hb!]
+    %  \centering
+    %  \includegraphics[width=.9\textwidth]{figures/heatmap_STL_allCS_BP0.eps}
+    %  \caption{All species across all levels experience a risk of going extinct due to causes not related to the web of $\pi = 0.1$. The panels show final persistence for consumers with different shortest trophic level, for increasing connectance (y-axis) and network size (x-axis). Persistence decreases with darker color in the heat map.}
+    %  \label{fig:heatmap_stl_BP0}
+    % \end{figure}
 
 
-    \begin{figure}[hb!]
-     \centering
-     \includegraphics[width=.9\textwidth]{figures/heatmap_STL_allCS_BP1.eps}
-     \caption{Basal resources experience a disturbance increasing their probability of extinction to $\pi = 0.5$. All consumer species go extinct due to causes not related to the web itself with probability $\pi = 0.1$. The panels show final persistence for consumers with different shortest trophic level, for increasing connectance (y-axis) and network size (x-axis). Persistence decreases with darker color in the heat map.}
-     \label{fig:heatmap_stl_BP1}
-    \end{figure}
+    % \begin{figure}[hb!]
+    %  \centering
+    %  \includegraphics[width=.9\textwidth]{figures/heatmap_STL_allCS_BP1.eps}
+    %  \caption{Basal resources experience a disturbance increasing their probability of extinction to $\pi = 0.5$. All consumer species go extinct due to causes not related to the web itself with probability $\pi = 0.1$. The panels show final persistence for consumers with different shortest trophic level, for increasing connectance (y-axis) and network size (x-axis). Persistence decreases with darker color in the heat map.}
+    %  \label{fig:heatmap_stl_BP1}
+    % \end{figure}
 
 \clearpage
 
@@ -625,10 +624,10 @@ $^\dagger$ Corresponding author\\
     % In conclusion, species richness does not considerably alter the trends visible in the LMMs. High species richness more clearly display an interaction between motif proportion, persistences and disturbance levels, while this effect is smaller with low species richness. 
 \clearpage
                 
-\section{Persistence and motif profiles} [[updated]]
+\section{Persistence and whole-network motif profiles} [[updated]]
 
     % Updated and expanded to include permanova tests
-    Persistence varied with the frequencies of different motifs in a network profile ($F_{1,2998}$=645, $p$\textless0.001 for a PERMANOVA of dissimilarity in motif profiles against mean persistence).
+    Mean persistence of all consumers varied with the frequencies of different motifs in a network profile ($F_{1,2998}$=645, $p$\textless0.001 for a PERMANOVA of dissimilarity in motif profiles against mean persistence).
     However, motif profiles were not evenly distributed across mean persistences ($F_{134,2865}$=1.77, $p$\textless0.001 for an ANOVA of dissimilarity in motif profiles against mean persistence, rounded to 3 decimal places).
     Specifically, motif profiles were more variable (higher dissimilarities) in networks with higher mean persistence.
     As non-homogeneous variability can cause a PERMANOVA to return a false positive~\citep{Anderson2001}, this means that we must treat our PERMANOVA result as tentative and place more weight on the single-motif regressions.
@@ -690,44 +689,44 @@ $^\dagger$ Corresponding author\\
 
 \section{Persistence and global network properties} [updated]
 
-    Connectance had a smaller, but significant, effect on consumer persistence than disturbance (Figs.~\ref{fig:lm_CS}, \ref{fig:heatmap_CS}, Table~\ref{tab:per_vs_SC}).
+    Connectance had a smaller, but significant, effect on consumer persistence than disturbance (Figs.~\ref{fig:lm_CS}, Table~\ref{tab:per_vs_SC}).
     Network size had no effect on consumer persistence in these simulated networks.
 
     % updated to use network means rather than all species
     \begin{figure}[hb!]
         \centering
-        \includegraphics[width=\textwidth]{figures/persistence_vs_SC_lm.eps}
+        \includegraphics[width=0.9\textwidth]{figures/persistence_vs_SC_lm.eps}
         \caption{Persistence decreased strongly with increasing probability of disturbance to basal resources and decreased slightly, but significantly, with increasing connectance. The effects of network size and interactions between predictors were not significant. }
         \label{fig:lm_CS}
     \end{figure}
 
 
 
-    \begin{figure}[hb!]
-        \centering
-      \includegraphics[width=\textwidth]{figures/heatmap_CS_BPcompare.eps}
-       \caption{Heat maps of average consumer persistence in networks with varying connectance (y-axis) and network size (x-axis) at two levels of disturbance to basal resources. Persistence decreases with darker color in the heat map. When basal species are not disturbed, all species experience a baseline extinction risk of $\pi = 0.1$. When basal species are highly disturbed, their baseline extinction risk rises to $\pi = 0.5$ while the baseline risk of consumers is not changed.}
-       \label{fig:heatmap_CS}
-    \end{figure}
+    % \begin{figure}[hb!]
+    %     \centering
+    %   \includegraphics[width=\textwidth]{figures/heatmap_CS_BPcompare.eps}
+    %    \caption{Heat maps of average consumer persistence in networks with varying connectance (y-axis) and network size (x-axis) at two levels of disturbance to basal resources. Persistence decreases with darker color in the heat map. When basal species are not disturbed, all species experience a baseline extinction risk of $\pi = 0.1$. When basal species are highly disturbed, their baseline extinction risk rises to $\pi = 0.5$ while the baseline risk of consumers is not changed.}
+    %    \label{fig:heatmap_CS}
+    % \end{figure}
 
 
     % Updated to use mean rather than all species.
     \begin{table}[hb!]
-        \caption{Mean persistence of consumers within a network depends on connectance (C) and the level of disturbance to basal resources (D), but not network size (S) or interactions between global properties. Here we show the effect sizes ($\beta$) and $p$-values for the general linear model described above. The model was fit using a binomial error distribution and logic link function. All predictors were centered and scaled before fitting the model;. The level of disturbance corresponds to basal resources having a probability of extinction ranging between $0.1 - 0.5$ (see \emph{Methods}). McFadden's pseudo-$R^2$=0.966.
+        \caption{Mean persistence of consumers within a network depends on connectance (C) and the level of disturbance to basal resources (D), but not network size (S) or interactions between properties. We show effect sizes ($\beta$) and $p$-values for each coefficient in a general linear model (fit using a binomial error distribution and logic link function). All predictors were centered and scaled before fitting the model. The level of disturbance corresponds to basal resources having a probability of extinction ranging between $0.1 - 0.5$ (see \emph{Methods}). McFadden's pseudo-$R^2$=0.966.
         }
         \label{tab:per_vs_SC}
         \centering
         \begin{tabular}{c|c c |}
             Predictor & $\beta$ & $p$-value \\
             \hline
-            Intercept & 0.326 & \textless0.001 \\
+            Intercept & \textbf{0.326} & \textless0.001 \\
             Size & -7.21$\times10^{-4}$  & 0.964 \\
-            Connectance & -6.12$\times10^{-2}$& \textless0.001 \\
-            Disturbance & -0.596 & \textless0.001 \\
+            Connectance & \textbf{-6.12$\times10^{-2}$}& \textless0.001 \\
+            Disturbance & \textbf{-0.596} & \textless0.001 \\
             S:C & -4.48$\times10^{-3}$ & 0.777 \\
             S:D & -1.63$\times10^{-2}$ & 0.316 \\
             C:D & -4.52$\times10^{-3}$ & 0.781 \\
-            S:C:D: & -1.35$\times10^{-3}$ & 0.934 \\
+            S:C:D & -1.35$\times10^{-3}$ & 0.934 \\
         \end{tabular}
     \end{table}
 
