@@ -75,7 +75,7 @@ def format_graph(graph,simple):
     graph.xaxis.ticklabel.configure(format='decimal',prec=0,char_size=.75)
 
   graph.world.ymin=0
-  graph.world.ymax=.6
+  graph.world.ymax=.75
   graph.yaxis.ticklabel.configure(format='decimal',prec=1,char_size=.75)
   graph.yaxis.label.configure(text='Mean persistence',char_size=1,just=2,place='normal')
   graph.yaxis.tick.configure(major=.2,onoff='on',minor_ticks=0,major_size=.4,minor_size=.5,place='both',major_linewidth=.5,minor_linewidth=1)
@@ -117,7 +117,7 @@ def populate_persgraph(graph,xprop,val,netprops):
     if xprop=='C' and val==70:
       data.legend=motif_names[motif]
 
-  graph.legend.configure(box_linestyle=0,box_fill_pattern=0,char_size=.75,loc=(0.21,0.5),loctype='world')
+  graph.legend.configure(box_linestyle=0,box_fill_pattern=0,char_size=.75,loc=(0.1,0.74),loctype='world')
   return graph
 
 ###############################################################################################
@@ -137,7 +137,7 @@ grace.add_label_scheme('dummy',['C=0.1','S=70'])
 grace.set_label_scheme('dummy')
 
 
-for xprop in ['S','C']:
+for xprop in ['C','S']:
   if xprop=='S':
     val=0.1
   elif xprop=='C':
