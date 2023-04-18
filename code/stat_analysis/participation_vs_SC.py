@@ -114,7 +114,7 @@ def populate_persgraph(graph,xprop,val,netprops):
     data.symbol.shape=0
     data.line.configure(linestyle=sty,linewdith=1.5,color=j)
 
-    if xprop=='C' and val==70:
+    if xprop=='C' and val==50:
       data.legend=motif_names[motif]
 
   graph.legend.configure(box_linestyle=0,box_fill_pattern=0,char_size=.75,loc=(0.1,0.74),loctype='world')
@@ -133,22 +133,28 @@ datafile='roles_vs_SC.tsv'
 netprops=read_datafile(datafile)
 
 grace=MultiPanelGrace(colors=colors)
-grace.add_label_scheme('dummy',['C=0.1','S=70'])
+grace.add_label_scheme('dummy',['S=50','C=0.02','S=100','C=0.20'])
 grace.set_label_scheme('dummy')
 
+for sel in ['lo','high']:
+  for xprop in ['C','S']:
+    if xprop=='S':
+      if sel=='lo':
+        val=0.02
+      else:
+        val=0.2
+    elif xprop=='C':
+      if sel=='lo':
+        val=50
+      else:
+        val=100
+    graph2=grace.add_graph(Panel)
+    graph2=format_graph(graph2,xprop)
+    graph2=populate_persgraph(graph2,xprop,val,netprops)
+    graph2.panel_label.configure(placement='iul',char_size=.75,dx=.02,dy=.02)
 
-for xprop in ['C','S']:
-  if xprop=='S':
-    val=0.1
-  elif xprop=='C':
-    val=70
-  graph2=grace.add_graph(Panel)
-  graph2=format_graph(graph2,xprop)
-  graph2=populate_persgraph(graph2,xprop,val,netprops)
-  graph2.panel_label.configure(placement='iul',char_size=.75,dx=.02,dy=.02)
 
-
-grace.multi(rows=1,cols=2,vgap=.06,hgap=.06)
+grace.multi(rows=2,cols=2,vgap=.06,hgap=.06)
 grace.hide_redundant_labels()
 grace.set_col_yaxislabel(label='Proportion of motif participation',col=0,rowspan=(None,None),char_size=1,perpendicular_offset=.07)
 
