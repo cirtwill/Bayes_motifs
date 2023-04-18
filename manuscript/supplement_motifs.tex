@@ -501,60 +501,38 @@ $^\dagger$ Corresponding author\\
     \end{table}        
 \clearpage     
 
-\section{Participation and network properties} [not updated yet]
+\section{Participation and network properties} [updated]
 
     Motif participation varies with global-scale network properies.
     % Updated with network-level random effect
     \begin{table}[hb!]
         \centering
-        \caption{Motif participation varies with size and connectance. Here we give the range and mean ($\pm$ standard deviation) proportion of each motif in species' motif participation vectors. 
-        We also show the coefficients ($\beta$) for network size, connectance, and their interaction in general linear mixed-effect models predicting the proportion of each motif in a participation vector.
-        These models also included a random effect of network ID, as species within the same network are not independent and were fit with a binomial error distribution and logit link function.
+        \caption{Motif participation varies with size and connectance. Here we give the range and mean proportion of each motif in species' motif participation vectors. 
+        We also show the coefficients ($\beta$) for network size (S), connectance (C), and their interaction in general linear models predicting the proportion of each motif in a participation vector.
+        Coefficients in \textbf{bold} are significant ($\alpha$=0.05).
+        We also show the coefficients for similar models relating the proportion of each motif to in-degree or trophic level.
+        All models were fit with a binomial error distribution and logit link function.
         Predictors were not centered or standardized before model fitting. Motifs are ordered according to mean proportion.}
         % Relevant lms are pchainlm, pomnilm, papplm, pdirlm}
         \label{tab:partic_vs_SC}   
         \footnotesize
-        \begin{tabular}{c|c c c | c c | c c | c c}
-             &  &  &  & \multicolumn{2}{c|}{Size} & \multicolumn{2}{c|}{Connectance} & \multicolumn{2}{c}{Interaction} \\
-            Motif & Min & Max & Mean (SD) & $\beta$ & $p$ & $\beta$ & $p$ & $\beta$ & $p$ \\
+        \begin{tabular}{c|c c c | c c c | c | c}
+            Motif & Min & Max & Mean & S & C & Int. & in-Deg & TL \\
             \hline
-            3-sp Chain & 0 & 1 & 0.249 (0.127) & 2.83$\times10^{-4}$ & \textless0.001 & -0.0982 & 0.053 & -3.66$\times10^{-3}$ & \textless0.001 \\
-            App. Comp & 0.250 & 0.765 & 0.422 (0.0645) & -5.85$\times10^{-4}$ & \textless0.001 & -0.840 & \textless0.001 & 2.69$\times10^{-3}$ & 0.003 \\
-            Dir. Comp & 0.0501 & 0.359 & 0.179 (0.0407) & -6.99$\times10^{-5}$ & 0.450 & -0.636 & \textless0.001 & 6.46$\times10^{-3}$ & \textless0.001 \\
-            Omnivory & 0.006 & 0.346 & 0.164 (0.0790) & 3.70$\times10^{-4}$ & \textless0.001 & 1.57 & \textless0.001 & -5.48$\times10^{-3}$ & \textless0.001\\   
+            3-sp Chain & 0 & 1 & 0.249 & \textbf{1.20$\times10^{-3}$} &  -0.652 & \textbf{-1.77$\times10^{-2}$} & \textbf{-6.99$\times10^{-3}$} & \textbf{9.84$\times10^{-2}$} \\
+            App. Comp & 0.250 & 0.765 & 0.422 & \textbf{-1.82$\times10^{-3}$} & \textbf{-3.18} & 6.92$\times10^{-3}$ & \textbf{-8.76$\times10^{-3}$} & \textbf{2.40$\times10^{-1}$}\\
+            Dir. Comp & 0.0501 & 0.359 & 0.179 & -1.18$\times10^{-3}$ & \textbf{-4.50} & \textbf{4.79$\times10^{-2}$} & \textbf{-1.43$\times10^{-3}$} & \textbf{-2.52$\times10^{-1}$} \\
+            Omnivory & 0.006 & 0.346 & 0.164 & \textbf{3.64$\times10^{-3}$} & \textbf{12.5} & \textbf{-4.19$\times10^{-2}$} & \textbf{2.29$\times10^{-2}$} & \textbf{-2.27$\times10^{-1}$}\\   
             \hline
             \end{tabular}
             \end{table}
 
-    % Updated with network-level random effect
     \begin{figure}[ht!]
         \centering
-        \includegraphics[height=.4\textheight]{figures/participation_vs_SC.eps}
+        \includegraphics[width=.9\textwidth]{figures/participation_vs_SC.eps}
         \caption{The proportion of each motif in a consumer's participation vector varied sigificantly with connectance but not with network size or the interaction between size and connectance. Because the interaction was not significant, we show relationships for intermediate values of size and connectance when plotting against the other variable. These relationships were steepest for apparent competition and omnivory.}
         \label{fig:roles_vs_SC}
     \end{figure}
-
-
-    Motif participation also varied with a species' degree and trophic level.
-    \begin{table}[hb!]
-        \centering
-        \caption{Motif participation varies with in-degree and trophic level. Here we show the coefficients for models relating the frequency of each motif in a species' participation vector to in-degree or trophic level (8 models in total). All relationships were significant ($\alpha$=0.05).
-        All models were fit with binomial error distribution and logit link function.
-        Predictors were not centered or standardized before model fitting. Motifs are ordered according to mean proportion.}
-        % Relevant lms are pchainlm, pomnilm, papplm, pdirlm}
-        \label{tab:partic_vs_SC}   
-        \footnotesize
-        \begin{tabular}{c|c c }
-            Motif & in-degree & TL \\
-            \hline
-                3-sp Chain & \textbf{-6.99$\times10^{-3}$} & \textbf{9.84$\times10^{-2}$} \\
-            Omnivory & \textbf{2.29$\times10^{-2}$} & \textbf{-2.27$\times10^{-1}$}\\
-            App. Comp & \textbf{-8.76$\times10^{-3}$} & \textbf{2.40$\times10^{-1}$}\\
-            Dir. Comp & \textbf{-1.43$\times10^{-3}$} & \textbf{-2.52$\times10^{-1}$}\\
-            \hline
-            \end{tabular}
-            \end{table}
-    
 
 
     
