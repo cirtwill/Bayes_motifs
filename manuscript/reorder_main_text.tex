@@ -100,19 +100,19 @@ Motif participation describes extinction risk
     
     
     The plant community is the foundation upon which the myriad species in food webs depend for their survival. 
-    Disturbances to the plant community have been shown to affect important ecosystem properties such as primary \citep{Hector1999} and secondary production \citep{borer2012plant}, soil respiration and carbon cycling \citep{chen2019plant}, and consumer diversity \citep{scherber2010bottom, Baiser2016}.
-    The loss of  basal level diversity typically causes declines in both abundance and richness of all types of consumers: herbivores, predators, parasitoids, etc. \citep{scherber2010bottom}. 
+    Disturbances to the plant community have been shown to affect important ecosystem properties such as primary \citep{Hector1999} and secondary production \citep{borer2012plant}, soil respiration and carbon cycling \citep{chen2019plant}, and consumer diversity \citep{scherber2010bottom, Baiser2016,li2020bottom}.
+    The loss of  basal level diversity typically causes declines in both abundance and richness of all types of consumers: herbivores, predators, parasitoids, etc. \citep{scherber2010bottom,Dobson2009food, Mduma1999food, Georgiadis2007}. 
     Given these far-reaching effects we here choose to analyse persistence after loss of basal resources, i.e., effects of bottom-up disturbances. 
     We are particularly interested in whether the strength of this disturbance affects which consumers are most likely to go extinct. 
     For example, participation in one motif might be associated with greater probability of extinction after a mild disturbance but be associated with less risk of extinction when when more basal resources are lost if the direct and indirect interactions within the motif amplify the effect of small disturbances but also provide the species with alternatives when disturbances are strong.
+
     
-    
-    While a relationship between motif participation and persistence is broadly intuitive, so far there has been little research demonstrating which motifs are associated with greater probabilities of persistence.
-    One potential reason for the difficulty in assessing the relationship between species' motif roles and persistence are the large computational resources required to simulate population dynamics.
-    Our solution is to use Bayesian networks, which are much more computationally efficient and facilitate the analysis of larger networks~\citep{Eklof2013,Haussler2020}.
-    One limitation with Bayesian networks is that they only take into account bottom-up effects (see Methods). 
-    Nevertheless, Bayesian networks do capture the vast majority of secondary extinctions obtained from fully-fledged dynamical models including top-down and bottom-up effects~\citep{Eklof2013}, and as such are a good proxy for analysing species persistence following extinctions of primary producers in complex food webs.
-    %The greater computational efficiency and similar [[results? performance? extinctions?]] of Bayesian networks allow us to simulate the effects of a gradient of disturbance strength and thereby explore whether participation in some motifs is associated with greater probability of extinction under strong or weak disturbances.
+    % While a relationship between motif participation and persistence is broadly intuitive, so far there has been little research demonstrating which motifs are associated with greater probabilities of persistence.
+    % One potential reason for the difficulty in assessing the relationship between species' motif roles and persistence are the large computational resources required to simulate population dynamics.
+    % Our solution is to use Bayesian networks, which are much more computationally efficient and facilitate the analysis of larger networks~\citep{Eklof2013,Haussler2020}.
+    % One limitation with Bayesian networks is that they only take into account bottom-up effects (see Methods). 
+    % Nevertheless, Bayesian networks do capture the vast majority of secondary extinctions obtained from fully-fledged dynamical models including top-down and bottom-up effects~\citep{Eklof2013}, and as such are a good proxy for analysing species persistence following extinctions of primary producers in complex food webs.
+    % %The greater computational efficiency and similar [[results? performance? extinctions?]] of Bayesian networks allow us to simulate the effects of a gradient of disturbance strength and thereby explore whether participation in some motifs is associated with greater probability of extinction under strong or weak disturbances.
 
     %There are 13 possible three-species motifs (the most commonly-used size for food web analyses)~\citep{Milo2004,Stouffer2007,Stouffer2012,Cirtwill2015a}, 
     We define motif participation using three-species motifs, which are the most commonly-used size for food web analyses)~\citep{Milo2004,Stouffer2007,Stouffer2012,Cirtwill2015a}. 
@@ -122,8 +122,8 @@ Motif participation describes extinction risk
     The direct competition motif, where two consumers share the same resource, captures the possibility of indirect interactions between consumers (e.g., by depletion of the shared resource). 
     The apparent competition motif, where a predator consumes two resources, can include indirect effects between prey (e.g., by boosting predator populations) in a top-down context, but in a bottom-up context only includes direct interactions.
     Finally, the omnivory motif, where a predator consumes the same resource as its prey, includes captures the potential for a plant to have both direct and indirect effects on the predator. 
-    Furthermore, these four motifs do not include cycles (where species A and B eat each other or where A eats B eats C eats A).
-    As modelling secondary extinctions using Bayesian networks requires acyclic networks (see Methods), these are the only motifs possible.
+    % Furthermore, these four motifs do not include cycles (where species A and B eat each other or where A eats B eats C eats A).
+    % As modelling secondary extinctions using Bayesian networks requires acyclic networks (see Methods), these are the only motifs possible.
     
     
     %\subsection*{Here we test...}
@@ -187,7 +187,39 @@ Motif participation describes extinction risk
 
 \section*{Methods}
 
+    \subsection*{Network construction and describing species roles}
+
+        We generated simulated networks using the niche model, which has been shown to recreate the structure of empirical networks well~\citep{Williams2000,Stouffer2007}.
+        To capture a range of network architectures similar to those in well-studied empirical networks~\citep{Dunne2002,Dunne2002a}, we simulated networks with sizes (S) ranging from 50 to 100 species (in steps of 10) and connectances (C) ranging from 0.02 to 0.18 (in steps of 0.04). 
+        All networks were generated using the function ``nichemodel'' within the Julia~\citep{Bezanson2017julia} package \emph{BioEnergeticFoodWebs}~\citep{bioenergfw,Delmas2017}.   
+        For full details and a comparison to empirical networks, see \emph{Appendix S2}.
+        We removed any biologically unlikely networks (i.e., those with extremely long paths between any consumer and basal resources; \emph{Appendix S2}) and replaced them with new simulated networks, repeating the process until we obtained 100 suitable networks in each combination of size and connectance.
+
+        
+        % To make the simulated networks compatible with the Bayesian simulation framework, all networks were rendered acyclic following~\citet{Allesina2009functional} and species topologically sorted from lowest to highest trophic level (\emph{Appendix S2}). 
+        %  These processing steps allow the strictly bottom-up calculation of probability of persistence.
+        We then described each consumer species' motif participation role in each of these simulated networks before applying any disturbance. 
+        A species' ``motif participation role'' is the frequency with which the species appears in each of the motifs present in a network~\citep{Stouffer2012}.
+        As only four unique three-species motifs can appear in acyclic networks, these are four-dimensional vectors. 
+        Here we are interested in the relative frequencies of each motif rather than the total number of motifs and therefore normalized participation vectors by dividing each count by the total number of motifs the species appears in such that the vector for each species sums to 1.
+        Note, however, that this normalization does not necessarily control for differences due to degree or connectance~\citep{Cirtwill2022Oikos}. 
+
+        We also calculated simpler measures of a species' role within its community.
+        These were in-degree (number of prey) and trophic level (shortest trophic level (STL): the length of the shortest food chain between the focal species and any basal resource~\citep{Williams2004}).
+        Both simple role measures were calculated in R~\citep{R} using the same algorithm as~\citet{Eklof2013}.
+
+        
+        Finally, to provide context for species' motif participation, we also calculated network ``motif profiles'': four-dimensional vectors of the number of each three-species motif in each network~\citep{Stouffer2012}.
+        Together with network size and connectance, these motif profiles describe the structure of the whole network rather than how a particular species participates in the community.
+        To separate differences in motif structure from differences in network size or connectance (larger and more-connected networks contain more motifs), we normalized motif profiles by dividing the count of each motif by the total count of all motifs. 
+        We calculated species' motif participation using the Python package \emph{pymfinder}~\citep{pymfinder}.
+
+
+
+    
+    
     \subsection*{Modelling secondary extinction using Bayesian networks}
+
 
         Traditionally, there are two main approaches for studying secondary extinctions (i.e., extinctions of species that were not directly disturbed). 
         First, there are topological models, based only on food web structure \citep{dunne2009cascading}. 
@@ -197,12 +229,26 @@ Motif participation describes extinction risk
         This additional detail means that realistic processes such as indirect interactions can be included, but also means that dynamical models are highly parameter intensive and simulations are much more time-consuming than topological models. 
         
         
-        A middle‐ground approach for simulating secondary extinctions is to use Bayesian networks \citep{Eklof2013,Haussler2020}. 
+        A middle‐ground approach for simulating secondary extinctions is to use Bayesian networks, which are much more computationally efficient and facilitate the analysis of larger networks \citep{Eklof2013,Haussler2020}. 
         In this framework, a consumer's probability of extinction depends on the fraction of resources lost ($f = k/n$ for a species with $n$ resources, of which $k$ have gone extinct) and on a baseline probability of extinction ($\pi$) which captures factors affecting the focal species' extinction probability that are not related to the network structure (e.g., disease, stochastic extinction of small populations).
-        Modelling Bayesian networks is fast and computationally efficient, allowing analysis of networks with high species richness \citep{Haussler2020}. 
-        This increased speed allows us to simulate a range of disturbance severities rather than single species removals as in many previous studies (e.g.,~\citealp[]{Memmott2004,Staniczenko2010,Dunne2004}).
+        Importantly, the greater speed of the Bayesian network framework allows us to simulate a range of disturbance severities rather than single species removals as in many previous studies (e.g.,~\citealp[]{Memmott2004,Staniczenko2010,Dunne2004,Cirtwill2022Oikos}).
         Moreover, Bayesian network simulations are less parameter-intensive than dynamical models, meaning that they are less sensitive to assumptions made in the modelling process~\citep{Eklof2013}.
-    
+
+        % Mention acyclic resstriction here.
+        One limitation to Bayesian networks is that consumers do not affect the extinction probabilities of their resources (i.e., only bottom-up effects are included).
+        Nevertheless, Bayesian networks do capture the vast majority of secondary extinctions obtained from fully-fledged dynamical models including top-down and bottom-up effects~\citep{Eklof2013}, and as such are a good proxy for analysing species persistence following extinctions of primary producers in complex food webs.
+        As our focus in this study is on bottom-up effects from disturbance of basal resources, Bayesian networks will capture the secondary extinctions we are interested in.
+        Bayesian networks also require the creation of acyclic networks so that a strict bottom-up sequence can be followed. 
+        This means that cycles where species A eats species B and vice versa or where A eats B eats C eats A must be broken (see \emph{Appendix SX} for details).
+        Fortunately, \cite{Allesina2009functional} proved that cyclic and acyclic versions of a network have the same properties in terms of secondary extinctions and the effect on network robustness are very limited. 
+        Thus, making the networks acyclic in order to use the Bayesian network approach will not strongly affect extinction scenarios.        
+        The removal of cycles also affects which motifs can appear in the network. 
+        In particular, any motif which contains a cycle is impossible in an acyclic network.
+        This means that only the four motifs which are most common in empirical networks (\citealp[]{Stouffer2007}: apparent competition, direct competition, omnivory, and the three-species chain) can appear.
+        Fortunately, they are also the motifs that have been most studied in isolation (e.g.,~\citep{}) and have the clearest ecological interpretation.
+
+
+        \subsubsection*{Modelling consumers' risk of secondary extinction}
         
         The response of the consumer to changes in $f$ can take any form (\emph{Appendix S1}). Here we use a sigmoid non-linear function ($\alpha > 1, \beta > 1$).
 		This type of response most accurately captures the secondary extinctions produced by dynamical models (\citealp[]{Eklof2013}).
@@ -230,56 +276,21 @@ Motif participation describes extinction risk
 	    For each species, we then define probability of persistence as the fraction of simulations in which the species persists. There are methods for solving Bayesian networks exactly \citep{Eklof2013}.
 	    However, for larger networks the described numerical evaluation is highly efficient and produces close to identical results \citep{Haussler2020}.
 		
-		% BN limitations
-		Modelling species extinctions in food webs using Bayesian networks has two main limitations. 
-		First, in Bayesian networks consumers do not affect the extinction probabilities of their resources and as such we can here only capture bottom-up effects of disturbances. 
-		However, Bayesian networks has been shown to capture the majority of secondary extinctions produced by fully-fledged dynamical models \citep{Eklof2013}.
-		\cite{Eklof2013} analyzed which functional form of consumers' response to loss of resources most accurately predicted the secondary extinctions realized in the dynamical model. 
-		We here use that functional form in our analyzes.  
-		Moreover, bottom-up effects are often the main force of secondary extinctions in empirical systems. 
-		For example, bottom-up effects regulate zooplankton communities in freshwater lakes, regulating zooplankton communities \citep{li2020bottom} and control abundances and biomass of vertebrate species in several terrestrial systems \citep{Dobson2009food, Mduma1999food, Georgiadis2007}. 
-		Second, due to the strict bottom-up approach of Bayesian networks, the networks must be acyclic.
-		Fortunately, \cite{Allesina2009functional} proved that cyclic and acyclic versions of a network have the same properties in terms of secondary extinctions and the effect on network robustness are very limited. 
-		Thus, making the networks acyclic in order to use the Bayesian network approach will not strongly affect extinction scenarios.
-		Moreover, the cyclic motifs which are excluded from an acyclic network are rare in empirical networks~\citep{Stouffer2007} and therefore unlikely to strongly affect extinction risk.
 	
 		
-    \subsection*{Disturbance scenarios}
-    
-        In our baseline scenario, all species had an extinction probability of $\pi = 0.1$. 
-		To simulate various threats to basal resources, making some species more vulnerable to extinction, we increase all basal species' probability of extinction from $0.10$ to $0.5$, in steps of $0.08$. 
-		The highest disturbance level, $\pi = 0.5$, corresponds to basal species having a 50\% risk of going extinct. 
-		Consumer species retained $\pi=0.1$ in all cases.
-		
-		
-	\subsection*{Initial network construction}
-
-		We generated a realistic set of simulated networks based on the niche model~\citep{Williams2000,Stouffer2007} using the function ``nichemodel'' within the Julia~\citep{Bezanson2017julia} package \emph{BioEnergeticFoodWebs}~\citep{bioenergfw,Delmas2017}. 
-		To capture a range of plausible network architectures, we simulated networks with sizes (S) ranging from 50 to 100 species (in steps of 10) and connectances (C) ranging from 0.02 to 0.18 (in steps of 0.04). 
-		For full details and a comparison to empirical networks, see \emph{Appendix S2}.
-		We removed any biologically unlikely networks (\emph{Appendix S2}) and replaced them with new simulated networks, repeating the process until we obtained 100 suitable networks in each combination of size and connectance.
-		To make the simulated networks compatible with the Bayesian simulation framework, all networks were rendered acyclic following~\citet{Allesina2009functional} and species topologically sorted from lowest to highest trophic level (\emph{Appendix S2}). 
-		 These processing steps allow the strictly bottom-up calculation of probability of persistence.
-		
-		
-	\subsection*{Defining species roles}
-
-        A species' ``motif participation role'' is the frequency with which a focal species appears in each of the motifs present in a network~\citep{Stouffer2012}.
-        In our case, these are four-dimensional vectors since only four three-species motifs can appear in acyclic networks.
-        As we are interested in relationships between the type of motif participated in rather than the total number of motifs, we normalized participation vectors by dividing each count by the total number of motifs the species appears in.
-        Note, however, that this normalization does not necessarily control for differences due to degree or connectance as high- and low-degree species (or species in more- and less-connected networks) may also tend to participate in different types of motifs.
-        We address the potential associations between motif participation, degree, and connectance explicitly below. 
+        \subsubsection*{Disturbance scenarios}
         
-        
-        To provide context for species' motif participation, we also calculated network ``motif profiles'': four-dimensional vectors of the number of each three-species motif in each network~\citep{Stouffer2012}.
-        To separate differences in motif structure from differences in network size (larger networks contain more motifs), we normalized motif profiles by dividing the count of each motif by the total count of all motifs. 
-		We calculated species' motif participation using the Python package \emph{pymfinder}~\citep{pymfinder}.
+            In our baseline scenario, all species had an extinction probability of $\pi = 0.1$. 
+            To simulate various threats to basal resources, making some species more vulnerable to extinction, we increase all basal species' probability of extinction from $0.10$ to $0.5$, in steps of $0.08$. 
+            The highest disturbance level, $\pi = 0.5$, corresponds to basal species having a 50\% risk of going extinct. 
+            Consumer species retained $\pi=0.1$ in all cases.
+		
+		
 
 
-        Finally, we calculated simpler measures of a species' role within its community.
-        These were in-degree (number of prey) and trophic level (shortest trophic level (STL): the length of the shortest food chain between the focal species and any basal resource~\citep{Williams2004}).
-        Both simple role measures were calculated in R~\citep{R} using the same algorithm as~\citet{Eklof2013}.
-        
+		
+		
+
 
 
 	\subsection*{Statistical analysis} 
