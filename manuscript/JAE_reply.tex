@@ -177,7 +177,19 @@
 
             \item Line 185: The authors should provide information about how they have determined what networks would be more biologically likely than others.
 
-                \textbf{R:} [[Refers to: To capture a range of plausible network architectures, we simulated networks with sizes (S) ranging from 50 to 100 species (in steps of 10) and connectances (C) ranging from 0.02 to 0.18 (in steps of 0.04). ]] [[Based on many collective years of experience working with empirical food webs... is that acceptable to say?]]
+                \textbf{R:} The niche model has been previously demonstrated to generate plausible network architectures, including similar motif profiles (see citations in main text). We chose size and connectance in order to meet computational limitations (very large networks are difficult to model) and to overlap with the ranges of size and connectance in empirical food webs used to develop much of the current network theory. 
+
+
+                We have lightly rephrased the start of this paragraph (quoted below) and added some references to papers describing empirical networks with similar size and connectance to those we simulate.
+                Also note that we compare our simlated results with results for a set of more recent, larger, and especially well-resolved empirical networks in the SI. Although some of the whole-network structural properties differed, the range of species motif participations in our simulated networks spanned the whole range of observed motif participation in these empirical networks.
+
+
+                \begin{quotation}
+                We generated simulated networks using the niche model, which has been shown to recreate the structure of empirical networks well~\citep{Williams2000,Stouffer2007}.
+                To capture a range of network architectures similar to those in well-studied empirical networks~\citep{Dunne2002,Dunne2002a}, we simulated networks with sizes (S) ranging from 50 to 100 species (in steps of 10) and connectances (C) ranging from 0.02 to 0.18 (in steps of 0.04). 
+                All networks were generated using the function ``nichemodel'' within the Julia~\citep{Bezanson2017julia} package \emph{BioEnergeticFoodWebs}~\citep{bioenergfw,Delmas2017}.   
+                For full details and a comparison to empirical networks, see \emph{Appendix S2}.
+                \end{quotation}
 
 
             \item Line 192: It is not obvious how the authors have decided to define a focal species in their study. It should be made clear what trophic guild or species they are specifically looking at in each of these networks as the wording now is quite vague.
