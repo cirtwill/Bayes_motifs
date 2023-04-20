@@ -31,8 +31,8 @@ consumers$prop_direct=consumers$m36/consumers$total_motifs
 consumers$prop_omni=consumers$m38/consumers$total_motifs
 consumers$netID=paste(consumers$Size,consumers$Connectance,consumers$Network,sep=':')
 
-per_network_results=matrix(nrow=0,ncol=6)
-colnames(per_network_results)=c("Network","S","C","Disturbance","Motif","Motif_slope")
+per_network_results=matrix(nrow=0,ncol=7)
+colnames(per_network_results)=c("Network","S","C","Disturbance","P_basal_extinct","Motif","Motif_slope")
 
 for(n in levels(as.factor(consumers$Network))){
     print(n)
@@ -40,19 +40,20 @@ for(n in levels(as.factor(consumers$Network))){
     S=netdat$Size[1]
     C=netdat$Connectance[1]
     for (d in c(0,0.2,0.4,0.6,0.8,1)){
+        pBas_total=0.1+0.4*d
         Ddat=netdat[which(netdat$Basal_p==d),]
         omnimod=with(Ddat,glm(Persistence~prop_omni,family='binomial'))
         chainmod=with(Ddat,glm(Persistence~prop_chain,family='binomial'))
         ACmod=with(Ddat,glm(Persistence~prop_apparent,family='binomial'))
         DCmod=with(Ddat,glm(Persistence~prop_direct,family='binomial'))
         per_network_results=rbind(per_network_results,
-            c(n,S,C,d,'Omnivory',summary(omnimod)$coefficients[2,1]))
+            c(n,S,C,d,pBas_total,'Omnivory',summary(omnimod)$coefficients[2,1]))
         per_network_results=rbind(per_network_results,
-            c(n,S,C,d,'Chain',summary(chainmod)$coefficients[2,1]))
+            c(n,S,C,d,pBas_total,'Chain',summary(chainmod)$coefficients[2,1]))
         per_network_results=rbind(per_network_results,
-            c(n,S,C,d,'Apparent',summary(ACmod)$coefficients[2,1]))
+            c(n,S,C,d,pBas_total,'Apparent',summary(ACmod)$coefficients[2,1]))
         per_network_results=rbind(per_network_results,
-            c(n,S,C,d,'Direct',summary(DCmod)$coefficients[2,1]))
+            c(n,S,C,d,pBas_total,'Direct',summary(DCmod)$coefficients[2,1]))
     }
 }
 
