@@ -168,7 +168,6 @@ save.image('all_tests.Rdata')
     # write.table(summary(propchain_lmer1)$coefficients,file='chain_lm.tsv',sep='\t')
     # R2chain_randnet=r.squaredGLMM(propchain_lmer1,null=glmer(consumers$Persistence~(1|consumers$Global),family='binomial'))
     # Global RE also had 0 variance, removing.
-    write.table(summary(propchain_norandom)$coefficients,file='chain_lm.tsv',sep='\t')
 
     # Not converging. Removing network effect.
     # propapparent_lmer1_randnet<-with(consumers,glmer(Persistence~scale(prop_apparent)*scale(Disturbance)+(1|Global)+(1|netID),family='binomial',control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5))))
@@ -187,12 +186,68 @@ save.image('all_tests.Rdata')
     # propomni_lmer1<-with(consumers,glmer(Persistence~scale(prop_omni)*scale(Disturbance)+(1|consumers$Global),family='binomial',control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=2e5))))
     # Singular
     propchain_norandom<-with(consumers,glm(Persistence~scale(prop_chain)*scale(Disturbance),family='binomial'))
-    propapparent_norandom<-with(consumers,glm(Persistence~scale(prop_apparent)*scale(Disturbance),family='binomial'))
-    write.table(summary(propapparent_norandom)$coefficients,file='apparent_lm.tsv',sep='\t')
+    propchain_global_1<-with(consumers,glm(Persistence~scale(prop_chain)*scale(Disturbance)*scale(Size)*scale(Connectance),family='binomial'))
+    propchain_global_2<-with(consumers,glm(Persistence~scale(prop_chain)*scale(Disturbance)*scale(Size)+scale(Connectance)*scale(prop_chain)*scale(Disturbance)+scale(Size)*scale(Connectance)+scale(prop_omni):scale(Size):scale(Connectance)+scale(Size):scale(Connectance):scale(Disturbance)+scale(Disturbance):scale(Connectance),family='binomial'))
+    propchain_global_3<-with(consumers,glm(Persistence~scale(prop_chain)*scale(Disturbance)*scale(Size)+scale(Connectance)*scale(Size)+scale(Connectance)*scale(prop_chain)*scale(Disturbance)+scale(prop_omni):scale(Size):scale(Connectance)+scale(Disturbance):scale(Connectance),family='binomial'))
+    propchain_global_4<-with(consumers,glm(Persistence~scale(prop_chain)*scale(Size)*scale(Connectance)+
+        scale(Disturbance)*scale(Size)*scale(prop_chain)+scale(Disturbance):scale(Connectance),family='binomial'))
+    propchain_global_5<-with(consumers,glm(Persistence~scale(prop_chain)*scale(Size)
+        +scale(Connectance)*scale(prop_chain)+scale(Connectance):scale(Size)+scale(Connectance):scale(Disturbance)+
+        scale(Disturbance)*scale(Size)*scale(prop_chain),family='binomial'))
+    propchain_global_6<-with(consumers,glm(Persistence~scale(prop_chain)*scale(Size)
+        +scale(Connectance)*scale(Disturbance)+scale(Connectance):scale(Size)+scale(Connectance):scale(prop_chain)+scale(prop_chain):scale(Disturbance)+scale(Size):scale(Disturbance),family='binomial'))
+    propchain_global_7<-with(consumers,glm(Persistence~scale(prop_chain)*scale(Size)
+        +scale(Connectance)*scale(Disturbance)+scale(Connectance):scale(Size)+scale(prop_chain):scale(Disturbance)+scale(Size):scale(Disturbance),family='binomial'))
+    propchain_global_8<-with(consumers,glm(Persistence~scale(prop_chain)*scale(Disturbance)
+        +scale(Connectance)*scale(Size)+scale(Connectance):scale(Disturbance)+scale(Size):scale(Disturbance),family='binomial'))
+    propchain_global_9<-with(consumers,glm(Persistence~scale(prop_chain)*scale(Disturbance)
+        +scale(Connectance)*scale(Size)+scale(Size):scale(Disturbance),family='binomial'))
+    propchain_global_10<-with(consumers,glm(Persistence~scale(prop_chain)*scale(Disturbance)
+        +scale(Connectance)*scale(Size)+scale(Size):scale(Disturbance),family='binomial'))
+    propchain_global<-with(consumers,glm(Persistence~scale(prop_chain)*scale(Disturbance)
+        +scale(Connectance)+scale(Size)+scale(Size):scale(Disturbance),family='binomial'))
+
+
+
+
     propdirect_norandom<-with(consumers,glm(Persistence~scale(prop_direct)*scale(Disturbance),family='binomial'))
-    write.table(summary(propdirect_norandom)$coefficients,file='direct_lm.tsv',sep='\t')
+    propdirect_global_1<-with(consumers,glm(Persistence~scale(prop_direct)*scale(Disturbance)*scale(Connectance)*scale(Size),family='binomial'))    
+    propdirect_global_2<-with(consumers,glm(Persistence~scale(prop_direct)*scale(Disturbance)*scale(Size)+scale(Connectance)+scale(Connectance):scale(prop_direct)+scale(Connectance):scale(Disturbance)+scale(Connectance):scale(Size)+scale(Connectance):scale(prop_direct):scale(Disturbance)+scale(Connectance):scale(prop_direct):scale(Size),family='binomial'))
+    propdirect_global_3<-with(consumers,glm(Persistence~scale(prop_direct)*scale(Size)*scale(Connectance)+
+        scale(prop_direct)*scale(Disturbance)+
+        scale(Size):scale(Disturbance)+scale(Connectance):scale(Disturbance)+
+        scale(prop_direct):scale(Disturbance):scale(Connectance),family='binomial'))
+    propdirect_global_4<-with(consumers,glm(Persistence~scale(prop_direct)*scale(Size)*scale(Connectance)+
+        scale(prop_direct)*scale(Disturbance)+
+        scale(Size):scale(Disturbance)+scale(Connectance):scale(Disturbance),family='binomial'))
+    propdirect_global<-with(consumers,glm(Persistence~scale(prop_direct)*scale(Size)*scale(Connectance)+
+        scale(Disturbance)+
+        scale(Size):scale(Disturbance)+scale(Connectance):scale(Disturbance),family='binomial'))
+
+
+
     propomni_norandom<-with(consumers,glm(Persistence~scale(prop_omni)*scale(Disturbance),family='binomial'))
+    propomni_global_1<-with(consumers,glm(Persistence~scale(prop_omni)*scale(Disturbance)*scale(Size)*scale(Connectance),family='binomial'))
+    propomni_global_2<-with(consumers,glm(Persistence~scale(prop_omni)*scale(Disturbance)*scale(Size)+scale(Connectance)+scale(Connectance):scale(prop_omni)+scale(Connectance):scale(Disturbance)+scale(Connectance):scale(Size)+scale(Connectance):scale(prop_omni):scale(Disturbance)+scale(Connectance):scale(prop_omni):scale(Size),family='binomial'))
+    propomni_global<-with(consumers,glm(Persistence~scale(prop_omni)*scale(Disturbance)+scale(Size)+
+        scale(Size):scale(prop_omni)+scale(Size):scale(Disturbance)
+        +scale(Connectance)+scale(Connectance):scale(prop_omni)+scale(Connectance):scale(Disturbance)+scale(Connectance):scale(Size)+scale(Connectance):scale(prop_omni):scale(Disturbance)+scale(Connectance):scale(prop_omni):scale(Size),family='binomial'))
+
+
+    propapparent_norandom<-with(consumers,glm(Persistence~scale(prop_apparent)*scale(Disturbance),family='binomial'))
+    propapparent_global<-with(consumers,glm(Persistence~scale(prop_apparent)*scale(Disturbance)*scale(Size)*scale(Connectance),family='binomial'))
+
+
+    write.table(summary(propapparent_global)$coefficients,file='apparent_lm_SC.tsv',sep='\t')
+    write.table(summary(propdirect_global)$coefficients,file='direct_lm_SC.tsv',sep='\t')
+    write.table(summary(propomni_global)$coefficients,file='omnivory_lm_SC.tsv',sep='\t')
+    write.table(summary(propchain_global)$coefficients,file='chain_lm_SC.tsv',sep='\t')
+
+
     write.table(summary(propomni_norandom)$coefficients,file='omnivory_lm.tsv',sep='\t')
+    write.table(summary(propdirect_norandom)$coefficients,file='direct_lm.tsv',sep='\t')
+    write.table(summary(propchain_norandom)$coefficients,file='chain_lm.tsv',sep='\t')
+    write.table(summary(propapparent_norandom)$coefficients,file='apparent_lm.tsv',sep='\t')
 
     # R2omni_randnet=r.squaredGLMM(propomni_lmer1_randnet,null=glmer(consumers$Persistence~(1|consumers$Global)+(1|consumers$netID),family='binomial'))
 save.image('all_tests.Rdata')
@@ -293,9 +348,9 @@ save.image('all_tests.Rdata')
     # apparent_deg_prop_net=with(consumers[which(consumers$Disturbance==0.1),],glmer(prop_apparent~in_Degree+(1|netID),family='binomial'))
     apparent_deg_prop=with(consumers[which(consumers$Disturbance==0.1),],glm(prop_apparent~in_Degree,family='binomial'))
 
-    direct_deg_prop_randnet=with(consumers[which(consumers$Disturbance==0.1),],glmer(prop_direct~in_Degree+(1|Global)+(1|netID),family='binomial'))
-    direct_deg_prop_global=with(consumers[which(consumers$Disturbance==0.1),],glmer(prop_direct~in_Degree+(1|Global),family='binomial'))
-    direct_deg_prop_net=with(consumers[which(consumers$Disturbance==0.1),],glmer(prop_direct~in_Degree+(1|netID),family='binomial'))
+    # direct_deg_prop_randnet=with(consumers[which(consumers$Disturbance==0.1),],glmer(prop_direct~in_Degree+(1|Global)+(1|netID),family='binomial'))
+    # direct_deg_prop_global=with(consumers[which(consumers$Disturbance==0.1),],glmer(prop_direct~in_Degree+(1|Global),family='binomial'))
+    # direct_deg_prop_net=with(consumers[which(consumers$Disturbance==0.1),],glmer(prop_direct~in_Degree+(1|netID),family='binomial'))
     direct_deg_prop=with(consumers[which(consumers$Disturbance==0.1),],glm(prop_direct~in_Degree,family='binomial'))
 
 
