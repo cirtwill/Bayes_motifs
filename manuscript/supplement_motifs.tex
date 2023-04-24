@@ -1,7 +1,7 @@
 \documentclass[12pt]{article} 
 \usepackage{amsmath} 
 \usepackage[dvips]{graphicx}
-\usepackage{multirow} 
+\usepackage{multirow,multicol} 
 \usepackage{geometry} 
 \usepackage{pdflscape}
 \usepackage[labelfont=bf]{caption} 
@@ -94,11 +94,9 @@ $^\dagger$ Corresponding author\\
         \item Statistical analysis
 
             \begin{itemize}
-                \item Species persistence and motif participation (Eqn. S2-3)
-                \item Motif participation and network properties (Eqn. S4-6)
-                \item Network mean persistence and motif profiles (Eqn. S7)
-                \item Network motif profiles and global network structure (Eqn. S8)
-                \item Persistence and other network properties (Eqn. S9-11)
+                \item Persistence and other network properties (Eqn. S2-3)
+                \item Motif participation, profiles and network properties (Eqn. S4-6)
+                \item Network motif profiles and global network structure (Eqn. S7)
             \end{itemize}
                 
 
@@ -325,161 +323,82 @@ $^\dagger$ Corresponding author\\
         
 \section{Statistical analysis}
 
-    \subsection{How does species persistence vary with motif participation?}
+    \textbf{Persistence, degree, and trophic level}
+    
+            In-degree and trophic level are known to influence persistence in many cases and these effects, in combination with differences in mean persistence across networks with different global properties, should also be taken into account when considering relationships between motif participation and persistence.
+            To establish this necessary context, we fit GLMs with binomial error distribution:
 
-        We are first interested in whether participating more often in a certain motif (e.g., direct competition) might increase a species' probability of persistence.
-        To test this, we fit four general linear mixed-effect models with binomial error distribution (GLMMs; one per motif included in the Bayesian networks):
-
-        \begin{equation}
-            \Psi_{ink} \approx \rho_{i} + \pi_{k} + \rho_{i}\pi_{k} +
-            S_{n}:C_{n} + N_n,
-            \label{propreq}
-        \end{equation}
-
-
-        \noindent where $\Psi_{ink}$ is the persistence of species $i$, belonging to network $n$, during disturbance level $k$, $\rho_{i}$ is the proportion of the role of species $i$ that is made up by the focal motif, $\pi_{k}$ is the probability of extinction for a basal resource in disturbance level $k$, and $S_{n}C_{n}$ is a random intercept for the species richness and connectance of the network containing species $i$, and $N_n$ is a random effect of network ID.
-        The network-level random effect accounts for the fact that species in the same network are not independent.
-        We centered and scaled the predictors before fitting the GLMMs.
-        All models were fit using the R~\citep{R} function `glmer' from the package \emph{lmerTest}~\citep{lmerTest}.
-        We calculated marginal (fixed effects only) and conditional (fixed and random effects) $R^2$ using the R~\citep{R} function `r.squaredGLMM' from the package \emph{MuMIn}~\citep{MuMIn}.
-        Due to model singularity, we removed the network-level random effect and re-fit the models.
-        After re-fitting, the models converged but the estimated variance explained by the random intercept was 0.
-        We therefore removed this random effect as well and re-fit the model as a general linear model including only the fixed effects described above.
-
-        
-        We were also interested in whether these general trends were consistent across networks with different global properties and different levels of disturbance. 
-        To test this, we performed a linear regression of persistence against motif participation within each simulated network, for each level of disturbance to basal resources:
-
-        \begin{equation}
-            \Psi_{ik} \approx \rho_{i} ,
-            \label{mineq}
-        \end{equation}
-
-        \noindent where all symbols are as in equation~\ref{propreq}.
-        These regressions were fit using the R~\citep{R} base function `lm'.
-        We then visually examine the distribution of slopes for the effect of motif participation across levels of disturbance, network size, and connectance. 
-
-
-    \subsection{How does motif participation vary with network properties?}
-
-        Species' motif participation may co-vary with other measures of network structure and species' roles within the network.
-        To determine the relationships between motif participation and global network structure, we fit a set of four linear mixed-effect models (one per motif):
-
-        \begin{equation}
-            \rho_{in} \approx \Sigma_{n} + \zeta_{n} + \Sigma_{n}\zeta_{n} + N_n ,
-            \label{partic_SC}
-        \end{equation}
-        
-        \noindent where $\rho_{in}$ is the proportion of the role of species $i$, belonging to network $n$, that is made up by the focal motif,
-        $\Sigma_{n}$ is the size of network $n$, $\zeta_{n}$ is the connectance of the network $n$, and $N_n$ is a random effect of network ID.
-        Predictors were not centered or scaled before fitting.
-        All models were fit using the R~\citep{R} base function `lm'.
-
-       
-        We fit a similar set of eight linear mixed-effect models relating motif participation to in-degree or trophic level:
-        
-        \begin{equation}
-            \rho_{in} \approx \delta_{i} + S_{n}C_{n} + N_n,
-            \label{partic_deg}
-        \end{equation}
-
-        \begin{equation}
-            \rho_{in} \approx \tau_{i} + S_{n}C_{n} + N_n,
-            \label{partic_tl}
-        \end{equation}
-        
-        \noindent where $\rho_{in}$ is the frequency with which species $i$, belonging to network $n$, participates in the focal motif, $\delta_{i}$ is the in-degree of species $i$, $\tau_{i}$ is the shortest trophic level of species $i$, $S_{n}C_{n}$ is a random effect of the combination of size and connectance for network $n$, and $N_n$ is a random effect of network ID.
-        These models were fit using the R~\citep{R} function `lmer' from the package \emph{lmerTest}~\citep{lmerTest}.
-
-    		
-    \subsection{How does mean persistence vary with motif profiles?}
-
-        To test whether networks with similar motif profiles tend to have similar mean persistences among consumers, we fit a PERMANOVA relating Bray-Curtis dissimilarity in motif profiles to the mean persistence of all consumers in a network (averaged across all levels of disturbance to basal resources).
-        As with the PERMANOVA relating motif participation to network properties, we fit the PERMANOVA using the R~\citep{R} function `adonis' from the package \emph{vegan}~\citep{vegan} and calculated significance based on 9999 permutations.
-
-
-        We then tested whether dispersion was homogeneous across levels of persistence using an ANOVA and whether there was a linear relationship between persistence (rounded to three decimal places) and variability of motif profiles using a linear regression.
-        Dispersion was calculated using the R~\citep{R} function `betadisper' from the package \emph{vegan}~\citep{vegan}.
-        In case high or low mean persistence is associated with more variable network structure, we calculated dispersion of motif structure for each level of mean persistence (rounded to three decimal places to allow multiple networks to have the same value of mean consumer persistence and treated as a categorical variable). 
-
-        
-        To supplement these overall tests, we also fit four linear models relating mean persistence to network motif profiles, disturbance, and the interaction between them:
-
+            \begin{spacing}{1.0}
+            \begin{multicols}{2}
             \begin{equation}
-                \overline{\Psi_{nk}} \approx \Bar{\rho}_{n} + \pi_{k} + \Bar{\rho}_{n}\pi_{k} ,
-                \label{netpropeq}
-            \end{equation}
-        
-        \noindent where $\overline{\Psi_{nk}}$ is the mean persistence of all consumers in web $n$ at disturbance level $k$, $\Bar{\rho}_{n}$ is the proportion of the focal motif in the network's motif profile, and $\pi_k$ is the level of disturbance (probability of extinction for basal resources) as in equation~\ref{propreq}. 
-        All regressions were fit using the R~\citep{R} base function `lm'.
-    
-
-    \subsection{How do network motif profiles vary with global structure?}
-    
-        As well as affecting persistence directly, global network structure (i.e., size and connectance) may affect the meso-scale structure of the network.
-        This is especially likely since we include only networks which can retain all initial species after 1000 rounds of simulated Lotka-Volterra population dynamics~\citep{Cirtwill2021_inprep}:  some meso-scale structures might be more likely to allow all species to persist than others in networks with different size and connectance constraints.
-        We test whether networks with the the same size and connectance have more similar motif profiles using a PERMANOVA~\citep{Anderson2001} of Bray-Curtis dissimilarity among motif profiles against network size, connectance, and their interaction.
-        Significance was calculated based on 9999 permutations.
-        PERMANOVA tests may give false positive results if variability is not homogeneous among groups (i.e., levels of network size or connectance).
-        To test whether this applies in our case, we fit an ANOVA of the dispersion of motif profiles about the centroid for each combination of network size and connectance. 
-        We fit the PERMANOVA using the function `adonis', calculated dispersion using the function `betadisper', and fit the ANOVA using the function `anova', all from the R~\citep{R} package \emph{vegan}~\citep{vegan}.
-
-
-        To gain a more detailed picture of how the proportion of each motif may vary with global network structure, we also fit four regressions (one per motif) relating the proportion of a motif in a network's motif profile to network size, connectance, and their interaction:
-
-        \begin{equation}
-            \Bar{\rho_{n}} \approx \Sigma_{n} + \zeta_{n} + \Sigma_{n}\zeta_{n}
-        \end{equation}
-        where all symbols are as in equations~\ref{propreq} and~\ref{netpropeq}.
-        We fit each regression using the R~\citep{R} base function `lm'.
-            
-
-    \subsection{How does persistence vary with other properties?}
-
-        \subsubsection{Network mean persistence and network properties}
-    
-            Both species richness (S) and connectance (C) are known to influence persistence in both simulation studies and empirical food webs.
-            In addition, increasing the probability of extinction for basal species ($\pi$) is intended to decrease persistence of species at higher trophic levels.
-            Although these effects are not the main focus of our manuscript, we must establish these background effects before measuring the effects of meso-scale structure on persistence.
-            The persistence of basal species in our simulations is determined only by their baseline probability, being either $\pi = 0.1$ or higher, dependent on $\pi$.
-            We therefore considered only non-basal species (i.e., those with at least one prey) throughout this manuscript.
-
-            To test for effects of global network properties, we fit a linear regression relating the mean of consumer species' probabilities of persistence in a network to network size, connectance, the level of disturbance to basal resources, and all interactions between them. 
-            All predictors were centered and scaled before fitting the model. 
-            As the three-way interaction was significant, we did not simplify the model.
-            All models were fit using the R~\citep{R} base function `lm'.
-
-
-            \begin{equation}
-                \overline{\Psi_{nk}} \approx \Sigma_{n} + \zeta_{n} + \pi_k + \Sigma_{n}:\zeta_{n} + \Sigma_{n}\pi_k + \zeta_{n}\pi_k + \Sigma_{n}\zeta_{n}\pi_k,
-                \label{SCeq}
-            \end{equation}
-            where all symbols are as in equation~\ref{propreq} and~\ref{partic_SC}.
-                  
-
-        \subsubsection{Species persistence and species properties}
-    
-            Likewise, in-degree and trophic level are known to influence persistence in many cases.
-            These effects, in combination with differences in mean persistence across networks with different global properties, should also be taken into account when considering relationships between motif participation and persistence.
-            To establish this necessary context, we therefore fit two linear mixed-effects regressions:
-
-      
-            \begin{equation}
-                    \Psi_{ink} \approx \delta_{i} + \pi_{k} + \delta_{i}\pi_{k} +
-                    S_{n}C_{n} + N_n,
+                    \Psi_{ink} \approx \delta_{i} + \pi_{k} + \delta_{i}\pi_{k},
                     \label{degeq}
                 \end{equation}
         
             \begin{equation}
-                    \Psi_{ink} \approx \tau_{i} + \pi_{k} + \tau_{i}\pi_{k} +
-                    S_{n}C_{n} N_n,
+                    \Psi_{ink} \approx \tau_{i} + \pi_{k} + \tau_{i}\pi_{k},
                     \label{TLeq}
                 \end{equation}
+            \end{multicols}
+            \end{spacing}
         
-            where $\delta_{i}$ and $\tau_i$ are the in-degree and trophic level of species $i$, respectively, and all other terms are as in equation~\ref{propreq}.
+            \noindent where $\Psi_{ink}$ is the persistence of species $i$, belonging to network $n$, during disturbance level $k$, $\pi_k$ is the probability of extinction for a basal resource in disturbance level $k$, 
+            $\delta_{i}$ and $\tau_i$ are the in-degree and trophic level of species $i$, respectively.
+            We initially included random effects of network size and connectance and network identity but removed these terms in order to obtain a non-singular model.
             We centered and scaled the predictors before fitting the models.
 
+
+    \textbf{Motif participation, profiles and other network properties}
+
+        Species' motif participation may co-vary with other measures of network structure and species' roles within the network.
+        To determine the relationships between motif participation and global network structure, we fit a set of four general linear models with binomial error distribution (one per motif):
+
+        \begin{spacing}{1.0}
+        \begin{equation}
+            \rho_{in} \approx \Sigma_{n} + \zeta_{n} + \Sigma_{n}\zeta_{n},
+            \label{partic_SC}
+        \end{equation}
+        \end{spacing}
+        
+        \noindent where $\rho_{in}$ is the frequency with which species $i$, belonging to network $n$, participates in the focal motif, $\Sigma_{n}$ is the size of network $n$, and $\zeta_{n}$ is the connectance of the network $n$.
+        As above, we initially included a random effect of network identity but removed this term in order to obtain a non-singular model.
+        Predictors were not centered or scaled before fitting.
+
+       
+        We fit a similar set of eight general linear models with binomial error distribution relating motif participation to in-degree or trophic level:
+
+        \begin{spacing}{1.0}
+        \begin{multicols}{2}
+        \begin{equation}
+            \rho_{in} \approx \delta_{i},
+            \label{partic_deg}
+        \end{equation}
+
+        \begin{equation}
+            \rho_{in} \approx \tau_{i},
+            \label{partic_tl}
+        \end{equation}
+        \end{multicols}
+        \end{spacing}
+        
+        \noindent where all symbols are as above. 
+        As above, we initially included random effects of network size and connectance and network identity but removed these terms in order to obtain a non-singular model.
+        These models were fit using the R~\citep{R} function `lmer' from the package \emph{lmerTest}~\citep{lmerTest}.
+
+    		
+    \textbf{Network motif profiles, size, and connectance}
+    
+        As well as affecting persistence directly, global network structure (i.e., size and connectance) may affect the meso-scale structure of the network.
+        This is especially likely since we include only networks which can retain all initial species after 1000 rounds of simulated Lotka-Volterra population dynamics~\citep{Cirtwill2021_inprep}:  some meso-scale structures might be more likely to allow all species to persist than others in networks with different size and connectance constraints.
+        To test for this possibility, we fit four general linear models with binomial error distribution (one per motif) relating the proportion of a motif in a network's motif profile to network size, connectance, and their interaction:
+        \begin{equation}
+            \Bar{\rho_{n}} \approx \Sigma_{n} + \zeta_{n} + \Sigma_{n}\zeta_{n}
+        \end{equation}
+        where all symbols are as in equation~\ref{partic_SC}.     
+
+    
 \clearpage
+
 
 \section{Persistence and motif participation} [updated]
 
@@ -602,12 +521,6 @@ $^\dagger$ Corresponding author\\
                 
 \section{Persistence and whole-network motif profiles} [[updated]]
 
-    % Updated and expanded to include permanova tests
-    Mean persistence of all consumers varied with the frequencies of different motifs in a network profile ($F_{1,2998}$=645, $p$\textless0.001 for a PERMANOVA of dissimilarity in motif profiles against mean persistence).
-    However, motif profiles were not evenly distributed across mean persistences ($F_{134,2865}$=1.77, $p$\textless0.001 for an ANOVA of dissimilarity in motif profiles against mean persistence, rounded to 3 decimal places).
-    Specifically, motif profiles were more variable (higher dissimilarities) in networks with higher mean persistence.
-    As non-homogeneous variability can cause a PERMANOVA to return a false positive~\citep{Anderson2001}, this means that we must treat our PERMANOVA result as tentative and place more weight on the single-motif regressions.
-
 
     % Updated to use mean instead of all species
     \begin{table}[hb!]
@@ -630,9 +543,6 @@ $^\dagger$ Corresponding author\\
 \section{Motif profiles and global properties} [[updated]]
     % No update needed
 
-    A network's normalized motif profile (i.e., proportions of the total made up by each motif) was related to the network's size, connectance, and the interaction between them ($F_{1,2996}$=74.3, $p$\textless0.001; $F_{1,2996}$=4203, $p$\textless0.001; and $F_{1,2996}$=27.8, $p$\textless0.001, respectively in a PERMANOVA of dissimilarity in normalized network motif profiles against network size, connectance, and their interaction).
-    However, normalized motif profiles were not homogeneously variable across levels of network size, connectance, or their interaction  ($F_{5,2994}$=16.8, $p$\textless0.001; $F_{4,2995}$=31.7, $p$\textless0.001; and $F_{29,2970}$=11.9, $p$\textless0.001 for ANOVAs of dispersion of motif profiles against size, connectance, and combinations of size and connectance, respectively). 
-    These differences in variability can cause false positives in the PERMANOVA test. Variability was highest in small and low-connectance networks (Fig.~\ref{dispersion_normmotifs}).
     A series of general linear regressions support the relationship between network motif profiles and global structural properties.
     Specifically, the frequency of the omnivory motif increased in more-connected networks (Table~\ref{network_prop_lms}) while the frequencies of other motifs were not significantly related to network size or connectance.
 

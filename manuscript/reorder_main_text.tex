@@ -311,15 +311,36 @@ Motif participation describes extinction risk
             \end{equation}
             \noindent where $\Psi_{ink}$ is the persistence of species $i$, belonging to network $n$, during disturbance level $k$, $\rho_{i}$ is the proportion of the role of species $i$ that is made up by the focal motif, and $\pi_k$ is the probability of extinction for a basal resource in disturbance level $k$.
             All predictors were centered and scaled before fitting the models.         
+
             
             
             Initially, we fit general linear mixed-effect models (GLMMs) also including random  intercepts for the species richness and connectance of network $n$ and for network identity.
             As these models were singular, we removed each random intercept in turn and re-fit the model until it converged.
             In all four cases, the convergent model did not retain any random effects.
-            
-            
-            To test whether these general trends were consistent across networks, we visually examined the distribution of slopes of simplified regressions fit to a single network and level of disturbance (Appendix \emph{3.1}).
 
+            
+            NEW VERSION:
+
+            To test whether a consumer's risk of extinction was associated with the frequency of each motif in its participation vector and whether this relationship varied with the strength of disturbance, network size, and/or network connectance, we fit four general linear models with binomial error distribution (GLMs; one per motif which can occur in acyclic networks): 
+             \begin{equation}
+             \begin{aligned}
+            \Psi_{ink} & \approx \rho_{i} + \pi_{k} + \Sigma_{n} + \Zeta_{n} \\
+            & + \rho_{i}\pi_{k} + \rho_{i}\Sigma_{n} + \rho_{i}\Zeta_{n} + \pi_{k}\Sigma_{n} + \pi_{k}\Zeta_{n} + \Sigma_{n}\Zeta_{n} \\
+            & + \rho_{i}\pi_{k}\Sigma_{n} + \rho_{i}\pi_{k}\Zeta_{n} + \pi_{k}\Sigma_{n}\Zeta_{n} + \rho_{i}\pi_{k}\Sigma_{n}\Zeta_{n} ,
+            % S_{n}C_{n} + N_n,
+            \label{propreq}
+            \end{aligned}
+            \end{equation}
+            \noindent where $\Psi_{ink}$ is the persistence of species $i$, belonging to network $n$, during disturbance level $k$, $\rho_{i}$ is the proportion of the role of species $i$ that is made up by the focal motif, $\pi_k$ is the probability of extinction for a basal resource in disturbance level $k$, $\Sigma_{n}$ is the number of species in the network, and $\Zeta_{n}$ is the connectance of the network.
+            All predictors were centered and scaled before fitting the models.    
+            After fitting the full models described above, we removed any non-significant terms in a stepwise fashion, beginning with the four-way interaction and proceeding to three-way and two-way interactions.
+            If a smaller term was included in a significant larger term (e.g., a non-significant two-way interaction involving terms in a significant three-way interaction) then the smaller term was retained.
+            We attempted to fit a PERMANOVA test relating a species' motif participation vector as a whole to its persistence, but the assumption of equal variance among groups was violated and we therefore do not report the results of this test.
+            
+            
+            To test whether these general trends were consistent across networks, we visually examined the distribution of slopes of simplified regressions fit to a single network and level of disturbance.
+            These models included only the frequency of the focal motif ($\rho_{i}$ above) and again used a binomial error distrubution.
+            [[Statement about what this tells us or something else?]]
 
 
 
@@ -350,29 +371,15 @@ Motif participation describes extinction risk
         \subsubsection*{3) Motif participation and other network structure metrics}
 
             Since a network's motif profile and a species' motif participation reflect the same network as other measures (size, connectance, degree, and trophic level), it is likely that these measures are related. 
-            We tested whether the frequency of motifs in the network's motif profile were related to network size, connectance, and their interaction using a set of four GLMs with binomial error distribution.
+            We tested whether the frequency of motifs in the network's motif profile were related to network size, connectance, and their interaction using a set of four GLMs with binomial error distribution (Appendix \emph{S3.1}, eq. S2).
             We tested whether the frequency of motifs in a consumer's motif participation vector were related to network size, connectance, and their interaction using a similar set of four GLMs with binomial error distribution.
-            Finally, we fit two additional sets of GLMs (eight total) relating the frequency of each motif in a consumer's motif participation vector to the consumer's in-degree or trophic level.
+            Finally, we fit two additional sets of GLMs (eight total) relating the frequency of each motif in a consumer's motif participation vector to the consumer's in-degree or trophic level (Appendix \emph{S3.1}, eq. S3, S4).
         
         
-        % \subsubsection*{2) Motif participation and other network properties}    
-            
-        %     Properties which refer to different scales of network structure, including different amounts of direct and indirect interactions with the focal species, are not independent. 
-        %     To identify correlations between large-scale network structure (i.e., the whole network) and participation in particular motifs (a meso-scale description of species roles), we fit a series of LMs relating motif participation to network size, connectance, and their interaction (Appendix \emph{S3.2}).
-        %     We fit a similar set of  GLMMs relating motif participation to in-degree or trophic level (i.e., local measures of a species' role; Appendix \emph{S3.2}).
-        %     Taken together, these supplemental models demonstrate how motif participation relates to other measures of network structure.
+
             
             
-                
-        % \subsubsection*{4) Motif profiles and network properties}
-        
-        %     To test whether networks with the the same size and connectance have more similar motif profiles, we used a PERMANOVA~\citep{Anderson2001} of Bray-Curtis dissimilarity among motif profiles against network size, connectance, and their interaction (Appendix \emph{S3.4}). 
-        %     In addition, we identify correlations between size, connectance, and particular motifs using a set of four LMs:
-        %     \begin{equation}
-        %         \Bar{\rho_{n}} \approx \Sigma_{n} + \zeta_{n} + \Sigma_{n}\zeta_{n}
-        %     \label{profile_global}
-        %     \end{equation}
-        %     \noindent where $\Bar{\rho}_{n}$ is the proportion of the focal motif in the motif profile of network $n$ and $\Sigma_n$ and $\zeta_{n}$ are the size and connectance of network $n$.
+
             
             
 
