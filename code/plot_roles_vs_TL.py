@@ -14,7 +14,7 @@ from PyGrace.Extensions.colorbar import SolidRectangle, ColorBar
 from PyGrace.axis import LINEAR_SCALE, LOGARITHMIC_SCALE
 from PyGrace.Styles.el import ElGraph, ElLogColorBar
 
-colors=ColorBrewerScheme('Greys',n=10)  # The blue is very beautiful but maybe harder to see.
+colors=ColorBrewerScheme('Greys',n=10)  
 # Match Anna's ggplot colours
 colors.add_color(158,101,184,'Rpurple')
 colors.add_color(145,148,215,'Rblue')

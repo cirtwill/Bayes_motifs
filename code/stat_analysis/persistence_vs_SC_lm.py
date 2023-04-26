@@ -88,8 +88,8 @@ def format_graph(graph,simple):
   graph.world.ymin=0
   graph.world.ymax=1
   graph.yaxis.tick.major=.2
-  graph.yaxis.ticklabel.configure(format='decimal',prec=1,char_size=.75)
-  graph.xaxis.ticklabel.configure(format='decimal',prec=0,char_size=.75)
+  graph.yaxis.ticklabel.configure(format='decimal',prec=1,char_size=.5)
+  graph.xaxis.ticklabel.configure(format='decimal',prec=0,char_size=.5)
 
   if simple=='Deg':
     graph.xaxis.label.text='In-degree (number of prey)'
@@ -101,21 +101,35 @@ def format_graph(graph,simple):
     graph.xaxis.tick.major=1
   elif simple=='Size':
     graph.xaxis.label.text='Network size'
-    graph.world.xmin=45
-    graph.world.xmax=105
-    graph.xaxis.tick.major=10
+    graph.world.xmin=50
+    graph.world.xmax=100
+    graph.xaxis.tick.major=25
+    graph.yaxis.tick.onoff='off'
+    graph.yaxis.ticklabel.char_size=0
   elif simple=='Connectance':
     graph.xaxis.label.text='Connectance'
     graph.world.xmin=0
     graph.world.xmax=.2
-    graph.xaxis.tick.major=.05
-    graph.xaxis.ticklabel.configure(format='decimal',prec=2,char_size=.75)
+    graph.xaxis.tick.major=.1
+    graph.xaxis.ticklabel.configure(format='decimal',prec=1,char_size=.5)
+  elif simple=='Motifs':
+    graph.world.xmax=.8
+    graph.xaxis.tick.major=.4
+    graph.xaxis.label.text='% motif in network profile'
+    graph.xaxis.ticklabel.configure(format='decimal',prec=1,char_size=.5)
 
-  graph.xaxis.label.configure(char_size=1,just=2,place='normal')
+  graph.xaxis.label.configure(char_size=.75,just=2,place='normal')
   graph.xaxis.tick.configure(onoff='on',minor_ticks=0,major_size=.4,place='both',major_linewidth=.5,minor_linewidth=1)
   graph.yaxis.tick.configure(onoff='on',minor_ticks=1,major_size=.4,minor_size=.5,place='both',major_linewidth=.5,minor_linewidth=1)
 
-
+  if simple=='dummy':
+    graph.yaxis.bar.configure(linewidth=0,linestyle=0)
+    graph.xaxis.bar.configure(linewidth=0,linestyle=0)
+    graph.frame.configure(linewidth=0,linestyle=0)
+    graph.xaxis.tick.configure(onoff='off')
+    graph.yaxis.tick.configure(onoff='off')
+    graph.xaxis.ticklabel.configure(char_size=0)
+    graph.yaxis.ticklabel.configure(char_size=0)
   return graph
 
 def populate_persgraph(graph,simple):
@@ -158,10 +172,10 @@ def populate_persgraph(graph,simple):
 
       if simple=='Size' and Disturbance==0.1:
         data.legend='C='+str(al)        
-        graph.legend.configure(char_size=.5,loc=(50,0.3),loctype='world',box_linestyle=0,fill_pattern=0)
+        graph.legend.configure(char_size=.5,loc=(55,0.35),loctype='world',box_linestyle=0,fill_pattern=0)
       elif simple=='Connectance' and Disturbance==0.1:
         data.legend='Size='+str(al)
-        graph.legend.configure(char_size=.5,loc=(.0175,0.3),loctype='world',box_linestyle=0,fill_pattern=0)
+        graph.legend.configure(char_size=.5,loc=(.02,0.35),loctype='world',box_linestyle=0,fill_pattern=0)
     j+=1
 
   return graph
@@ -204,12 +218,76 @@ def populate_specgraph(graph,persdict,simple):
     j+=1
 
   if simple=='TL':
-    graph.add_drawing_object(DrawText,text='Basal species',x=5.25,y=0.71,loctype='world',char_size=.75) 
-    graph.add_drawing_object(DrawText,text='extinction',x=5.25,y=0.65,loctype='world',char_size=.75) 
-    graph.add_drawing_object(DrawText,text='probability',x=5.25,y=0.58,loctype='world',char_size=.75) 
-    graph.legend.configure(char_size=.75,loc=(5.25,0.55),loctype='world',box_linestyle=0,fill_pattern=0)
+    graph.add_drawing_object(DrawText,text='Basal species',x=13.25,y=0.9,loctype='world',char_size=.5) 
+    graph.add_drawing_object(DrawText,text='extinction',x=13.25,y=0.82,loctype='world',char_size=.5) 
+    graph.add_drawing_object(DrawText,text='probability',x=13.25,y=0.74,loctype='world',char_size=.5) 
+    graph.legend.configure(char_size=.5,loc=(13.25,0.72),loctype='world',box_linestyle=0,fill_pattern=0)
 
 
+  return graph
+
+def populate_motifgraph(graph,motif):
+
+  mot_ranges={
+    'omnivory':(0.005952381,0.345547537),
+    'apparent':(0.2499348,0.7647059),
+    'direct':(0.05010438,0.35878963),
+    'chain':(0.1088861,0.4125000),
+  }
+
+  scales={ # center, scale
+    'omnivory':(0.1641884,0.07895101),
+    'apparent':(0.4222605,0.06446181),
+    'direct':(0.1787041,0.0407462),
+    'chain':(0.234847,0.04233961),
+    'Disturbance':(0.3,0.1366298)
+  }
+
+  lms={ # Intercept, motif, disturbance, interaction
+    'omnivory':(0.325913,-0.062579,-0.595877,0.003218),
+    'apparent':(0.325782,0.050071,-0.595667,-0.001998),
+    'direct':(0.3255830,0.0150797,-0.5953395,-0.0005337),
+    'chain':(0.325632,0.025985,-0.595410,-0.002531)  
+  }
+
+  motif_names={'omnivory':'Omnivory','apparent':'Apparent competition','direct':'Direct competition','chain':'Three-species chain'}
+
+
+  for dist in [0.1]:
+    if motif=='apparent':
+      j='Rpurple'
+      sty=2
+    elif motif=='chain':
+      j='Rblue'
+      sty=3
+    elif motif=='direct':
+      j='Rgreen2'
+      sty=8
+    else:
+      j='Rorange1'
+      sty=1
+
+    # for dist in [0.1,0.18,0.26,0.34,0.42,0.5]:
+    scaldist=(dist-scales['Disturbance'][0])/scales['Disturbance'][1]
+
+    dats=[]
+
+    minx=mot_ranges[motif][0]
+    maxx=mot_ranges[motif][1]
+    for x in [minx,maxx]:
+      scalx=(x-scales[motif][0])/scales[motif][1]
+      y=lms[motif][0]+scalx*lms[motif][1]+scaldist*lms[motif][2]+scalx*scaldist*lms[motif][3]
+      logity=math.exp(y)/(1+math.exp(y))
+
+      dats.append((x,logity))
+
+    data=graph.add_dataset(dats)
+    data.symbol.shape=0
+    data.line.configure(linestyle=sty,linewidth=2,color=j)
+
+    if dist==0.1:
+      data.legend=motif_names[motif]
+  graph.legend.configure(char_size=.5,loc=(0.05,0.55),loctype='world',box_linestyle=0,fill_pattern=0)
   return graph
 
 
@@ -224,20 +302,36 @@ persdict=read_persfiles('persistence_vs_Deg_norandom.tsv','persistence_vs_TL.tsv
 
 
 grace=MultiPanelGrace(colors=colors)
+grace.add_label_scheme('dummy',['A','B','C','D','E',''])
+grace.set_label_scheme('dummy')
 
-for simple in ['Connectance','Deg','Size','TL']:
+for simple in ['Deg','Connectance','Motifs','TL','Size','dummy']:
   graph2=grace.add_graph(Panel)
   graph2=format_graph(graph2,simple)
   if simple in ['Size','Connectance']:
     graph2=populate_persgraph(graph2,simple)
-  else:
+  elif simple in ['Deg','TL']:
     graph2=populate_specgraph(graph2,persdict[simple],simple)
-  graph2.panel_label.configure(placement='iul',char_size=1,dx=.03,dy=.03)
+  elif simple=='Motifs':
+    for mot in ['omnivory','chain','apparent','direct']:
+      graph2=populate_motifgraph(graph2,mot)
+
+  graph2.panel_label.configure(placement='iul',char_size=.75,dx=.01,dy=.01)
     
 
-grace.multi(rows=2,cols=2,vgap=.09,hgap=.09)
+grace.multi(rows=2,cols=3,vgap=.09,hgap=.09)
 grace.hide_redundant_labels()
-grace.set_col_yaxislabel(label='Mean consumer probability of persistence',col=0,rowspan=(None,None),char_size=1.5,perpendicular_offset=.07)
-grace.set_col_yaxislabel(label='Consumer probability of persistence',col=1,rowspan=(None,None),char_size=1.5,perpendicular_offset=.04)
+grace.graphs[0].set_view(0.14, 0.7367058823529411, 0.38, 0.95)
+grace.graphs[1].set_view(0.46, 0.7367058823529411, 0.7, 0.95)
+grace.graphs[2].set_view(0.74, 0.7367058823529411, 0.98, 0.95)
+grace.graphs[3].set_view(0.14, 0.4334117647058823, 0.38, 0.6467058823529411)
+grace.graphs[4].set_view(0.46, 0.4334117647058823, 0.7, 0.6467058823529411)
+grace.graphs[5].set_view(0.74, 0.4334117647058823, .98, 0.6467058823529411)
+
+
+grace.set_col_yaxislabel(label='Mean consumer probability of persistence',col=1,rowspan=(None,None),char_size=1,perpendicular_offset=.03)
+grace.set_col_yaxislabel(label='Consumer probability of persistence',col=0,rowspan=(None,None),char_size=1,perpendicular_offset=.05)
+for graph in grace.graphs:
+  print(graph.get_view())
 
 grace.write_file('../../manuscript/figures/persistence_vs_SC_lm.eps')
