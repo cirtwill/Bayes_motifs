@@ -14,12 +14,19 @@ from PyGrace.Extensions.colorbar import SolidRectangle, ColorBar
 from PyGrace.axis import LINEAR_SCALE, LOGARITHMIC_SCALE
 from PyGrace.Styles.el import ElGraph, ElLogColorBar
 
-colors=ColorBrewerScheme('Spectral',n=13)  # The blue is very beautiful but maybe harder to see.
-colors.add_color(173,132,191,'Purple')
-colors.add_color(34,90,34,'Green')
-# colors.add_color(120,120,120,'grey')
-# colors.add_color(255,125,125,'lightish_red')
-# colors.add_color(200,200,200,'lightgrey')
+colors=ColorBrewerScheme('Greys',n=10)  
+# Match Anna's ggplot colours
+colors.add_color(158,101,184,'Rpurple')
+colors.add_color(145,148,215,'Rblue')
+colors.add_color(42,120,142,'Rgreen1')
+colors.add_color(34,168,132,'Rgreen2')
+colors.add_color(122,209,81,'Rgreen3')
+colors.add_color(253,231,37,'Ryellow')
+colors.add_color(254,224,139,'Ryellow2')
+colors.add_color(253,174,97,'Rorange1')
+colors.add_color(244,109,67,'Rorange2')
+colors.add_color(213,62,79,'Rred1')
+colors.add_color(158,1,66,'Rred2')
 
 
 scales={
@@ -57,55 +64,57 @@ Blms={'Intercept':5.777e-01,
       'Basal:Size:Connectance:Disturbance':-1.445e-03
 }
 
+def read_persfiles(Degfile,TLfile):
+  persdict={'Deg':{},'TL':{}}
+  f=open(Degfile,'r')
+  for line in f:
+    if line.split()[0]!='"Estimate"':
+      persdict['Deg'][line.split()[0][1:-1]]=((float(line.split()[1]),float(line.split()[2])))
+  f.close()
+
+  f=open(TLfile,'r')
+  for line in f:
+    if line.split()[0]!='"Estimate"':
+      persdict['TL'][line.split()[0][1:-1]]=((float(line.split()[1]),float(line.split()[2])))
+  f.close()
+
+  return persdict
 
 def format_graph(graph,simple):
   graph.yaxis.bar.linewidth=1
   graph.xaxis.bar.linewidth=1
   graph.frame.linewidth=1
 
-
   graph.world.ymin=0
   graph.world.ymax=1
   graph.yaxis.tick.major=.2
   graph.yaxis.ticklabel.configure(format='decimal',prec=1,char_size=.75)
-  graph.yaxis.label.text='Mean persistence'
-  if simple=='Size':
+  graph.xaxis.ticklabel.configure(format='decimal',prec=0,char_size=.75)
+
+  if simple=='Deg':
+    graph.xaxis.label.text='In-degree (number of prey)'
+    graph.world.xmax=100
+    graph.xaxis.tick.major=25
+  elif simple=='TL':
+    graph.xaxis.label.text='Trophic level (STL)'
+    graph.world.xmax=5
+    graph.xaxis.tick.major=1
+  elif simple=='Size':
     graph.xaxis.label.text='Network size'
     graph.world.xmin=45
     graph.world.xmax=105
     graph.xaxis.tick.major=10
-    graph.xaxis.ticklabel.configure(format='decimal',prec=0,char_size=.75)
   elif simple=='Connectance':
     graph.xaxis.label.text='Connectance'
     graph.world.xmin=0
     graph.world.xmax=.2
     graph.xaxis.tick.major=.05
     graph.xaxis.ticklabel.configure(format='decimal',prec=2,char_size=.75)
-  else:
-    graph.xaxis.label.text='Proportion basal'
-    graph.world.xmin=0
-    graph.world.xmax=.5
-    graph.xaxis.tick.major=.1
-    graph.xaxis.ticklabel.configure(format='decimal',prec=1,char_size=.75)
 
-  graph.yaxis.ticklabel.configure(format='decimal',prec=1,char_size=.75)
   graph.xaxis.label.configure(char_size=1,just=2,place='normal')
-
-  graph.yaxis.label.configure(char_size=1,just=2,place='normal')
   graph.xaxis.tick.configure(onoff='on',minor_ticks=0,major_size=.4,place='both',major_linewidth=.5,minor_linewidth=1)
   graph.yaxis.tick.configure(onoff='on',minor_ticks=1,major_size=.4,minor_size=.5,place='both',major_linewidth=.5,minor_linewidth=1)
 
-  if simple=='dummy':
-    graph.yaxis.bar.linestyle=0
-    graph.xaxis.bar.linestyle=0
-    graph.frame.linestyle=0
-    graph.yaxis.tick.onoff='off'
-    graph.xaxis.tick.onoff='off'
-    graph.xaxis.label.char_size=0
-    graph.yaxis.label.char_size=0
-    graph.xaxis.ticklabel.char_size=0
-    graph.yaxis.ticklabel.char_size=0
-    graph.panel_label.char_size=0
 
   return graph
 
@@ -115,13 +124,13 @@ def populate_persgraph(graph,simple):
     levels=[50,60,70,80,90,100]
     altlevels=[0.02,0.1,0.18]
     altpred='Connectance'
-  else:
+  elif simple=='Connectance':
     levels=[0.02,0.06,0.1,0.14,0.18]
     altlevels=[50,75,100]
     altpred='Size'
 
-
-  for Disturbance in [0.1,0.3,0.5]:
+  j=13
+  for Disturbance in [0.1,0.18,0.26,0.34,0.42,0.5]:
     scalbp=(Disturbance-scales['Disturbance'][0])/scales['Disturbance'][1]
     base=lms['Intercept']+scalbp*lms['Disturbance']
     for al in altlevels:
@@ -142,109 +151,64 @@ def populate_persgraph(graph,simple):
         sty=1
       else:
         sty=5
-      if Disturbance==0.1:
-        col=2
-      elif Disturbance==0.5:
-        col=14
-      else:
-        col=6
 
-        print al, col
+
       data.symbol.shape=0
-      data.line.configure(linestyle=sty,linewdith=1.5,color=col)
+      data.line.configure(linestyle=sty,linewdith=1.5,color=j)
 
-      if simple=='Size' and al==altlevels[1]:
-        data.legend='p(Basal extinct)='+str(Disturbance)
-      # Doesn't work - add DrawText.
-      # if simple=='Size' and Basal_p==0.5:
-      #   data.legend='C='+str(al)        
-
-  if simple=='Size':
-    # graph.add_drawing_object(DrawText,text='p(Basal)',x=107,y=0.825,loctype='world',char_size=.5)
-    graph.legend.configure(char_size=.5,loc=(50,0.3),loctype='world',box_linestyle=0,fill_pattern=0)
-    # graph.add_drawing_object(DrawText,text='Connectance',x=107,y=0.5,loctype='world',char_size=.5)
-
-    # dummy1=graph.add_dataset([(10000,100),(1000000,40)])
-    # dummy1.symbol.shape=0
-    # dummy1.line.configure(linestyle=2,linewidth=1.5)
-    # dummy1.legend='C=0.02'
-    # dummy2=graph.add_dataset([(10000,100),(1000000,40)])
-    # dummy2.symbol.shape=0
-    # dummy2.line.configure(linestyle=1,linewidth=1.5)
-    # dummy2.legend='C=0.1'
-    # dummy3=graph.add_dataset([(10000,100),(1000000,40)])
-    # dummy3.symbol.shape=0
-    # dummy3.line.configure(linestyle=3,linewidth=1.5)
-    # dummy3.legend='C=0.18'
+      if simple=='Size' and Disturbance==0.1:
+        data.legend='C='+str(al)        
+        graph.legend.configure(char_size=.5,loc=(50,0.3),loctype='world',box_linestyle=0,fill_pattern=0)
+      elif simple=='Connectance' and Disturbance==0.1:
+        data.legend='Size='+str(al)
+        graph.legend.configure(char_size=.5,loc=(.0175,0.3),loctype='world',box_linestyle=0,fill_pattern=0)
+    j+=1
 
   return graph
 
-def populate_graph(graph,simple,dist):
 
-  scalD=(dist-scales['Disturbance'][0])/scales['Disturbance'][1]
-  leveldict={
-    'Size':[50,60,70,80,90,100],
-    'Connectance':[0.02,0.06,0.1,0.14,0.18],
-    'Basal':[0.02,0.1,0.2,0.3,0.4,0.5]
-  }
-
-  if simple=='Size':
-    alt1='Basal'
-    alt2='Connectance'
-  elif simple=='Connectance':
-    alt1='Basal'
-    alt2='Size'
+def populate_specgraph(graph,persdict,simple):
+  if simple=='Deg':
+    key='scale(in_Degree)'
+    scal=12.51637
+    cent=11.95232
   else:
-    alt1='Size'
-    alt2='Connectance'
+    key='scale(STL)'
+    scal=0.4803683
+    cent=2.274325
 
-  for pred1 in [leveldict[alt1][0],leveldict[alt1][1]]:
-    scal1=(pred1-scales[alt1][0])/scales[alt1][1]
-    base=lms['Intercept']+scalD*Blms['Disturbance']+scal1*Blms[alt1]+scalD*scal1*Blms[alt1+':Disturbance']
+  print persdict.keys()
 
-    for pred2 in [leveldict[alt2][0],leveldict[alt2][1]]:
-      scal2=(pred2-scales[alt2][0])/scales[alt2][1]
-      base2=scal2*Blms[alt2]+scalD*scal2*Blms[alt2+':Disturbance']+scal1*scal2*Blms[alt1+':'+alt2]+scalD*scal1*scal2*Blms[alt1+':'+alt2+':Disturbance']
+  j=13
+  for basal_p in [0.1,0.18,0.26,0.34,0.42,0.5]:
+    p=(basal_p-0.3)/0.1366261
 
-      dats=[]
-      for level in leveldict[simple]:
-        scal3=(level-scales[simple][0])/scales[simple][1]
-        if simple=='Size':
-          base3=scal3*Blms[simple]+scalD*scal3*Blms[simple+':Disturbance']+scal1*scal3*Blms[alt1+':'+simple]+scal2*scal3*Blms[simple+':'+alt2]
-          base4=scalD*scal1*scal3*Blms[alt1+':'+simple+':Disturbance']+scalD*scal2*scal3*Blms[simple+':'+alt2+':Disturbance']
-        elif simple=='Connectance':
-          base3=scal3*Blms[simple]+scalD*scal3*Blms[simple+':Disturbance']+scal1*scal3*Blms[alt1+':'+simple]+scal2*scal3*Blms[alt2+':'+simple]
-          base4=scalD*scal1*scal3*Blms[alt1+':'+simple+':Disturbance']+scalD*scal2*scal3*Blms[alt2+':'+simple+':Disturbance']
-        else:
-          base3=scal3*Blms[simple]+scalD*scal3*Blms[simple+':Disturbance']+scal1*scal3*Blms[simple+':'+alt1]+scal2*scal3*Blms[simple+':'+alt2]
-          base4=scalD*scal1*scal3*Blms[simple+':'+alt1+':Disturbance']+scalD*scal2*scal3*Blms[simple+':'+alt2+':Disturbance']
+    dats=[]
+    # lower=[]
+    # upper=[]
+    for x in range(0,100):
+      skex=(x-cent)/scal
+      xcomp=persdict['(Intercept)'][0]+skex*persdict[key][0]
+      bcomp=p*persdict['scale(Disturbance)'][0]+skex*p*persdict[key+':scale(Disturbance)'][0]
+      y=xcomp+bcomp
+      logity=math.exp(y)/(1+math.exp(y))
 
-        final=base+base2+base3+base4+scal1*scal2*scal3*Blms['Basal:Size:Connectance']+scalD*scal1*scal2*scal3*Blms['Basal:Size:Connectance:Disturbance']
-        dats.append((level,final))
+      dats.append((x,logity))
 
-      data=graph.add_dataset(dats)
-      if pred1==leveldict[alt1][0]:
-        sty=2
-      else:
-        sty=1
-      if pred2==leveldict[alt2][0]:
-        col=2
-      else:
-        col=14
-      print col
-      data.symbol.shape=0
-      data.line.configure(linestyle=sty,linewdith=1.5,color=col)
+    data=graph.add_dataset(dats)
+    data.symbol.shape=0
+    data.line.configure(linestyle=1,linewidth=3.5,color=j)
 
-  #     if simple=='Size' and al==altlevels[1]:
-  #       data.legend='p(Basal extinct)='+str(Disturbance)
-  #     # Doesn't work - add DrawText.
-  #     # if simple=='Size' and Basal_p==0.5:
-  #     #   data.legend='C='+str(al)        
+    if simple=='TL':
+      data.legend=str(basal_p)
+    j+=1
 
-  # if simple=='Size':
-  #   # graph.add_drawing_object(DrawText,text='p(Basal)',x=107,y=0.825,loctype='world',char_size=.5)
-  #   graph.legend.configure(char_size=.5,loc=(50,0.3),loctype='world',box_linestyle=0,fill_pattern=0)
-  #   # graph.add_drawing_object(DrawText,text='Connectance',x=107,y=0.5,loctype='world',char_size=.5)
+  if simple=='TL':
+    graph.add_drawing_object(DrawText,text='Basal species',x=5.25,y=0.71,loctype='world',char_size=.75) 
+    graph.add_drawing_object(DrawText,text='extinction',x=5.25,y=0.65,loctype='world',char_size=.75) 
+    graph.add_drawing_object(DrawText,text='probability',x=5.25,y=0.58,loctype='world',char_size=.75) 
+    graph.legend.configure(char_size=.75,loc=(5.25,0.55),loctype='world',box_linestyle=0,fill_pattern=0)
+
 
   return graph
 
@@ -256,48 +220,24 @@ def populate_graph(graph,simple,dist):
 #
 ###############################################################################################
 ###############################################################################################
+persdict=read_persfiles('persistence_vs_Deg_norandom.tsv','persistence_vs_TL.tsv')
+
 
 grace=MultiPanelGrace(colors=colors)
 
-for simple in ['Size','Connectance']:
+for simple in ['Size','Deg','Connectance','TL']:
   graph2=grace.add_graph(Panel)
   graph2=format_graph(graph2,simple)
-  graph2=populate_persgraph(graph2,simple)
+  if simple in ['Size','Connectance']:
+    graph2=populate_persgraph(graph2,simple)
+  else:
+    graph2=populate_specgraph(graph2,persdict[simple],simple)
   graph2.panel_label.configure(placement='iul',char_size=1,dx=.03,dy=.03)
     
 
-grace.multi(rows=1,cols=2,vgap=.09,hgap=.04)
+grace.multi(rows=2,cols=2,vgap=.09,hgap=.09)
 grace.hide_redundant_labels()
-# grace.set_row_xaxislabel(label='in-degree (number of prey)',row=0,colspan=(None,None),char_size=1,perpendicular_offset=.05)
-# grace.set_row_xaxislabel(label='Trophic level (STL)',row=1,colspan=(None,None),char_size=1,perpendicular_offset=.05)
-# grace.set_col_yaxislabel(label='Count of motif',col=0,rowspan=(None,None),char_size=1,perpendicular_offset=.07)
-# grace.set_col_yaxislabel(label='Proportion of motif role',col=1,rowspan=(None,None),char_size=1,perpendicular_offset=.07)
+grace.set_col_yaxislabel(label='Mean consumer probability of persistence',col=0,rowspan=(None,None),char_size=1.5,perpendicular_offset=.07)
+grace.set_col_yaxislabel(label='Consumer probability of persistence',col=1,rowspan=(None,None),char_size=1.5,perpendicular_offset=.04)
 
 grace.write_file('../../manuscript/figures/persistence_vs_SC_lm.eps')
-
-## I don't think we use this figure
-# grace=MultiPanelGrace(colors=colors)
-
-# for simple in ['Size','Connectance','Basal']:
-#   for dist in [0.1, 0.5]:
-#     graph2=grace.add_graph(Panel)
-#     graph2=format_graph(graph2,simple)
-#     if simple=='Size':
-#       graph2.add_drawing_object(DrawText,text='Disturbance: '+str(dist),char_size=0.75,x=75,y=1.1,loctype='world',just=2)
-#     graph2=populate_graph(graph2,simple,dist)
-#     graph2.panel_label.configure(placement='iul',char_size=.75,dx=.02,dy=.02)
-    
-
-# # dummy=grace.add_graph(Panel)
-# # dummy=format_graph(dummy,'dummy')
-
-# grace.multi(rows=3,cols=2,vgap=.09,hgap=.07)
-# grace.hide_redundant_labels()
-# grace.set_row_xaxislabel(label='Network size',row=0,colspan=(None,None),char_size=1,perpendicular_offset=.05)
-# grace.set_row_xaxislabel(label='Connectance',row=1,colspan=(None,None),char_size=1,perpendicular_offset=.05)
-# grace.set_row_xaxislabel(label='Proportion basal',row=2,colspan=(None,None),char_size=1,perpendicular_offset=.05)
-# grace.set_col_yaxislabel(label='Mean Persistence',col=0,rowspan=(None,None),char_size=1,perpendicular_offset=.07)
-# # grace.set_col_yaxislabel(label='High disturbance',col=1,rowspan=(None,None),char_size=1,perpendicular_offset=.07)
-
-# grace.write_file('../../manuscript/figures/persistence_vs_BSC_lm.eps')
-
