@@ -324,14 +324,14 @@ Motif participation describes extinction risk
             To test whether a consumer's risk of extinction was associated with the frequency of each motif in its participation vector and whether this relationship varied with the strength of disturbance, network size, and/or network connectance, we fit four general linear models with binomial error distribution (GLMs; one per motif which can occur in acyclic networks): 
              \begin{equation}
              \begin{aligned}
-            \Psi_{ink} & \approx \rho_{i} + \pi_{k} + \Sigma_{n} + \Zeta_{n} \\
-            & + \rho_{i}\pi_{k} + \rho_{i}\Sigma_{n} + \rho_{i}\Zeta_{n} + \pi_{k}\Sigma_{n} + \pi_{k}\Zeta_{n} + \Sigma_{n}\Zeta_{n} \\
-            & + \rho_{i}\pi_{k}\Sigma_{n} + \rho_{i}\pi_{k}\Zeta_{n} + \pi_{k}\Sigma_{n}\Zeta_{n} + \rho_{i}\pi_{k}\Sigma_{n}\Zeta_{n} ,
+            \Psi_{ink} & \approx \rho_{i} + \pi_{k} + \Sigma_{n} + \zeta_{n} \\
+            & + \rho_{i}\pi_{k} + \rho_{i}\Sigma_{n} + \rho_{i}\zeta_{n} + \pi_{k}\Sigma_{n} + \pi_{k}\zeta_{n} + \Sigma_{n}\zeta_{n} \\
+            & + \rho_{i}\pi_{k}\Sigma_{n} + \rho_{i}\pi_{k}\zeta_{n} + \pi_{k}\Sigma_{n}\zeta_{n} + \rho_{i}\pi_{k}\Sigma_{n}\zeta_{n} ,
             % S_{n}C_{n} + N_n,
             \label{propreq}
             \end{aligned}
             \end{equation}
-            \noindent where $\Psi_{ink}$ is the persistence of species $i$, belonging to network $n$, during disturbance level $k$, $\rho_{i}$ is the proportion of the role of species $i$ that is made up by the focal motif, $\pi_k$ is the probability of extinction for a basal resource in disturbance level $k$, $\Sigma_{n}$ is the number of species in the network, and $\Zeta_{n}$ is the connectance of the network.
+            \noindent where $\Psi_{ink}$ is the persistence of species $i$, belonging to network $n$, during disturbance level $k$, $\rho_{i}$ is the proportion of the role of species $i$ that is made up by the focal motif, $\pi_k$ is the probability of extinction for a basal resource in disturbance level $k$, $\Sigma_{n}$ is the number of species in the network, and $\zeta_{n}$ is the connectance of the network.
             All predictors were centered and scaled before fitting the models.    
             After fitting the full models described above, we removed any non-significant terms in a stepwise fashion, beginning with the four-way interaction and proceeding to three-way and two-way interactions.
             If a smaller term was included in a significant larger term (e.g., a non-significant two-way interaction involving terms in a significant three-way interaction) then the smaller term was retained.
@@ -577,6 +577,24 @@ Motif participation describes extinction risk
         Persistence declined with inceasing STL for all levels of disturbance to basal resources.}
         \label{fig:motifs_vs_TL_and_deg}
     \end{figure}        
+
+    \begin{figure}[ht!]
+        \centering
+        \includegraphics[width=0.9\textwidth]{figures/persistence_vs_SC_lm.eps}
+        \caption{\textbf{A,C} Mean persistence of consumers in a network decreased strongly with increasing probability of disturbance to basal resources and decreased slightly, but significantly, with increasing connectance. There was no significant relationship between mean persistence and network size.
+        \textbf{B} Persistence of consumers increased with increasing in-degree when the probability of extinction for basal resources was low but decreased with increasing in-degree when the probability of extinction was high.
+        \textbf{D} Persistence of consumers decreased with increasing STL at all levels of disturbance.}
+        \label{fig:lm_CS}
+    \end{figure}
+
+
+    \begin{figure}[hb!]
+        \centering
+        \includegraphics[width=.9\textwidth]{figures/participation_vs_SC.eps}
+        \caption{The proportion of each motif in consumer's participation vectors varied with connectance, network size, and their interaction (except for apparent competition). We show relationships for the smallest and largest values of network size (S) and connectance (C).}
+        \label{fig:roles_vs_SC}
+    \end{figure}
+
 
     \begin{figure}[hb!]
     \centering
