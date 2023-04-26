@@ -225,7 +225,7 @@ persdict=read_persfiles('persistence_vs_Deg_norandom.tsv','persistence_vs_TL.tsv
 
 grace=MultiPanelGrace(colors=colors)
 
-for simple in ['Size','Deg','Connectance','TL']:
+for simple in ['Connectance','Deg','Size','TL']:
   graph2=grace.add_graph(Panel)
   graph2=format_graph(graph2,simple)
   if simple in ['Size','Connectance']:
