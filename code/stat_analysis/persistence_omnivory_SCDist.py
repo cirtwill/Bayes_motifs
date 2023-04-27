@@ -112,6 +112,7 @@ def populate_persgraph(graph,coefs,S,C):
 
   j=13
   for dist in [0.1,0.18,0.26,0.34,0.42,0.5]:
+    print(dist,j)
   # for dist in [0.5,0.42,0.34,0.26,0.18,0.1]:
     sty=1
     scalDist=(dist-scales['Disturbance'][0])/scales['Disturbance'][1]
