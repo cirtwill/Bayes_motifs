@@ -317,30 +317,12 @@ Motif participation describes extinction risk
             Initially, we fit general linear mixed-effect models (GLMMs) also including random  intercepts for the species richness and connectance of network $n$ and for network identity.
             As these models were singular, we removed each random intercept in turn and re-fit the model until it converged.
             In all four cases, the convergent model did not retain any random effects.
-
-            
-            NEW VERSION:
-
-            To test whether a consumer's risk of extinction was associated with the frequency of each motif in its participation vector and whether this relationship varied with the strength of disturbance, network size, and/or network connectance, we fit four general linear models with binomial error distribution (GLMs; one per motif which can occur in acyclic networks): 
-             \begin{equation}
-             \begin{aligned}
-            \Psi_{ink} & \approx \rho_{i} + \pi_{k} + \Sigma_{n} + \zeta_{n} \\
-            & + \rho_{i}\pi_{k} + \rho_{i}\Sigma_{n} + \rho_{i}\zeta_{n} + \pi_{k}\Sigma_{n} + \pi_{k}\zeta_{n} + \Sigma_{n}\zeta_{n} \\
-            & + \rho_{i}\pi_{k}\Sigma_{n} + \rho_{i}\pi_{k}\zeta_{n} + \pi_{k}\Sigma_{n}\zeta_{n} + \rho_{i}\pi_{k}\Sigma_{n}\zeta_{n} ,
-            % S_{n}C_{n} + N_n,
-            \label{propreq}
-            \end{aligned}
-            \end{equation}
-            \noindent where $\Psi_{ink}$ is the persistence of species $i$, belonging to network $n$, during disturbance level $k$, $\rho_{i}$ is the proportion of the role of species $i$ that is made up by the focal motif, $\pi_k$ is the probability of extinction for a basal resource in disturbance level $k$, $\Sigma_{n}$ is the number of species in the network, and $\zeta_{n}$ is the connectance of the network.
-            All predictors were centered and scaled before fitting the models.    
-            After fitting the full models described above, we removed any non-significant terms in a stepwise fashion, beginning with the four-way interaction and proceeding to three-way and two-way interactions.
-            If a smaller term was included in a significant larger term (e.g., a non-significant two-way interaction involving terms in a significant three-way interaction) then the smaller term was retained.
             We attempted to fit a PERMANOVA test relating a species' motif participation vector as a whole to its persistence, but the assumption of equal variance among groups was violated and we therefore do not report the results of this test.
             
             
             To test whether these general trends were consistent across networks, we visually examined the distribution of slopes of simplified regressions fit to a single network and level of disturbance.
             These models included only the frequency of the focal motif ($\rho_{i}$ above) and again used a binomial error distrubution.
-            [[Statement about what this tells us or something else?]]
+            To aid in interpretation of these single-network models with respect to network size and connectance, we fit an additional set of GLMs including proportion of motif, strength of disturbance, network size, and connectance across all networks (\emph{Appendix S6}).
 
 
 
@@ -397,11 +379,22 @@ Motif participation describes extinction risk
         Participation in the three-species chain motif showed the opposite trends.
     
 
+        Digging deeper and exploring how persistence varied with the proportion of a motif in the species' participation vector, disturbance, and overall network structure (size and connectance), we found that the relationship between the proportion of omnivory in the participation vector and probability of persistence depended strongly on the connectance of the network.
+        Higher proportions of omnivory were associated with lower probabilities of persistence when connectance was low, regardless of network size or strength of disturbance.
+        At moderate connectance, however, higher proportions of omnivory were associated with greater probabilities of persistence when disturbance was weak.
+        In the most-connected networks, higher proportions of omnivory were associated with greater probabilities of persistence at all levels of disturbance.
+
+        The relationships between other motifs and persistence were more consistent over different levels of connectance and network size.
+        Slopes of the motif proportion-persistence relationships for the apparent compeition and direct competition motifs were steepest in large and less-connected networks but the directions of slopes varied only with the strength of disturbance, as in Fig.~\ref{Fig 2}.
+        The relationship between proportion of the three-species chain in the participation vector and persistence was very similar across all levels of size and connectance.
+
+        
         Considering each network separately ....
+        
+
 
     \subsection*{Species persistence and other network properties}
 
-        % The overall motif profile of a network was related to the average persistence of consumers ($F_{1,2998}$=645, $p$\textless0.001), although this result must be considered tentative due to non-homogeneous distribution of roles (\emph{Appendix S8}).
         As well as the frequency with which each species appears in each motif, we can use the total frequencies of each motif in the whole network (i.e., the network's motif profile) to describe its structure.
         The average probability of persistence of all consumers in the network varied with the frequencies of different motifs in this profile.
         Specifically, average consumer persistence was higher in networks with higher proportions of the apparent competition motif, lower in networks with higher proportions of the omnivory motif, and was not significantly related to the frequencies of the three-species chain or direct competition motifs (Fig.~\ref{fig:motif_profile_persistence}, Table S4, \emph{Appendix S8}). 
@@ -573,8 +566,8 @@ Motif participation describes extinction risk
     \begin{figure}[hb!]
         \centering
         \includegraphics[width=\textwidth]{figures/roles_vs_TL.eps}
-        \caption{Motif participation correlated with in-degree and trophic level, and both of these simpler role measures were also correlated with persistence. \textbf{A-B)} The proportion of omnivory increased with increasing degree while all other proportions decreased. The proportions of omnivory and direct competition decreased with increasing STL while the proportions of apparent competition and three-species chains increased. \textbf{C-D)} Persistence increased with increasing in-degree for low levels of disturbance to basal resources but decreased with increasing degree for high levels of disturbance to basal resources.
-        Persistence declined with inceasing STL for all levels of disturbance to basal resources.}
+        \caption{Motif participation correlated with in-degree and trophic level, and both of these simpler role measures were also correlated with persistence. \textbf{A)} The proportion of omnivory increased with increasing degree while all other proportions decreased. \textbf{B)} The proportions of omnivory and direct competition decreased with increasing STL while the proportions of apparent competition and three-species chains increased. \textbf{C-F)} The proportion of each motif in consumer's participation vectors varied with connectance, network size, and their interaction (except for apparent competition). We show relationships for the smallest and largest values of network size (S) and connectance (C).
+        }
         \label{fig:motifs_vs_TL_and_deg}
     \end{figure}        
 
@@ -590,12 +583,12 @@ Motif participation describes extinction risk
     \end{figure}
 
 
-    \begin{figure}[hb!]
-        \centering
-        \includegraphics[width=.9\textwidth]{figures/participation_vs_SC.eps}
-        \caption{The proportion of each motif in consumer's participation vectors varied with connectance, network size, and their interaction (except for apparent competition). We show relationships for the smallest and largest values of network size (S) and connectance (C).}
-        \label{fig:roles_vs_SC}
-    \end{figure}
+    % \begin{figure}[hb!]
+    %     \centering
+    %     \includegraphics[width=.9\textwidth]{figures/participation_vs_SC.eps}
+    %     \caption{The proportion of each motif in consumer's participation vectors varied with connectance, network size, and their interaction (except for apparent competition). We show relationships for the smallest and largest values of network size (S) and connectance (C).}
+    %     \label{fig:roles_vs_SC}
+    % \end{figure}
 
 
     \begin{figure}[hb!]
@@ -612,36 +605,14 @@ Motif participation describes extinction risk
     %     \label{fig:motif_profile_persistence}
     % \end{figure}    
     
-    \begin{figure}[hb!]
-        \centering
-        \includegraphics[width=\textwidth]{figures/motif_proportion_lms.eps}
-        \caption{The proportion of the omnivory in a network's motif role increased significantly as connectance increased, while the proportions of the other three motifs did not vary significantly with network size, connectance, or their interaction.}
-        \label{motif_proportion_lms}
-    \end{figure}
+    % \begin{figure}[hb!]
+    %     \centering
+    %     \includegraphics[width=\textwidth]{figures/motif_proportion_lms.eps}
+    %     \caption{The proportion of the omnivory in a network's motif role increased significantly as connectance increased, while the proportions of the other three motifs did not vary significantly with network size, connectance, or their interaction.}
+    %     \label{motif_proportion_lms}
+    % \end{figure}
 
-    \begin{figure}[hb!]
-        \centering
-        \includegraphics[width=\textwidth]{figures/persistence_omnivory_detailpers.eps}
-        \label{omnivory_plus_SC}
-        \end{figure}
 
-    \begin{figure}[hb!]
-        \centering
-        \includegraphics[width=\textwidth]{figures/persistence_chain_detailpers.eps}
-        \label{chain_plus_SC}
-        \end{figure}
-
-    \begin{figure}[hb!]
-        \centering
-        \includegraphics[width=\textwidth]{figures/persistence_apparent_detailpers.eps}
-        \label{apparent_plus_SC}
-        \end{figure}
-
-    \begin{figure}[hb!]
-        \centering
-        \includegraphics[width=\textwidth]{figures/persistence_direct_detailpers.eps}
-        \label{direct_plus_SC}
-        \end{figure}
 
 
 \clearpage

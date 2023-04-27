@@ -116,9 +116,10 @@ $^\dagger$ Corresponding author\\
                 \item Contains Fig. S3
             \end{itemize}    
 
-        \item Within-network motif-persistence relationships
+        \item Motif-persistence relationships vary with S,C
 
             \begin{itemize}
+                \item Describes GLMs summarising how the relationship between motif participation and persistence varies over S and C, to complement the within-netowrk results presented in the main text
                 \item Contains Fig. S4
             \end{itemize}    
     
@@ -418,12 +419,12 @@ $^\dagger$ Corresponding author\\
             \end{tabular}
             \end{table}
 
-    \begin{figure}[hb!]
-        \centering
-        \includegraphics[width=.9\textwidth]{figures/participation_vs_SC.eps}
-        \caption{The proportion of each motif in consumer's participation vectors varied with connectance, network size, and their interaction (except for apparent competition). We show relationships for the smallest and largest values of network size (S) and connectance (C).}
-        \label{fig:roles_vs_SC}
-    \end{figure}
+    % \begin{figure}[hb!]
+    %     \centering
+    %     \includegraphics[width=.9\textwidth]{figures/participation_vs_SC.eps}
+    %     \caption{The proportion of each motif in consumer's participation vectors varied with connectance, network size, and their interaction (except for apparent competition). We show relationships for the smallest and largest values of network size (S) and connectance (C).}
+    %     \label{fig:roles_vs_SC}
+    % \end{figure}
 
 
     
@@ -431,12 +432,12 @@ $^\dagger$ Corresponding author\\
 
 \section{Results: persistence and other network properties} 
 
-    \begin{figure}[ht!]
-        \centering
-        \includegraphics[width=0.9\textwidth]{figures/persistence_vs_SC_lm.eps}
-        \caption{Persistence decreased strongly with increasing probability of disturbance to basal resources and decreased slightly, but significantly, with increasing connectance.}
-        \label{fig:lm_CS}
-    \end{figure}
+    % \begin{figure}[ht!]
+    %     \centering
+    %     \includegraphics[width=0.9\textwidth]{figures/persistence_vs_SC_lm.eps}
+    %     \caption{Persistence decreased strongly with increasing probability of disturbance to basal resources and decreased slightly, but significantly, with increasing connectance.}
+    %     \label{fig:lm_CS}
+    % \end{figure}
     
     % Updated to use mean rather than all species.
     \begin{table}[hb!]
@@ -484,32 +485,53 @@ $^\dagger$ Corresponding author\\
 
 \clearpage
 
-\section{Within-network motif-persistence relationships}
+\section{Motif-persistence relationships vary with S,C}
 
-    We compared the outcomes from linear mixed-effect models (GLMMs) relating persistence to motif roles across all networks (Fig. 3 and Table 1, \emph{Main Text}) with similar general linear regressions (GLRs) made on each single network separately.
-    The main trends are similar in both analyses, but different-sized networks showed slightly different results for some motifs when considered individually (Figure~\ref{fig:density_prop_S}).
-    For the three-species chain and omnivory motifs, a significant interaction between disturbance and the effect of the focal motif means that having a larger proportion of the role be made up of the chain or omnivory motif is associated with lower persistence at high levels of disturbance (Fig. 3 and Table 1, \emph{Main Text}). 
-    The same pattern holds overall for GLRs fit within a network  (Figure~\ref{fig:density_prop_S}): the fraction of negative slopes for the proportion of three-species chain and omnivory motifs increases with increasing disturbance. 
-    This trend is most pronounced in large networks. (bottom panel, Figure~\ref{fig:density_prop_S}). 
-    % Besides the decrease in fraction of positive slopes with increasing disturbance, the omnivory motif showed a higher overall fraction of positive slopes in comparison to the three-species chain motif, corresponding to the positive main effect of omnivory (Fig. 3 and Table 1, \emph{Main Text}). 
-    
-    
+    In case the within-network trends with respect to network size and connectance are easier to understand after summarising across all networks, we fit four general linear models with binomial error distribution (GLMs; one per motif which can occur in acyclic networks): 
+             \begin{equation}
+             \begin{aligned}
+            \Psi_{ink} & \approx \rho_{i} + \pi_{k} + \Sigma_{n} + \zeta_{n} \\
+            & + \rho_{i}\pi_{k} + \rho_{i}\Sigma_{n} + \rho_{i}\zeta_{n} + \pi_{k}\Sigma_{n} + \pi_{k}\zeta_{n} + \Sigma_{n}\zeta_{n} \\
+            & + \rho_{i}\pi_{k}\Sigma_{n} + \rho_{i}\pi_{k}\zeta_{n} + \pi_{k}\Sigma_{n}\zeta_{n} + \rho_{i}\pi_{k}\Sigma_{n}\zeta_{n} ,
+            % S_{n}C_{n} + N_n,
+            \label{propreq}
+            \end{aligned}
+            \end{equation}
+            \noindent where $\Psi_{ink}$ is the persistence of species $i$, belonging to network $n$, during disturbance level $k$, $\rho_{i}$ is the proportion of the role of species $i$ that is made up by the focal motif, $\pi_k$ is the probability of extinction for a basal resource in disturbance level $k$, $\Sigma_{n}$ is the number of species in the network, and $\zeta_{n}$ is the connectance of the network.
+            All predictors were centered and scaled before fitting the models.    
+            After fitting the full models described above, we removed any non-significant terms in a stepwise fashion, beginning with the four-way interaction and proceeding to three-way and two-way interactions.
+            If a smaller term was included in a significant larger term (e.g., a non-significant two-way interaction involving terms in a significant three-way interaction) then the smaller term was retained.
+
+
     \begin{figure}[hb!]
         \centering
-            \includegraphics[width=\textwidth]{figures/prop_dens_bp_vs_S_allC.eps}
-            \caption{Here we show the density (y-axis) of slopes (x-axis) for regressions of probability of persistence against proportion of different motifs for all simulated webs of all connectances - a visualization of how an increased proportion of each motif (different colored lines) affects the probability of persistence for consumer species. Columns show the result for various disturbances on the basal level, from $\pi = 0.1$ (left) to $\pi = 0.5$ (right). Rows show various network sizes. The dotted, vertical lines indicate zero on the x-axis. A negative slope value reflects a negative relationship between increased participation in a motif and persistence, while a positive slope value reflects a positive relationship - an increased proportion of a specific motif increase persistence. The fraction of replicates with a slope greater than zero are stated in numbers in each sub-plot. Line color corresponds to the motif. }
-            \label{fig:density_prop_S}
-        \end{figure}    
+        \includegraphics[width=\textwidth]{figures/persistence_omnivory_detailpers.eps}
+        \caption{}
+        \label{omnivory_plus_SC}
+        \end{figure}
 
+    \begin{figure}[hb!]
+        \centering
+        \includegraphics[width=\textwidth]{figures/persistence_chain_detailpers.eps}
+        \caption{}
+        \label{chain_plus_SC}
+        \end{figure}
+
+    \begin{figure}[hb!]
+        \centering
+        \includegraphics[width=\textwidth]{figures/persistence_apparent_detailpers.eps}
+        \caption{}
+        \label{apparent_plus_SC}
+        \end{figure}
+
+    \begin{figure}[hb!]
+        \centering
+        \includegraphics[width=\textwidth]{figures/persistence_direct_detailpers.eps}
+        \caption{}
+        \label{direct_plus_SC}
+        \end{figure}
     
-    
-    For the apparent and direct competition motifs, the LMMs include a positive interaction between disturbance and the proportion of the motif in a species' role (Fig. 3 and Table 1; \emph{Main Text}).
-    This means that having more of the role made up of these two motifs is increasingly beneficial at higher levels of disturbance, a trend which is also evident from the increasing fraction of positive slopes with increasing disturbance based on LRs of each network at each level of disturbance. % (Figure~\ref{fig:density_prop_S}).
-    As with the trends for omnivory and three-species chains, these increases are strongest in large networks. % (bottom row, Figure~\ref{fig:density_prop_S}).
-    % For direct competition, the fraction of slopes are similar across disturbance levels. Although this interaction is not positive when accounting for network size, the fraction of positive slopes are throughout high.
-    The increase in the proportion of positive slopes was much stronger for apparent competition than direct competition, consistent with the smaller (but still significant) interaction term for between direct competition in the LMMs.
-    A high proportion of direct competition in a species' role tended to be associated with greater probability of persistence across levels of disturbance and network size.
-    % In conclusion, species richness does not considerably alter the trends visible in the LMMs. High species richness more clearly display an interaction between motif proportion, persistences and disturbance levels, while this effect is smaller with low species richness. 
+
 \clearpage
                 
 
@@ -540,6 +562,12 @@ $^\dagger$ Corresponding author\\
         A series of general linear regressions support the relationship between network motif profiles and global structural properties.
         Specifically, the frequency of the omnivory motif increased in more-connected networks (Table~\ref{network_prop_lms}) while the frequencies of other motifs were not significantly related to network size or connectance.
     
+    \begin{figure}[hb!]
+        \centering
+        \includegraphics[width=\textwidth]{figures/motif_proportion_lms.eps}
+        \caption{The proportion of the omnivory in a network's motif role increased significantly as connectance increased, while the proportions of the other three motifs did not vary significantly with network size, connectance, or their interaction.}
+        \label{motif_proportion_lms}
+    \end{figure}    
     
        % \begin{figure}[hb!]
        %     \centering
