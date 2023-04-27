@@ -59,25 +59,25 @@ def format_graph(graph,simple):
   graph.xaxis.bar.linewidth=1
   graph.frame.linewidth=1
 
-  graph.xaxis.label.configure(char_size=1,just=2,place='normal')
+  graph.xaxis.label.configure(char_size=.75,just=2,place='normal')
   graph.xaxis.tick.configure(onoff='on',minor_ticks=0,major_size=.4,place='both',major_linewidth=.5,minor_linewidth=1)
   graph.world.xmin=0
   if simple=='C':
     graph.world.xmax=.2
-    graph.xaxis.tick.major=.04
+    graph.xaxis.tick.major=.1
     graph.xaxis.label.text='Connectance'
-    graph.xaxis.ticklabel.configure(format='decimal',prec=2,char_size=.75)
+    graph.xaxis.ticklabel.configure(format='decimal',prec=1,char_size=.5)
   else:
-    graph.world.xmin=45
-    graph.world.xmax=105
-    graph.xaxis.tick.major=10
+    graph.world.xmin=50
+    graph.world.xmax=100
+    graph.xaxis.tick.major=25
     graph.xaxis.label.text='Network size'
-    graph.xaxis.ticklabel.configure(format='decimal',prec=0,char_size=.75)
+    graph.xaxis.ticklabel.configure(format='decimal',prec=0,char_size=.5)
 
   graph.world.ymin=0
   graph.world.ymax=.75
-  graph.yaxis.ticklabel.configure(format='decimal',prec=1,char_size=.75)
-  graph.yaxis.label.configure(text='Mean persistence',char_size=1,just=2,place='normal')
+  graph.yaxis.ticklabel.configure(format='decimal',prec=1,char_size=.5)
+  graph.yaxis.label.configure(text='Mean persistence',char_size=.75,just=2,place='normal')
   graph.yaxis.tick.configure(major=.2,onoff='on',minor_ticks=0,major_size=.4,minor_size=.5,place='both',major_linewidth=.5,minor_linewidth=1)
 
   return graph
@@ -114,10 +114,10 @@ def populate_persgraph(graph,xprop,val,netprops):
     data.symbol.shape=0
     data.line.configure(linestyle=sty,linewdith=1.5,color=j)
 
-    if xprop=='C' and val==50:
-      data.legend=motif_names[motif]
+    # if xprop=='C' and val==50:
+      # data.legend=motif_names[motif]
 
-  graph.legend.configure(box_linestyle=0,box_fill_pattern=0,char_size=.75,loc=(0.1,0.74),loctype='world')
+  # graph.legend.configure(box_linestyle=0,box_fill_pattern=0,char_size=.75,loc=(0.1,0.74),loctype='world')
   return graph
 
 ###############################################################################################
@@ -128,36 +128,36 @@ def populate_persgraph(graph,xprop,val,netprops):
 ###############################################################################################
 ###############################################################################################
 
-# # Far too many species to see anything. Going to apply stats.
-datafile='roles_vs_SC.tsv'
-netprops=read_datafile(datafile)
+# # # Far too many species to see anything. Going to apply stats.
+# datafile='stat_analysis/roles_vs_SC.tsv'
+# netprops=read_datafile(datafile)
 
-grace=MultiPanelGrace(colors=colors)
-grace.add_label_scheme('dummy',['S=50','C=0.02','S=100','C=0.20'])
-grace.set_label_scheme('dummy')
+# grace=MultiPanelGrace(colors=colors)
+# grace.add_label_scheme('dummy',['S=50','C=0.02','S=100','C=0.20'])
+# grace.set_label_scheme('dummy')
 
-for sel in ['lo','high']:
-  for xprop in ['C','S']:
-    if xprop=='S':
-      if sel=='lo':
-        val=0.02
-      else:
-        val=0.2
-    elif xprop=='C':
-      if sel=='lo':
-        val=50
-      else:
-        val=100
-    graph2=grace.add_graph(Panel)
-    graph2=format_graph(graph2,xprop)
-    graph2=populate_persgraph(graph2,xprop,val,netprops)
-    graph2.panel_label.configure(placement='iul',char_size=.75,dx=.02,dy=.02)
+# for sel in ['lo','high']:
+#   for xprop in ['C','S']:
+#     if xprop=='S':
+#       if sel=='lo':
+#         val=0.02
+#       else:
+#         val=0.2
+#     elif xprop=='C':
+#       if sel=='lo':
+#         val=50
+#       else:
+#         val=100
+#     graph2=grace.add_graph(Panel)
+#     graph2=format_graph(graph2,xprop)
+#     graph2=populate_persgraph(graph2,xprop,val,netprops)
+#     graph2.panel_label.configure(placement='iul',char_size=.75,dx=.02,dy=.02)
 
 
-grace.multi(rows=2,cols=2,vgap=.06,hgap=.06)
-grace.hide_redundant_labels()
-grace.set_col_yaxislabel(label='Proportion of motif participation',col=0,rowspan=(None,None),char_size=1,perpendicular_offset=.07)
+# grace.multi(rows=2,cols=2,vgap=.06,hgap=.06)
+# grace.hide_redundant_labels()
+# grace.set_col_yaxislabel(label='Proportion of motif participation',col=0,rowspan=(None,None),char_size=1,perpendicular_offset=.07)
 
-grace.write_file('../../manuscript/figures/participation_vs_SC.eps')
+# grace.write_file('../../manuscript/figures/participation_vs_SC.eps')
 
 

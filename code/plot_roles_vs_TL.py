@@ -1,6 +1,7 @@
 import sys
 import os
 import math
+import participation_vs_SC as SC
 
 #Pygrace libraries
 from PyGrace.grace import Grace
@@ -77,34 +78,24 @@ def format_graph(graph,simple,roletype):
 
   if simple=='Deg':
     graph.world.xmax=100
-    graph.xaxis.tick.major=25
+    graph.xaxis.tick.major=50
     graph.xaxis.label.text='In-degree (number of prey)'
   elif simple=='TL':
     graph.world.xmax=5
-    graph.xaxis.tick.major=1
+    graph.xaxis.tick.major=2
     graph.xaxis.label.text='Trophic level (STL)'
 
   if roletype=='Prop':
     graph.world.ymax=.600000001
     graph.yaxis.tick.major=.2
-    graph.yaxis.ticklabel.configure(format='decimal',prec=1,char_size=.75)
+    graph.yaxis.ticklabel.configure(format='decimal',prec=1,char_size=.5)
     graph.yaxis.label.text='Proportion of motif in role'
-  elif roletype=='Count':
-    graph.world.ymax=600
-    graph.yaxis.tick.major=200
-    graph.yaxis.ticklabel.configure(format='decimal',prec=0,char_size=.75)
-    graph.yaxis.label.text='Count of motif'
-  elif roletype=='persistence':
-    graph.world.ymax=1
-    graph.yaxis.tick.major=.2
-    graph.yaxis.ticklabel.configure(format='decimal',prec=1,char_size=.75)
-    graph.yaxis.label.text='Persistence'
 
 
-  graph.xaxis.ticklabel.configure(format='decimal',prec=0,char_size=.75)
-  graph.xaxis.label.configure(char_size=1,just=2,place='normal')
+  graph.xaxis.ticklabel.configure(format='decimal',prec=0,char_size=.5)
+  graph.xaxis.label.configure(char_size=.75,just=2,place='normal')
 
-  graph.yaxis.label.configure(char_size=1,just=2,place='normal')
+  graph.yaxis.label.configure(char_size=.75,just=2,place='normal')
   graph.xaxis.tick.configure(onoff='on',minor_ticks=0,major_size=.4,place='both',major_linewidth=.5,minor_linewidth=1)
   graph.yaxis.tick.configure(onoff='on',minor_ticks=0,major_size=.4,minor_size=.5,place='both',major_linewidth=.5,minor_linewidth=1)
 
@@ -154,8 +145,8 @@ def populate_graph(graph,minidict,simple,roletype):
       data.legend=motif
 
   if simple=='TL':
-    graph.add_drawing_object(DrawText,text='Motif',x=5.25,y=0.47,loctype='world',char_size=.75) 
-    graph.legend.configure(char_size=.75,loc=(5.25,0.450),loctype='world',box_linestyle=0,fill_pattern=0)
+    graph.add_drawing_object(DrawText,text='Motif',x=5.25,y=0.47,loctype='world',char_size=.5) 
+    graph.legend.configure(char_size=.5,loc=(5.25,0.450),loctype='world',box_linestyle=0,fill_pattern=0)
 
   return graph
 
@@ -218,26 +209,48 @@ lmdict=read_lmfile(lmfile)
 persdict=read_persfiles('stat_analysis/persistence_vs_Deg_norandom.tsv','stat_analysis/persistence_vs_TL.tsv')
 
 grace=MultiPanelGrace(colors=colors)
-for graphtype in ['Proportion','Persistence']:
-  for simple in ['Deg','TL']:
-    if graphtype=='Proportion':
-      graph=grace.add_graph(Panel)
-      graph=format_graph(graph,simple,'Prop')
-      graph=populate_graph(graph,lmdict[simple]['Prop'],simple,'Prop')
-      graph.panel_label.configure(placement='iul',char_size=1,dx=.02,dy=.02)
-    elif graphtype=='Persistence':
-      graph=grace.add_graph(Panel)
-      graph=format_graph(graph,simple,'persistence')
-      graph=populate_persgraph(graph,persdict[simple],simple)
-      graph.panel_label.configure(placement='iul',char_size=1,dx=.02,dy=.02)
+grace.add_label_scheme('dummy',['A','B','C (S=50)','D (C=0.02)','E (S=100)','F (C=0.20)'])
+grace.set_label_scheme('dummy')
+
+graphtype='Proportion'
+for simple in ['Deg','TL']:
+  if graphtype=='Proportion':
+    graph=grace.add_graph(Panel)
+    graph=format_graph(graph,simple,'Prop')
+    graph=populate_graph(graph,lmdict[simple]['Prop'],simple,'Prop')
+    graph.panel_label.configure(placement='iul',char_size=.5,dx=.02,dy=.02)
+
+datafile='stat_analysis/roles_vs_SC.tsv'
+netprops=SC.read_datafile(datafile)
+
+for sel in ['lo','high']:
+  for xprop in ['C','S']:
+    if xprop=='S':
+      if sel=='lo':
+        val=0.02
+      else:
+        val=0.2
+    elif xprop=='C':
+      if sel=='lo':
+        val=50
+      else:
+        val=100
+    graph2=grace.add_graph(Panel)
+    graph2=SC.format_graph(graph2,xprop)
+    graph2=SC.populate_persgraph(graph2,xprop,val,netprops)
+    graph2.panel_label.configure(placement='iul',char_size=.5,dx=.02,dy=.02)
+
       
-    
-grace.multi(rows=2,cols=2,vgap=.05,hgap=.05)
+
+grace.multi(rows=3,cols=2,vgap=.07,hgap=.04)
 grace.hide_redundant_labels()
-grace.graphs[0].set_view(0.10, 0.55, 0.5, 0.85)
-grace.graphs[1].set_view(0.55, 0.55, 0.95, 0.85)
-grace.graphs[2].set_view(0.10, 0.2, 0.5, 0.5)
-grace.graphs[3].set_view(0.55, 0.2, 0.95, 0.5)
+grace.set_col_yaxislabel(col=0,rowspan=(None,None),label='Proportion of motif in participation vector',char_size=1,perpendicular_offset=.05)
+for graph in grace.graphs:
+  print(graph.get_view())
+# grace.graphs[0].set_view(0.10, 0.55, 0.5, 0.85)
+# grace.graphs[1].set_view(0.55, 0.55, 0.95, 0.85)
+# grace.graphs[2].set_view(0.10, 0.2, 0.5, 0.5)
+# grace.graphs[3].set_view(0.55, 0.2, 0.95, 0.5)
 
 grace.write_file('../manuscript/figures/roles_vs_TL.eps')
 
