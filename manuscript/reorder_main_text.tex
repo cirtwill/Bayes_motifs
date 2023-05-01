@@ -385,7 +385,7 @@ Motif participation describes extinction risk
         In the most-connected networks, higher proportions of omnivory were associated with greater probabilities of persistence at all levels of disturbance.
 
         The relationships between other motifs and persistence were more consistent over different levels of connectance and network size.
-        Slopes of the motif proportion-persistence relationships for the apparent competition and direct competition motifs were steepest in large and less-connected networks but the directions of slopes varied only with the strength of disturbance, as in Fig.~\ref{Fig 2}.
+        Slopes of the motif proportion-persistence relationships for the apparent competition and direct competition motifs were steepest in large and less-connected networks but the directions of slopes varied only with the strength of disturbance, as in Fig.~\ref{fig:prop_lmer_all}.
         The relationship between proportion of the three-species chain in the participation vector and persistence was very similar across all levels of size and connectance.
 
         
@@ -397,7 +397,7 @@ Motif participation describes extinction risk
 
         As well as the frequency with which each species appears in each motif, we can use the total frequencies of each motif in the whole network (i.e., the network's motif profile) to describe its structure.
         The average probability of persistence of all consumers in the network varied with the frequencies of different motifs in this profile.
-        Specifically, average consumer persistence was higher in networks with higher proportions of the apparent competition motif, lower in networks with higher proportions of the omnivory motif, and was not significantly related to the frequencies of the three-species chain or direct competition motifs (Fig.~\ref{fig:motif_profile_persistence}, Table S4, \emph{Appendix S8}). 
+        Specifically, average consumer persistence was higher in networks with higher proportions of the apparent competition motif, lower in networks with higher proportions of the omnivory motif, and was not significantly related to the frequencies of the three-species chain or direct competition motifs (Fig. S~\ref{fig:lm_CS}, Table S4, \emph{Appendix S8}). 
         There was no significant interaction between the proportion of any motif in the network profile and level of disturbance (Table S4), \emph{Appendix S8}).
 
 
@@ -410,7 +410,7 @@ Motif participation describes extinction risk
     \subsection*{Motif participation and other network properties}
 
         Both the motif profile of a network and species' motif participation were related to other measures of network structure.
-        Most simply, the proportion of the omnivory motif in the network's motif role increased with increasing connectance (Fig.~\ref{motif_proportion_lms}; Table S5, \emph{Appendix S9}).
+        Most simply, the proportion of the omnivory motif in the network's motif role increased with increasing connectance (Fig. S6, Table S5; \emph{Appendix S9}).
         The proportions of other motifs did not vary significantly with connectance and none were significantly related to network size.
 
 
@@ -547,9 +547,9 @@ Motif participation describes extinction risk
 
         \begin{figure}[hb!]
         \centering
-        \includegraphics[width=1.0\textwidth]{figures/concept_fig_ver2.eps}
+        \includegraphics[width=1.0\textwidth]{figures/concept_fig_ver2_edit.eps}
         \caption{Conceptual figure of a toy food web. \textbf{a)} This food web contains examples of the four motifs: apparent competition (blue), three-species chain (purple), omnivory (green), and direct competition (yellow). These motifs capture different ways in which disturbances to basal resources can propagate through the network. For example, a disturbance to the bottom species in a three-species chain will have a direct effect on the middle species but only indirectly affect the top species while a disturbance to the bottom species in an omnivory motif will have a direct effect on the middle species and direct and indirect effects on the top species. 
-        Note that the nodes participate in more motifs than the ones highlighted. \textbf{b)} In the same food web, species with identical degree and trophic level can have different motif participation; here species A (light grey node with links in the same motif colored light grey) participates in only two chains while species B (dark grey node with its direct consumption links colored dark grey) participates in chains more than three times more frequently (see inserted table for counts of participation in all four motifs). 
+        Note that the nodes participate in more motifs than the ones highlighted and that a species' motif participation vector is the count of all motifs of each type in which the species appears. \textbf{b)} In the same food web, species with identical degree and trophic level can have different motif participation; here species A (light grey node with links in the same motif colored light grey) participates in only two chains while species B (dark grey node with its direct consumption links colored dark grey) participates in chains more than three times more frequently (see inserted table for counts of participation in all four motifs, giving the motif participation vector in parentheses). 
         Despite having equal degree and trophic level, species A may be at greater risk of going extinct than species B because of its dependence on specialist prey species. Two-thirds of the prey of species B are generalists and therefore more likely to survive a disturbance to basal resources. By including information about indirect interactions, motif profiles reflect this difference between species A and B while trophic level and degree do not.}
     \label{fig:concept}
     \end{figure}
