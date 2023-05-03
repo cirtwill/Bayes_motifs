@@ -30,7 +30,7 @@ colors.add_color(158,1,66,'Rred2')
 
 colors.add_color(228,26,28,'omnivory')
 colors.add_color(55,126,184,'direct') 
-colors.add_color(166,86,40,'apparent') 
+colors.add_color(255,127,0,'apparent') 
 colors.add_color(152,78,163,'chain') 
         # 5 E 255 127 0 
         # 6 F 255 255 51  
