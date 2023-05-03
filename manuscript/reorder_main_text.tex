@@ -373,39 +373,37 @@ Motif participation describes extinction risk
     \subsection*{Species persistence and motif participation} 
 
         A species' probability of persistence was significantly related to its motif participation (Table S1, \emph{Appendix S4}).
-        The probability of persistence tended to increase with increasing frequency of the direct competition motif and decrease with increasing frequency of the omnivory motif, across all levels of disturbance.
-        The relationships between participation in the apparent competition and three-species chain motifs, however, varied with the strength of disturbance (Fig.~\ref{fig:prop_lmer_all}).
-        Higher frequency of participation in the apparent competition motif was associated with lower probability of persistence at low levels of disturbance and higher probability of persistence at high levels of disturbance.
-        Participation in the three-species chain motif showed the opposite trends.
+        Across all levels of disturbance, species were more likely to persist if they participated more frequently in the direct competition motif and less frequently in the omnivory motif (Fig.~\ref{fig:prop_lmer_all}).
+        The relationships between probability of persistence and participation in the other two motifs varied with the strength of disturbance.
+        At low levels of disturbance, species were more likely to persist if they participated more frequently in the three-species chain motif and less frequently in the apparent competition motif.
+        These trends were reversed at high levels of disturbance.
     
 
-        In depth exploration of how persistence varied with the proportion of a motif in the species' participation vector, disturbance, and overall network structure (size and connectance), showed that the relationship between the proportion of omnivory in the participation vector and probability of persistence depended strongly on the connectance of the network Fig.~\ref{Fig 2}.
+        Within these overall trends, there was substantial variation in the relationships between persistence and motif participation between networks with different overall network structures (Fig.~\ref{fig:density_prop}).
+        Networks with high and low connectances had different distributions of persistence-motif participation relationships, while network size had a much smaller effect (\emph{Appendix SX}).
+        The relationship between participation in the omnivory motif and probability of persistence was especially variable.
         Higher proportions of omnivory were associated with lower probabilities of persistence when connectance was low, regardless of network size or strength of disturbance.
         At moderate connectance, however, higher proportions of omnivory were associated with greater probabilities of persistence when disturbance was weak.
         In the most-connected networks, higher proportions of omnivory were associated with greater probabilities of persistence at all levels of disturbance.
 
-        The relationships between the proportion of other motifs and persistence were more consistent over different levels of connectance and network size.
-        Slopes of the motif proportion-persistence relationships for the apparent competition and direct competition motifs were steepest in large and less-connected networks, but the directions of slopes varied only with the strength of disturbance, as in Fig.~\ref{fig:prop_lmer_all}.
-        The relationship between proportion of the three-species chain in the participation vector and persistence was very similar across all levels of size and connectance.
-        The effects of network size were overall limited Fig.~\ref{fig:prop_lmer_all}.
-
-        
-        Considering each network separately ....
-        
+        The relationships between persistence and participation in the other motifs were more consistent over different levels of connectance and network size.
+        The persistence-motif participation relationships were strongest in networks with low connectance (Fig.~\ref{fig:density_prop}).
+        For the apparent competition and three-species chain motifs, the direction of these relationships depended much more strongly on the strength of disturbance than on connectance.
+        For the direct competition motif, persistence increased with increasing participation in the motif across all disturbance levels in networks with low and medium connectance.
+        In networks with high connectance, however, the distribution of slopes for this relationship was centered around zero at all levels of disturbance.
 
 
-    \subsection*{Species persistence and network motif profile}
+    \subsection*{Persistence and other network properties}
 
-        As well as the frequency with which each species appears in each motif, we can use the total frequencies of each motif in the whole network (i.e., the network's motif profile) to describe its structure.
+        To understand the relationships between motif participation and consumers' probabilities of persistence, it is helpful to understand how persistence varies with other aspects of network structure.
+        For example, consumers with higher STL were less likely to persist (Fig.~\ref{fig:motifs_vs_TL_and_deg}, Table S3, \emph{Appendix S6}).
+        The relationship between in-degree and persistence depended on the strength of disturbance: higher in-degree was associated with greater persistence when basal species had low probability of extinction but lower persistence when basal species were highly likely to go extinct.
+
+
+        The average persistence of all consumers was lower in networks with higher connectance, but did not vary significantly with network size (Table S6, \emph{Appendix S10}).
         The average probability of persistence of all consumers in the network varied with the frequencies of different motifs in this profile.
         Specifically, average consumer persistence was higher in networks with higher proportions of the apparent competition motif, lower in networks with higher proportions of the omnivory motif, and was not significantly related to the frequencies of the three-species chain or direct competition motifs (Fig. S~\ref{fig:lm_CS}, Table S4, \emph{Appendix S8}). 
         There was no significant interaction between the proportion of any motif in the network profile and level of disturbance (Table S4), \emph{Appendix S8}).
-
-
-        To provide context for the relationships between consumer persistence and motif participation or motif profile, we also tested whether persistence was related to more commonly used network properties.
-        Average consumer persistence was lower in networks with higher connectance, but was not significantly related to network size (Table S6, \emph{Appendix S10}).
-        As expected, a consumer's persistence tended to decrease with increasing STL (Fig.~\ref{fig:motifs_vs_TL_and_deg}, Table S3, \emph{Appendix S6}).
-        The relationship between in-degree and persistence depended on the strength of disturbance: higher in-degree was associated with greater persistence when basal species had low probability of extinction but lower persistence when basal species were highly likely to go extinct.
 
 
     \subsection*{Motif participation and other network properties}
@@ -563,14 +561,13 @@ Motif participation describes extinction risk
     \label{fig:prop_lmer_all}
     \end{figure}
         
-
     \begin{figure}[hb!]
-        \centering
-        \includegraphics[width=\textwidth]{figures/roles_vs_TL.eps}
-        \caption{Motif participation correlated with in-degree and trophic level, and both of these simpler role measures were also correlated with persistence. \textbf{A)} The proportion of omnivory increased with increasing degree while all other proportions decreased. \textbf{B)} The proportions of omnivory and direct competition decreased with increasing STL while the proportions of apparent competition and three-species chains increased. \textbf{C-F)} The proportion of each motif in consumer's participation vectors varied with connectance, network size, and their interaction (except for apparent competition). We show relationships for the smallest and largest values of network size (S) and connectance (C).
-        }
-        \label{fig:motifs_vs_TL_and_deg}
-    \end{figure}        
+    \centering
+        \includegraphics[width=\textwidth]{manuscript/figures/Fig4.pdf}
+        \caption{Here we show the density (y-axis) of slopes (x-axis) of persistence against proportion of different motifs for all simulated webs of all sizes - a visualization of how an increased proportion of each motif (different colored lines) affects persistence of consumer species. Columns show the result for various disturbances on the basal level, from $\pi_{disturbed} = 0.1$ (left) to $\pi_{disturbed} = 0.5$ (right). Rows show various levels of connectance. The dotted, vertical lines indicate zero on the x-axis. A negative slope value reflects a negative relationship between increased participation in a motif and persistence, while a positive slope value reflects a positive relationship - an increased proportion of a specific motif increases persistence. The fraction of replicates with a slope greater than zero are stated in numbers in each sub-plot, the color corresponding to each motif (legend). }
+        \label{fig:density_prop}
+    \end{figure}    
+
 
     \begin{figure}[ht!]
         \centering
@@ -583,6 +580,15 @@ Motif participation describes extinction risk
         \label{fig:lm_CS}
     \end{figure}
 
+    \begin{figure}[hb!]
+        \centering
+        \includegraphics[width=\textwidth]{figures/roles_vs_TL.eps}
+        \caption{Motif participation correlated with in-degree and trophic level, and both of these simpler role measures were also correlated with persistence. \textbf{A)} The proportion of omnivory increased with increasing degree while all other proportions decreased. \textbf{B)} The proportions of omnivory and direct competition decreased with increasing STL while the proportions of apparent competition and three-species chains increased. \textbf{C-F)} The proportion of each motif in consumer's participation vectors varied with connectance, network size, and their interaction (except for apparent competition). We show relationships for the smallest and largest values of network size (S) and connectance (C).
+        }
+        \label{fig:motifs_vs_TL_and_deg}
+    \end{figure}        
+
+
 
     % \begin{figure}[hb!]
     %     \centering
@@ -592,12 +598,6 @@ Motif participation describes extinction risk
     % \end{figure}
 
 
-    \begin{figure}[hb!]
-    \centering
-        \includegraphics[width=\textwidth]{manuscript/figures/Fig4.pdf}
-        \caption{Here we show the density (y-axis) of slopes (x-axis) of persistence against proportion of different motifs for all simulated webs of all sizes - a visualization of how an increased proportion of each motif (different colored lines) affects persistence of consumer species. Columns show the result for various disturbances on the basal level, from $\pi_{disturbed} = 0.1$ (left) to $\pi_{disturbed} = 0.5$ (right). Rows show various levels of connectance. The dotted, vertical lines indicate zero on the x-axis. A negative slope value reflects a negative relationship between increased participation in a motif and persistence, while a positive slope value reflects a positive relationship - an increased proportion of a specific motif increases persistence. The fraction of replicates with a slope greater than zero are stated in numbers in each sub-plot, the color corresponding to each motif (legend). }
-        \label{fig:density_prop_C}
-    \end{figure}    
     
     % \begin{figure}[hb!]
     %     \centering
