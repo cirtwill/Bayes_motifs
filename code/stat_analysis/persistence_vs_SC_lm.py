@@ -28,7 +28,15 @@ colors.add_color(244,109,67,'Rorange2')
 colors.add_color(213,62,79,'Rred1')
 colors.add_color(158,1,66,'Rred2')
 
-
+colors.add_color(228,26,28,'omnivory')
+colors.add_color(55,126,184,'direct') 
+colors.add_color(166,86,40,'apparent') 
+colors.add_color(152,78,163,'chain') 
+        # 5 E 255 127 0 
+        # 6 F 255 255 51  
+        # 7 G 166 86  40  
+        # 8 H 247 129 191 
+        # 9 I 153 153 153 
 scales={
   'Size':(79.1882,16.62225),
   'Connectance':(0.1044983,0.05559927),
@@ -213,15 +221,15 @@ def populate_specgraph(graph,persdict,simple):
     data.symbol.shape=0
     data.line.configure(linestyle=1,linewidth=3.5,color=j)
 
-    if simple=='TL':
+    if simple=='Deg':
       data.legend=str(basal_p)
     j+=1
 
-  if simple=='TL':
-    graph.add_drawing_object(DrawText,text='Basal species',x=13.25,y=0.9,loctype='world',char_size=.5) 
-    graph.add_drawing_object(DrawText,text='extinction',x=13.25,y=0.82,loctype='world',char_size=.5) 
-    graph.add_drawing_object(DrawText,text='probability',x=13.25,y=0.74,loctype='world',char_size=.5) 
-    graph.legend.configure(char_size=.5,loc=(13.25,0.72),loctype='world',box_linestyle=0,fill_pattern=0)
+  if simple=='Deg':
+    graph.add_drawing_object(DrawText,text='Basal species',x=250,y=0.9,loctype='world',char_size=.5) 
+    graph.add_drawing_object(DrawText,text='extinction',x=250,y=0.82,loctype='world',char_size=.5) 
+    graph.add_drawing_object(DrawText,text='probability',x=250,y=0.74,loctype='world',char_size=.5) 
+    graph.legend.configure(char_size=.5,loc=(250,0.72),loctype='world',box_linestyle=0,fill_pattern=0)
 
 
   return graph
@@ -255,16 +263,16 @@ def populate_motifgraph(graph,motif):
 
   for dist in [0.1]:
     if motif=='apparent':
-      j='Rpurple'
+      # j='Rpurple'
       sty=2
     elif motif=='chain':
-      j='Rblue'
+      # j='Rblue'
       sty=3
     elif motif=='direct':
-      j='Rgreen2'
+      # j='Rgreen2'
       sty=8
     else:
-      j='Rorange1'
+      # j='Rorange1'
       sty=1
 
     # for dist in [0.1,0.18,0.26,0.34,0.42,0.5]:
@@ -283,7 +291,7 @@ def populate_motifgraph(graph,motif):
 
     data=graph.add_dataset(dats)
     data.symbol.shape=0
-    data.line.configure(linestyle=sty,linewidth=2,color=j)
+    data.line.configure(linestyle=sty,linewidth=2,color=motif)
 
     if dist==0.1:
       data.legend=motif_names[motif]
@@ -302,10 +310,10 @@ persdict=read_persfiles('persistence_vs_Deg_norandom.tsv','persistence_vs_TL.tsv
 
 
 grace=MultiPanelGrace(colors=colors)
-grace.add_label_scheme('dummy',['A','B','C','D','E',''])
+grace.add_label_scheme('dummy',['A','C','E','B','D',''])
 grace.set_label_scheme('dummy')
 
-for simple in ['Deg','Connectance','Motifs','TL','Size','dummy']:
+for simple in ['TL','Connectance','Motifs','Deg','Size','dummy']:
   graph2=grace.add_graph(Panel)
   graph2=format_graph(graph2,simple)
   if simple in ['Size','Connectance']:
