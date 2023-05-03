@@ -139,7 +139,7 @@ def populate_persgraph(graph,xprop,val,netprops,netSE):
 
     data=graph.add_dataset(dats)
     data.symbol.shape=0
-    data.line.configure(linestyle=sty,linewdith=3.5,color=motif.lower())
+    data.line.configure(linestyle=sty,linewidth=3.5,color=motif.lower())
 
     # if xprop=='C' and val==50:
       # data.legend=motif_names[motif]
