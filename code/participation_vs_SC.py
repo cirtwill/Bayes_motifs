@@ -28,6 +28,11 @@ colors.add_color(244,109,67,'Rorange2')
 colors.add_color(213,62,79,'Rred1')
 colors.add_color(158,1,66,'Rred2')
 
+colors.add_color(228,26,28,'omnivory')
+colors.add_color(55,126,184,'direct') 
+colors.add_color(255,127,0,'apparent') 
+colors.add_color(152,78,163,'chain') 
+
 mot_ranges={
   'omnivory':(0,0.54917),
   'apparent':(0,1),
@@ -42,6 +47,7 @@ def read_datafile(datafile):
   netprops={}
   f=open(datafile,'r')
   for line in f:
+    print(line.split())
     if line.split()[0]!='"V1"':
       motif=line.split()[1][1:-1]
       intercept=float(line.split()[2][1:-1])
@@ -82,7 +88,7 @@ def format_graph(graph,simple):
 
   return graph
 
-def populate_persgraph(graph,xprop,val,netprops):
+def populate_persgraph(graph,xprop,val,netprops,netSE):
   print xprop, val
   for motif in netprops:
     if motif=='Apparent':
@@ -98,21 +104,42 @@ def populate_persgraph(graph,xprop,val,netprops):
       j=18
       sty=1
     betas=netprops[motif]
+    SEs=netSE[motif]
     dats=[]
+    lower=[]
+    upper=[]
+
     if xprop=='S':
       for x in [50,60,70,80,90,100]:
         y=betas[0]+x*betas[1]+val*betas[2]+x*val*betas[3]
         logity=math.exp(y)/(1+math.exp(y))
         dats.append((x,logity))
+        lowy=betas[0]-SEs[0]+x*(betas[1]-SEs[1])+val*(betas[2]-SEs[2])+x*val*(betas[3]-SEs[3])
+
+        logitlow=math.exp(lowy)/(1+math.exp(lowy))
+        lower.append((x,logitlow))
+
+        upy=betas[0]+SEs[0]+x*(betas[1]+SEs[1])+val*(betas[2]+SEs[2])+x*val*(betas[3]+SEs[3])
+        logitup=math.exp(upy)/(1+math.exp(upy))
+        upper.append((x,logitup))
+
     elif xprop=='C':
       for x in [0.02,0.06,0.1,0.14,0.18]:
         y=betas[0]+x*betas[2]+val*betas[1]+x*val*betas[3]      
         logity=math.exp(y)/(1+math.exp(y))
         dats.append((x,logity))
 
+    # upply=graph.add_dataset(upper)
+    # upply.symbol.shape=0
+    # upply.line.configure(linestyle=sty,linewidth=1,color=motif.lower())
+
+    # lowly=graph.add_dataset(lower)
+    # lowly.symbol.shape=0
+    # lowly.line.configure(linestyle=sty,linewidth=1,color=motif.lower())
+
     data=graph.add_dataset(dats)
     data.symbol.shape=0
-    data.line.configure(linestyle=sty,linewdith=1.5,color=j)
+    data.line.configure(linestyle=sty,linewdith=3.5,color=motif.lower())
 
     # if xprop=='C' and val==50:
       # data.legend=motif_names[motif]

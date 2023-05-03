@@ -29,9 +29,10 @@ colors.add_color(244,109,67,'Rorange2')
 colors.add_color(213,62,79,'Rred1')
 colors.add_color(158,1,66,'Rred2')
 
-# colors.add_color(120,120,120,'grey')
-# colors.add_color(255,125,125,'lightish_red')
-# colors.add_color(200,200,200,'lightgrey')
+colors.add_color(228,26,28,'omnivory')
+colors.add_color(55,126,184,'direct') 
+colors.add_color(255,127,0,'apparent') 
+colors.add_color(152,78,163,'chain') 
 
 def read_lmfile(lmfile):
   lmdict={'Deg':{'Count':{},'Prop':{}},'TL':{'Count':{},'Prop':{}}}
@@ -104,16 +105,12 @@ def format_graph(graph,simple,roletype):
 def populate_graph(graph,minidict,simple,roletype):
   for motif in ['Apparent','Chain','Omnivory','Direct']:
     if motif=='Apparent':
-      j=12
       sty=2
     elif motif=='Chain':
-      j=14
       sty=3
     elif motif=='Direct':
-      j=15
       sty=5
     else:
-      j=18
       sty=1
     dats=[]
     lower=[]
@@ -129,17 +126,17 @@ def populate_graph(graph,minidict,simple,roletype):
       logitup=math.exp(upy)/(1+math.exp(upy))
       upper.append((x,logitup))
 
-    upply=graph.add_dataset(upper)
-    upply.symbol.shape=0
-    upply.line.configure(linestyle=sty,linewidth=1,color=j)
+    # upply=graph.add_dataset(upper)
+    # upply.symbol.shape=0
+    # upply.line.configure(linestyle=sty,linewidth=1,color=motif.lower())
 
-    lowly=graph.add_dataset(lower)
-    lowly.symbol.shape=0
-    lowly.line.configure(linestyle=sty,linewidth=1,color=j)
+    # lowly=graph.add_dataset(lower)
+    # lowly.symbol.shape=0
+    # lowly.line.configure(linestyle=sty,linewidth=1,color=motif.lower())
 
     data=graph.add_dataset(dats)
     data.symbol.shape=0
-    data.line.configure(linestyle=sty,linewidth=2.5,color=j)
+    data.line.configure(linestyle=sty,linewidth=3.5,color=motif.lower())
 
     if simple=='TL':
       data.legend=motif
@@ -147,51 +144,6 @@ def populate_graph(graph,minidict,simple,roletype):
   if simple=='TL':
     graph.add_drawing_object(DrawText,text='Motif',x=5.25,y=0.47,loctype='world',char_size=.5) 
     graph.legend.configure(char_size=.5,loc=(5.25,0.450),loctype='world',box_linestyle=0,fill_pattern=0)
-
-  return graph
-
-def populate_persgraph(graph,persdict,simple):
-  if simple=='Deg':
-    key='scale(in_Degree)'
-    scal=12.51637
-    cent=11.95232
-  else:
-    key='scale(STL)'
-    scal=0.4803683
-    cent=2.274325
-
-  print persdict.keys()
-
-  j=13
-  for basal_p in [0.1,0.18,0.26,0.34,0.42,0.5]:
-    p=(basal_p-0.3)/0.1366261
-
-    dats=[]
-    # lower=[]
-    # upper=[]
-    for x in range(0,100):
-      skex=(x-cent)/scal
-      xcomp=persdict['(Intercept)'][0]+skex*persdict[key][0]
-      bcomp=p*persdict['scale(Disturbance)'][0]+skex*p*persdict[key+':scale(Disturbance)'][0]
-      y=xcomp+bcomp
-      logity=math.exp(y)/(1+math.exp(y))
-
-      dats.append((x,logity))
-
-    data=graph.add_dataset(dats)
-    data.symbol.shape=0
-    data.line.configure(linestyle=1,linewidth=3.5,color=j)
-
-    if simple=='TL':
-      data.legend=str(basal_p)
-    j+=1
-
-  if simple=='TL':
-    graph.add_drawing_object(DrawText,text='Basal species',x=5.25,y=0.71,loctype='world',char_size=.75) 
-    graph.add_drawing_object(DrawText,text='extinction',x=5.25,y=0.65,loctype='world',char_size=.75) 
-    graph.add_drawing_object(DrawText,text='probability',x=5.25,y=0.58,loctype='world',char_size=.75) 
-    graph.legend.configure(char_size=.75,loc=(5.25,0.55),loctype='world',box_linestyle=0,fill_pattern=0)
-
 
   return graph
 
@@ -209,7 +161,8 @@ lmdict=read_lmfile(lmfile)
 persdict=read_persfiles('stat_analysis/persistence_vs_Deg_norandom.tsv','stat_analysis/persistence_vs_TL.tsv')
 
 grace=MultiPanelGrace(colors=colors)
-grace.add_label_scheme('dummy',['A','B','C (S=50)','D (C=0.02)','E (S=100)','F (C=0.20)'])
+grace.add_label_scheme('dummy',['A','B','C (S=50)','D (C=0.20)'])
+# 'D (C=0.02)','E (S=100)','F (C=0.20)'])
 grace.set_label_scheme('dummy')
 
 graphtype='Proportion'
@@ -222,35 +175,70 @@ for simple in ['Deg','TL']:
 
 datafile='stat_analysis/roles_vs_SC.tsv'
 netprops=SC.read_datafile(datafile)
+SEfile='stat_analysis/roles_vs_SC_SE.tsv'
+netSE=SC.read_datafile(SEfile)
 
-for sel in ['lo','high']:
-  for xprop in ['C','S']:
+# for sel in ['lo','high']:
+for xprop in ['C','S']:
+  if xprop=='S':
+    sel='high'
+    if sel=='lo':
+      val=0.02
+    else:
+      val=0.2
+  elif xprop=='C':
+    sel='lo'
+    if sel=='lo':
+      val=50
+    else:
+      val=100
+  graph2=grace.add_graph(Panel)
+  graph2=SC.format_graph(graph2,xprop)
+  graph2=SC.populate_persgraph(graph2,xprop,val,netprops,netSE)
+  graph2.panel_label.configure(placement='iul',char_size=.5,dx=.02,dy=.02)
+
+
+grace.multi(rows=2,cols=2,vgap=.07,hgap=.04)
+grace.hide_redundant_labels()
+grace.set_col_yaxislabel(col=0,rowspan=(None,None),label='Proportion of motif in participation vector',char_size=1,perpendicular_offset=.05)
+for graph in grace.graphs:
+  print(graph.get_view())
+grace.graphs[0].set_view(0.10, 0.55, 0.5, 0.85)
+grace.graphs[1].set_view(0.55, 0.55, 0.95, 0.85)
+grace.graphs[2].set_view(0.10, 0.17, 0.5, 0.47)
+grace.graphs[3].set_view(0.55, 0.17, 0.95, 0.47)
+
+grace.write_file('../manuscript/figures/roles_vs_TL.eps')
+
+grace=MultiPanelGrace(colors=colors)
+grace.add_label_scheme('dummy',['A (S=50)','B (S=70)','C (S=100)','D (C=0.02)', 'E (C=0.1)', 'F (C=0.2)'])
+grace.set_label_scheme('dummy')
+for xprop in ['C','S']:
+  for sel in ['lo','med','high']:
     if xprop=='S':
       if sel=='lo':
         val=0.02
+      elif sel=='med':
+        val=0.1
       else:
         val=0.2
     elif xprop=='C':
       if sel=='lo':
         val=50
+      elif sel=='med':
+        val=70
       else:
         val=100
     graph2=grace.add_graph(Panel)
     graph2=SC.format_graph(graph2,xprop)
-    graph2=SC.populate_persgraph(graph2,xprop,val,netprops)
+    graph2=SC.populate_persgraph(graph2,xprop,val,netprops,netSE)
     graph2.panel_label.configure(placement='iul',char_size=.5,dx=.02,dy=.02)
 
-      
 
-grace.multi(rows=3,cols=2,vgap=.07,hgap=.04)
+grace.multi(rows=2,cols=3,vgap=.07,hgap=.04)
 grace.hide_redundant_labels()
 grace.set_col_yaxislabel(col=0,rowspan=(None,None),label='Proportion of motif in participation vector',char_size=1,perpendicular_offset=.05)
-for graph in grace.graphs:
-  print(graph.get_view())
-# grace.graphs[0].set_view(0.10, 0.55, 0.5, 0.85)
-# grace.graphs[1].set_view(0.55, 0.55, 0.95, 0.85)
-# grace.graphs[2].set_view(0.10, 0.2, 0.5, 0.5)
-# grace.graphs[3].set_view(0.55, 0.2, 0.95, 0.5)
+grace.set_row_xaxislabel(row=0,colspan=(None,None),label='Connectance',char_size=1,perpendicular_offset=.04)
+grace.set_row_xaxislabel(row=1,colspan=(None,None),label='Network Size',char_size=1,perpendicular_offset=.04)
 
-grace.write_file('../manuscript/figures/roles_vs_TL.eps')
-
+grace.write_file('../manuscript/figures/roles_vs_SC_all.eps')
