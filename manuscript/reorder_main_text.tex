@@ -48,7 +48,8 @@ University of Colorado, Boulder, Boulder, U.S.A.\\
 $^\dagger$ Corresponding author email: alyssa.cirtwill@gmail.com\\
 }
 
-
+% Limit is 8500 words.
+% Currently c. 9000
 \begin{document} 
 \maketitle 
 \raggedright
@@ -184,7 +185,7 @@ Motif participation describes extinction risk
         To capture a range of network architectures similar to those in well-studied empirical networks~\citep{Dunne2002,Dunne2002e}, we simulated networks with sizes (S) ranging from 50 to 100 species (in steps of 10) and connectances (C) ranging from 0.02 to 0.18 (in steps of 0.04). 
         All networks were generated using the function ``nichemodel'' within the Julia~\citep{Bezanson2017julia} package \emph{BioEnergeticFoodWebs}~\citep{bioenergfw,Delmas2017}.   
         For full details and a comparison to empirical networks, see \emph{Appendix S2}.
-        We removed any biologically unlikely networks (i.e., those with extremely long paths between any consumer and basal resources; \emph{Appendix S2}) and replaced them with new simulated networks, repeating the process until we obtained 100 suitable networks in each combination of size and connectance.
+        We removed any biologically unlikely networks (i.e., those with extremely long paths between any consumer and basal resources~\citep{Borrelli2014}; \emph{Appendix S2}) and replaced them with new simulated networks, repeating the process until we obtained 100 suitable networks in each combination of size and connectance.
 
         
         % To make the simulated networks compatible with the Bayesian simulation framework, all networks were rendered acyclic following~\citet{Allesina2009functional} and species topologically sorted from lowest to highest trophic level (\emph{Appendix S2}). 
@@ -406,8 +407,8 @@ Motif participation describes extinction risk
 \section*{Discussion}
 
     Identifying the species that are most and least likely to persist after a disturbance is a high priority for conservation efforts~\citep{Bottrilletal2008}. 
-    Network structural properties such as connectance and measures of a species' position in the network such as degree and trophic level are known to affect species' vulnerability~\citep{Dunne2002, Eklof2006, PascualDunne2006,prill2005dynamic, bascompte2005simple,curtsdotter2011robustness, dunne2009cascading, Eklof2006}, but are relatively coarse metrics.
-    Defining a species' network role based on its participation in meso-scale motifs provides more nuanced information and may also predict extinction risk~\citep{}.
+    Network structural properties such as connectance and measures of a species' position in the network such as degree and trophic level are known to affect species' vulnerability~\citep{Dunne2002, Eklof2006, PascualDunne2006,prill2005dynamic, bascompte2005simple,curtsdotter2011robustness, dunne2009cascading}, but are relatively coarse metrics.
+    Defining a species' network role based on its participation in meso-scale motifs provides more nuanced information and may also predict extinction risk~\citep{Stouffer2007,Stouffer2010b,Simmons2019}.
     Here we tested how the persistence of a consumer in a food web depends on its participation in four different motifs with different levels of disturbance to basal resources.  
     We found that motif participation was related to a consumer's probability of persistence in ways that can't be fully explained by simpler measures of network structure. 
     Species participating more frequently in the direct competition motif and less frequently in the omnivory motif are more likely to persist, while the effects of participating in the apparent competition or three-species chain motifs depend on the strength of disturbance.
@@ -418,14 +419,14 @@ Motif participation describes extinction risk
     These simulated results echo other warnings about `tipping points' where previously beneficial traits can become risky~\citep{Latty2019,Golubski2016,Tylianakis2014}.
     For example, at low levels of disturbance a high degree may be protective since species can compensate if one or a few prey are lost. 
     At high disturbance, however, a high-degree species is likely to be affected by disturbances through many paths and have lower persistence.
-    This context-dependence contrasts with the general assumption that species with more resources will be less vulnerable~\citep{}.
+    This context-dependence contrasts with the general assumption that species with more resources will be less vulnerable~\citep{binzer2011susceptibility}.
     These disturbance effects mean that efforts to define a set of target species for conservation interactions must take the current (and future) level of disturbance the community experiences into account.
     
 
     % Apparent competition as a case study that motifs are useful
     The relationship between probability of persistence and participation in the apparent competition motif provides a good example of how motifs provide complementary information to that given by simpler measures of a species' network role.
     Species with higher trophic levels tended to participate more frequently in the apparent competition motif.
-    As species with higher trophic levels generally have increased risk of going extinct~\citep{Eklof2013,others}, we would therefore expect high frequencies of participation in the apparent competition motif to also be associated with lower probability of persistence.
+    As species with higher trophic levels generally have increased risk of going extinct~\citep{Eklof2006,Eklof2013}, we would therefore expect high frequencies of participation in the apparent competition motif to also be associated with lower probability of persistence.
     However, this is only true for low disturbance levels. 
     For high disturbance, we see the opposite relationship – higher probability of persistence with more-frequent participation in apparent competition.
     This change in the persistence-apparent competition relationship with changing disturbance is what we might expect based on the negative relationship between frequency of participating in apparent competition and in-degree (which showed the opposite trends with respect to persistence).
@@ -454,7 +455,7 @@ Motif participation describes extinction risk
     
     In our simulated networks, increased persistence with greater participation in the omnivory motif could have emerged from the requirement that all networks permit the persistence of all species before disturbance was applied.
     In highly-connected networks, which will tend to include more omnivory motifs simply because this motif contains one more link than the others (higher connectance implies more links per species), the abundant omnivory motifs must be generally more stable (or stabilizing) than is necessary for rarer omnivory motifs in less-connected networks.
-    Although testing the stability of individual motifs is outside the scope of this study, previous work on suggests that omnivory tends to be more stabilising/stable in isolation when the interactions involved are weak~\citep{}.
+    Although testing the stability of individual motifs is outside the scope of this study, previous work on suggests that omnivory tends to be more stabilising/stable in isolation when the interactions involved are weak~\citep{Emmerson2004} or when the omnivore preys upon a pair of non-basal species~\citep{McLeod2021}.
     Although omnivory motifs tend to be less stable in isolation the the other motifs we consider here~\citep{Borrelli2015a}, when embedded in a network interactions with other species can stabilise even intrinsically unstable omnivory~\citep{Kratina2012}.
     
     
@@ -473,7 +474,7 @@ Motif participation describes extinction risk
     
     
     [[Some kind of bridge between caveats and conclusion]]
-    Many ecologists, including ourselves, have argued that simple measures of species' roles within food webs are important for understanding species' extinction risk~\citep{}. 
+    Many ecologists, including ourselves, have argued that simple measures of species' roles within food webs are important for understanding species' extinction risk~\citep{Santos2021,curtsdotter2011robustness, dunne2009cascading, Eklof2006,binzer2011susceptibility}. 
     However, here we show that relationships between extinction risk and measures of a species' place in its food web are likely more complex, varying with the strength of disturbance and the overall network structure.
     This context-dependence means that even limited changes in network structure or the type of disturbance could change which species are most sensitive to disturbance. 
     This argues for further caution in targeted conservation actions and increased acknowledgment of the importance and sensitivity of network structure in ecosystems. 
@@ -489,11 +490,19 @@ Motif participation describes extinction risk
 
         \begin{figure}[hb!]
         \centering
-        \includegraphics[width=.9\textwidth]{manuscript/figures/Figure_1.png}
+        \includegraphics[width=.9\textwidth]{figures/Figure_1.png}
         \caption{Conceptual figure of a toy food web. \textbf{a)} This food web contains examples of the four motifs: apparent competition (blue), three-species chain (purple), omnivory (green), and direct competition (yellow). These motifs capture different ways in which disturbances to basal resources can propagate through the network. For example, a disturbance to the bottom species in a three-species chain will have a direct effect on the middle species but only indirectly affect the top species while a disturbance to the bottom species in an omnivory motif will have a direct effect on the middle species and direct and indirect effects on the top species. 
         Note that the nodes participate in more motifs than the ones highlighted and that a species' motif participation vector is the count of all motifs of each type in which the species appears. \textbf{b)} In the same food web, species with identical degree and trophic level can have different motif participation; here species A (light grey node with links in the same motif colored light grey) participates in only two chains while species B (dark grey node with its direct consumption links colored dark grey) participates in chains more than three times more frequently (see inserted table for counts of participation in all four motifs, giving the motif participation vector in parentheses). 
         Despite having equal degree and trophic level, species A may be at greater risk of going extinct than species B because of its dependence on specialist prey species. Two-thirds of the prey of species B are generalists and therefore more likely to survive a disturbance to basal resources. By including information about indirect interactions, motif profiles reflect this difference between species A and B while trophic level and degree do not.}
     \label{fig:concept}
+    \end{figure}
+
+
+        \begin{figure}[hb!]
+        \centering
+        \includegraphics[width=.9\textwidth]{figures/concept_fig_ver2_edit.eps}
+        \caption{Note motif participation vectors in the right-hand column of the box. I still think it's nice to show - can you add back into current Fig. 1?}
+    \label{fig:concept_wrongcolour}
     \end{figure}
 
     
