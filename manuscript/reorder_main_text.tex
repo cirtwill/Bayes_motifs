@@ -48,7 +48,7 @@ University of Canterbury, Christchurch, New Zealand\\
 $^\dagger$ Corresponding author email: alyssa.cirtwill@gmail.com\\
 }
 
-% Limit is 8500 words.
+% Limit is 8200 words.
 % Currently c. 9000
 \begin{document} 
 \maketitle 
@@ -82,34 +82,31 @@ Motif participation describes extinction risk
 \section*{Introduction} %New
 
     The loss of a species in a food web can, due to the mutual dependencies among species,  trigger a cascade of additional (secondary) extinctions. 
-    A species' risk of going secondarily extinct is known to depend on its position within a food web~\citep{Santos2021,curtsdotter2011robustness, dunne2009cascading, Eklof2006}.
+    A species' risk of secondary extinction depends on its position within a food web~\citep{Santos2021,curtsdotter2011robustness, dunne2009cascading, Eklof2006}.
     For example, species with high trophic levels (long paths to basal resources) and low in-degree (few prey) are generally more likely to go extinct~\citep{Allesina2012,binzer2011susceptibility, Eklof2006}.
-    Species with low in-degree are more vulnerable to extinction because they have few alternative resources if a prey species is lost, while those with high trophic levels are vulnerable to the loss of any species along the path from basal resource(s) to the focal species.
-    As well as these simple measures of food-web position, it has also been proposed that a species' participation in \emph{meso-scale structures} (which take into account the species' direct and indirect interactions) are related to its persistence~\citep{Cirtwill2022Oikos}.
+    These species are more vulnerable because they are impacted by the loss of any species along a long path from basal resources or because they have few alternative resources if a prey species is lost.
+    Similarly, a species' participation in \emph{meso-scale motifs} (which provide a more nuanced description of a species' place in the food web) are related to its persistence~\citep{Cirtwill2015a,Cirtwill2018FoodWebs,Cirtwill2022Oikos}.
     
     
-    One way to describe a species' participation in such meso-scale structures is using its participation in the set of \emph{motifs} of a given size~\citep{Cirtwill2015a,Cirtwill2018FoodWebs}.
-    Motifs --unique patterns of $n$ interacting species-- correspond to different sets of direct and indirect interactions and provide a holistic description of a species' place in a network~\citep{Stouffer2007,Stouffer2012}.
-    Like degree and trophic level, a species' \emph{motif participation} (the vector of frequencies with which it appears in each motif) can easily be calculated once the structure of the network is known.
-    However, unlike in-degree and trophic level, which focus only on direct prey of the focal species or on the lengths of paths between the focal species and basal resources, motif participation also incorporates information on the positions of focal species' interaction partners.
+    Motifs are unique patterns of $n$ interacting species that correspond to different sets of direct and indirect interactions, providing a holistic description of meso-scale network structure~\citep{Stouffer2007,Stouffer2012}.
+    The vector of frequencies with which a species appears in each motif --its \emph{motif participation}-- describes the species' position in the meso-scale structure of a food web and, like degree and trophic level, is easily calculated once the structure of the network is known.
+    Importantly, motif participation incorporates information on the positions of focal species' interaction partners, as well as potential indirect interactions between species.
     Two species might both have two prey and a trophic level of 3, but they might have quite different motif participation if one species's prey are strict specialists and the others' prey are generalists.
     Importantly, since specialists are usually more vulnerable to extinction than generalists, the predator of specialists will be more likely to lose prey and go extinct itself than will a predator of generalists.
-    Therefore, a species' motif participation profile captures the indirect interactions that affect the species, thereby capturing important structures that are missed by larger- or smaller-scale descriptions of the network.
-    As such, motif participation may complement degree and trophic level to more fully predict species' extinction risk.
+    This extra information on the focal species' interaction partners may thus provide extra insight when predicting extinction risk.
     
     
-    Here, we focus on persistence after the loss of plants or other basal resources, i.e., the effects of bottom-up disturbances.
-    The plant community is the foundation upon which the myriad species in food webs depend for their survival, and loss of basal resource diversity typically causes declines in both abundance and richness of all types of consumers~\citep{scherber2010bottom,Dobson2009food, Mduma1999food, Georgiadis2007}.
+    Here, we focus on extinction risk after the loss of plants or other basal resources, i.e., the effects of bottom-up disturbances.
+    The basal resource community is the foundation upon which all other species depend, and loss of basal resource diversity typically causes declines in both abundance and richness of all types of consumers~\citep{scherber2010bottom,Dobson2009food, Mduma1999food, Georgiadis2007}.
     Moreover, disturbances to the plant community have been shown to affect important ecosystem properties such as primary \citep{Hector1999} and secondary production \citep{borer2012plant}, soil respiration and carbon cycling \citep{chen2019plant}, and consumer diversity \citep{scherber2010bottom, Baiser2016,li2020bottom}.
-    It is therefore critically important to understand how bottom-up effects of disturbance affect the rest of the food web.
-    As well as identifying patterns of motif participation that are associated with greater or lesser ability to persist after a loss of basal resources, we are particularly interested in whether the strength of  disturbance affects relationships between motif participation and persistence.
-    For example, participation in one motif might be associated with greater probability of extinction after a mild disturbance but be associated with less risk of extinction when when more basal resources are lost if the direct and indirect interactions within the motif amplify the effect of small disturbances but also provide the species with alternatives when disturbances are strong.
+    It is therefore crucial to understand how bottom-up effects of disturbance to basal resources affect the rest of the food web.
+    As well as identifying patterns of motif participation that are associated with ability to persist after a loss of basal resources, we are particularly interested in whether the strength of  disturbance affects relationships between motif participation and persistence.
+    For example, participation in one motif might be associated with greater extinction risk after a mild disturbance but be associated with less risk when when more basal resources are lost if the direct and indirect interactions within the motif amplify the effect of small disturbances while providing `back-up' resources when many prey are removed by a strong disturbance.
 
-    
 
     %There are 13 possible three-species motifs (the most commonly-used size for food web analyses)~\citep{Milo2004,Stouffer2007,Stouffer2012,Cirtwill2015a}, 
-    We define motif participation using three-species motifs, which are the most commonly-used size for food web analyses~\citep{Milo2004,Stouffer2007,Stouffer2012,Cirtwill2015a}. 
-    Four of these motifs, namely the three-species chain, apparent competition, direct competition, and omnivory, are especially interesting as they are by far the most common in empirical networks~\citep{Stouffer2007, Borrelli2015a, giling2019plant}.
+    We define motif participation using the well-studied three-species motifs~\citep{Milo2004,Stouffer2007,Stouffer2012,Cirtwill2015a}. 
+    Four of these motifs --the three-species chain, apparent competition, direct competition, and omnivory-- are especially interesting as they are by far the most common in empirical networks~\citep{Stouffer2007, giling2019plant} and more stable than other motifs when modelled in isolation~\citep{Borelli2015a}.
     These four motifs also have clear ecological interpretations.
     The three-species chain indicates vertical flows of energy and biomass in a network and captures the possibility of indirect interactions across multiple trophic levels (e.g., between a plant and a predator of the plant's herbivore).
     The direct competition motif, where two consumers share the same resource, captures the possibility of indirect interactions between consumers (e.g., by depletion of the shared resource). 
