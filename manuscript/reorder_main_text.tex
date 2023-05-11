@@ -160,10 +160,10 @@ Motif participation describes extinction risk
         This additional detail means that realistic processes such as indirect interactions can be included, but also means that dynamical models are highly parameter intensive and simulations are much more time-consuming than topological models. 
         
         
-        A middle‐ground approach for simulating secondary extinctions is to use Bayesian networks, which are much more computationally efficient and facilitate the analysis of larger networks than is practical for dynamical models \citep{Eklof2013,Haussler2020}. 
-        In this framework, a consumer's probability of extinction depends on the fraction of resources lost ($f = k/n$ for a species with $n$ resources, of which $k$ have gone extinct) and on a baseline probability of extinction ($\pi$) which captures factors affecting the focal species' extinction probability that are not related to the network structure (e.g., disease or stochastic extinction of small populations).
+        A middle‐ground approach is to use Bayesian networks, which are much more computationally efficient and facilitate the analysis of larger networks than is practical for dynamical models \citep{Eklof2013,Haussler2020}. 
+        In this framework, a consumer's probability of extinction depends on the fraction of resources lost ($f = k/n$ for a species with $n$ resources, of which $k$ have gone extinct) and on a baseline probability of extinction ($\pi$) which capturing factors that are not related to the network structure (e.g., disease or stochastic extinction of small populations).
         Importantly, the greater speed of the Bayesian network framework allows us to simulate a range of disturbance severities rather than single species removals as in many previous studies (e.g.,~\citealp[]{Memmott2004,Staniczenko2010,Dunne2004,Cirtwill2022Oikos}).
-        Moreover, Bayesian network simulations are less parameter-intensive than dynamical models, meaning that they are less sensitive to assumptions made in the modelling process~\citep{Eklof2013}.
+        Moreover, Bayesian network simulations are less parameter-intensive than dynamical models and are therefore less sensitive to assumptions made in the modelling process~\citep{Eklof2013}.
 
         % Mention acyclic resstriction here.
         One limitation to Bayesian networks is that consumers do not affect the extinction probabilities of their resources (i.e., only bottom-up effects are included).
@@ -182,7 +182,7 @@ Motif participation describes extinction risk
         Fortunately, they are also the motifs that are most common in empirical networks (\citealp[]{Stouffer2007}, have been most studied in isolation (e.g.,~\citep{Hastings1991,Holt1987,Bascompte2005,Polis1989,Zabalo2012,Lefevre2009,Holt1997,Kondoh2008,McKinnon2013,Laws2013}), have the clearest ecological interpretations and, because of these three properties, are of greatest interest to us.
 
 
-        \subsubsection*{Modelling consumers' risk of secondary extinction}
+        \subsubsection*{Modelling consumers' risk of secondary extinction} [[trimmed down to here]]
         
         The response of the consumer to changes in $f$ can take any form (\emph{Appendix S1}). Here we use a sigmoid non-linear function ($\alpha > 1, \beta > 1$), the type of response that most accurately captures the secondary extinctions produced by dynamical models (\citealp[]{Eklof2013}).
 		The probability of extinction for each species $i$ can therefore be represented using the cumulative density function of a beta distribution:
