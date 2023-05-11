@@ -106,7 +106,7 @@ Motif participation describes extinction risk
 
     %There are 13 possible three-species motifs (the most commonly-used size for food web analyses)~\citep{Milo2004,Stouffer2007,Stouffer2012,Cirtwill2015a}, 
     We define motif participation using the well-studied three-species motifs~\citep{Milo2004,Stouffer2007,Stouffer2012,Cirtwill2015a}. 
-    Four of these motifs --the three-species chain, apparent competition, direct competition, and omnivory-- are especially interesting as they are by far the most common in empirical networks~\citep{Stouffer2007, giling2019plant} and more stable than other motifs when modelled in isolation~\citep{Borelli2015a}.
+    Four of these motifs --the three-species chain, apparent competition, direct competition, and omnivory-- are especially interesting as they are by far the most common in empirical networks~\citep{Stouffer2007, giling2019plant} and more stable than other motifs when modelled in isolation~\citep{Borrelli2015a}.
     These four motifs also have clear ecological interpretations.
     The three-species chain indicates vertical flows of energy and biomass in a network and captures the possibility of indirect interactions across multiple trophic levels (e.g., between a plant and a predator of the plant's herbivore).
     The direct competition motif, where two consumers share the same resource, captures the possibility of indirect interactions between consumers (e.g., by depletion of the shared resource). 
@@ -124,42 +124,39 @@ Motif participation describes extinction risk
 
     \subsection*{Network construction and describing species roles}
 
-        We generated simulated networks using the niche model, which has been shown to recreate the structure of empirical networks well~\citep{Williams2000,Stouffer2007}.
+        We generated simulated networks using the niche model, which recreates the structure of empirical networks well~\citep{Williams2000,Stouffer2007}.
         To capture a range of network architectures similar to those in well-studied empirical networks~\citep{Dunne2002,Dunne2002e}, we simulated networks with sizes (S) ranging from 50 to 100 species (in steps of 10) and connectances (C) ranging from 0.02 to 0.18 (in steps of 0.04). 
-        All networks were generated using the function ``nichemodel'' within the Julia~\citep{Bezanson2017julia} package \emph{BioEnergeticFoodWebs}~\citep{bioenergfw,Delmas2017}.   
-        For full details and a comparison to empirical networks, see \emph{Appendix S2}.
-        We removed any biologically unlikely networks (i.e., those with extremely long paths between any consumer and basal resources~\citep{Borrelli2014}; \emph{Appendix S2}) and replaced them with new simulated networks, repeating the process until we obtained 100 suitable networks in each combination of size and connectance.
+        We removed any biologically unlikely networks (i.e., those with extremely long paths between any consumer and basal resources~\citep{Borrelli2014} and replaced them with new simulated networks, repeating the process until we obtained 100 suitable networks in each combination of size and connectance.
+        All networks were generated using the function ``nichemodel'' within the Julia~\citep{Bezanson2017julia} package \emph{BioEnergeticFoodWebs}~\citep{bioenergfw,Delmas2017}.     For full details and a comparison to empirical networks, see \emph{Appendix S2}.
 
         
         % To make the simulated networks compatible with the Bayesian simulation framework, all networks were rendered acyclic following~\citet{Allesina2009functional} and species topologically sorted from lowest to highest trophic level (\emph{Appendix S2}). 
         %  These processing steps allow the strictly bottom-up calculation of probability of persistence.
-        We then described each consumer species' motif participation role in each of these simulated networks before applying any disturbance. 
-        A species' ``motif participation role'' (Fig.~\ref{fig:concept}) is the frequency with which the species appears in each of the motifs present in a network~\citep{Stouffer2012}.
+        We described the motif participation of each consumer species in each of these simulated networks before applying any disturbance. 
+        A species' motif participation (Fig.~\ref{fig:concept}) is the vector of frequencies with which it appears in each type of motif present in a network~\citep{Stouffer2012}.
         As only four unique three-species motifs can appear in acyclic networks, these are four-dimensional vectors. 
         Here we are interested in the relative frequencies of each motif rather than the total number of motifs and therefore normalized participation vectors by dividing each count by the total number of motifs the species appears in (such that the vector for each species sums to 1).
-        Note, however, that this normalization does not necessarily control for differences due to degree or connectance~\citep{Cirtwill2022Oikos}. 
+        Note, however, that this normalization does not fully control for differences due to degree or connectance~\citep{Cirtwill2022Oikos}. 
 
 
-        We also calculated two simpler measures of a species' role within its community.
+        We also calculated two simpler measures of a species' position within its community.
         In-degree is a species' number of prey.
         Trophic level (shortest trophic level; STL) is the length of the shortest food chain between the focal species and any basal resource~\citep{Williams2004}.
         Both simple role measures were calculated in R~\citep{R} using the same algorithm as~\citet{Eklof2013}.
 
         
         Finally, to provide context for species' motif participation, we calculated network ``motif profiles'': four-dimensional vectors of the number of each three-species motif in each network~\citep{Stouffer2012}.
-        Together with network size and connectance, these motif profiles describe the structure of the whole network rather than how a particular species participates in the community.
+        Together with network size and connectance, these motif profiles describe the structure of the whole network.
         To separate differences in motif structure from differences in network size or connectance (larger and more-connected networks contain more motifs), we normalized motif profiles by dividing the count of each motif by the total count of all motifs. 
-        We calculated species' motif participation using the Python package \emph{pymfinder}~\citep{pymfinder}.
+        We calculated species' motif participation and network motif profiles using the Python package \emph{pymfinder}~\citep{pymfinder}.
 
     
     \subsection*{Modelling secondary extinction using Bayesian networks}
 
 
         Traditionally, there are two main approaches for studying secondary extinctions (i.e., extinctions of species that were not directly disturbed). 
-        First, there are topological models, based only on food web structure \citep{dunne2009cascading}. 
-        Here, extinctions only affect other species in the network once a consumer has lost all of its prey and therefore must go extinct. 
-        The second approach uses dynamical models which explicitly simulate population dynamics using a system of differential equations \citep{binzer2011susceptibility}. 
-        Dynamical models take changes in prey or predator densities into account when calculating the densities of other species in the network. 
+        First, there are topological models where secondary extinctions only occur once a consumer has lost all of its prey~\citep{dunne2009cascading}. 
+        Alternatively, dynamical models explicitly simulate population dynamics using a system of differential equations and take changes in prey or predator populations into account when calculating populations of other species in the network~\citep{binzer2011susceptibility}. 
         This additional detail means that realistic processes such as indirect interactions can be included, but also means that dynamical models are highly parameter intensive and simulations are much more time-consuming than topological models. 
         
         
