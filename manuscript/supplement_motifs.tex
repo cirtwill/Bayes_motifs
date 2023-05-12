@@ -69,72 +69,67 @@ $^\dagger$ Corresponding author\\
     {\footnotesize
     \begin{spacing}{1.0}
 
-    Appendices S1-S3 provide supplemental methods, while appendices S4-S6 provide supplemental results.
+    Appendices S1-S4 provide supplemental methods, while appendices S4-S7 provide supplemental results.
 
     \begin{enumerate}
     
-        \item Calculating persistence
-
-            \begin{itemize}
-                \item Details on functional response of consumers
-                \item Contains Eqn. S1
-            \end{itemize}    
-            
-
         \item Network creation \\
         
             \begin{itemize}
             \item Construction of simulated networks
             \item Filtering of biologically unrealistic networks 
             \item Conversion of networks to acyclic form
-            \item Comparison of empirical and simulated networks
-            \item Contains Fig. S1
+            \item Comparison of empirical and simulated networks (Fig. S1)
             \end{itemize}
             
             
+        \item Calculating persistence
+
+            \begin{itemize}
+                \item Details on functional response of consumers (Eqn. S1)
+            \end{itemize}    
+            
+
         \item Supplemental statistical analysis
 
             \begin{itemize}
-                \item Persistence and other network properties (Eqn. S2-3)
-                \item Motif participation, profiles and network properties (Eqn. S4-6)
+                \item Describes GLMs relating persistence and other network properties (Eqn. S2-3) and GLMs relating motif participation, profiles and network properties (Eqn. S4-6)
             \end{itemize}
                 
+        \item Motif-persistence relationships vary with S,C
+
+            \begin{itemize}
+                \item Describes GLMs summarising how the relationship between motif participation and persistence varies over S and C, to complement the within-network results presented in the main text (Eqn. S7)
+                \item Plots of these GLMs for each motif (Figs. S2-5)
+            \end{itemize}    
+
 
         \item Results: species motif participation 
             \begin{itemize}
                 \item Supplemental results relating species motif participation to persistence and to other network properties (S, C, in-degree, STL)
-                \item Contains Table S1-2
-                \item Contains Fig. S2
+                \item Table S1-2l; Fig. S6
             \end{itemize}
 
     
-        \item Results: persistence and other network properties
+        \item Supplemental results: persistence and other network properties
 
             \begin{itemize}
-                \item Identifying relationships between persistence and network size, connectance, in-degree, and STL to provide context for motif relationships.
-                \item Contains Tables S3-4
-                \item Contains Fig. S3
+                \item Supplemental results identifying relationships between persistence and network size, connectance, in-degree, and STL to provide context for motif relationships (Tables S3-4).
+                \item Also relating average persistence to network motif profiles (Table S5)
             \end{itemize}    
 
-        \item Motif-persistence relationships vary with S,C
-
-            \begin{itemize}
-                \item Describes GLMs summarising how the relationship between motif participation and persistence varies over S and C, to complement the within-netowrk results presented in the main text
-                \item Contains Fig. S4
-            \end{itemize}    
     
-        \item Results: network motif profiles
+        \item Supplemental results: network motif profiles
 
             \begin{itemize}
-                \item Relating motif profiles to persistence (see main text for equation, figure) and to network size and connectance
-                \item Contains Tables S5-6
+                \item Relating motif profiles  to network size and connectance (Table S6)
             \end{itemize}
 
 
         \item Glossary    
 
             \begin{itemize}
-                \item Contains Table S7
+                \item Definitions of network terminology used in main text (Table S7)
             \end{itemize}
 
 
@@ -144,6 +139,109 @@ $^\dagger$ Corresponding author\\
 \clearpage
 
 \linenumbers
+\section{Network creation}
+
+    \subsection{Generation of simulated networks}
+
+        We simulated a suite of food webs based on the probabilistic niche model, which assigns predator-prey links based on the body-mass ratios between individuals of different species~\citep{Williams2000,Delmas2017}. 
+        The meso-scale structure of niche-model networks closely mimics that of empirical food webs~\citep{Stouffer2007}. 
+        To ensure that we captured a variety of realistic community sizes and structures, we generated networks ranging between 50 and 100 species (in steps of 10) with connectance values between 0.02 and 0.2 (in steps of 0.02). 
+        The range of network sizes was chosen to reflect moderately well-sampled empirical webs while working within our computational limits, while the range of connectance values was chosen to cover that observed in most empirical food webs~\citep{Dunne2002e}.
+        We generated a total of 100 networks with each combination of parameters, for a total of 6000 networks. 
+        All networks were generated using the function ``nichemodel'' within the Julia language package \emph{BioEnergeticFoodWebs}~\citep{bioenergeticfw,Delmas2017}. 
+        If a simulated network contained any disconnected species (species without predators or prey) or disconnected components (a group of species connected among themselves but not to the rest of the network), the network was rejected and a new network simulated.
+        Finally, networks where the path lengths between each species and a basal resource could not be resolved (i.e., trophic levels were undefined) were rejected and new networks simulated.
+
+
+        As a further check that our simulated networks are realistic (e.g., could plausibly retain all species), we simulated community dynamics for 500 timesteps and discarded any networks which did not retain all species. 
+        We simulated dynamics using the function ``simulate'' from the Julia language package \emph{BioEnergeticFoodWebs}~\citep{bioenergeticfw,Delmas2017}.
+        This function uses Lotka-Volterra predator-prey models including density dependence and type 2 functional responses for all species (please see~\citet{Delmas2017} for full details).
+        All non-basal species were designated as vertebrates to ensure a good match between metabolic and predator-prey body-mass ratio values. Metabolic rates in the Lotka-Volterra model are based on each species' body mass (i.e. mass of a single individual). 
+        We assigned relative body masses based on each species' trophic level, which was, in turn, calculated based on the food-web structure provided by the niche model. 
+        After basal species were assigned a body mass of 1, we used a predator-prey body-mass ratio of 3.065 to calculate the relative body masses of higher trophic levels. 
+        We selected this ratio based on the estimate for vertebrates (averaged across ecosystem and metabolic types) in~\citet{Brose2006}. 
+        We excluded reported body-mass ratios for invertebrates as these could include parasites and parasitoids, which are generally smaller than their prey, and because interactions among vertebrates are better represented in the food-web literature than interactions involving invertebrates.
+        
+        
+        The persistence of each species in our simulated networks also depends on its population biomass. 
+        We randomly assigned initial population biomasses (i.e. cumulative biomass across all individuals of a species) for each species from a uniform distribution [0,1]. 
+        Note that population biomasses and individual body masses are not calculated on the same scale. 
+        We then simulated community dynamics for 1000 time steps to obtain an `equilibrium' community. 
+        To ensure that species did not `recover' from unrealistically low biomasses during the simulation, we considered a species extinct if it dropped below an arbitrary threshold biomass of 1$\times10^{-5}$. 
+        We rejected any network where one or more species dropped below this biomass threshold. 
+        Consumers were assumed to have no preferences such that the consumption rate $w_{ij}$ of predator $i$ eating prey $j$ is equal to $\frac{1}{n}$, where $n$ is the number of prey for predator $i$. 
+        If the network did not retain all species for 1000 time steps, a new set of initial population biomasses was applied and the simulation repeated.
+        If a set of biomasses where all species persist still had not been reached after 100 sets of randomly-assigned initial biomasses, we discarded the network and simulated another to replace it.
+        
+    
+    \subsection{Filtering of biologically unrealistic networks}
+
+        After simulating our initial niche-model networks, we filtered networks for biological plausibility.
+        Specifically, we removed any network containing disconnected components (species or groups of species not connected to the rest of the network) or any network where any species had a shortest trophic level \textgreater6 as such high trophic levels are very uncommon in empirical food webs ~\citep{Riede2011}.
+        Any removed network was replaced with a fresh simulation and re-checked until 100 realistic networks for each size-connectance combination had been obtained.
+    
+
+    \subsection{Conversion of networks to acyclic form}
+
+        A Bayesian food web depicts probabilistic relationships among a set of species where each species' probability of persistence depends upon the probabilities of its resource species persisting~\citep{Jensen_Nielsen,Eklof2013}. 
+        All persistence calculations therefore begin by determining the status of the basal resources (who do not depend on other species).
+        Calculations continue in a strictly bottom-up manner with primary consumers (who depend only on basal resources), then herbivores, and so on up the network.
+
+            
+        While niche-model food webs can contain cycles (e.g., species A eats B, B eats C, and C eats A), such cycles make it impossible to calculate persistence in the Bayesian network framework~\citep{Tarjan1972}. 
+        We therefore removed any cycles within each network by removing the link in each cycle which contributed least to the robustness of the food web, following~\citet{Allesina2009functional}.
+        This is achieved by first finding the set of resources for each consumer and then removing the consumer-resource connections which have the lowest eigenvalue centrality~\citep{Allesina2009functional}.
+        These links have the least effect on the overall stability of the network; removing them creates an acyclic network with very similar properties to the original network.
+        Next, we ordered the species from lowest to highest trophic level using a topological sorting routine following \citet{Tarjan1972} and \citet{Allesinaetal2005}, ensuring that probability calculations follow a strict bottom-up order. 
+        After these steps, calculations of persistence probabilities can begin.
+        
+
+    \subsection{Comparison of empirical and simulated networks}
+    
+        Although previous work has shown that the niche model replicates the motif structure of empirical networks~\citep{Stouffer2005a,Stouffer2006}, we additionally provide a comparison of the motif profiles and consumer motif participation for our simulated networks and the highest-quality empirical networks we could find within the same size range.
+        For this comparison, we obtained all networks containing 50-100 species from \citet{globalwebdb}.
+        We then removed networks where sets of predators and prey were completely different (i.e., bipartite networks) or links were not clear (i.e., +/- effects rather than predation specifically).
+        This yielded five vertebrate-dominated food webs describing the California coast in different years, four invertebrate-dominated food webs describing mainland US streams, 23 invertebrate-dominated food webs describing New Zealand streams, and five other invertebrate-dominated food webs.
+        This final set of webs had 50-77 species and connectances (after rendering the networks acyclic) of 0.095-0.227 - covering the upper half of the connectance range we simulate, as well as slightly higher connectances.
+        This may be partly due to relatively poor resolution of basal resources in these empirical webs: aggregation of many taxa into nodes such as `phytoplankton' will tend to decrease the number of species but leave the number of links unchanged, raising connectance.
+        We note that most of these webs were compiled by just three research groups.
+        Moreover, many of the webs are repeated samples of the same site  or closely-grouped sites.
+        This means that these empirical networks cannot be considered fully independent samples.
+        
+        
+        \begin{figure}
+            \centering
+            \includegraphics[width=\textwidth]{figures/motif_profiles_participation_vs_empirical.eps}
+            \caption{\textbf{A)} Proportions of acyclic motifs in the motif profiles of empirical and simulated networks. Mean proportions ($\pm$SD) in the simulated networks are indicated in black, with the range of proportions in the simulated networks indicated by black boxes. \textbf{B)} Proportions of acyclic motifs in the motif participation vectors of consumers in simulated and empirical networks.}
+            \label{empirical_compare}
+        \end{figure}
+        
+    \subsubsection{Comparing motif profiles}
+    
+      The proportions of omnivory and apparent competition in the motif profiles of simulated networks matched those of the empirical webs fairly well, but many of the empirical webs had higher proportions of direct competition and lower proportions of the three-species chain than any simulated web.
+      The empirical webs with high proportions of direct competition tend to be invertebrate-dominated webs representing small streams.
+      High proportions of direct competition in these system suggest large numbers of fairly generalist herbivore/detritivores, with relatively few secondary consumers present to create chains.
+    
+    
+      A few webs had lower proportions of apparent competition than any simulated web but similar proportions of the other motifs.
+      Most of these webs represented the California coast in different years (2003-2007).
+      Basal resources in these webs were highly aggregated into only two size classes of phytoplankton and three types of detritus.
+      This aggregation at the basal level leads to artificial ``specialisation'' in consumers with low trophic levels who may consume, for example, many species of phytoplankton that are grouped into a single size class.
+      As the basal resources in our simulated networks are not aggregated, our webs feature higher proportions of apparent competition as seen in the other empirical webs.
+    
+    
+    \subsubsection{Comparing motif participation}
+      
+      Despite the differences in network motif profiles between some of the empirical food webs and the simulated webs, we note that the motif participation of consumers in the simulated webs entirely spans the range of motif participation for consumers in the empirical webs.
+      Consumers in the NZ stream food webs had higher proportions of direct competition and lower proportions of apparent competition than the mean of the simulated webs, consistent with the network motif profiles.
+      Nonetheless, the greater differences in network profiles than consumer motif participation suggests that the largest differences between the simulated and empirical networks are in the roles of basal resources.
+      In empirical webs, basal resources are often highly aggregated. 
+      Improved resolution at the basal level should improve the correspondence between simulated and empirical webs and allow better modelling of empirical communities.
+    
+
+\clearpage        
+
+        
 \section{Calculating persistence}        
 
         We use Bayesian network modelling to calculate the persistence of each species in our simulated networks. 
@@ -203,113 +301,10 @@ $^\dagger$ Corresponding author\\
 \clearpage
 
 
-\section{Network creation}
 
-    \subsection*{Generation of simulated networks}
-
-        We simulated a suite of food webs based on the probabilistic niche model, which assigns predator-prey links based on the body-mass ratios between individuals of different species~\citep{Williams2000,Delmas2017}. 
-        The meso-scale structure of niche-model networks closely mimics that of empirical food webs~\citep{Stouffer2007}. 
-        To ensure that we captured a variety of realistic community sizes and structures, we generated networks ranging between 50 and 100 species (in steps of 10) with connectance values between 0.02 and 0.2 (in steps of 0.02). 
-        The range of network sizes was chosen to reflect moderately well-sampled empirical webs while working within our computational limits, while the range of connectance values was chosen to cover that observed in most empirical food webs~\citep{Dunne2002e}.
-        We generated a total of 100 networks with each combination of parameters, for a total of 6000 networks. 
-        All networks were generated using the function ``nichemodel'' within the Julia language package \emph{BioEnergeticFoodWebs}~\citep{bioenergeticfw,Delmas2017}. 
-        If a simulated network contained any disconnected species (species without predators or prey) or disconnected components (a group of species connected among themselves but not to the rest of the network), the network was rejected and a new network simulated.
-        Finally, networks where the path lengths between each species and a basal resource could not be resolved (i.e., trophic levels were undefined) were rejected and new networks simulated.
-
-
-        As a further check that our simulated networks are realistic (e.g., could plausibly retain all species), we simulated community dynamics for 500 timesteps and discarded any networks which did not retain all species. 
-        We simulated dynamics using the function ``simulate'' from the Julia language package \emph{BioEnergeticFoodWebs}~\citep{bioenergeticfw,Delmas2017}.
-        This function uses Lotka-Volterra predator-prey models including density dependence and type 2 functional responses for all species (please see~\citet{Delmas2017} for full details).
-        All non-basal species were designated as vertebrates to ensure a good match between metabolic and predator-prey body-mass ratio values. Metabolic rates in the Lotka-Volterra model are based on each species' body mass (i.e. mass of a single individual). 
-        We assigned relative body masses based on each species' trophic level, which was, in turn, calculated based on the food-web structure provided by the niche model. 
-        After basal species were assigned a body mass of 1, we used a predator-prey body-mass ratio of 3.065 to calculate the relative body masses of higher trophic levels. 
-        We selected this ratio based on the estimate for vertebrates (averaged across ecosystem and metabolic types) in~\citet{Brose2006}. 
-        We excluded reported body-mass ratios for invertebrates as these could include parasites and parasitoids, which are generally smaller than their prey, and because interactions among vertebrates are better represented in the food-web literature than interactions involving invertebrates.
-        
-        
-        The persistence of each species in our simulated networks also depends on its population biomass. 
-        We randomly assigned initial population biomasses (i.e. cumulative biomass across all individuals of a species) for each species from a uniform distribution [0,1]. 
-        Note that population biomasses and individual body masses are not calculated on the same scale. 
-        We then simulated community dynamics for 1000 time steps to obtain an `equilibrium' community. 
-        To ensure that species did not `recover' from unrealistically low biomasses during the simulation, we considered a species extinct if it dropped below an arbitrary threshold biomass of 1$\times10^{-5}$. 
-        We rejected any network where one or more species dropped below this biomass threshold. 
-        Consumers were assumed to have no preferences such that the consumption rate $w_{ij}$ of predator $i$ eating prey $j$ is equal to $\frac{1}{n}$, where $n$ is the number of prey for predator $i$. 
-        If the network did not retain all species for 1000 time steps, a new set of initial population biomasses was applied and the simulation repeated.
-        If a set of biomasses where all species persist still had not been reached after 100 sets of randomly-assigned initial biomasses, we discarded the network and simulated another to replace it.
-        
-    
-    \subsection*{Filtering of biologically unrealistic networks}
-
-        After simulating our initial niche-model networks, we filtered networks for biological plausibility.
-        Specifically, we removed any network containing disconnected components (species or groups of species not connected to the rest of the network) or any network where any species had a shortest trophic level \textgreater6 as such high trophic levels are very uncommon in empirical food webs ~\citep{Riede2011}.
-        Any removed network was replaced with a fresh simulation and re-checked until 100 realistic networks for each size-connectance combination had been obtained.
-    
-
-    \subsection*{Conversion of networks to acyclic form}
-
-        A Bayesian food web depicts probabilistic relationships among a set of species where each species' probability of persistence depends upon the probabilities of its resource species persisting~\citep{Jensen_Nielsen,Eklof2013}. 
-        All persistence calculations therefore begin by determining the status of the basal resources (who do not depend on other species).
-        Calculations continue in a strictly bottom-up manner with primary consumers (who depend only on basal resources), then herbivores, and so on up the network.
-
-            
-        While niche-model food webs can contain cycles (e.g., species A eats B, B eats C, and C eats A), such cycles make it impossible to calculate persistence in the Bayesian network framework~\citep{Tarjan1972}. 
-        We therefore removed any cycles within each network by removing the link in each cycle which contributed least to the robustness of the food web, following~\citet{Allesina2009functional}.
-        This is achieved by first finding the set of resources for each consumer and then removing the consumer-resource connections which have the lowest eigenvalue centrality~\citep{Allesina2009functional}.
-        These links have the least effect on the overall stability of the network; removing them creates an acyclic network with very similar properties to the original network.
-        Next, we ordered the species from lowest to highest trophic level using a topological sorting routine following \citet{Tarjan1972} and \citet{Allesinaetal2005}, ensuring that probability calculations follow a strict bottom-up order. 
-        After these steps, calculations of persistence probabilities can begin.
-        
-
-    \subsection*{Comparison of empirical and simulated networks}
-    
-    
-        Although previous work has shown that the niche model replicates the motif structure of empirical networks~\citep{Stouffer2005a,Stouffer2006}, we additionally provide a comparison of the motif profiles and consumer motif participation for our simulated networks and the highest-quality empirical networks we could find within the same size range.
-        For this comparison, we obtained all networks containing 50-100 species from \citet{globalwebdb}.
-        We then removed networks where sets of predators and prey were completely different (i.e., bipartite networks) or links were not clear (i.e., +/- effects rather than predation specifically).
-        This yielded five vertebrate-dominated food webs describing the California coast in different years, four invertebrate-dominated food webs describing mainland US streams, 23 invertebrate-dominated food webs describing New Zealand streams, and five other invertebrate-dominated food webs.
-        This final set of webs had 50-77 species and connectances (after rendering the networks acyclic) of 0.095-0.227 - covering the upper half of the connectance range we simulate, as well as slightly higher connectances.
-        This may be partly due to relatively poor resolution of basal resources in these empirical webs: aggregation of many taxa into nodes such as `phytoplankton' will tend to decrease the number of species but leave the number of links unchanged, raising connectance.
-        We note that most of these webs were compiled by just three research groups.
-        Moreover, many of the webs are repeated samples of the same site  or closely-grouped sites.
-        This means that these empirical networks cannot be considered fully independent samples.
-        
-        
-        \begin{figure}
-            \centering
-            \includegraphics[width=\textwidth]{figures/motif_profiles_participation_vs_empirical.eps}
-            \caption{\textbf{A)} Proportions of acyclic motifs in the motif profiles of empirical and simulated networks. Mean proportions ($\pm$SD) in the simulated networks are indicated in black, with the range of proportions in the simulated networks indicated by black boxes. \textbf{B)} Proportions of acyclic motifs in the motif participation vectors of consumers in simulated and empirical networks.}
-            \label{empirical_compare}
-        \end{figure}
-        
-    \subsubsection*{Comparing motif profiles}
-    
-      The proportions of omnivory and apparent competition in the motif profiles of simulated networks matched those of the empirical webs fairly well, but many of the empirical webs had higher proportions of direct competition and lower proportions of the three-species chain than any simulated web.
-      The empirical webs with high proportions of direct competition tend to be invertebrate-dominated webs representing small streams.
-      High proportions of direct competition in these system suggest large numbers of fairly generalist herbivore/detritivores, with relatively few secondary consumers present to create chains.
-    
-    
-      A few webs had lower proportions of apparent competition than any simulated web but similar proportions of the other motifs.
-      Most of these webs represented the California coast in different years (2003-2007).
-      Basal resources in these webs were highly aggregated into only two size classes of phytoplankton and three types of detritus.
-      This aggregation at the basal level leads to artificial ``specialisation'' in consumers with low trophic levels who may consume, for example, many species of phytoplankton that are grouped into a single size class.
-      As the basal resources in our simulated networks are not aggregated, our webs feature higher proportions of apparent competition as seen in the other empirical webs.
-    
-    
-    \subsubsection*{Comparing motif participation}
-      
-      Despite the differences in network motif profiles between some of the empirical food webs and the simulated webs, we note that the motif participation of consumers in the simulated webs entirely spans the range of motif participation for consumers in the empirical webs.
-      Consumers in the NZ stream food webs had higher proportions of direct competition and lower proportions of apparent competition than the mean of the simulated webs, consistent with the network motif profiles.
-      Nonetheless, the greater differences in network profiles than consumer motif participation suggests that the largest differences between the simulated and empirical networks are in the roles of basal resources.
-      In empirical webs, basal resources are often highly aggregated. 
-      Improved resolution at the basal level should improve the correspondence between simulated and empirical webs and allow better modelling of empirical communities.
-    
-
-\clearpage        
-
-        
 \section{Supplemental statistical analysis}
 
-    \textbf{Persistence, degree, and trophic level}
+    \subsection{Persistence, degree, and trophic level}
     
             In-degree and trophic level are known to influence persistence in many cases and these effects, in combination with differences in mean persistence across networks with different global properties, should also be taken into account when considering relationships between motif participation and persistence.
             To establish this necessary context, we fit GLMs with binomial error distribution:
@@ -334,7 +329,7 @@ $^\dagger$ Corresponding author\\
             We centered and scaled the predictors before fitting the models.
 
 
-    \textbf{Motif participation, profiles and other network properties}
+    \subsection{Motif participation, profiles and other network properties}
 
         Species' motif participation may co-vary with other measures of network structure and species' roles within the network.
         To determine the relationships between motif participation and global network structure, we fit a set of four general linear models with binomial error distribution (one per motif):
@@ -375,7 +370,64 @@ $^\dagger$ Corresponding author\\
 \clearpage
 
 
-\section{Results: motif participation} 
+
+\section{Motif-persistence relationships vary with S,C}
+
+    \subsection{Supplemental methods}
+    
+        In case the within-network trends with respect to network size and connectance are easier to understand after summarising across all networks, we fit four general linear models with binomial error distribution (GLMs; one per motif which can occur in acyclic networks): 
+             \begin{equation}
+             \begin{aligned}
+            \Psi_{ink} & \approx \rho_{i} + \pi_{k} + \Sigma_{n} + \zeta_{n} \\
+            & + \rho_{i}\pi_{k} + \rho_{i}\Sigma_{n} + \rho_{i}\zeta_{n} + \pi_{k}\Sigma_{n} + \pi_{k}\zeta_{n} + \Sigma_{n}\zeta_{n} \\
+            & + \rho_{i}\pi_{k}\Sigma_{n} + \rho_{i}\pi_{k}\zeta_{n} + \pi_{k}\Sigma_{n}\zeta_{n} + \rho_{i}\pi_{k}\Sigma_{n}\zeta_{n} ,
+            % S_{n}C_{n} + N_n,
+            \label{propreq}
+            \end{aligned}
+            \end{equation}
+            \noindent where $\Psi_{ink}$ is the persistence of species $i$, belonging to network $n$, during disturbance level $k$, $\rho_{i}$ is the proportion of the role of species $i$ that is made up by the focal motif, $\pi_k$ is the probability of extinction for a basal resource in disturbance level $k$, $\Sigma_{n}$ is the number of species in the network, and $\zeta_{n}$ is the connectance of the network.
+            All predictors were centered and scaled before fitting the models.    
+            After fitting the full models described above, we removed any non-significant terms in a stepwise fashion, beginning with the four-way interaction and proceeding to three-way and two-way interactions.
+            If a smaller term was included in a significant larger term (e.g., a non-significant two-way interaction involving terms in a significant three-way interaction) then the smaller term was retained.
+
+    \subsection{Supplemental results}
+    
+    \begin{figure}[ht!]
+        \centering
+        \includegraphics[width=\textwidth]{figures/persistence_omnivory_detailpers.eps}
+        \caption{The relationship between the proportion of omnivory in the participation vector and probability of persistence depended strongly on the connectance of the network.
+        Higher proportions of omnivory were associated with lower probabilities of persistence when connectance was low, regardless of network size or strength of disturbance.
+        At moderate connectance, however, higher proportions of omnivory were associated with greater probabilities of persistence when disturbance was weak.
+        In the most-connected networks, higher proportions of omnivory were associated with greater probabilities of persistence at all levels of disturbance.}
+        \label{omnivory_plus_SC}
+        \end{figure}
+
+    \begin{figure}[hb!]
+        \centering
+        \includegraphics[width=\textwidth]{figures/persistence_chain_detailpers.eps}
+        \caption{The relationship between proportion of the three-species chain in the participation vector and persistence was very similar across all levels of size and connectance.}
+        \label{chain_plus_SC}
+        \end{figure}
+
+    \begin{figure}[hb!]
+        \centering
+        \includegraphics[width=\textwidth]{figures/persistence_apparent_detailpers.eps}
+        \caption{Slopes of the motif proportion-persistence relationships for the apparent competition motif were steepest in large and less-connected networks but the directions of slopes varied only with the strength of disturbance.}
+        \label{apparent_plus_SC}
+        \end{figure}
+
+    \begin{figure}[hb!]
+        \centering
+        \includegraphics[width=\textwidth]{figures/persistence_direct_detailpers.eps}
+        \caption{Slopes of the motif proportion-persistence relationships for the direct competition motif were steepest in large and less-connected networks but the directions of slopes varied only with the strength of disturbance.}
+        \label{direct_plus_SC}
+        \end{figure}
+    
+
+\clearpage
+
+
+\section{Supplemental results: motif participation} 
 
     \subsection{Participation and persistence}
 
@@ -430,14 +482,30 @@ $^\dagger$ Corresponding author\\
 
 \clearpage 
 
-\section{Results: persistence and other network properties} 
+\section{Supplemental results: persistence and other network properties} 
 
+    \subsection{Persistence and non-motif measures}
     % \begin{figure}[ht!]
     %     \centering
     %     \includegraphics[width=0.9\textwidth]{figures/persistence_vs_SC_lm.eps}
     %     \caption{Persistence decreased strongly with increasing probability of disturbance to basal resources and decreased slightly, but significantly, with increasing connectance.}
     %     \label{fig:lm_CS}
     % \end{figure}
+
+    % Updated with network-level random effect
+    \begin{table}[hb!]
+        \caption{Coeffcients ($\beta$) for general linear mixed-effect models of consumers' probabilities of persistence against simple measures of species' role (STL or in-degree), level of disturbance to basal resources, and their interaction, as well as a random effect of global network properties (size and connectance). The model for STL was singular when including the random effect, so we removed this term and re-fit the model as a general linear model with fixed effects only. All models had binomial error distribution. Predictors were centered and scaled before model fitting. All $p$-values were \textless0.001. The level of disturbance is reflected by basal resources having a baseline probability of extinction ranging between $0.1 - 0.5$.  We also provide the marginal $R^2_M$ (fixed effects only) and conditional $R^2_C$ (fixed and random effects) for the in-degree model and the pseudo-$R^2$ for the STL model.}
+        \label{tab:per_vs_TLdeg}
+        \centering
+        \begin{tabular}{l|c  c  c | c c  }
+            Simple role measure & Role & Disturbance & Interaction & R$^2_M$ & R$^2_C$ \\
+            \hline
+            STL & \textbf{-0.0977} & \textbf{-0.600} & \textbf{0.0302} & \textbf{0.920} & NA \\
+            in-degree & \textbf{-1.30$\times10^{-3}$} & \textbf{-0.139} & \textbf{-9.08$\times10^{-3}$} & 0.903 & 0.914 \\
+        \end{tabular}
+    \end{table}
+
+
     
     % Updated to use mean rather than all species.
     \begin{table}[hb!]
@@ -454,19 +522,6 @@ $^\dagger$ Corresponding author\\
                 \end{table}
 
 
-    % Updated with network-level random effect
-    \begin{table}[hb!]
-        \caption{Coeffcients ($\beta$) for general linear mixed-effect models of consumers' probabilities of persistence against simple measures of species' role (STL or in-degree), level of disturbance to basal resources, and their interaction, as well as a random effect of global network properties (size and connectance). The model for STL was singular when including the random effect, so we removed this term and re-fit the model as a general linear model with fixed effects only. All models had binomial error distribution. Predictors were centered and scaled before model fitting. All $p$-values were \textless0.001. The level of disturbance is reflected by basal resources having a baseline probability of extinction ranging between $0.1 - 0.5$.  We also provide the marginal $R^2_M$ (fixed effects only) and conditional $R^2_C$ (fixed and random effects) for the in-degree model and the pseudo-$R^2$ for the STL model.}
-        \label{tab:per_vs_TLdeg}
-        \centering
-        \begin{tabular}{l|c  c  c | c c  }
-            Simple role measure & Role & Disturbance & Interaction & R$^2_M$ & R$^2_C$ \\
-            \hline
-            STL & \textbf{-0.0977} & \textbf{-0.600} & \textbf{0.0302} & \textbf{0.920} & NA \\
-            in-degree & \textbf{-1.30$\times10^{-3}$} & \textbf{-0.139} & \textbf{-9.08$\times10^{-3}$} & 0.903 & 0.914 \\
-        \end{tabular}
-    \end{table}
-
 
     % \begin{figure}[hb!]
     %  \centering
@@ -482,63 +537,6 @@ $^\dagger$ Corresponding author\\
     %  \caption{Basal resources experience a disturbance increasing their probability of extinction to $\pi = 0.5$. All consumer species go extinct due to causes not related to the web itself with probability $\pi = 0.1$. The panels show final persistence for consumers with different shortest trophic level, for increasing connectance (y-axis) and network size (x-axis). Persistence decreases with darker color in the heat map.}
     %  \label{fig:heatmap_stl_BP1}
     % \end{figure}
-
-\clearpage
-
-\section{Motif-persistence relationships vary with S,C}
-
-    In case the within-network trends with respect to network size and connectance are easier to understand after summarising across all networks, we fit four general linear models with binomial error distribution (GLMs; one per motif which can occur in acyclic networks): 
-             \begin{equation}
-             \begin{aligned}
-            \Psi_{ink} & \approx \rho_{i} + \pi_{k} + \Sigma_{n} + \zeta_{n} \\
-            & + \rho_{i}\pi_{k} + \rho_{i}\Sigma_{n} + \rho_{i}\zeta_{n} + \pi_{k}\Sigma_{n} + \pi_{k}\zeta_{n} + \Sigma_{n}\zeta_{n} \\
-            & + \rho_{i}\pi_{k}\Sigma_{n} + \rho_{i}\pi_{k}\zeta_{n} + \pi_{k}\Sigma_{n}\zeta_{n} + \rho_{i}\pi_{k}\Sigma_{n}\zeta_{n} ,
-            % S_{n}C_{n} + N_n,
-            \label{propreq}
-            \end{aligned}
-            \end{equation}
-            \noindent where $\Psi_{ink}$ is the persistence of species $i$, belonging to network $n$, during disturbance level $k$, $\rho_{i}$ is the proportion of the role of species $i$ that is made up by the focal motif, $\pi_k$ is the probability of extinction for a basal resource in disturbance level $k$, $\Sigma_{n}$ is the number of species in the network, and $\zeta_{n}$ is the connectance of the network.
-            All predictors were centered and scaled before fitting the models.    
-            After fitting the full models described above, we removed any non-significant terms in a stepwise fashion, beginning with the four-way interaction and proceeding to three-way and two-way interactions.
-            If a smaller term was included in a significant larger term (e.g., a non-significant two-way interaction involving terms in a significant three-way interaction) then the smaller term was retained.
-
-
-    \begin{figure}[ht!]
-        \centering
-        \includegraphics[width=\textwidth]{figures/persistence_omnivory_detailpers.eps}
-        \caption{The relationship between the proportion of omnivory in the participation vector and probability of persistence depended strongly on the connectance of the network.
-        Higher proportions of omnivory were associated with lower probabilities of persistence when connectance was low, regardless of network size or strength of disturbance.
-        At moderate connectance, however, higher proportions of omnivory were associated with greater probabilities of persistence when disturbance was weak.
-        In the most-connected networks, higher proportions of omnivory were associated with greater probabilities of persistence at all levels of disturbance.}
-        \label{omnivory_plus_SC}
-        \end{figure}
-
-    \begin{figure}[hb!]
-        \centering
-        \includegraphics[width=\textwidth]{figures/persistence_chain_detailpers.eps}
-        \caption{The relationship between proportion of the three-species chain in the participation vector and persistence was very similar across all levels of size and connectance.}
-        \label{chain_plus_SC}
-        \end{figure}
-
-    \begin{figure}[hb!]
-        \centering
-        \includegraphics[width=\textwidth]{figures/persistence_apparent_detailpers.eps}
-        \caption{Slopes of the motif proportion-persistence relationships for the apparent competition motif were steepest in large and less-connected networks but the directions of slopes varied only with the strength of disturbance.}
-        \label{apparent_plus_SC}
-        \end{figure}
-
-    \begin{figure}[hb!]
-        \centering
-        \includegraphics[width=\textwidth]{figures/persistence_direct_detailpers.eps}
-        \caption{Slopes of the motif proportion-persistence relationships for the direct competition motif were steepest in large and less-connected networks but the directions of slopes varied only with the strength of disturbance.}
-        \label{direct_plus_SC}
-        \end{figure}
-    
-
-\clearpage
-                
-
-\section{Supplemental results: network motif profiles}
 
     \subsection{Persistence and whole-network motif profiles}
 
@@ -558,6 +556,14 @@ $^\dagger$ Corresponding author\\
             Omnivory & \textbf{0.326} & \textbf{-0.0626} & \textbf{-0.596} & 3.22$\times10^{-3}$ & 0.966 \\
         \end{tabular}
     \end{table}
+
+
+\clearpage
+
+                
+
+\section{Supplemental results: network motif profiles}
+
 
     \subsection{Motif profiles and network size, connectance}
     % No update needed
