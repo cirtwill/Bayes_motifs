@@ -48,8 +48,8 @@ University of Canterbury, Christchurch, New Zealand\\
 $^\dagger$ Corresponding author email: alyssa.cirtwill@gmail.com\\
 }
 
-% Limit is 8200 words.
-% Currently c. 9000
+% Limit is 8500 words.
+% Currently c. 8066 - we're good!
 \begin{document} 
 \maketitle 
 \raggedright
@@ -106,12 +106,18 @@ Motif participation describes extinction risk
 
     %There are 13 possible three-species motifs (the most commonly-used size for food web analyses)~\citep{Milo2004,Stouffer2007,Stouffer2012,Cirtwill2015a}, 
     We define motif participation using the well-studied three-species motifs~\citep{Milo2004,Stouffer2007,Stouffer2012,Cirtwill2015a}. 
-    Four of these motifs --the three-species chain, apparent competition, direct competition, and omnivory-- are especially interesting as they are by far the most common in empirical networks~\citep{Stouffer2007, giling2019plant} and more stable than other motifs when modelled in isolation~\citep{Borrelli2015a}.
+    Four of these motifs --the three-species chain, apparent competition, direct competition, and omnivory-- are especially interesting as they are by far the most common in empirical networks~\citep{Stouffer2007, giling2019plant} and more stable than other motifs (i.e., are more likely to retain all three species in the motif) when modelled in isolation~\citep{Borrelli2015a}.
     These four motifs also have clear ecological interpretations.
     The three-species chain indicates vertical flows of energy and biomass in a network and captures the possibility of indirect interactions across multiple trophic levels (e.g., between a plant and a predator of the plant's herbivore).
-    The direct competition motif, where two consumers share the same resource, captures the possibility of indirect interactions between consumers (e.g., by depletion of the shared resource). 
-    The apparent competition motif, where a predator consumes two resources, can include indirect effects between prey (e.g., by boosting predator populations) in a top-down context, but only includes direct bottom-up interactions.
+    The dynamics of three-species chains in isolation are well-understood from Lotka-Volterra models, and stable equilibria with all three species persisting can often be identified~\citep{Borrelli2015a,Hsu2015}.
+    In general, food chains are more likely to be stable when predator-prey body-mass ratios are smaller~\citep{Jonsson1998}.
+    The direct competition motif, where two consumers share the same resource, captures the possibility of indirect interactions between consumers by depletion of the shared resource in competitive exclusion~\citep{Hsu2015}. 
+    Despite the potential for exclusion where one predator is competitively superior, this motif is highly robust to changes in interaction strength and therefore has high quasi-sign stability~\citep{Borrelli2015a}.
+    The apparent competition motif, where a predator consumes two resources, can include indirect effects between prey indicates a generalist predator (which may be able persist following reduction or loss of one prey) but can capture indirect effects between prey that mae the predator more likely to go extinct~\citep{Melian2002}.
     Finally, the omnivory motif, where a predator consumes the same resource as its prey, includes captures the potential for a plant to have both direct and indirect effects on the predator. 
+    Omnivory is less stable in isolation than the other three motifs~\citep{Borelli2015a}, though there is a region of stable equilibrium for Lotka-Volterra model of omnivory~\citep{Hsu2015}.
+    In whole food webs, frequent omnivory has been proposed to both increase and decrease overall stability in different conditions~\citep{McCann1997,Emmerson2004,Monteiro2016}.
+    As most of the above studies either model motifs in isolation or examine overall effects on the whole food web, it remains unclear how a particular species' motif participation will affect its specific extinction risk.
     
     
     %\subsection*{Here we test...}
