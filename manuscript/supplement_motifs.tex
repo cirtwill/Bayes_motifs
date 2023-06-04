@@ -35,7 +35,7 @@
 
 \begin{document} 
 
-\title{Species motif participation provides unique information about species risk of extinction}
+\title{Species motif participation provides unique information about species risk of extinction: supplemental information}
 
 \author{Alyssa R. Cirtwill$^{1*\dagger}$, Anna \r{A}kesson$^{2*}$, Kate L. Wootton$^{3}$, Anna Ekl\"{o}f$^{2}$} 
 \date{
@@ -93,36 +93,37 @@ $^\dagger$ Corresponding author\\
         \item Supplemental statistical analysis
 
             \begin{itemize}
-                \item Describes GLMs relating persistence and other network properties (Eqn. S2-3) and GLMs relating motif participation, profiles and network properties (Eqn. S4-6)
+                \item GLMs relating persistence and other network properties (Eqn. S2-S3)
+                \item GLMs relating motif participation, profiles and network properties (Eqn. S4-S6)
             \end{itemize}
                 
-        \item Motif-persistence relationships vary with S,C
+        \item Motif-persistence relationships vary with S, C
 
             \begin{itemize}
-                \item Describes GLMs summarising how the relationship between motif participation and persistence varies over S and C, to complement the within-network results presented in the main text (Eqn. S7)
-                \item Plots of these GLMs for each motif (Figs. S2-5)
+                \item GLMs summarising how the relationship between motif participation and persistence varies over S and C, to complement the within-network results presented in the main text (Eqn. S7)
+                \item Plots of these GLMs for each motif (Figs. S2-S5)
             \end{itemize}    
 
 
-        \item Results: species motif participation 
+        \item Supplemental results: motif participation 
             \begin{itemize}
                 \item Supplemental results relating species motif participation to persistence and to other network properties (S, C, in-degree, STL)
-                \item Table S1-2l; Fig. S6
+                \item Table S1-S2; Fig. S6
             \end{itemize}
 
     
-        \item Supplemental results: persistence and other network properties
+        \item Supplemental results: persistence
 
             \begin{itemize}
-                \item Supplemental results identifying relationships between persistence and network size, connectance, in-degree, and STL to provide context for motif relationships (Tables S3-4).
-                \item Also relating average persistence to network motif profiles (Table S5)
+                \item Supplemental results identifying relationships between persistence and network size, connectance, in-degree, and STL to provide context for motif relationships (Tables S3-S4).
+                \item Supplemental results relating average persistence to network motif profiles (Table S5)
             \end{itemize}    
 
     
         \item Supplemental results: network motif profiles
 
             \begin{itemize}
-                \item Relating motif profiles  to network size and connectance (Table S6)
+                \item Supplemental results relating motif profiles  to network size and connectance (Table S6; FIg. S7)
             \end{itemize}
 
 
@@ -150,7 +151,8 @@ $^\dagger$ Corresponding author\\
         We generated a total of 100 networks with each combination of parameters, for a total of 6000 networks. 
         All networks were generated using the function ``nichemodel'' within the Julia language package \emph{BioEnergeticFoodWebs}~\citep{bioenergeticfw,Delmas2017}. 
         If a simulated network contained any disconnected species (species without predators or prey) or disconnected components (a group of species connected among themselves but not to the rest of the network), the network was rejected and a new network simulated.
-        Finally, networks where the path lengths between each species and a basal resource could not be resolved (i.e., trophic levels were undefined) were rejected and new networks simulated.
+        Finally, networks where the path lengths between each species and a basal resource could not be resolved (i.e., trophic levels were undefined) were rejected, as was any network where any species had a shortest trophic level \textgreater6 as such high trophic levels are very uncommon in empirical food webs ~\citep{Riede2011}.
+        Rejected networks were replaced with fresh simulations.
 
 
         As a further check that our simulated networks are realistic (e.g., could plausibly retain all species), we simulated community dynamics for 500 timesteps and discarded any networks which did not retain all species. 
@@ -173,12 +175,6 @@ $^\dagger$ Corresponding author\\
         If the network did not retain all species for 1000 time steps, a new set of initial population biomasses was applied and the simulation repeated.
         If a set of biomasses where all species persist still had not been reached after 100 sets of randomly-assigned initial biomasses, we discarded the network and simulated another to replace it.
         
-    
-    \subsection{Filtering of biologically unrealistic networks}
-
-        After simulating our initial niche-model networks, we filtered networks for biological plausibility.
-        Specifically, we removed any network containing disconnected components (species or groups of species not connected to the rest of the network) or any network where any species had a shortest trophic level \textgreater6 as such high trophic levels are very uncommon in empirical food webs ~\citep{Riede2011}.
-        Any removed network was replaced with a fresh simulation and re-checked until 100 realistic networks for each size-connectance combination had been obtained.
     
 
     \subsection{Conversion of networks to acyclic form}
@@ -371,7 +367,7 @@ $^\dagger$ Corresponding author\\
 
 
 
-\section{Motif-persistence relationships vary with S,C}
+\section{Motif-persistence relationships vary with S, C}
 
     \subsection{Supplemental methods}
     
@@ -412,14 +408,14 @@ $^\dagger$ Corresponding author\\
     \begin{figure}[hb!]
         \centering
         \includegraphics[width=\textwidth]{figures/persistence_apparent_detailpers.eps}
-        \caption{Slopes of the motif proportion-persistence relationships for the apparent competition motif were steepest in large and less-connected networks but the directions of slopes varied only with the strength of disturbance.}
+        \caption{Slopes of the motif proportion-persistence relationships for the apparent competition motif were steepest in large and less-connected networks or small and highly-connected networks but the directions of slopes varied only with the strength of disturbance.}
         \label{apparent_plus_SC}
         \end{figure}
 
     \begin{figure}[hb!]
         \centering
         \includegraphics[width=\textwidth]{figures/persistence_direct_detailpers.eps}
-        \caption{Slopes of the motif proportion-persistence relationships for the direct competition motif were steepest in large and less-connected networks but the directions of slopes varied only with the strength of disturbance.}
+        \caption{Slopes of the motif proportion-persistence relationships for the direct competition motif were steepest in less-connected networks but the directions of slopes varied only with the strength of disturbance.}
         \label{direct_plus_SC}
         \end{figure}
     
@@ -453,7 +449,7 @@ $^\dagger$ Corresponding author\\
     \begin{figure}[ht!]
         \centering
         \includegraphics[width=\textwidth]{figures/roles_vs_SC_all.eps}
-        \caption{The proportion of each motif in consumer's participation vectors varied with connectance, network size, and their interaction (except for apparent competition).}
+        \caption{The proportion of each motif in consumer's participation vectors varied with connectance, network size, and their interaction (except for apparent competition, where there was no significant interaction).}
         \label{fig:motifs_vs_TL_and_deg}
     \end{figure}    
 
@@ -482,7 +478,7 @@ $^\dagger$ Corresponding author\\
 
 \clearpage 
 
-\section{Supplemental results: persistence and other network properties} 
+\section{Supplemental results: persistence} 
 
     \subsection{Persistence and non-motif measures}
     % \begin{figure}[ht!]
@@ -494,7 +490,7 @@ $^\dagger$ Corresponding author\\
 
     % Updated with network-level random effect
     \begin{table}[hb!]
-        \caption{Coeffcients ($\beta$) for general linear mixed-effect models of consumers' probabilities of persistence against simple measures of species' role (STL or in-degree), level of disturbance to basal resources, and their interaction, as well as a random effect of global network properties (size and connectance). The model for STL was singular when including the random effect, so we removed this term and re-fit the model as a general linear model with fixed effects only. All models had binomial error distribution. Predictors were centered and scaled before model fitting. All $p$-values were \textless0.001. The level of disturbance is reflected by basal resources having a baseline probability of extinction ranging between $0.1 - 0.5$.  We also provide the marginal $R^2_M$ (fixed effects only) and conditional $R^2_C$ (fixed and random effects) for the in-degree model and the pseudo-$R^2$ for the STL model.}
+        \caption{Coeffcients ($\beta$) for general linear mixed-effect models of consumers' probabilities of persistence against simple measures of species' role (STL or in-degree), level of disturbance to basal resources, and their interaction, as well as a random effect of global network properties (size and connectance). The model for STL was singular when including the random effect, so we removed this term and re-fit the model as a general linear model with fixed effects only. All models had binomial error distribution. All $p$-values were \textless0.001. The level of disturbance is reflected by basal resources having a baseline probability of extinction ranging between $0.1 - 0.5$.  We also provide the marginal $R^2_M$ (fixed effects only) and conditional $R^2_C$ (fixed and random effects) for the in-degree model and the pseudo-$R^2$ for the STL model.}
         \label{tab:per_vs_TLdeg}
         \centering
         \begin{tabular}{l|c  c  c | c c  }
@@ -543,7 +539,7 @@ $^\dagger$ Corresponding author\\
 
     % Updated to use mean instead of all species
     \begin{table}[ht!]
-        \caption{These results correspond to equation 2, main text. Coefficients ($\beta$) for models relating persistence to the proportion of a network profile made up by a focal motif, the level of disturbance to basal resources (corresponding to a probability of extinction ranging between 0.1 and 0.5), and their interaction. Coefficients in \textbf{bold} are significant ($\alpha$\textless0.005). Predictors were centered and scaled before model fitting; coefficients refer to a unit increase in predictors. We also provide McFadden's pseudo-$R^2$ value for each regression. }
+        \caption{These results correspond to equation 2, main text. Coefficients ($\beta$) for models relating persistence to the proportion of a network profile made up by a focal motif, the level of disturbance to basal resources (corresponding to a probability of extinction ranging between 0.1 and 0.5), and their interaction. Coefficients in \textbf{bold} are significant ($\alpha$\textless0.005). We also provide McFadden's pseudo-$R^2$ value for each regression. }
         \label{motif_profile_tab}
         \centering
         \footnotesize
