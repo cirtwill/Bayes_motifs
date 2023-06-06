@@ -329,12 +329,12 @@ for simple in ['TL','Connectance','Motifs','Deg','Size','dummy']:
 
 grace.multi(rows=2,cols=3,vgap=.09,hgap=.09)
 grace.hide_redundant_labels()
-grace.graphs[0].set_view(0.14, 0.7367058823529411, 0.38, 0.95)
-grace.graphs[1].set_view(0.46, 0.7367058823529411, 0.7, 0.95)
-grace.graphs[2].set_view(0.74, 0.7367058823529411, 0.98, 0.95)
-grace.graphs[3].set_view(0.14, 0.4334117647058823, 0.38, 0.6467058823529411)
-grace.graphs[4].set_view(0.46, 0.4334117647058823, 0.7, 0.6467058823529411)
-grace.graphs[5].set_view(0.74, 0.4334117647058823, .98, 0.6467058823529411)
+grace.graphs[0].set_view(0.14, 0.7367058823529411, 0.37, 0.95)
+grace.graphs[1].set_view(0.46, 0.7367058823529411, 0.69, 0.95)
+grace.graphs[2].set_view(0.72, 0.7367058823529411, 0.95, 0.95)
+grace.graphs[3].set_view(0.14, 0.4334117647058823, 0.37, 0.6467058823529411)
+grace.graphs[4].set_view(0.46, 0.4334117647058823, 0.69, 0.6467058823529411)
+grace.graphs[5].set_view(0.72, 0.4334117647058823, .95, 0.6467058823529411)
 
 
 grace.set_col_yaxislabel(label='Mean consumer probability of persistence',col=1,rowspan=(None,None),char_size=1,perpendicular_offset=.03)

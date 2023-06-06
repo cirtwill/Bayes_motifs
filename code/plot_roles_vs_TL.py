@@ -142,8 +142,8 @@ def populate_graph(graph,minidict,simple,roletype):
       data.legend=motif
 
   if simple=='TL':
-    graph.add_drawing_object(DrawText,text='Motif',x=5.25,y=0.47,loctype='world',char_size=.5) 
-    graph.legend.configure(char_size=.5,loc=(5.25,0.450),loctype='world',box_linestyle=0,fill_pattern=0)
+    graph.add_drawing_object(DrawText,text='Motif',x=3.15,y=-.21,loctype='world',char_size=.5) 
+    graph.legend.configure(char_size=.5,loc=(3,-.22),loctype='world',box_linestyle=0,fill_pattern=0)
 
   return graph
 
