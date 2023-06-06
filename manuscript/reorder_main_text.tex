@@ -48,8 +48,6 @@ University of Canterbury, Christchurch, New Zealand\\
 $^\dagger$ Corresponding author email: alyssa.cirtwill@gmail.com\\
 }
 
-% Limit is 8500 words.
-% Currently c. 8066 - we're good!
 \begin{document} 
 \maketitle 
 \raggedright
@@ -63,7 +61,7 @@ Motif participation describes extinction risk
 
 \section*{Summary}
 
-% Now 281 words. Max 350. 
+% Now 282 words. Max 350. 
     1. Loss of species in food webs can set in motion a cascade of additional (secondary)  extinctions.
     2. A species' position in a food web (e.g., its trophic level or number of interactions) is known to affect its ability to persist following disturbance. 
     3. These simple measures, however, offer only a coarse description of how species fit into their community. 
@@ -84,7 +82,7 @@ Motif participation describes extinction risk
 \begin{spacing}{1.0}
 % \linenumbers
 
-\section*{Introduction} %New
+\section*{Introduction} 
 
     A single extinction can, due to the mutual dependencies among species in a food web,  trigger a cascade of additional (secondary) extinctions. 
     A species' risk of secondary extinction depends on its position within a food web~\citep{Santos2021,dunne2009cascading, Eklof2006}.
@@ -102,17 +100,12 @@ Motif participation describes extinction risk
     This extra information on the focal species' interaction partners may thus provide extra insight when predicting extinction risk.
     
 
-    
-
-
-    %There are 13 possible three-species motifs (the most commonly-used size for food web analyses)~\citep{Milo2004,Stouffer2007,Stouffer2012,Cirtwill2015a}, 
     We define motif participation using the well-studied three-species motifs~\citep{Milo2004,Stouffer2007,Stouffer2012}. 
     Four of these motifs --the three-species chain, apparent competition, direct competition, and omnivory-- are especially interesting as they are by far the most common in empirical networks~\citep{Stouffer2007, giling2019plant} and more stable than other motifs (i.e., are more likely to retain all three species in the motif) when modelled in isolation~\citep{Borrelli2015a}.
     These four motifs also have clear ecological interpretations and their dynamics explored using Lotka-Volterra models~\citep{Hsu2015}.
     The three-species chain indicates vertical flows of energy and biomass in a network and captures the possibility of indirect interactions across multiple trophic levels (e.g., between a plant and a predator of the plant's herbivore).
     In general, food chains are more likely to be stable when predator-prey body-mass ratios are smaller~\citep{Jonsson1998}.
     The direct competition motif, where two consumers share the same resource, captures the possibility of indirect interactions between consumers by depletion of the shared resource in competitive exclusion~\citep{Hsu2015}. 
-   % Despite the potential for exclusion where one predator is competitively superior, this motif is highly robust to changes in interaction strength and therefore has high quasi-sign stability~\citep{Borrelli2015a}.
     The apparent competition motif indicates a predator which consumes two resources and, by being somewhat generalist, may be able to persist following the loss or reduction of one prey but can also be affected by indirect effects between the linked prey~\citep{Melian2002}.
     Finally, the omnivory motif, where a predator consumes the same resource as its prey, includes  the potential for a plant to have both direct and indirect effects on the predator. 
     Omnivory is less stable in isolation than the other three motifs~\citep{Borrelli2015a}, though there is a region of stable equilibrium for Lotka-Volterra models of omnivory~\citep{Hsu2015}.
@@ -126,42 +119,40 @@ Motif participation describes extinction risk
     As well as identifying patterns of motif participation that are associated with ability to persist after a loss of basal resources, we are particularly interested in whether the strength of  disturbance affects relationships between motif participation and persistence.
     For example, participation in one motif might be associated with greater extinction risk after a mild disturbance but be associated with less risk when when more basal resources are lost if the direct and indirect interactions within the motif amplify the effect of small disturbances while providing `back-up' resources when many prey are removed by a strong disturbance.
 
-    
-    
-    %\subsection*{Here we test...}
+        
     Here, we analyse whether a consumer's risk of secondary extinction after removal of basal resources depends on the consumer's motif participation and how this relationship varies with the severity of disturbance.
     To provide context for these results, we also consider how a consumer's risk of secondary extinction varies with the overall structure of the network, described by the frequency of motifs, network size, and network connectance.
     Finally, because measures of food-web position are not independent, we identify how species' motif participation varies with overall network structure and with in-degree and trophic level.
 
 
-\section*{Methods}
+\section*{Materials and methods}
 
     \subsection*{Network construction and describing species roles}
 
-        We generated simulated networks using the niche model, which recreates the structure of empirical networks well~\citep{Williams2000,Stouffer2007}.
-        To capture a range of network architectures similar to those in well-studied empirical networks~\citep{Dunne2002,Dunne2002e}, we simulated networks with sizes (S) ranging from 50 to 100 species (in steps of 10) and connectances (C) ranging from 0.02 to 0.18 (in steps of 0.04). 
-        We removed any biologically unlikely networks (i.e., those with extremely long paths between any consumer and basal resources~\citep{Borrelli2014} and replaced them with new simulated networks, repeating the process until we obtained 100 suitable networks in each combination of size and connectance.
+        Simulated networks were generated using the niche model, which recreates the structure of empirical networks well~\citep{Williams2000,Stouffer2007}.
+        To capture a range of network architectures similar to those in well-studied empirical networks~\citep{Dunne2002,Dunne2002e}, networks with sizes (S) ranging from 50 to 100 species (in steps of 10) and connectances (C) ranging from 0.02 to 0.18 (in steps of 0.04) were simulated. 
+        Biologically unlikely networks (i.e., those with extremely long paths between any consumer and basal resources~\citep{Borrelli2014} were removed and replaced with new simulated networks until 100 suitable networks in each combination of size and connectance were obtained.
         All networks were generated using the function ``nichemodel'' within the Julia~\citep{Bezanson2017julia} package \emph{BioEnergeticFoodWebs}~\citep{bioenergfw,Delmas2017}.     
         For full details and a comparison to empirical networks, see \emph{Appendix S1}.
 
         
-        We described the motif participation of each consumer species in each of these simulated networks before applying any disturbance. 
+        The motif participation of each consumer species was described in each of these simulated networks before applying any disturbance. 
         A species' motif participation (Fig.~\ref{fig:concept}) is the vector of frequencies with which it appears in each type of motif present in a network~\citep{Stouffer2012}.
         As only four unique three-species motifs can appear in acyclic networks, these are four-dimensional vectors. 
-        Here we are interested in the relative frequencies of each motif rather than the total number of motifs and therefore normalized participation vectors by dividing each count by the total number of motifs the species appears in (such that the vector for each species sums to 1).
+        To focus on the relative frequencies of each motif rather than the total number of motifs, participation vectors were normalized by dividing each count by the total number of motifs the species appears in (such that the vector for each species sums to 1).
         Note, however, that this normalization does not fully control for differences due to degree or connectance~\citep{Cirtwill2022Oikos}. 
 
 
-        We also calculated two simpler measures of a species' position within its community.
+        Two simpler measures of a species' position within its community were also calculated.
         In-degree is a species' number of prey.
         Trophic level (shortest trophic level; STL) is the length of the shortest food chain between the focal species and any basal resource~\citep{Williams2004}.
         Both simple role measures were calculated in R~\citep{R} using the same algorithm as~\citet{Eklof2013}.
 
         
-        Finally, to provide context for species' motif participation, we calculated network ``motif profiles'': four-dimensional vectors of the number of each three-species motif in each network~\citep{Stouffer2012}.
+        Finally, network ``motif profiles'' --four-dimensional vectors of the number of each three-species motif in each network~\citep{Stouffer2012}-- were calculated to provide context for species' motif participation..
         Together with network size and connectance, these motif profiles describe the structure of the whole network.
-        To separate differences in motif structure from differences in network size or connectance (larger and more-connected networks contain more motifs), we normalized motif profiles by dividing the count of each motif by the total count of all motifs. 
-        We calculated species' motif participation and network motif profiles using the Python package \emph{pymfinder}~\citep{pymfinder}.
+        To separate differences in motif structure from differences in network size or connectance (larger and more-connected networks contain more motifs), motif profiles were normalised by dividing the count of each motif by the total count of all motifs. 
+        Motif participation and profiles were calculated using the Python package \emph{pymfinder}~\citep{pymfinder}.
 
     
     \subsection*{Modelling secondary extinction using Bayesian networks}
@@ -177,10 +168,10 @@ Motif participation describes extinction risk
         In this framework, a consumer's probability of extinction depends on the fraction of resources lost ($f = k/n$ for a species with $n$ resources, of which $k$ have gone extinct) and on a baseline probability of extinction ($\pi$) which capturing factors that are not related to the network structure (e.g., disease or stochastic extinction of small populations).
         The efficiency of the Bayesian network framework allows us to simulate a range of disturbance severities rather than single species removals as in many previous studies (e.g.,~\citealp[]{Memmott2004,Staniczenko2010,Cirtwill2022Oikos}).
 
-        % Mention acyclic resstriction here.
+
         One limitation to Bayesian networks is that consumers do not affect the extinction probabilities of their resources (i.e., only bottom-up effects are included).
         Nevertheless, Bayesian networks do capture the vast majority of secondary extinctions obtained from fully-fledged dynamical models including top-down and bottom-up effects~\citep{Eklof2013}, and as such are a good proxy for analysing species persistence following extinctions of primary producers in complex food webs.
-        As our focus in this study is on bottom-up effects from disturbance of basal resources, Bayesian networks will capture the secondary extinctions we are interested in.
+        As our focus in this study is on bottom-up effects from disturbance of basal resources, Bayesian networks will capture the secondary extinctions of interest.
 
         
         Bayesian networks also require the creation of acyclic networks so that a strict bottom-up sequence can be followed. 
@@ -191,99 +182,85 @@ Motif participation describes extinction risk
         The removal of cycles also affects which motifs can appear in the network. 
         Any motif which contains a cycle is impossible in an acyclic network.
         This means that only four motifs can appear: apparent competition, direct competition, omnivory, and the three-species chain.
-        Fortunately, they are also the motifs that are most common in empirical networks~\citep{Stouffer2007}, have been most studied in isolation (e.g.,~\citealp[]{Bascompte2005,Polis1989,Zabalo2012,Kondoh2008,Laws2013}), have the clearest ecological interpretations and, because of these three properties, are of greatest interest to us.
+        Fortunately, they are also the motifs that are most common in empirical networks~\citep{Stouffer2007}, have been most studied in isolation (e.g.,~\citealp[]{Bascompte2005,Kondoh2008,Laws2013}), have the clearest ecological interpretations and, because of these three properties, are of greatest interest to us.
 
 
-        \subsubsection*{Modelling consumers' risk of secondary extinction} %[[trimmed down to here]]
+        \subsubsection*{Modelling consumers' risk of secondary extinction} 
         
-        The response of the consumer to changes in $f$ can take any form (\emph{Appendix S2.1}). Here we use a sigmoid non-linear function ($\alpha > 1, \beta > 1$), the type of response that most accurately captures the secondary extinctions produced by dynamical models (\citealp[]{Eklof2013}).
-		The probability of extinction for each species $i$ can therefore be represented using the cumulative density function of a beta distribution:
-		\begin{equation}
-		P(\lnot i|f) = \pi + (1 - \pi) \frac{B(f;\alpha,\beta)}{B(\alpha,\beta)}.
-				\label{betafunc}
-        \end{equation}
-		
-		If all resource species of a consumer \textit{C} are present ($f = 0$), the extinction probability will be $P(\lnot C|f) = \pi$. 
-		Similarly, if all resources are extinct ($f = 1$), the extinction probability $P(\lnot C|f)$ will be equal to 1 and the consumer will go extinct.
-		If the fraction $f$ is neither 1 nor 0, the non-linear sigmoid curve will determine the response of the consumer, which will be more severe if the fraction of resources lost is high. This will in turn affect the extinction probability $P(\lnot C|f)$.
-		For basal resources, we assume that the abiotic resources they require are always available and therefore $f=0$. 
-		Following Equation \ref{betafunc}, the extinction probability of a basal resource will only depend on $\pi$.
-		Note that we here assume that only the fraction, and not the identity, of the resources lost is important. 
-		However, the model can easily be modified to incorporate weighted resource interactions \citep[see][]{Eklof2013}.
-		
-		
-		% how we calculate persistences 
-        Beginning with basal resources and working systematically up through the food web, we use Equation \ref{betafunc} to calculate each species $i$'s probability of extinction $P(\lnot i|f)$.
-        Using this probability, we then perform Bernoulli trials to determine whether the species goes extinct or not. 
-        Species are considered extinct if a random number drawn from a uniform distribution $[0-1]$ is less than $P(\lnot i|f)$.
-        These simulated extinctions are used when calculating the fraction of resources lost $f$ for each consumer.
-        This allows us to update Equation~\ref{betafunc} with information on extinctions of a focal consumer's resources and simulate bottom-up effects. As this method is probabilistic, we repeat these calculations 100 000 times per network, with unique random draws.
-        For each species, we then define probability of persistence (hereafter `persistence') as the fraction of simulations in which the species persists. 
-        While there are methods for solving Bayesian networks exactly \citep{Eklof2013}, for larger networks the numerical evaluation above is highly efficient and produces close to identical results \citep{Haussler2020}.
-		
-	
+           Response of the consumer to changes in $f$ were modelled using a sigmoid non-linear function ($\alpha > 1, \beta > 1$) which most accurately captures the secondary extinctions produced by dynamical models (\citealp[]{Eklof2013}; \emph{Appendix S2.1}).
+            The probability of extinction for each species $i$ can therefore be represented using the cumulative density function of a beta distribution:
+    		\begin{equation}
+    		P(\lnot i|f) = \pi + (1 - \pi) \frac{B(f;\alpha,\beta)}{B(\alpha,\beta)}.
+    				\label{betafunc}
+            \end{equation}
+    		
+            If all resource species of a consumer \textit{C} are present ($f = 0$), the extinction probability is $P(\lnot C|f) = \pi$. 
+            Similarly, if all resources are extinct ($f = 1$), $P(\lnot C|f)=1$  and the consumer will go extinct.
+            If the fraction $f$ is neither 1 nor 0, the non-linear sigmoid curve will determine the response of the consumer, and $P(\lnot C|f)$ is greater if the fraction of resources lost is high. 
+            For basal resources, the abiotic resources they require are assumed to be always available.
+            Therefore $f=0$ and, following Equation~\ref{betafunc}, $P(\lnot C|f) = \pi$.
+            It is assumed that only the fraction, and not the identity, of the resources lost is important. 
+            However, the model can easily be modified to incorporate weighted resource interactions \citep[see][]{Eklof2013}.
+    		
+    		
+            After species $i$'s probability of extinction $P(\lnot i|f)$ is calculated using Equation~\ref{betafunc}, Bernoulli trials are used to determine whether the species goes extinct or not. 
+            Species are considered extinct if a random number drawn from a uniform distribution $[0-1]$ is less than $P(\lnot i|f)$.
+            Moving up through the food web, the simulated extinctions of prey species are used to calculate the fraction of resources lost $f$ for each consumer and Equation~\ref{betafunc} is updated accordingly. 
+            This probabilistic method was repeated 100 000 times per network, with unique random draws.
+            For each species, probability of persistence (hereafter `persistence') is defined as the fraction of simulations in which the species persists. 
+            While there are methods for solving Bayesian networks exactly \citep{Eklof2013}, for larger networks the numerical evaluation above is highly efficient and produces close to identical results \citep{Haussler2020}.
+    		
+    	
 		
         \subsubsection*{Disturbance scenarios}
         
             In our un-disturbed scenario, all species had an extinction probability of $\pi = 0.1$. 
-            To simulate various threats to basal resources, making some species more vulnerable to extinction, we increase all basal species' probability of extinction from $0.10$ to $0.5$, in steps of $0.08$. 
+            To simulate various threats to basal resources, making some species more vulnerable to extinction, probability of extinction for all basal species was increased from $0.10$ to $0.5$, in steps of $0.08$. 
             The highest disturbance level, $\pi = 0.5$, corresponds to basal species having a 50\% risk of going extinct. 
             Consumer species retained $\pi=0.1$ in all cases.
 
 
 	\subsection*{Statistical analysis} 
-
-        We first tested 1) how consumer species persistence varied with motif participation and the severity of disturbance.
-        For context, we also test 2) how a consumer's persistence varies with other measures of network structure and a species' place within it.
-        As different measures of network structure are not independent since all describe the same network, we also 3) relate species' motif participation to large-scale network structure and to species in-degree and trophic level.
-        All analyses are briefly described below and were performed using  R~\citep{R} package. % \emph{lmerTest}~\citep{lmerTest}.
-        % , \emph{MuMIn}~\citep{MuMIn}, and \emph{vegan}~\citep{vegan}.
-        See Appendix \emph{S3} for details. 
-
         
         \subsubsection*{1) Consumer persistence and motif participation}
 
-            To test whether a consumer's risk of extinction was associated with the frequency of each motif in its participation vector (hereafter simply `participation in motif X') and whether this relationship varied with the strength of disturbance, we fit four general linear models with binomial error distribution (GLMs; one per motif included in the Bayesian networks):
+            To test whether a consumer's probability of persistence was associated with the frequency of each motif in its participation vector (hereafter simply `participation in motif X') and whether this relationship varied with the strength of disturbance, four general linear models were fit with binomial error distribution (GLMs; one per motif included in the Bayesian networks):
             \begin{equation}
             \Psi_{ink} \approx \rho_{i} + \pi_{k} + \rho_{i}\pi_{k} ,
             % S_{n}C_{n} + N_n,
             \label{propreq}
             \end{equation}
             \noindent where $\Psi_{ink}$ is the persistence of species $i$, belonging to network $n$, during disturbance level $k$, $\rho_{i}$ is the proportion of the role of species $i$ that is made up by the focal motif, and $\pi_k$ is the probability of extinction for a basal resource in disturbance level $k$.
-            All predictors were centered and scaled before fitting the models.         
-
+            All predictors were centered and scaled before fitting the models.
+            
+      
+            Initially, general linear mixed-effect models (GLMMs) were fit including random  intercepts for the species richness and connectance of network $n$ and for network identity.
+            As these models were singular, each random intercept was removed in turn and the model re-fit until it converged (no random effects remaining).
+            All models here and below were fit using the R~\citep{R} functions `glm' from the \emph{stats} package and `glmer' from the package \emph{lmerTest}~\citep{lmerTest}.
             
             
-            Initially, we fit general linear mixed-effect models (GLMMs) also including random  intercepts for the species richness and connectance of network $n$ and for network identity.
-            As these models were singular, we removed each random intercept in turn and re-fit the model until it converged.
-            In all four cases, the convergent model did not retain any random effects.
-            We attempted to fit a PERMANOVA test relating a species' motif participation vector as a whole to its persistence, but the assumption of equal variance among groups was violated and we therefore do not report the results of this test.
-            
-            
-            To test whether these general trends were consistent across networks, we visually examined the distribution of slopes of simplified regressions fit to a single network and level of disturbance.
-            These models included only participation in the focal motif ($\rho_{i}$ above) and again used a binomial error distrubution.
-            To aid in interpretation of these single-network models with respect to network size and connectance, we fit an additional set of GLMs including proportion of motif, strength of disturbance, network size, and connectance across all networks (\emph{Appendix S4.1}).
+            To test whether these general trends were consistent across networks, the distribution of slopes of simplified regressions fit to a single network and level of disturbance were visually examined.
+            These models included only participation in the focal motif ($\rho_{i}$ above) and again used a binomial error distribution.
+            To aid in interpretation of these single-network models with respect to network size and connectance, an additional set of GLMs was fit including proportion of motif, strength of disturbance, network size, and connectance across all networks (\emph{Appendix S4.1}).
 
 
 
         \subsubsection*{2) Consumer persistence and other network structure metrics}
 
             The overall structure of a network could also affect consumers' ability to persist following a disturbance.
-            Here, we describe the overall network structure using the frequency of each motif in the whole network (i.e., the network's motif profile) as well as network size and connectance (which were determined prior to network simulation).
-            To test whether the frequency of particular motifs in the network profile were related to the average persistence of all consumers, we fit a set of four GLMs with binomial error distribution (one per motif):
+            Here, the overall network structure was described using the frequency of each motif in the network's motif profile as well as initial network size and connectance.
+            To test whether the frequencies of motifs in the network profile were related to the average persistence of all consumers, a set of four GLMs  (one per motif) were fit with binomial error distribution:
                 \begin{equation}
                     \overline{\Psi_{nk}} \approx \Bar{\rho}_{n} + \pi_{k} + \Bar{\rho}_{n}\pi_{k},
                     \label{netpropeq}
                 \end{equation}
-            \noindent where $\overline{\Psi_{nk}}$ is the mean persistence of all consumers in network $n$ at disturbance level $k$, $\Bar{\rho}_{n}$ is the proportion of the focal motif in the network's motif profile, and $\pi_k$ is the level of disturbance (probability of extinction for basal resources) as in equation~\ref{propreq}.
-            As with the GLMs relating each consumer's persistence to its motif participation, we initially attempted to fit GLMMs including random effects of network size and connectance and network identity but removed these random effects in order to obtain non-singular models.
+            \noindent where $\overline{\Psi_{nk}}$ is the mean persistence of consumers in network $n$ at disturbance level $k$, $\Bar{\rho}_{n}$ is the frequency of the focal motif in the network's motif profile, and $\pi_k$ is the level of disturbance (probability of extinction for basal resources).
+            As with the GLMs relating each consumer's persistence to its motif participation, GLMMs including random effects of network size and connectance and network identity were initially fit but the random effects were removed in order to obtain non-singular models.
 
 
-            We also confirmed previously-known relationships between persistence and other measures of network structure or a species' participation in the network.
-            To identify the relationship between large-scale network structure and mean persistence within a network, and how the strength of disturbance might affect this relationship, we fit a GLM relating mean persistence to network size, connectance, disturbance, and their interactions.
-            As the three-way interaction was significant, we did not simplify the model. 
-            To confirm known relationships between persistence and in-degree or trophic level in our simulated networks and identify how they might vary with different strengths of disturbance, we fit two GLMs with binomial error distribution relating a consumer's persistence to in-degree or STL, disturbance, and the interaction between them (\emph{Appendix S3.1}, Eq. S2-3).
-            When relating persistence to STL, we initially included a random effect of network size and connectance but removed these terms due to model singularity as above.
+            To identify the relationships between large-scale network structure,  mean persistence within a network, and strength of disturbance, a GLM was fit relating mean persistence to network size, connectance, disturbance, and their interactions.
+            To confirm known relationships between persistence and in-degree or trophic level and identify how these relationships might vary with disturbance strength, two GLMs were fit with binomial error distribution relating a consumer's persistence to in-degree or STL, disturbance, and the interaction between them (\emph{Appendix S3.1}, Eq. S2-3).
+            When relating persistence to STL, random effects of network size and connectance were initially included but removed due to model singularity as above.
             The model for in-degree was non-singular when including these random effects and so they were retained in this case.
 
 
@@ -291,31 +268,30 @@ Motif participation describes extinction risk
         \subsubsection*{3) Motif participation and other network structure metrics}
 
             Since a network's motif profile and a species' motif participation reflect the same network as other measures (size, connectance, degree, and trophic level), these measures are not independent. 
-            We identified how the frequencies of motifs in the network's motif profile were related to network size, connectance, and their interaction using a set of four GLMs with binomial error distribution (Appendix \emph{S3.2}, eq. S4).
-            We identified how the frequencies of motifs in a consumer's motif participation vector were related to network size, connectance, and their interaction using a similar set of four GLMs with binomial error distribution.
-            Finally, we fit two additional sets of GLMs (eight total) relating participation in each motif to the consumer's in-degree or trophic level (Appendix \emph{S3.2}, Eq. S5-6).
-        
+            The relationships between frequencies of motifs in the network's motif profile and network size, connectance, and their interaction were described using a set of four GLMs with binomial error distribution (Appendix \emph{S3.2}, eq. S4).
+            The relationships between frequencies of motifs in a consumer's motif participation vector and network size, connectance, and their interaction were described using a similar set of four GLMs with binomial error distribution.
+            Finally, two additional sets of GLMs (eight total) were fit relating participation in each motif to the consumer's in-degree or trophic level (Appendix \emph{S3.2}, Eq. S5-6).
+
         
 \section*{Results}
 
     \subsection*{Species persistence and motif participation} 
 
         A species' probability of persistence (hereafter `persistence') was significantly related to its motif participation (Table S1, \emph{Appendix S5}).
-        Across all levels of disturbance, species were more likely to persist if they participated more frequently in the direct competition motif and less frequently in the omnivory motif (Fig.~\ref{fig:prop_lmer_all}).
+        Across all levels of disturbance, persistence increased with increasing participation in the direct competition motif and decreasing participation in the omnivory motif (Fig.~\ref{fig:prop_lmer_all}).
         The relationships between persistence and participation in the other two motifs varied with the strength of disturbance.
-        At low levels of disturbance, species were more likely to persist if they participated more frequently in the three-species chain motif and less frequently in the apparent competition motif.
+        At low levels of disturbance, persistence increased with increasing participation in the three-species chain motif and decreasing participation in the apparent competition motif.
         These trends were reversed at high levels of disturbance.
     
 
-        Within these overall trends, there was substantial variation in the relationships between persistence and motif participation between networks with different overall network structures (Fig.~\ref{fig:density_prop}).
-        Networks with high and low connectances had different distributions of persistence-motif participation relationships, while network size had a much smaller effect (\emph{Appendix S4.2}).
+        Within these overall trends, there was substantial variation between networks (Fig.~\ref{fig:density_prop}).
+        Distributions of persistence-motif participation relationships varied strongly with connectance, while network size had a much smaller effect (\emph{Appendix S4.2}).
         The relationship between participation in the omnivory motif and persistence was especially variable.
-        Higher proportions of omnivory were associated with lower probabilities of persistence when connectance was low, regardless of network size or strength of disturbance.
-        At moderate connectance, however, higher proportions of omnivory were associated with greater probabilities of persistence when disturbance was weak.
-        In the most-connected networks, higher proportions of omnivory were associated with greater probabilities of persistence at all levels of disturbance.
+        Increased participation in the omnivory motif were associated with lower  persistence when connectance was low, regardless of network size or strength of disturbance.
+        At moderate connectance, however, increased participation in omnivory was associated with greater persistence when disturbance was weak.
+        In the most-connected networks, increased participation in omnivory were associated with greater persistence at all levels of disturbance.
 
-        The relationships between persistence and participation in the other motifs were more consistent over different levels of connectance and network size.
-        The persistence-motif participation relationships were strongest in networks with low connectance (Fig.~\ref{fig:density_prop}).
+        The relationships between persistence and participation in the other motifs were more consistent over different levels of connectance and network size but tended to be strongest in less-connected networks (Fig.~\ref{fig:density_prop}).
         For the apparent competition and three-species chain motifs, the direction of these relationships depended much more strongly on the strength of disturbance than on connectance.
         For the direct competition motif, persistence increased with increasing participation in the motif across all disturbance levels in networks with low and medium connectance.
         In networks with high connectance, however, the distribution of slopes for this relationship was centered around zero at all levels of disturbance.
@@ -323,14 +299,13 @@ Motif participation describes extinction risk
 
     \subsection*{Persistence and other network properties}
 
-        To understand the relationships between motif participation and consumers' probabilities of persistence, it is helpful to understand how persistence varies with other aspects of both consumer properties and network structure.
-        
-        Consumers with higher trophic level (STL) were less likely to persist (Fig.~\ref{fig:lm_CS}, Table S3, \emph{Appendix S6.1}).
-        The relationship between in-degree and persistence depended on the strength of disturbance: higher in-degree was associated with greater persistence when basal species had low probability of extinction but lower persistence when basal species were highly likely to go extinct.
+       Consumers with higher trophic level (STL) were less likely to persist (Fig.~\ref{fig:lm_CS}, Table S3, \emph{Appendix S6.1}).
+        The relationship between in-degree and persistence depended on the strength of disturbance.
+        Higher in-degree was associated with greater persistence when basal species had low probability of extinction but lower persistence when basal species were highly likely to go extinct.
 
 
         The average persistence of all consumers was lower in networks with higher connectance, did not vary significantly with network size (Table S4, \emph{Appendix S6.1}), and  varied with the frequencies of different motifs in the network's motif profile.
-        Specifically, average consumer persistence was higher in networks with higher proportions of the apparent competition motif, lower in networks with higher proportions of the omnivory motif, and was not significantly related to the frequencies of the three-species chain or direct competition motifs (Fig.~\ref{fig:lm_CS}, Table S5, \emph{Appendix S6.2}).
+        Specifically, average consumer persistence was higher in networks with higher proportions of the apparent competition motif, lower in networks with higher proportions of the omnivory motif, and not significantly related to the frequencies of the three-species chain or direct competition motifs (Fig.~\ref{fig:lm_CS}, Table S5, \emph{Appendix S6.2}).
         There was no significant interaction between the proportion of any motif in the network motif profile and level of disturbance.
 
 
@@ -353,13 +328,8 @@ Motif participation describes extinction risk
 
 
 \section*{Discussion}
-
-    Identifying the species that are most and least likely to persist after a disturbance is a high priority for conservation efforts~\citep{Bottrilletal2008}. 
-    Network structural properties such as connectance and measures of a species' position in the network such as degree and trophic level are known to affect species' vulnerability~\citep{Dunne2002, Eklof2006,bascompte2005simple,dunne2009cascading}, but are relatively coarse metrics.
-    Defining a species' network role based on its participation in meso-scale motifs provides more nuanced information and may also predict extinction risk~\citep{Stouffer2012,Simmons2019,Cirtwill2018FoodWebs}, but this potential is only beginning to be explored~\citep{Cirtwill2022Oikos}.
-
     
-    Here we partially fill this knowledge gap by testing how the persistence of a consumer in a food web depends on its participation in four different motifs, and how this relationship varies with different levels of disturbance to basal resources.  
+    Here we partially fill the knowledge gap surrounding relationships between a species' position in its food web and its ability to persist following disturbance by testing how the persistence of a consumer in a food web depends on its participation in four different motifs, and how this relationship varies with different levels of disturbance to basal resources. 
     We found that motif participation was related to a consumer's persistence in ways not fully explained by simpler measures of network structure. 
     Species participating more frequently in the direct competition motif and less frequently in the omnivory motif are more likely to persist, while the effects of participating in the apparent competition or three-species chain motifs depend on the strength of disturbance.
 
@@ -374,38 +344,32 @@ Motif participation describes extinction risk
     These disturbance effects mean that efforts to define a set of target species for conservation interactions must take the current (and future) level of disturbance the community experiences into account.
     
 
-    % Apparent competition as a case study that motifs are useful
     The relationship between persistence and participation in the apparent competition motif provides a good example of how motifs provide complementary information to simpler measures of a species' network role.
     Species with higher trophic levels tend to participate more frequently in the apparent competition motif and
-    species with higher trophic levels generally have lower persistence~\citep{Eklof2006,Eklof2013}. We would therefore expect high participation in the apparent competition motif to also be associated with lower persistence.
-    However, this is only true for low disturbance. 
-    For high disturbance, we see the opposite relationship.
-    This change in the persistence-apparent competition relationship across disturbance levels may be driven by the negative relationship between apparent competition and in-degree, and in-degree's negative relationship with persistence.
+    species with higher trophic levels generally have lower persistence~\citep{Eklof2006,Eklof2013}. 
+    We would therefore expect high participation in the apparent competition motif to also be associated with lower persistence.
+    However, this is only true for low disturbance; at high disturbance the opposite relationship holds.
+    This change across disturbance levels may be driven by the negative relationship between apparent competition and in-degree and in-degree's negative relationship with persistence.
     However, it is not obvious when trophic level should be the most important predictor of persistence and when in-degree should be most important.
-    Such simpler measures of species' positions in a network could therefore lead us astray either because they provide conflicting predictions or because our expectations are only reasonable for specific types or levels of disturbance.
+    Such simpler measures of species' positions in a network could therefore be misleading either because they provide conflicting predictions or because our expectations are only reasonable for specific types or levels of disturbance.
 
 
-    Omnivory motif participation likewise provides information about persistence that is not easily obtained from in-degree and trophic level.
+    Participation in the omnivory motif likewise provides information about persistence that is not easily obtained from in-degree and trophic level.
     Although omnivory participation decreased with trophic level (as does persistence) and increased with in-degree (as does persistence, except at high disturbance), we found that greater omnivory participation was usually associated with \emph{lower} persistence-- contrary to what we would expect based on trophic level and in-degree.
-    The exception to this pattern is found at high connectance, where increased omnivory participation was more likely to have a positive or neutral relationship with consumer persistence, especially at low disturbance levels (Fig. 3).
-    This is consistent with other studies which have found the effect of omnivory to be highly context-dependent~\citep{bascompte2005simple, Monteiro2016} and particularly beneficial when interaction strengths are weak~\citep{Emmerson2004}.
-    Although omnivory motifs tend to be less stable in isolation the the other motifs we consider here~\citep{Borrelli2015a}, when embedded in a network interactions with other species can stabilise even intrinsically unstable omnivory~\citep{Kratina2012}.
-    Though we do not explicitly model interaction strengths, we do note that the greater number of interactions per species in high-connectance networks should lead to weaker interactions in general, as well as allowing many opportunities for additional interactions that could stabilise omnivory.
+    The exception to this pattern is found at high connectance, where increased omnivory participation was more likely to have a positive or neutral relationship with consumer persistence, especially at low disturbance levels (Fig.~\ref{fig:density_prop}).
+    This is consistent with other studies showing context-dependent effects of omnivory~\citep{bascompte2005simple, Monteiro2016} and particularly beneficial effects when interaction strengths are weak (as will generally be the case at high connectance)~\citep{Emmerson2004}.
+    Although omnivory motifs tend to be less stable in isolation the the other motifs we consider here~\citep{Borrelli2015a}, interactions with other species can stabilise even intrinsically unstable omnivory when embedded in a network~\citep{Kratina2012}.
+    As well as leading to weaker average interaction strengths, a higher connectance offers many opportunities for additional interactions that could stabilise unstable omnivory.
     
 
-    
-    
-
-    % Caveats - expand on top-down effects a bit to make R2 happy
     There are limitations to the approach presented here.
     Most importantly, the Bayesian network framework operates on a strict bottom-up principle and therefore cannot include top-down effects in the extinction risk calculations~\citep{Eklof2013}. 
     Here our focus was to analyze bottom-up affects following disturbances to the basal resources, in which case the Bayesian network approach captures a majority of the secondary extinctions obtained in a fully-fledged dynamical model with much greater efficiency~\citep{Eklof2013}.
     If top-down effects are important for a particular empirical system, however, our simulations may not be accurate. 
-    For example, although a recent study using a dynamical model to relate motif participation to persistence after a disturbance found similar trends for omnivory, participation in the direct competition motif was not universally positive~\citep{Cirtwill2021_inprep}.
+    For example, although a recent study using a dynamical model to relate motif participation to persistence after a disturbance found similar trends for omnivory, participation in the direct competition motif was not universally positive~\citep{Cirtwill2022Oikos}.
     In particular, species which frequently appeared in the prey position of the direct competition motif tended to have shorter persistence times after disturbance in that study - possibly due to top-down effects from the pair of predators involved.
     However, as these two studies applied different types of disturbances, further study would be required to disentangle the effects of top-down and bottom-up effects on species with different motif participation, and how each relates to the type and strength of disturbance.
-    Another potentially useful addition to future work would be to include species traits such as body size, which are related to both motif participation~\citep{cirtwill2018feeding} and extinction risk~\citep{Brose2017,Cardillo2005, Purvis2000} in empirical webs.
-
+    Another potentially useful addition to future work would be to include species traits such as body size, which are related to both motif participation~\citep{cirtwill2018feeding} and extinction risk~\citep{Brose2017,Cardillo2005,Purvis2000} in empirical webs.
     
     
     \subsection*{Conclusions}
@@ -413,15 +377,20 @@ Motif participation describes extinction risk
     Many ecologists, including ourselves, have argued that simple measures of species' roles within food webs are important for understanding species' extinction risk~\citep{Santos2021,dunne2009cascading, Eklof2006,binzer2011susceptibility}. 
     However, here we show that relationships between extinction risk and measures of a species' place in its food web are likely more complex, varying with the strength of disturbance and the overall network structure.
     This context-dependence means that even limited changes in network structure or the type of disturbance could change which species are most sensitive to disturbance. 
-    As such, caution and increased attention to both network structure and the specifics of disturbance are needed for targetted conservation actions to be most effective. 
+    As such, caution and increased attention to both network structure and the specifics of disturbance are needed for targeted conservation actions to be most effective. 
     
 \section*{Acknowledgements}
 
     The authors thank Gy\"{o}rgy Barab\'{a}s for excellent discussion of the ideas in this manuscript. A{\AA} is supported by the Swedish Research Council for Sustainable Development Formas (\#2015-01262) granted to AE. ARC is supported by a Finnish Academy postdoctoral research grant (\#332999). ARC, A\r{A}, and AE conceived the study. ARC and KLW simulated networks. A\r{A} and ARC conducted analyses. All authors contributed to writing the manuscript.
 
-\clearpage    
+% \clearpage    
 
-\section*{Figures}
+\bibliographystyle{jae} 
+\bibliography{anna_bib_new} 
+
+\clearpage
+
+\section*{Figure legends}
     
 
         \begin{figure}[hb!]
@@ -434,14 +403,6 @@ Motif participation describes extinction risk
     \end{figure}
 
 
-    %     \begin{figure}[hb!]
-    %     \centering
-    %     \includegraphics[width=.9\textwidth]{figures/concept_fig_ver2_edit.eps}
-    %     \caption{Note motif participation vectors in the right-hand column of the box. I still think it's nice to show - can you add back into current Fig. 1?}
-    % \label{fig:concept_wrongcolour}
-    % \end{figure}
-
-    
         \begin{figure}[hb!]
         \centering
         % \includegraphics[width=0.95\textwidth]{figures/persistence_motif_participation.eps}
@@ -474,66 +435,6 @@ Motif participation describes extinction risk
         \caption{Motif participation correlated with in-degree and trophic level, and both of these simpler role measures were also correlated with persistence. \textbf{A)} The proportion of omnivory increased with increasing degree while all other proportions decreased. \textbf{B)} The proportions of omnivory and direct competition decreased with increasing STL while the proportions of apparent competition and three-species chains increased. \textbf{C-D)} The proportion of each motif in consumer's participation vectors varied with connectance, network size, and their interaction (except for apparent competition, where the interaction was not significant). To cover the largest range of slopes, we show relationships over connectance for the smallest networks (\textbf{C}) and over network size for the most-connected networks (\textbf{D}). See also Fig. S6.}
         \label{fig:motifs_vs_TL_and_deg}
     \end{figure}        
-
-
-
-    % \begin{figure}[hb!]
-    %     \centering
-    %     \includegraphics[width=.9\textwidth]{figures/participation_vs_SC.eps}
-    %     \caption{The proportion of each motif in consumer's participation vectors varied with connectance, network size, and their interaction (except for apparent competition). We show relationships for the smallest and largest values of network size (S) and connectance (C).}
-    %     \label{fig:roles_vs_SC}
-    % \end{figure}
-
-
-    
-    % \begin{figure}[hb!]
-    %     \centering
-    %     \includegraphics[width=\textwidth]{figures/persistence_motif_profiles.eps}
-    %     \caption{The proportions of the four motifs in a network's motif profile are related to the mean persistence of species in the network. Specifically, persistence decreases as the proportion of omnivory in the network's motif profile increases while persistence increases with the proportion of the apparent competition motifs. Interactions between motif profiles and disturbance were not significant. Here we show the relationships of probabilities of extinction of basal resources of $\pi=0.1$ (top set of lines) and $\pi=0.5$ (bottom set of lines). Relationships are shown for the observed range of proportions for each motif.}      
-    %     \label{fig:motif_profile_persistence}
-    % \end{figure}    
-    
-    % \begin{figure}[hb!]
-    %     \centering
-    %     \includegraphics[width=\textwidth]{figures/motif_proportion_lms.eps}
-    %     \caption{The proportion of the omnivory in a network's motif role increased significantly as connectance increased, while the proportions of the other three motifs did not vary significantly with network size, connectance, or their interaction.}
-    %     \label{motif_proportion_lms}
-    % \end{figure}
-
-
-
-
-\clearpage
-
-% \section*{Glossary}
-% \begin{table}[h!]
-% \label{glossary}
-% \caption{Glossary of terms relating to motifs and Bayesian networks}
-%     \footnotesize{
-% \begin{tabular}{l|l}
-%     Term & Definition \\
-%     \hline
-%     Motif & Set of $n$ interacting species. In this case, $n=3$ \\
-%     Network motif profile & Vector describing the frequency of each motif in the network. \\
-%     & Normalised by dividing counts of each motif by the total across all motifs.\\
-%     Motif participation role & Vector describing the frequency with which a focal species appears in each motif.\\
-%     & Normalised by dividing counts for each motif by the total across all motifs. \\
-%     Bayesian network & A directed acyclic graph, used to predict species' likelihood of persistence. \\
-%     Network persistence & The mean likelihood of consumers in a network not going extinct.\\
-%     Species persistence & The individual likelihood of a species not going extinct.\\
-%     In-degree & Number of prey species to a consumer species.\\
-%     Trophic level (STL) & The shortest food chain between the focal species and any basal species.\\
-%     Disturbance ($\pi_{disturbed}$) & Probability of extinction of a basal resource when extra disturbance is added. \\
-%     Baseline extinction &  When no disturbance is applied, $\pi_{base}$=0.1.\\
-% \end{tabular}}
-% \end{table}
-
-% Notes on what expressions and words to use
-% "probability of extinction" or "level of disturbance" for the different disturbace scenarios?
-
-
-\bibliographystyle{jae} 
-\bibliography{anna_bib_new} % Abbreviate journal titles.
 
 \end{spacing}
 
