@@ -117,7 +117,7 @@ Motif participation describes extinction risk
     Moreover, disturbances to the plant community have been shown to affect both the biomass and diversity of consumers~\citep{chen2019plant,scherber2010bottom,li2020bottom}.
     It is therefore crucial to understand how bottom-up effects from disturbance to basal resources affect the rest of the food web.  
     As well as identifying patterns of motif participation that are associated with ability to persist after a loss of basal resources, we are particularly interested in whether the strength of  disturbance affects relationships between motif participation and persistence.
-    For example, participation in one motif might be associated with greater extinction risk after a mild disturbance but be associated with less risk when more basal resources are lost if the direct and indirect interactions within the motif amplify the effect of small disturbances while providing `back-up' resources when many prey are removed by a strong disturbance.
+    For example, participation in one motif might be associated with greater extinction risk after a mild disturbance but be associated with less risk when when more basal resources are lost if the direct and indirect interactions within the motif amplify the effect of small disturbances while providing `back-up' resources when many prey are removed by a strong disturbance.
 
         
     Here, we analyse whether a consumer's risk of secondary extinction after removal of basal resources depends on the consumer's motif participation and how this relationship varies with the severity of disturbance.
@@ -357,11 +357,9 @@ Motif participation describes extinction risk
     Participation in the omnivory motif likewise provides information about persistence that is not easily obtained from in-degree and trophic level.
     Although omnivory participation decreased with trophic level (as does persistence) and increased with in-degree (as does persistence, except at high disturbance), we found that greater omnivory participation was usually associated with \emph{lower} persistence-- contrary to what we would expect based on trophic level and in-degree.
     The exception to this pattern is found at high connectance, where increased omnivory participation was more likely to have a positive or neutral relationship with consumer persistence, especially at low disturbance levels (Fig.~\ref{fig:density_prop}).
-    This is consistent with other studies showing context-dependent effects of omnivory~\citep{Bascompte2005,Monteiro2016}.
-    In highly-connected networks, species in omnivory motifs are very likely to interact with other species in the network (outside the omnivory motif).
-    These `external' interactions can stabilise omnivory motifs that would be unstable in isolation~\citep{Kratina2012}, perhaps mitigating the risk of participating in omnivory rather than motifs that are more stable in isolation~\citep{Borelli2015}.
-    Moreover, omnivory tends to be particularly beneficial when interaction strengths are weak, which is generally the case in highly-connected networks~\citep{Emmerson2004}.
-    These earlier findings suggest that high connectance reduces the risk and increases the benefit of participating in omnivory motifs, consistent with our simulation results.
+    This is consistent with other studies showing context-dependent effects of omnivory~\citep{bascompte2005simple, Monteiro2016} and particularly beneficial effects when interaction strengths are weak (as will generally be the case at high connectance)~\citep{Emmerson2004}.
+    Although omnivory motifs tend to be less stable in isolation the the other motifs we consider here~\citep{Borrelli2015a}, interactions with other species can stabilise even intrinsically unstable omnivory when embedded in a network~\citep{Kratina2012}.
+    As well as leading to weaker average interaction strengths, a higher connectance offers many opportunities for additional interactions that could stabilise unstable omnivory.
     
 
     There are limitations to the approach presented here.
@@ -397,7 +395,7 @@ Motif participation describes extinction risk
 
         \begin{figure}[hb!]
         \centering
-        \includegraphics[width=.9\textwidth]{figures/Figure_1.eps}
+        % \includegraphics[width=.9\textwidth]{figures/Figure_1.eps}
         \caption{Conceptual figure of a toy food web. \textbf{a)} This food web contains examples of the four motifs: apparent competition (orange), three-species chain (purple), omnivory (red), and direct competition (blue). These motifs capture different ways in which disturbances to basal resources can propagate through the network. For example, a disturbance to the bottom species in a three-species chain will have a direct effect on the middle species but only indirectly affect the top species while a disturbance to the bottom species in an omnivory motif will have a direct effect on the middle species and direct and indirect effects on the top species. 
         Note that the nodes participate in more motifs than the ones highlighted and that a species' motif participation vector is the count of all motifs of each type in which the species appears. \textbf{b)} In the same food web, species with identical degree and trophic level can have different motif participation; here species A (light grey node with links in the same motif colored light grey) participates in only three chains while species B (dark grey node with its direct consumption links colored dark grey) participates in seven (see inserted table for counts of participation in all four motifs; species A has the motif participation vector [3, 3, 0, 1] while species B has the motif participation vector [3, 7, 0, 1]).
         Despite having equal degree and trophic level, species A may be at greater risk of going extinct than species B because of its dependence on specialist prey species. Two-thirds of the prey of species B are generalists and therefore more likely to survive a disturbance to basal resources. By including information about indirect interactions, motif profiles reflect this difference between species A and B while trophic level and degree do not.}
@@ -407,14 +405,14 @@ Motif participation describes extinction risk
 
         \begin{figure}[hb!]
         \centering
-        \includegraphics[width=0.95\textwidth]{figures/persistence_motif_participation.eps}
+        % \includegraphics[width=0.95\textwidth]{figures/persistence_motif_participation.eps}
         \caption{The effect of proportion of the role (x-axis) made up by various motifs (columns) on probability of persistence following disturbance to basal resources (y-axis). The effect of participating in each motif is based on the Equation~\ref{propreq}. The different colored lines indicate the probability of extinction of basal species, from $\pi_{disturbed} = 0.1$ (top, purple; no disturbance) to $\pi_{disturbed} = 0.5$ (bottom, yellow; high disturbance). 95\% confidence intervals for each line are shown in lighter shading. Note that omnivory made up a smaller proportion of species' roles than other motifs; lines are plotted over the observed ranges of motif participation.}
     \label{fig:prop_lmer_all}
     \end{figure}
         
     \begin{figure}[hb!]
     \centering
-        \includegraphics[width=\textwidth]{figures/Fig4.pdf}
+        % \includegraphics[width=\textwidth]{figures/Fig4.pdf}
         \caption{Here we show the density (y-axis) of slopes (x-axis) of persistence against proportion of different motifs for all simulated webs of all sizes - a visualization of how an increased proportion of each motif (different colored lines) affects persistence of consumer species. Columns show the result for different motifs, rows show results for low, medium, and high connectance, and colour indicates the strength of disturbance to basal resources ($\pi_{disturbed}$; probability of extinction for a basal resource). The dotted, vertical lines indicate zero on the x-axis. A negative slope value reflects a negative relationship between increased participation in a motif and persistence, while a positive slope value reflects a positive relationship - an increased proportion of a specific motif increases persistence.}
         \label{fig:density_prop}
     \end{figure}    
@@ -422,7 +420,7 @@ Motif participation describes extinction risk
 
     \begin{figure}[ht!]
         \centering
-        \includegraphics[width=\textwidth]{figures/persistence_vs_SC_lm.eps}
+        % \includegraphics[width=\textwidth]{figures/persistence_vs_SC_lm.eps}
         \caption{The probabilities of persistence for a particular consumer (\textbf{A, B}) and the average probability of persistence across all consumers (\textbf{C-E}) varied with other elements of network structure as well as with motif participation.
         \textbf{A} Persistence of consumers decreased with increasing STL at all levels of disturbance.
         \textbf{B} Persistence of consumers increased with increasing in-degree when the probability of extinction for basal resources was low but decreased with increasing in-degree when the probability of extinction was high.
@@ -433,7 +431,7 @@ Motif participation describes extinction risk
 
     \begin{figure}[hb!]
         \centering
-        \includegraphics[width=\textwidth]{figures/roles_vs_TL.eps}
+        % \includegraphics[width=\textwidth]{figures/roles_vs_TL.eps}
         \caption{Motif participation correlated with in-degree and trophic level, and both of these simpler role measures were also correlated with persistence. \textbf{A)} The proportion of omnivory increased with increasing degree while all other proportions decreased. \textbf{B)} The proportions of omnivory and direct competition decreased with increasing STL while the proportions of apparent competition and three-species chains increased. \textbf{C-D)} The proportion of each motif in consumer's participation vectors varied with connectance, network size, and their interaction (except for apparent competition, where the interaction was not significant). To cover the largest range of slopes, we show relationships over connectance for the smallest networks (\textbf{C}) and over network size for the most-connected networks (\textbf{D}). See also Fig. S6.}
         \label{fig:motifs_vs_TL_and_deg}
     \end{figure}        
