@@ -328,6 +328,13 @@ save.image('all_tests.Rdata')
     results[4,]=c("Direct",summary(direct_prop_norandom)$coefficients[,1])
     write.table(results,file='roles_vs_SC.tsv',sep='\t')
 
+    SEs=matrix(nrow=4,ncol=5)
+    SEs[1,]=c("Omnivory",summary(omni_prop_norandom)$coefficients[,2])
+    SEs[2,]=c("Chain",summary(chain_prop_norandom)$coefficients[,2])
+    SEs[3,]=c("Apparent",summary(apparent_prop_norandom)$coefficients[,2])
+    SEs[4,]=c("Direct",summary(direct_prop_norandom)$coefficients[,2])
+    write.table(SEs,file='roles_vs_SC_SE.tsv',sep='\t')
+
     # # Deg and TL
     # # relating counts and proportions to degree, TL (repeats analysis in Cirwill & Wootton, in prep.)
     # # # All singular.
